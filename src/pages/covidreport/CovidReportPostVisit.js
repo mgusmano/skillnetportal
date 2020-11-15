@@ -34,9 +34,9 @@ const CovidReportPostVisit = () => {
       console.log('useEffect CovidReportPostVisit')
 
       axios
-      .get('data/coviddetail.json', {})
+      .get('data/covidsummary.json', {})
       .then((response) => {
-        var responsesArray = response.data.data
+        //var responsesArray = response.data.data
         setWorkedwith0(((response.data.totalworkedwith0 / response.data.totalauthorized)*100).toFixed(2))
         setWorkedwith1to3(((response.data.totalworkedwith1to3 / response.data.totalauthorized)*100).toFixed(2))
         setWorkedwith4to10(((response.data.totalworkedwith4to10 / response.data.totalauthorized)*100).toFixed(2))
@@ -61,8 +61,8 @@ const CovidReportPostVisit = () => {
           "theme": "fusion"
         },
         "data": [
-          {"label": "Compliant","value": 38},
-          {"label": "Not Compliant","value": 62}
+          {"label": "Compliant","value": 50},
+          {"label": "Not Compliant","value": 50}
         ]
       })
 
@@ -80,8 +80,8 @@ const CovidReportPostVisit = () => {
           "theme": "fusion"
         },
         "data": [
-          {"label": "Completed","value": 73},
-          {"label": "Not Completed","value": 17}
+          {"label": "Completed","value": 50},
+          {"label": "Not Completed","value": 50}
         ]
       })
     }, []);
@@ -109,11 +109,11 @@ const CovidReportPostVisit = () => {
         </div>
         <div style={{marginLeft:'20px',fontSize:'24px'}}>Reported controls in place</div>
         <div style={{display:'flex',flexDirection:'row'}}>
-          <div style={{flex:'1'}}><Summary name='More Physical Distance' value={'70' + '%'}/></div>
-          <div style={{flex:'1'}}><Summary name='Added PPE' value={'5' + '%'}/></div>
-          <div style={{flex:'1'}}><Summary name='Did NOT go into area' value={'2' + '%'}/></div>
-          <div style={{flex:'1'}}><Summary name='Rescheduled visit' value={'3' + '%'}/></div>
-          <div style={{flex:'1'}}><Summary name='Other' value={'10' + '%'}/></div>
+          <div style={{flex:'1'}}><Summary name='More Physical Distance' value={'50' + '%'}/></div>
+          <div style={{flex:'1'}}><Summary name='Added PPE' value={'50' + '%'}/></div>
+          <div style={{flex:'1'}}><Summary name='Did NOT go into area' value={'50' + '%'}/></div>
+          <div style={{flex:'1'}}><Summary name='Rescheduled visit' value={'50' + '%'}/></div>
+          <div style={{flex:'1'}}><Summary name='Other' value={'150' + '%'}/></div>
         </div>
       </Vertical>
       <Splitter/>

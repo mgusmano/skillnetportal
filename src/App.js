@@ -21,11 +21,12 @@ import Home from './pages/home/Home';
 import CardReport from './CardReport';
 
 //import CovidReport from './pages/covidreport/CovidReport';
-import CovidReportHealth from './pages/covidreport/CovidReportHealth';
-import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
-import CovidReportPostVisit from './pages/covidreport/CovidReportPostVisit';
 import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
-import CovidReportToolUtil from './pages/covidreport/CovidReportToolUtil';
+import CovidReportHealth from './pages/covidreport/CovidReportHealth';
+//import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
+import CovidReportPostVisit from './pages/covidreport/CovidReportPostVisit';
+import CovidReportComply from './pages/covidreport/CovidReportComply';
+import CovidReportDetail from './pages/covidreport/CovidReportDetail';
 
 import Dashboard from './pages/benchmarkreport/Dashboard';
 
@@ -91,7 +92,7 @@ function App(props) {
       //     {label: 'Pre-Visit Controls', value: '/covidcnaprevisit', icon: 'fa-clipboard'},
       //     {label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'},
       //     {label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'},
-      //     {label: 'Consultant Compliance', value: '/covidcnatoolutil', icon: 'fa-clipboard'},
+      //     {label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'},
       //   ]})
       //   //setActivemenu('/covidcnaprevisit')
       //   break;
@@ -101,7 +102,8 @@ function App(props) {
       items.push({label: 'Pre-Visit Controls', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
       items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
       items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
-      items.push({label: 'Consultant Compliance', value: '/covidcnatoolutil', icon: 'fa-clipboard'})
+      items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
+      items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
 
       //setActivemenu('/covidcnaprevisit')
       break;
@@ -176,7 +178,8 @@ function App(props) {
             <PrivateRoute path="/covidcnahealth" component={() => <CovidReportHealth Partner={PartnerCNA}/>} />
 
             <PrivateRoute path="/covidcnapostvisit" component={() => <CovidReportPostVisit Partner={PartnerCNA}/>} />
-            <PrivateRoute path="/covidcnatoolutil" component={() => <CovidReportToolUtil Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnacomply" component={() => <CovidReportComply Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnadetail" component={() => <CovidReportDetail Partner={PartnerCNA}/>} />
 
 
 

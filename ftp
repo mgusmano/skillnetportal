@@ -1,0 +1,8 @@
+<publishProfile profileName="skillnetportal - FTP" publishMethod="FTP" publishUrl="ftp://waws-prod-dm1-163.ftp.azurewebsites.windows.net/site/wwwroot"
+ftpPassiveMode="True"
+userName="skillnetportal\$skillnetportal"
+userPWD="kdigZCr0RMb9n85WzwzihtqCu4WjF5DfP12EkKs30XqfbChNBHRgpAleCm2S"
+destinationAppUrl="http://skillnetportal.azurewebsites.net"
+SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="http://windows.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="skillnetportal - ReadOnly - FTP" publishMethod="FTP" publishUrl="ftp://waws-prod-dm1-163dr.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="skillnetportal\$skillnetportal" userPWD="kdigZCr0RMb9n85WzwzihtqCu4WjF5DfP12EkKs30XqfbChNBHRgpAleCm2S" destinationAppUrl="http://skillnetportal.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="http://windows.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>
+
+

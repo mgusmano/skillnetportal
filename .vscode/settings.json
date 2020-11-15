@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/af295d86-bb45-4bc5-ac42-ffb65bb82970/resourceGroups/skillnetportal/providers/Microsoft.Web/sites/skillnetportal",
+  "appService.deploySubpath": "."
+}

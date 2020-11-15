@@ -33,7 +33,7 @@ const CovidReportHealth = () => {
       console.log('useEffect CovidReport')
 
       axios
-      .get('data/responses2700.json', {})
+      .get('data/coviddetail.json', {})
       .then((response) => {
         var responsesArray = response.data.data
 

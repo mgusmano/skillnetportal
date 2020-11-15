@@ -31,6 +31,10 @@ const CovidReportPreVisit = () => {
   const [employeehealth, setEmployeehealth] = useState(0)
   const [visitorhealth, setVisitorhealth] = useState(0)
   const [other, setOther] = useState(0)
+
+  const [totalcomfortable, setTotalcomfortable] = useState(0)
+  const [totalnotcomfortable, setTotalnotcomfortable] = useState(0)
+
   const [visitschart, setVisitschart] = useState(null)
   const [comfortablechart, setComfortablechart] = useState(null)
 
@@ -38,9 +42,9 @@ const CovidReportPreVisit = () => {
       console.log('useEffect CovidReport')
 
       axios
-      .get('data/responses2700.json', {})
+      .get('data/covidsummary.json', {})
       .then((response) => {
-        var responsesArray = response.data.data
+        //var responsesArray = response.data.data
         setTotalauthorized(response.data.totalauthorized)
         setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
         setSocialdistancing(response.data.socialdistancingpercent)
@@ -51,11 +55,11 @@ const CovidReportPreVisit = () => {
         setVisitorhealth(response.data.visitorhealthpercent)
         setOther(response.data.otherpercent)
 
+        setTotalcomfortable(response.data.totalcomfortable)
+        setTotalnotcomfortable(response.data.totalnotcomfortable)
+
         var scheduled = 50
         var notscheduled = 50
-
-        var comfortable = (responsesArray.filter(response => response['comfortable'] === "Yes, I am comfortable completing the visit").length/response.data.totalauthorized)*100
-        var notcomfortable = (responsesArray.filter(response => response['comfortable'] !== "Yes, I am comfortable completing the visit").length/response.data.totalauthorized)*100
 
         setVisitschart({
           "chart": {
@@ -90,8 +94,8 @@ const CovidReportPreVisit = () => {
             "theme": "fusion"
           },
           "data": [
-            {"label": "Comfortable","value": comfortable},
-            {"label": "Not Comfortable","value": notcomfortable}
+            {"label": "Comfortable","value": response.data.totalcomfortable},
+            {"label": "Not Comfortable","value": response.data.totalnotcomfortable}
           ]
         })
 
@@ -106,7 +110,7 @@ const CovidReportPreVisit = () => {
 
         <Vertical style={{flex:'1',background:'lightgray'}}>
           <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(94,100,179)',color:'white',textAlign:'center',fontSize:'24px'}}>
-            <div>Pre-Visit COVID-19 Controls Dashboard</div><div style={{marginRight:'20px'}}>Generated: {dategenerated}</div>
+            <div>Pre-Visit COVID-19 Controls Dashboard</div><div style={{marginRight:'20px'}}>data as of: {dategenerated}</div>
           </div>
 
           <div style={{display:'flex',flexDirection:'row', height:'400px'}}>

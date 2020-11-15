@@ -22,7 +22,7 @@ const Summary = (props) => {
 const CovidReportOnSite = () => {
     var Partner = {}
     var PartnerID = 395;  var PartnerName = 'CNA'; var PersonID = 275399;
-    
+
     const [visitschart, setVisitschart] = useState(null)
     const [comfortablechart, setComfortablechart] = useState(null)
 
@@ -37,7 +37,7 @@ const CovidReportOnSite = () => {
       console.log('useEffect CovidReport')
 
       axios
-      .get('data/responses2700.json', {})
+      .get('data/coviddetail.json', {})
       .then((response) => {
         var responsesArray = response.data.data
         var num_responses = responsesArray.length

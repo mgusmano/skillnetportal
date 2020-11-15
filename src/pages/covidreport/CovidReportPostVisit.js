@@ -34,7 +34,7 @@ const CovidReportPostVisit = () => {
       console.log('useEffect CovidReportPostVisit')
 
       axios
-      .get('data/responses2700.json', {})
+      .get('data/coviddetail.json', {})
       .then((response) => {
         var responsesArray = response.data.data
         setWorkedwith0(((response.data.workedwith0 / response.data.totalauthorized)*100).toFixed(2))

@@ -864,7 +864,6 @@ onClick={e => (e.stopPropagation())}
     setSelecteddate(date);
   };
 
-  console.log(leaders)
   //    <div style={{width:propertywidth,padding:'10px'}}>
   return (
 <>

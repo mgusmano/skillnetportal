@@ -33,9 +33,9 @@ const CovidReportHealth = () => {
       console.log('useEffect CovidReport')
 
       axios
-      .get('data/coviddetail.json', {})
+      .get('data/covidsummary.json', {})
       .then((response) => {
-        var responsesArray = response.data.data
+        //var responsesArray = response.data.data
 
         setTotalassignments(response.data.totalassignments)
         setTotalauthorized(response.data.totalauthorized)
@@ -137,25 +137,25 @@ const CovidReportHealth = () => {
             {
               seriesname: "yes",
               data: [
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
+                {value: response.data.totalcurrentlysick},
+                {value: response.data.totalhadcontact},
+                {value: response.data.totalsymptoms},
+                {value: response.data.totalsymptomsnh},
+                {value: response.data.totalcovidcontactnh},
+                {value: response.data.totalnonessentialtravelnh},
+                {value: response.data.totalpreventmask},
               ]
             },
             {
               seriesname: "No",
               data: [
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
-                {value: "17"},
+                {value: response.data.totalauthorized - response.data.totalcurrentlysick},
+                {value: response.data.totalauthorized - response.data.totalhadcontact},
+                {value: response.data.totalauthorized - response.data.totalsymptoms},
+                {value: response.data.totalauthorized - response.data.totalsymptomsnh},
+                {value: response.data.totalauthorized - response.data.totalcovidcontactnh},
+                {value: response.data.totalauthorized - response.data.totalnonessentialtravelnh},
+                {value: response.data.totalauthorized - response.data.totalpreventmask},
               ]
             }
           ]

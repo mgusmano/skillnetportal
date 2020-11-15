@@ -9,11 +9,7 @@ const ChartWidget = (props) => {
   const [chartdata, setChartData] = useState(null)
   const [charttype, setChartType] = useState(null)
 
-
-
-
   useEffect(() => {
-    console.log(data)
     if (data == undefined) {
       //var name = 'column2d'
       //var name = 'scrollline2d'
@@ -23,7 +19,6 @@ const ChartWidget = (props) => {
         //console.log(response.data)
         setChartData(response.data)
         setChartType(`${name}`)
-
 
         // var arrayLocations = response.data.map(item => {
         //   return {
@@ -41,7 +36,6 @@ const ChartWidget = (props) => {
       })
     }
     else {
-      console.log('else')
       setChartData(data)
       setChartType(`${name}`)
     }

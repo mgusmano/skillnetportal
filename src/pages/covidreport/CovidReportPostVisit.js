@@ -37,11 +37,11 @@ const CovidReportPostVisit = () => {
       .get('data/coviddetail.json', {})
       .then((response) => {
         var responsesArray = response.data.data
-        setWorkedwith0(((response.data.workedwith0 / response.data.totalauthorized)*100).toFixed(2))
-        setWorkedwith1to3(((response.data.workedwith1to3 / response.data.totalauthorized)*100).toFixed(2))
-        setWorkedwith4to10(((response.data.workedwith4to10 / response.data.totalauthorized)*100).toFixed(2))
-        setWorkedwith11to25(((response.data.workedwith11to25 / response.data.totalauthorized)*100).toFixed(2))
-        setWorkedwithmorethan25(((response.data.workedwithmorethan25 / response.data.totalauthorized)*100).toFixed(2))
+        setWorkedwith0(((response.data.totalworkedwith0 / response.data.totalauthorized)*100).toFixed(2))
+        setWorkedwith1to3(((response.data.totalworkedwith1to3 / response.data.totalauthorized)*100).toFixed(2))
+        setWorkedwith4to10(((response.data.totalworkedwith4to10 / response.data.totalauthorized)*100).toFixed(2))
+        setWorkedwith11to25(((response.data.totalworkedwith11to25 / response.data.totalauthorized)*100).toFixed(2))
+        setWorkedwithmorethan25(((response.data.totalworkedwithmorethan25 / response.data.totalauthorized)*100).toFixed(2))
       })
       .catch((error) => {
         console.log(error)

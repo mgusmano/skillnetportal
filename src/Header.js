@@ -2,10 +2,18 @@ import React from 'react';
 
 const Header = (props) => {
 
+  // <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
+
+
+
   return (
-    <div style={{display:'flex',alignItems:'center',xjustifyContent:'center',height:'50px',color:'white',background:'rgb(51,124,182)',fontSize:'24px'}}>
-      <i style={{marginLeft:'20px'}} class="fa fa-bars"></i>
-      <div style={{marginLeft:'20px'}}>SkillNet IT Pro</div>
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',xjustifyContent:'center',height:'50px',color:'white',background:'rgb(51,124,182)',fontSize:'24px'}}>
+      <div style={{display:'flex',flexDirection:'row'}}>
+        <i style={{marginLeft:'20px',cursor:'pointer'}} className="fa fa-bars" onClick={props.menuClick}></i>
+        <div style={{marginLeft:'20px'}}>SkillNet</div>
+      </div>
+      <i style={{marginRight:'20px',cursor:'pointer'}} className="fa fa-bars" onClick={props.filterClick}></i>
+
     </div>
   )
 }

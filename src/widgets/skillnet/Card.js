@@ -31,6 +31,22 @@ const Card = (props) => {
   };
 
   useEffect(() => {
+    //console.log('x' + user.location + 'x')
+    if (user.SME == undefined) {
+      user.SME = ''
+    }
+    if (user.Leader == undefined) {
+      user.Leader = ''
+    }
+    if (user.Segment == undefined) {
+      user.Segment = ''
+    }
+    if (user.Function == undefined) {
+      user.Function = ''
+    }
+    if (user.Subfunction == undefined) {
+      user.Subfunction = ''
+    }
 
     if (ratingsources === '1000') {
       user.Rating = user.SelfRating
@@ -93,6 +109,8 @@ const Card = (props) => {
     return <div key={index} >SME: {SME}</div>
   })
 
+
+
   return (
     <div key={user.PersonID} style={{display:'flex',flexDirection:'column',margin:'10px 10px 10px 10px',padding:'10px',width:'300px',xheight:'150px',border:'1px solid lightgray',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
 
@@ -112,20 +130,20 @@ const Card = (props) => {
         <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>&nbsp;{user.JobName}</div>
         <div style={{fontSize:'11px',marginTop:'10px',textAlign:'right'}}></div>
         <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>&nbsp;{PartnerName}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>Location: {user.Location}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.location != undefined && <div>Locationx: {user.Location}</div>}</div>
 
 {SMEOnly === true &&
         <>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>Leader: {user.Leader}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{all}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Leader != '' && <div>Leader: {user.Leader}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.SME != '' && <div>{all}</div>}</div>
         </>
 }
 
         {PartnerName === 'General Mills' &&
         <>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>Segment: {user.Segment}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>Function: {user.Function}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>SubFunction: {user.SubFunction}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Segment != '' && <div>Segment: {user.Segment}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Function != '' && <div>Function: {user.Function}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Subfunction != '' && <div>SubFunction: {user.Subfunction}</div>}</div>
         </>
         }
 

@@ -1,0 +1,7 @@
+.chartc {
+  display: flex;
+  flex: 1;
+  border: 0px solid blue;
+  width: 200px;
+  xheight: 100%;
+}

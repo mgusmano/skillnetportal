@@ -11,7 +11,7 @@ import SideMenu from 'react-sidemenu';
 import queryString from 'query-string'
 
 import { AuthContext } from "./context/auth";
-import { useAuth } from "./context/auth";
+//import { useAuth } from "./context/auth";
 
 
 import PrivateRoute from './PrivateRoute';
@@ -61,6 +61,8 @@ var PartnerGMIsb = {
 }
 
 function App(props) {
+  const [menudisplay, setMenudisplay] = useState('block');
+  const [filterdisplay, setFilterdisplay] = useState('block');
   const [authTokens, setAuthTokens] = useState('');
   const [activemenu, setActivemenu] = useState('/covidcnaprevisit');
 
@@ -80,6 +82,15 @@ function App(props) {
       items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
       //setActivemenu('/cardcnasme')
       break;
+
+    case 'cnaadmin':
+      items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
+        items.push({label: 'Card Report', value: '/cardcna', icon: 'fa-id-card'})
+        items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
+
+        //setActivemenu('/cardcna')
+        break;
+
     case 'cna':
       items.push({label: 'Card Report - CNA', value: '/cardcna', icon: 'fa-id-card'})
       items.push({label: 'Benchmark - CNA', value: '/benchmarkcna', icon: 'fa-balance-scale'})
@@ -99,7 +110,7 @@ function App(props) {
 
 
     case 'cnacovid':
-      items.push({label: 'Pre-Visit Controls', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
+      items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
       items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
       items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
       items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
@@ -109,7 +120,7 @@ function App(props) {
       break;
     case 'gmi':
       items.push({label: 'Card Report - GMI', value: '/cardgmi', icon: 'fa-id-card'})
-      items.push({label: 'Benchmark - GMI', value: '/benchmarkgmi', icon: 'fa-balance-scale'})
+      items.push({label: 'Benchmark - GMI', value: '/benchmarkgmisb', icon: 'fa-balance-scale'})
       //setActivemenu('/cardgmi')
       break;
     default:
@@ -135,37 +146,48 @@ function App(props) {
   //const { authTokens } = useAuth();
   //console.log(authTokens)
 
+  const onMenuClick = (value) => {
+    console.log('onMenuClick')
+    if (menudisplay == 'block') {
+      setMenudisplay('none')
+    }
+    else {
+      setMenudisplay('block')
+    }
+  }
+
+  const onFilterClick = (value) => {
+    console.log('onFilterClick')
+    if (filterdisplay == 'block') {
+      setFilterdisplay('none')
+    }
+    else {
+      setFilterdisplay('block')
+    }
+  }
+
+
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-
       <Vertical>
         <Top/>
-        <Header/>
+        <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
         {/* <Separator/> */}
         <Horizontal style={{width:'100%',background:'blue'}}>
           {/* <Menu/> */}
-
-<Vertical style={{height:'100%',background:'black'}}>
-
-<div style={{height:'50px'}}></div>
-
-
-
-
-          <SideMenu
-            items={items}
-            collapse={false}
-            onMenuItemClick={onMenuItemClick}
-            activeItem={activemenu}
-          />
-
-</Vertical>
+          <Vertical style={{display:menudisplay,height:'100%',background:'black'}}>
+            <div style={{height:'50px'}}></div>
+            <SideMenu
+              items={items}
+              collapse={false}
+              onMenuItemClick={onMenuItemClick}
+              activeItem={activemenu}
+            />
+          </Vertical>
           <Splitter/>
           {/* <Center/> */}
           <Switch>
-            <Route exact path="/">
-              <Redirect to="/login" />
-            </Route>
+            <Route exact path="/"><Redirect to="/login" /></Route>
             <Route path="/login" default component={Login} />
             {/* <Route path="/" component={() => <Home/>} exact /> */}
             <PrivateRoute path="/cardcnasme" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
@@ -173,44 +195,22 @@ function App(props) {
             <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} PartnerID='434' showlob={false}/>} />
             <PrivateRoute path="/benchmarkcna" component={() => <Dashboard Partner={PartnerCNA}/>}  />
             <PrivateRoute path="/benchmarkgmisb" component={() => <Dashboard Partner={PartnerGMIsb}/>}  />
-
-            <PrivateRoute path="/covidcnaprevisit" component={() => <CovidReportPreVisit Partner={PartnerCNA}/>} />
-            <PrivateRoute path="/covidcnahealth" component={() => <CovidReportHealth Partner={PartnerCNA}/>} />
-
-            <PrivateRoute path="/covidcnapostvisit" component={() => <CovidReportPostVisit Partner={PartnerCNA}/>} />
-            <PrivateRoute path="/covidcnacomply" component={() => <CovidReportComply Partner={PartnerCNA}/>} />
-            <PrivateRoute path="/covidcnadetail" component={() => <CovidReportDetail Partner={PartnerCNA}/>} />
-
-
-
+            <PrivateRoute path="/covidcnaprevisit"  component={() => <CovidReportPreVisit  filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnahealth"    component={() => <CovidReportHealth    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnapostvisit" component={() => <CovidReportPostVisit filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnacomply"    component={() => <CovidReportComply    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnadetail"    component={() => <CovidReportDetail    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
             <PrivateRoute path="/loginx" component={() => <Login Partner={PartnerCNA}/>} />
             <PrivateRoute path="/admin" component={Admin} />
-
           </Switch>
-
-
           {/* center */}
           {/* <Splitter/>
           <Context/> */}
         </Horizontal>
-
-
-
-
-
-
-
-
         {/* <Splitter/>
         <div>footer</div> */}
       </Vertical>
-
     </AuthContext.Provider>
-
-
-
-
-
   );
 }
 

@@ -12,7 +12,7 @@ function Login(props) {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("skillnet");
-  const [password, setPassword] = useState("cnacovid");
+  const [password, setPassword] = useState("");
   const { setAuthTokens } = useAuth();
   //const referer = props.location.state.referer || '/';
 
@@ -30,6 +30,10 @@ function Login(props) {
       switch (password) {
         case 'cnasme':
           var where = '/card' + password
+          setReferer(where)
+          break;
+        case 'cnaadmin':
+          var where = '/cardcnasme'
           setReferer(where)
           break;
         case 'cna':
@@ -51,7 +55,7 @@ function Login(props) {
           break;
       }
 
-      console.log(referer)
+      //console.log('referer',referer)
       setIsLoading(false);
       if (result.status === 200) {
         setAuthTokens(password);

@@ -47,7 +47,22 @@ const CardWidget = (props) => {
 
       case 'fromcardfilteredusers':
         //console.log(payload.users)
-        setUsers(payload.users)
+
+        var toShow = []
+        if (props.SMEOnly == true) {
+          payload.users.map(user => {
+            if (user.Leader == '' && user.SME == '') {
+
+            }
+            else {
+              toShow.push(user)
+            }
+          })
+          setUsers(toShow)
+        }
+        else {
+          setUsers(payload.users)
+        }
         setWaiting(false)
         break;
 

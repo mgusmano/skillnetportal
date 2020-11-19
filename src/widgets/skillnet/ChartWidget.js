@@ -10,6 +10,7 @@ const ChartWidget = (props) => {
   const [charttype, setChartType] = useState(null)
 
   useEffect(() => {
+    console.log('useEffect in ChartWidget')
     if (data == undefined) {
       //var name = 'column2d'
       //var name = 'scrollline2d'
@@ -50,7 +51,7 @@ const ChartWidget = (props) => {
 
  // <div style={{height:'100px',border:'1px solid gray',background:'white',margin:'10px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
 
-
+console.log('in ChartWidget')
   return (
     <div style={{display:'flex',flex:'1',border:'1px solid gray',margin:'20px',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
       {chartdata !== null &&

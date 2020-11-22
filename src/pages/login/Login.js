@@ -12,46 +12,44 @@ function Login(props) {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("skillnet");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("cnacovid");
   const { setAuthTokens } = useAuth();
   //const referer = props.location.state.referer || '/';
 
 
   function postLogin() {
     setIsLoading(true);
-    console.log('postLogin')
     axios.get("https://skillnetusersapi.azurewebsites.net/api/users?partnerid=434", {
       //auth: {username: 'skillnet',password: 'demo'},
       auth: {username: userName, password: 'demo'},
       //userName,
       //password
     }).then(result => {
-      console.log(password)
+      var where
       switch (password) {
         case 'cnasme':
-          var where = '/card' + password
+          where = '/card' + password
           setReferer(where)
           break;
         case 'cnaadmin':
-          var where = '/cardcnasme'
+          where = '/cardcnasme'
           setReferer(where)
           break;
         case 'cna':
-          var where = '/card' + password
+          where = '/card' + password
           setReferer(where)
           break;
         case 'cnacovid':
-          var where = '/covidcnaprevisit'
+          where = '/covidcnaprevisit'
           setReferer(where)
           break;
         case 'gmi':
-          var where = '/card' + password
+          where = '/card' + password
           setReferer(where)
           break;
         default:
           console.log('bad password')
           setIsError(true);
-          return
           break;
       }
 
@@ -70,7 +68,6 @@ function Login(props) {
   }
 
   if (isLoggedIn) {
-    console.log(referer)
     return <Redirect to={referer} />;
   }
 

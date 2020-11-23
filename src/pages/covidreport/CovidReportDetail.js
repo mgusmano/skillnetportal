@@ -185,8 +185,8 @@ const CovidReportDetail = (props) => {
         </div>
       </Vertical>
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'400px'}}>
-        <CovidReportProperties propertywidth={123} Partner={Partner} PartnerID={PartnerID} PartnerName={PartnerName} PersonID={PersonID} SMEOnly={false} showlob={false}/>
+      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
+        <CovidReportProperties/>
       </Vertical>
     </Horizontal>
   )

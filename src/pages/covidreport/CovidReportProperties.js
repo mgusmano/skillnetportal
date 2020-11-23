@@ -72,19 +72,24 @@ const CovidReportProperties = (props) => {
     .get('data/covidsummary.json', {})
     .then((response) => {
 
-      var arrayCountries = response.data.countryofvisitArray.map(item => {
-        return {
-          CountryName: item
-        }
-      })
-      setCountries(arrayCountries)
+      setSelectedstartdate(new Date(response.data.workassignmentsstart))
+      setSelectedenddate(new Date(response.data.workassignmentsend))
 
-      var arrayDivisions = response.data.jobroleArray.map(item => {
-        return {
-          DivisionName: item
-        }
-      })
-      setDivisions(arrayDivisions)
+      // var arrayCountries = response.data.countryofvisitArray.map(item => {
+      //   return {
+      //     CountryName: item
+      //   }
+      // })
+      // setCountries(arrayCountries)
+      setCountries(response.data.countries)
+
+      // var arrayDivisions = response.data.jobroleArray.map(item => {
+      //   return {
+      //     DivisionName: item
+      //   }
+      // })
+      // setDivisions(arrayDivisions)
+      setDivisions(response.data.jobroles)
 
     })
     .catch((error) => {
@@ -96,12 +101,21 @@ const CovidReportProperties = (props) => {
     window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
   }
 
+
+  const formatMMDDYYYY = (thedate) => {
+    return (thedate.getMonth() + 1) +
+    "/" +  thedate.getDate() +
+    "/" +  thedate.getFullYear();
+}
+
+
   const onApplyClick = (event) => {
     if (buttonlabel === 'No Filters Selected') {return}
 
+
     var o = {
-      startdate: null,
-      enddate: null,
+      startdate: formatMMDDYYYY(selectedstartdate),
+      enddate: formatMMDDYYYY(selectedenddate),
       divisions: divisionsstring,
       countries: countriesstring
     }
@@ -122,7 +136,7 @@ const CovidReportProperties = (props) => {
   };
 
   const filterChanged = (checked, who) => {
-    console.log(checked,who)
+    //console.log(checked,who)
 
     switch(who) {
       case 'job role':
@@ -130,7 +144,8 @@ const CovidReportProperties = (props) => {
           setDivisionsString('')
         }
         else {
-          setDivisionsString(checked.DivisionName)
+          console.log(checked.name)
+          setDivisionsString(checked.name)
         }
         break;
       case 'countries':
@@ -138,7 +153,8 @@ const CovidReportProperties = (props) => {
           setCountriesString('')
         }
         else {
-          setCountriesString(checked.CountryName)
+          console.log(checked.name)
+          setCountriesString(checked.name)
         }
         break;
       default:
@@ -202,11 +218,11 @@ const CovidReportProperties = (props) => {
 
 
         {divisions !== null &&
-          <DropDown multiple={false} who="Job Role" onChanged={(event,checked) => filterChanged(checked,'job role')} options={divisions} name="DivisionName"/>
+          <DropDown multiple={false} who="Job Role" onChanged={(event,checked) => filterChanged(checked,'job role')} options={divisions} name="name"/>
         }
 
         {countries !== null &&
-          <DropDown multiple={false} who="Country" onChanged={(event,checked) => filterChanged(checked,'countries')} options={countries} name="CountryName"/>
+          <DropDown multiple={false} who="Country" onChanged={(event,checked) => filterChanged(checked,'countries')} options={countries} name="name"/>
         }
 
 

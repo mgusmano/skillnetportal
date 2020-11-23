@@ -6,11 +6,13 @@ import axios from "axios";
 import ChartWidget from './ChartWidget'
 import CovidReportProperties from './CovidReportProperties'
 import { getFilters } from './CovidCommon'
-import calcmodule from './calculations'
+//import calcmodule from './calculations'
+//import './calculations'
 
 import { getWorkAssignmentsChart } from './charts/WorkAssignmentsChart'
 import { getWorkAssignmentsDetailChart } from './charts/WorkAssignmentsDetailChart'
 import { getHealthQuestionsChart } from './charts/HealthQuestionsChart'
+import { getHealthQuestionsNHChart } from './charts/HealthQuestionsNHChart'
 
 const Summary = (props) => {
   return (
@@ -35,6 +37,7 @@ const CovidReportHealth = (props) => {
   const [workassignmentschart, setWorkAssignmentsChart] = useState(null)
   const [workassignmentsdetailchart, setWorkAssignmentsDetailChart] = useState(null)
   const [healthquestionschart, setHealthQuestionsChart] = useState(null)
+  const [healthquestionsNHchart, setHealthQuestionsNHChart] = useState(null)
 
   const [filters, setFilters] = useState(null)
   const onMessage = useCallback((e) => {
@@ -49,6 +52,7 @@ const CovidReportHealth = (props) => {
   }, [])
 
   useEffect(() => {
+    var calcmodule = window['calcmodule']
     console.log('useEffect CovidReportHealth')
     var url
     if (filters == null) { url = 'data/covidsummary.json' }
@@ -57,23 +61,24 @@ const CovidReportHealth = (props) => {
     axios
     .get(url, {})
     .then((response) => {
-      if (filters == null || (filters.divisions === '' && filters.countries === '')) {
+      if (filters == null) {
+        setNumcomplete(response.data.numcomplete)
         setAuthorizations(response.data.authorizations)
         setWorkAssignmentsChart(getWorkAssignmentsChart(response.data.authorizations))
-        setWorkAssignmentsDetailChart(getWorkAssignmentsDetailChart(response.data.dateofvisits))
+        setWorkAssignmentsDetailChart(getWorkAssignmentsDetailChart(response.data.workassignments))
         setHealthQuestionsChart(getHealthQuestionsChart(response.data.healthquestions))
+        setHealthQuestionsNHChart(getHealthQuestionsNHChart(response.data.healthquestionsNH))
       }
       else {
         var numCompleteArray = getFilters(response.data.data, filters)
+        setNumcomplete(numCompleteArray.length)
         setAuthorizations(calcmodule.AuthorizationsCalculations(numCompleteArray))
-        var totalnotauthorizedFiltered = numCompleteArray.filter(response => response['authorized'] === 'No')
-        var totalauthorizedFiltered = numCompleteArray.filter(response => response['authorized'] === 'Yes')
-        setWorkAssignmentsChart(getWorkAssignmentsChart(totalauthorizedFiltered.length,totalnotauthorizedFiltered.length))
-        setWorkAssignmentsDetailChart(calcmodule.DateOfVisitsCalculations(numCompleteArray))
-        setHealthQuestionsChart(calcmodule.HealthQuestionsCalculations(numCompleteArray))
+        setWorkAssignmentsChart(getWorkAssignmentsChart(calcmodule.AuthorizationsCalculations(numCompleteArray)))
+        setWorkAssignmentsDetailChart(getWorkAssignmentsDetailChart(calcmodule.WorkAssignmentsCalculations(numCompleteArray)))
+        setHealthQuestionsChart(getHealthQuestionsChart(calcmodule.HealthQuestionsCalculations(numCompleteArray)))
+        setHealthQuestionsNHChart(getHealthQuestionsNHChart(calcmodule.HealthQuestionsNHCalculations(numCompleteArray)))
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
-      setNumcomplete(response.data.numcomplete)
 
       window.addEventListener('mjg', onMessage);
       return function cleanup() {
@@ -92,7 +97,6 @@ const CovidReportHealth = (props) => {
         <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
           <div>Health Assessment Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} surveys completed</div>
         </div>
-        <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>Authorizations (based on {numcomplete} surveys completed)</div>
         <div style={{display:'flex',flexDirection:'row'}}>
           {authorizations != null &&
           <>
@@ -115,9 +119,15 @@ const CovidReportHealth = (props) => {
           <ChartWidget type='stackedbar2d' dataSource={healthquestionschart} flex={1}/>
           }
         </div>
+        <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
+          {healthquestionsNHchart != null &&
+          <ChartWidget type='stackedbar2d' dataSource={healthquestionsNHchart} flex={1}/>
+          }
+        </div>
+
       </Vertical>
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'400px'}}>
+      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
         <CovidReportProperties/>
       </Vertical>
     </Horizontal>

@@ -6,9 +6,10 @@ import axios from "axios";
 import ChartWidget from './ChartWidget'
 import CovidReportProperties from './CovidReportProperties'
 import { getFilters } from './CovidCommon'
-import calcmodule from './calculations'
+//import calcmodule from './calculations'
+//import './calculations'
 
-import { getVisitsChart } from './charts/VisitsChart'
+//import { getVisitsChart } from './charts/VisitsChart'
 import { getComfortChart } from './charts/ComfortChart'
 
 const Summary = (props) => {
@@ -25,7 +26,8 @@ const CovidReportPreVisit = (props) => {
   const [dategenerated, setDategenerated] = useState('')
   const [numcomplete, setNumcomplete] = useState(null)
 
-  const [visitschart, setVisitschart] = useState(null)
+  //const [visitschart, setVisitschart] = useState(null)
+  const [scheduled, setScheduled] = useState(null)
   const [comfortchart, setComfortchart] = useState(null)
   const [measures, setMeasures] = useState(null)
 
@@ -42,41 +44,43 @@ const CovidReportPreVisit = (props) => {
   }, [])
 
   useEffect(() => {
+    var calcmodule = window['calcmodule']
     console.log('useEffect CovidReportPreVisit')
     var url
     if (filters == null) { url = 'data/covidsummary.json' }
     else { url = 'data/coviddetail.json' }
 
-    var numcomplete
-    var scheduled
-    var notscheduled
+    // var numcomplete
+    // var scheduled
+    // var notscheduled
 
     axios
     .get(url, {})
     .then((response) => {
-      if (filters === null || (filters.divisions === '' && filters.countries === '')) {
+      if (filters === null) {
+        setNumcomplete(response.data.numcomplete)
 
-        numcomplete = response.data.numcomplete
-        scheduled = response.data.authorizations.totalauthorized
-        notscheduled = numcomplete-scheduled
-        setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
+        // numcomplete = response.data.numcomplete
+        // scheduled = response.data.authorizations.totalauthorized
+        // notscheduled = numcomplete-scheduled
+        // setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
+        setScheduled(response.data.authorizations.totalauthorized)
         setComfortchart(getComfortChart(response.data.comfortlevel))
         setMeasures(response.data.measures)
       }
       else {
         var numCompleteArray = getFilters(response.data.data, filters)
+        setNumcomplete(numCompleteArray.length)
 
-        numcomplete = numCompleteArray.length
-        scheduled = numCompleteArray.filter(response => response['dateofvisit'] != null).length
-        notscheduled = numcomplete-scheduled
-        setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
-        var totalcomfortable= numCompleteArray.filter(response => response['comfortable'] === "Yes").length
-        var totalnotcomfortable= numCompleteArray.filter(response => response['comfortable'] === "No").length
-        setComfortchart(getComfortChart(totalcomfortable,totalnotcomfortable))
+        // numcomplete = numCompleteArray.length
+        // scheduled = numCompleteArray.filter(response => response['dateofvisit'] != null).length
+        // notscheduled = numcomplete-scheduled
+        // setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
+        setComfortchart(getComfortChart(calcmodule.ComfortLevelCalculations(numCompleteArray)))
         setMeasures(calcmodule.MeasuresCalculations(numCompleteArray))
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
-      setNumcomplete(response.data.numcomplete)
+
 
       window.addEventListener('mjg', onMessage);
       return function cleanup() {
@@ -94,32 +98,56 @@ const CovidReportPreVisit = (props) => {
         <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
           <div>COVID-19 Pre-Visit Site Assessment</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} surveys completed</div>
         </div>
-        <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
-          {visitschart != null &&
-          <ChartWidget type='doughnut2d' dataSource={visitschart} flex={1}/>
-          }
-          {comfortchart != null &&
-          <ChartWidget type='doughnut2d' dataSource={comfortchart} flex={1}/>
-          }
-        </div>
-        <div style={{marginLeft:'20px',fontSize:'24px'}}>Policyholder Safety Measures (based on {numcomplete} surveys completed)</div>
+
         <div style={{display:'flex',flexDirection:'row'}}>
           {measures != null &&
           <>
             <div style={{flex:'1'}}><Summary name='Social Distancing' value={measures.percentsocialdistancing+'%'} total={measures.totalsocialdistancing}/></div>
             <div style={{flex:'1'}}><Summary name='Face Coverings' value={measures.percentfacecoverings+'%'} total={measures.totalfacecoverings}/></div>
             <div style={{flex:'1'}}><Summary name='Tracing Plan' value={measures.percenttracingplan+'%'} total={measures.totaltracingplan}/></div>
-            <div style={{flex:'1'}}><Summary name='Health & Safety Plan' value={measures.percenthealthsafetyplan+'%'} total={measures.totahealthsafetyplan}/></div>
+            <div style={{flex:'1'}}><Summary name='Health & Safety Plan' value={measures.percenthealthsafetyplan+'%'} total={measures.totalhealthsafetyplan}/></div>
             <div style={{flex:'1'}}><Summary name='Employee Health' value={measures.percentemployeehealth+'%'} total={measures.totalemployeehealth}/></div>
             <div style={{flex:'1'}}><Summary name='Visitor Health' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
-            <div style={{flex:'1'}}><Summary name='Vendor Currently Prohibited' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
+            <div style={{flex:'1'}}><Summary name='Vendor Prohibited' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
+            <div style={{flex:'1'}}><Summary name='Other' value={measures.percentothermeasures+'%'} total={measures.totalothermeasures}/></div>
+          </>
+          }
+        </div>
+
+
+
+        <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
+          {/* {visitschart != null &&
+          <ChartWidget type='doughnut2d' dataSource={visitschart} flex={1}/>
+          } */}
+          {measures != null &&
+            <div style={{display:'flex',flex:'1',flexDirection:'column',border:'1px solid gray',margin:'20px',background:'white',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+              <div style={{fontSize:'24px'}}>Policyholder Visits Scheduled</div>
+              <div style={{fontSize:'24px'}}>{scheduled}</div>
+            </div>
+          }
+          {comfortchart != null &&
+          <ChartWidget type='doughnut2d' dataSource={comfortchart} flex={1}/>
+          }
+        </div>
+        <div style={{marginLeft:'20px',fontSize:'24px'}}>Policyholder Safety Measures</div>
+        <div style={{display:'flex',flexDirection:'row'}}>
+          {measures != null &&
+          <>
+            <div style={{flex:'1'}}><Summary name='Social Distancing' value={measures.percentsocialdistancing+'%'} total={measures.totalsocialdistancing}/></div>
+            <div style={{flex:'1'}}><Summary name='Face Coverings' value={measures.percentfacecoverings+'%'} total={measures.totalfacecoverings}/></div>
+            <div style={{flex:'1'}}><Summary name='Tracing Plan' value={measures.percenttracingplan+'%'} total={measures.totaltracingplan}/></div>
+            <div style={{flex:'1'}}><Summary name='Health & Safety Plan' value={measures.percenthealthsafetyplan+'%'} total={measures.totalhealthsafetyplan}/></div>
+            <div style={{flex:'1'}}><Summary name='Employee Health' value={measures.percentemployeehealth+'%'} total={measures.totalemployeehealth}/></div>
+            <div style={{flex:'1'}}><Summary name='Visitor Health' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
+            <div style={{flex:'1'}}><Summary name='Vendor Prohibited' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
             <div style={{flex:'1'}}><Summary name='Other' value={measures.percentothermeasures+'%'} total={measures.totalothermeasures}/></div>
           </>
           }
         </div>
       </Vertical>
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'400px'}}>
+      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
         <CovidReportProperties/>
       </Vertical>
     </Horizontal>

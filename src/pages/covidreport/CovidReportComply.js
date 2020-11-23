@@ -6,10 +6,12 @@ import axios from "axios";
 import ChartWidget from './ChartWidget'
 import CovidReportProperties from './CovidReportProperties'
 import { getFilters } from './CovidCommon'
-import calcmodule from './calculations'
+//import calcmodule from './calculations'
+//import './calculations'
 
 import { getFiveDayPostVisitChart } from './charts/FiveDayPostVisitChart'
 import { getDayOfHealthAssessmentChart } from './charts/DayOfHealthAssessmentChart'
+
 
 const CovidReportComply = (props) => {
   const [dategenerated, setDategenerated] = useState('')
@@ -17,7 +19,6 @@ const CovidReportComply = (props) => {
 
   const [fivedaypostvisitchart, setFiveDayPostVisitChart] = useState(null)
   const [dayofhealthassessmentchart, setDayOfHealthAssessmentChart] = useState(null)
-//    const [comfortablechart, setComfortablechart] = useState(null)
 
   const [filters, setFilters] = useState(null)
   const onMessage = useCallback((e) => {
@@ -32,6 +33,7 @@ const CovidReportComply = (props) => {
   }, [])
 
   useEffect(() => {
+    var calcmodule = window['calcmodule']
     console.log('useEffect CovidReport')
     var url
     if (filters == null) { url = 'data/covidsummary.json' }
@@ -40,21 +42,18 @@ const CovidReportComply = (props) => {
     axios
     .get(url, {})
     .then((response) => {
-      if (filters === null || (filters.divisions === '' && filters.countries === '')) {
+      if (filters === null) {
+        setNumcomplete(response.data.numcomplete)
         setFiveDayPostVisitChart(getFiveDayPostVisitChart(20,20))
         setDayOfHealthAssessmentChart(getDayOfHealthAssessmentChart(20,20))
       }
       else {
         var numCompleteArray = getFilters(response.data.data, filters)
+        setNumcomplete(numCompleteArray.length)
         setFiveDayPostVisitChart(getFiveDayPostVisitChart(10,10))
         setDayOfHealthAssessmentChart(getDayOfHealthAssessmentChart(10,10))
-
-        // doDayofhealthassessmentchart(10,90)
-        // doFivedaypostvisitchart(30,70)
       }
-
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
-      setNumcomplete(response.data.numcomplete)
 
       window.addEventListener('mjg', onMessage);
       return function cleanup() {
@@ -83,7 +82,7 @@ const CovidReportComply = (props) => {
         </div>
       </Vertical>
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'400px'}}>
+      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
         <CovidReportProperties/>
       </Vertical>
     </Horizontal>

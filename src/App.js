@@ -87,7 +87,6 @@ function App(props) {
       items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
         items.push({label: 'Card Report', value: '/cardcna', icon: 'fa-id-card'})
         items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
-
         //setActivemenu('/cardcna')
         break;
 
@@ -114,10 +113,23 @@ function App(props) {
       items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
       items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
       items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
+      //items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
+
+      //setActivemenu('/covidcnaprevisit')
+      break;
+
+    case 'cnacovidadmin':
+      items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
+      items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
+      items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
+      items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
       items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
 
       //setActivemenu('/covidcnaprevisit')
       break;
+
+
+
     case 'gmi':
       items.push({label: 'Card Report - GMI', value: '/cardgmi', icon: 'fa-id-card'})
       items.push({label: 'Benchmark - GMI', value: '/benchmarkgmisb', icon: 'fa-balance-scale'})

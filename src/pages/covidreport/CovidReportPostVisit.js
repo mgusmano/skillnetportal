@@ -6,7 +6,8 @@ import axios from "axios";
 import ChartWidget from './ChartWidget'
 import CovidReportProperties from './CovidReportProperties'
 import { getFilters } from './CovidCommon'
-import calcmodule from './calculations'
+//import calcmodule from './calculations'
+//import './calculations'
 
 import { getComplianceChart } from './charts/ComplianceChart'
 import { getAssignmentsChart } from './charts/AssignmentsChart'
@@ -46,6 +47,7 @@ const CovidReportPostVisit = (props) => {
   }, [])
 
   useEffect(() => {
+    var calcmodule = window['calcmodule']
     console.log('useEffect CovidReportPostVisit')
     var url
     if (filters == null) { url = 'data/covidsummary.json' }
@@ -54,23 +56,22 @@ const CovidReportPostVisit = (props) => {
     axios
     .get(url, {})
     .then((response) => {
-      if (filters === null || (filters.divisions === '' && filters.countries === '')) {
+      if (filters === null) {
+        setNumcomplete(response.data.numcomplete)
         setWorkWithCounts(response.data.workwithcounts)
         setComplianceChart(getComplianceChart(response.data.compliance))
-        setAssignmentsChart(getAssignmentsChart(response.data.dateofvisits))
+        setAssignmentsChart(getAssignmentsChart(response.data.compliance))
         setCorrections(response.data.corrections)
       }
       else {
         var numCompleteArray = getFilters(response.data.data, filters)
-
+        setNumcomplete(numCompleteArray.length)
         setWorkWithCounts(calcmodule.WorkWithCountsCalculations(numCompleteArray))
-        setComplianceChart(calcmodule.ComplianceCalculations(numCompleteArray))
-        setAssignmentsChart(calcmodule.DateOfVisitsCalculations(numCompleteArray))
+        setComplianceChart(getComplianceChart(calcmodule.ComplianceCalculations(numCompleteArray)))
+        setAssignmentsChart(getAssignmentsChart(calcmodule.ComplianceCalculations(numCompleteArray)))
         setCorrections(calcmodule.CorrectionsCalculations(numCompleteArray))
       }
-
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
-      setNumcomplete(response.data.numcomplete)
 
       window.addEventListener('mjg', onMessage);
       return function cleanup() {
@@ -123,7 +124,7 @@ const CovidReportPostVisit = (props) => {
         </div>
       </Vertical>
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'400px'}}>
+      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
         <CovidReportProperties/>
       </Vertical>
     </Horizontal>

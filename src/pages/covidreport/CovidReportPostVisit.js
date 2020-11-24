@@ -10,12 +10,12 @@ import { getFilters } from './CovidCommon'
 //import './calculations'
 
 import { getComplianceChart } from './charts/ComplianceChart'
-import { getAssignmentsChart } from './charts/AssignmentsChart'
+import { getAddressNonComplianceChart } from './charts/AddressNonComplianceChart'
 
 const Summary = (props) => {
   return (
     <div style={{height:'100px',border:'1px solid gray',background:'white',margin:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
-      <div style={{fontSize:'14px'}}>{props.name}</div>
+      <div style={{fontSize:'14px',textAlign:'center'}}>{props.name}</div>
       <div style={{marginTop:'10px',fontSize:'30px',fontWeight:'bold'}}>{props.value}</div>
       <div style={{marginTop:'5px',fontSize:'14px'}}>{props.total}</div>
     </div>
@@ -28,7 +28,7 @@ const CovidReportPostVisit = (props) => {
 
   const [workwithcounts, setWorkWithCounts] = useState(null)
   const [compliancechart, setComplianceChart] = useState(null)
-  const [assignmentschart, setAssignmentsChart] = useState(null)
+  const [addressnoncompliancechart, setAddressNonComplianceChart] = useState(null)
   const [corrections, setCorrections] = useState(null)
 
   const [filters, setFilters] = useState(null)
@@ -60,7 +60,7 @@ const CovidReportPostVisit = (props) => {
         setNumcomplete(response.data.numcomplete)
         setWorkWithCounts(response.data.workwithcounts)
         setComplianceChart(getComplianceChart(response.data.compliance))
-        setAssignmentsChart(getAssignmentsChart(response.data.compliance))
+        setAddressNonComplianceChart(getAddressNonComplianceChart(response.data.addressnoncompliance))
         setCorrections(response.data.corrections)
       }
       else {
@@ -68,7 +68,7 @@ const CovidReportPostVisit = (props) => {
         setNumcomplete(numCompleteArray.length)
         setWorkWithCounts(calcmodule.WorkWithCountsCalculations(numCompleteArray))
         setComplianceChart(getComplianceChart(calcmodule.ComplianceCalculations(numCompleteArray)))
-        setAssignmentsChart(getAssignmentsChart(calcmodule.ComplianceCalculations(numCompleteArray)))
+        setAddressNonComplianceChart(getAddressNonComplianceChart(calcmodule.AddressNonComplianceCalculations(numCompleteArray)))
         setCorrections(calcmodule.CorrectionsCalculations(numCompleteArray))
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
@@ -88,7 +88,7 @@ const CovidReportPostVisit = (props) => {
     <Horizontal>
       <Vertical style={{flex:'1',background:'lightgray'}}>
         <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-          <div>Post-Visit COVID-19 Controls Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} surveys completed</div>
+          <div>Post-Visit COVID-19 Controls Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
         </div>
         <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>On-Site Social Distance</div>
         <div style={{display:'flex',flexDirection:'row'}}>
@@ -106,8 +106,8 @@ const CovidReportPostVisit = (props) => {
           {compliancechart != null &&
           <ChartWidget type='doughnut2d' dataSource={compliancechart} flex={1}/>
           }
-          {assignmentschart != null &&
-          <ChartWidget type='doughnut2d' dataSource={assignmentschart} flex={1}/>
+          {addressnoncompliancechart != null &&
+          <ChartWidget type='doughnut2d' dataSource={addressnoncompliancechart} flex={1}/>
           }
         </div>
         <div style={{marginLeft:'20px',fontSize:'24px'}}>Corrections Taken by Field Person</div>

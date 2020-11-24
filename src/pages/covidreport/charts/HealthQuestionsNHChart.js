@@ -18,9 +18,9 @@ export function getHealthQuestionsNHChart(healthquestionsNH) {
   var categories = [
     {
       category: [
-        {label: "1. Do you have any of the following symptoms of COVID-19:"},
+        {label: "1. Do you have any symptoms of COVID-19?"},
         {label: "2. Have you been in close contact with someone who is suspected or confirmed to have had COVID-19 in the past 14 days?"},
-        {label: "3. Have you traveled on non-essential travel in the past 14 days outside of New Hampshire, Vermont, Maine, Massachusetts, Connecticut, or Rhode Island?"},
+        {label: "3. Have you traveled on non-essential travel in the past 14 days outside of New England?"},
       ]
     }
   ]

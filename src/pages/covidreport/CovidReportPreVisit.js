@@ -12,10 +12,20 @@ import { getFilters } from './CovidCommon'
 //import { getVisitsChart } from './charts/VisitsChart'
 import { getComfortChart } from './charts/ComfortChart'
 
+const SummaryTop = (props) => {
+  return (
+    <div style={{height:'200px',border:'1px solid gray',background:'white',margin:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+      <div style={{fontSize:'22px',textAlign:'center'}}>{props.name}</div>
+      <div style={{marginTop:'5px',fontSize:'30px',fontWeight:'bold'}}>{props.total}</div>
+    </div>
+  )
+}
+
+
 const Summary = (props) => {
   return (
     <div style={{height:'100px',border:'1px solid gray',background:'white',margin:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
-      <div style={{fontSize:'12px'}}>{props.name}</div>
+      <div style={{fontSize:'12px',textAlign:'center'}}>{props.name}</div>
       <div style={{marginTop:'10px',fontSize:'30px',fontWeight:'bold'}}>{props.value}</div>
       <div style={{marginTop:'5px',fontSize:'14px'}}>{props.total}</div>
     </div>
@@ -27,8 +37,9 @@ const CovidReportPreVisit = (props) => {
   const [numcomplete, setNumcomplete] = useState(null)
 
   //const [visitschart, setVisitschart] = useState(null)
-  const [scheduled, setScheduled] = useState(null)
-  const [comfortchart, setComfortchart] = useState(null)
+  //const [scheduled, setScheduled] = useState(null)
+  //const [comfortchart, setComfortchart] = useState(null)
+  const [comfortlevel, setComfortLevel] = useState(null)
   const [measures, setMeasures] = useState(null)
 
   const [filters, setFilters] = useState(null)
@@ -64,8 +75,10 @@ const CovidReportPreVisit = (props) => {
         // scheduled = response.data.authorizations.totalauthorized
         // notscheduled = numcomplete-scheduled
         // setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
-        setScheduled(response.data.authorizations.totalauthorized)
-        setComfortchart(getComfortChart(response.data.comfortlevel))
+        //setScheduled(response.data.authorizations.totalauthorized)
+        //setComfortchart(getComfortChart(response.data.comfortlevel))
+
+        setComfortLevel(response.data.comfortlevel)
         setMeasures(response.data.measures)
       }
       else {
@@ -76,7 +89,8 @@ const CovidReportPreVisit = (props) => {
         // scheduled = numCompleteArray.filter(response => response['dateofvisit'] != null).length
         // notscheduled = numcomplete-scheduled
         // setVisitschart(getVisitsChart(scheduled/numcomplete,notscheduled/numcomplete))
-        setComfortchart(getComfortChart(calcmodule.ComfortLevelCalculations(numCompleteArray)))
+        //setComfortchart(getComfortChart(calcmodule.ComfortLevelCalculations(numCompleteArray)))
+        setComfortLevel(calcmodule.ComfortLevelCalculations(numCompleteArray))
         setMeasures(calcmodule.MeasuresCalculations(numCompleteArray))
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
@@ -96,40 +110,39 @@ const CovidReportPreVisit = (props) => {
     <Horizontal>
       <Vertical style={{flex:'1',background:'lightgray'}}>
         <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-          <div>COVID-19 Pre-Visit Site Assessment</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} surveys completed</div>
+          <div>COVID-19 Pre-Visit Site Assessment</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
         </div>
 
         <div style={{display:'flex',flexDirection:'row'}}>
-          {measures != null &&
+          {numcomplete != null &&
           <>
-            <div style={{flex:'1'}}><Summary name='Social Distancing' value={measures.percentsocialdistancing+'%'} total={measures.totalsocialdistancing}/></div>
-            <div style={{flex:'1'}}><Summary name='Face Coverings' value={measures.percentfacecoverings+'%'} total={measures.totalfacecoverings}/></div>
-            <div style={{flex:'1'}}><Summary name='Tracing Plan' value={measures.percenttracingplan+'%'} total={measures.totaltracingplan}/></div>
-            <div style={{flex:'1'}}><Summary name='Health & Safety Plan' value={measures.percenthealthsafetyplan+'%'} total={measures.totalhealthsafetyplan}/></div>
-            <div style={{flex:'1'}}><Summary name='Employee Health' value={measures.percentemployeehealth+'%'} total={measures.totalemployeehealth}/></div>
-            <div style={{flex:'1'}}><Summary name='Visitor Health' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
-            <div style={{flex:'1'}}><Summary name='Vendor Prohibited' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
-            <div style={{flex:'1'}}><Summary name='Other' value={measures.percentothermeasures+'%'} total={measures.totalothermeasures}/></div>
+            <div style={{flex:'1'}}><SummaryTop name='Policyholder Visits Scheduled' total={numcomplete}/></div>
+          </>
+          }
+          {comfortlevel != null &&
+          <>
+            <div style={{flex:'1'}}><SummaryTop name='Staff Comfortable to Complete Assigment' total={comfortlevel.totalcomfortable}/></div>
+            <div style={{flex:'1'}}><SummaryTop name='Staff Not Comfortable to Complete Assigment' total={comfortlevel.totalnotcomfortable}/></div>
           </>
           }
         </div>
 
 
 
-        <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
-          {/* {visitschart != null &&
+        {/* <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
+          {visitschart != null &&
           <ChartWidget type='doughnut2d' dataSource={visitschart} flex={1}/>
-          } */}
+          }
           {measures != null &&
             <div style={{display:'flex',flex:'1',flexDirection:'column',border:'1px solid gray',margin:'20px',background:'white',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
               <div style={{fontSize:'24px'}}>Policyholder Visits Scheduled</div>
-              <div style={{fontSize:'24px'}}>{scheduled}</div>
+              <div style={{fontSize:'24px'}}>{numcomplete}</div>
             </div>
           }
           {comfortchart != null &&
           <ChartWidget type='doughnut2d' dataSource={comfortchart} flex={1}/>
           }
-        </div>
+        </div> */}
         <div style={{marginLeft:'20px',fontSize:'24px'}}>Policyholder Safety Measures</div>
         <div style={{display:'flex',flexDirection:'row'}}>
           {measures != null &&
@@ -140,7 +153,7 @@ const CovidReportPreVisit = (props) => {
             <div style={{flex:'1'}}><Summary name='Health & Safety Plan' value={measures.percenthealthsafetyplan+'%'} total={measures.totalhealthsafetyplan}/></div>
             <div style={{flex:'1'}}><Summary name='Employee Health' value={measures.percentemployeehealth+'%'} total={measures.totalemployeehealth}/></div>
             <div style={{flex:'1'}}><Summary name='Visitor Health' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
-            <div style={{flex:'1'}}><Summary name='Vendor Prohibited' value={measures.percentvisitorhealth+'%'} total={measures.totalvisitorhealth}/></div>
+            <div style={{flex:'1'}}><Summary name='Vendor Prohibited' value={measures.percentvendorprohibit+'%'} total={measures.totalvendorprohibit}/></div>
             <div style={{flex:'1'}}><Summary name='Other' value={measures.percentothermeasures+'%'} total={measures.totalothermeasures}/></div>
           </>
           }

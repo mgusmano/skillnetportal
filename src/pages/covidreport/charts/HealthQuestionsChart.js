@@ -23,10 +23,10 @@ export function getHealthQuestionsChart(healthquestions) {
   var categories = [
     {
       category: [
-        {label: "1. In the past 14 days, have you been confirmed positive for COVID-19, presumed positive, or been asked to self-quarantine?"},
-        {label: "2. In the past 14 days, have you had contact with a person known or presumed to have COVID-19?  (i.e., Secondary Exposure)?"},
+        {label: "1. In the past 14 days, have you been confirmed positive for COVID-19 or presumed positive?"},
+        {label: "2. In the past 14 days, have you had contact with a person known or presumed to have COVID-19?"},
         {label: "3. In the past 14 days, have you experienced any symptoms associated with COVID-19?"},
-        {label: "4. Do you have any medical conditions that would prevent you from wearing a face covering at work?"},
+        {label: "4. Do you have any medical conditions that would prevent you from wearing a face covering?"},
       ]
     }
   ]

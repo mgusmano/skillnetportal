@@ -1,10 +1,7 @@
 import chartcommon from './ChartCommon'
 
 export function getHealthQuestionsChart(healthquestions) {
-
-
   console.log(healthquestions)
-
   //var categoryArray = []
   var dataArray = []
   for (const [key, value] of Object.entries(healthquestions)) {

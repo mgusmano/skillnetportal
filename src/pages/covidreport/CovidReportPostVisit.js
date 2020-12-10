@@ -9,8 +9,10 @@ import { getFilters } from './CovidCommon'
 //import calcmodule from './calculations'
 //import './calculations'
 
+//PostVisit
 import { getComplianceChart } from './charts/ComplianceChart'
 import { getAddressNonComplianceChart } from './charts/AddressNonComplianceChart'
+//PostVisit
 
 const Summary = (props) => {
   return (
@@ -26,10 +28,14 @@ const CovidReportPostVisit = (props) => {
   const [dategenerated, setDategenerated] = useState('')
   const [numcomplete, setNumcomplete] = useState(null)
 
+  //PostVisit
   const [workwithcounts, setWorkWithCounts] = useState(null)
+  //const [workwithcountsdenominator, setWorkWithCountsDenominator] = useState(null)
   const [compliancechart, setComplianceChart] = useState(null)
   const [addressnoncompliancechart, setAddressNonComplianceChart] = useState(null)
   const [corrections, setCorrections] = useState(null)
+  //const [correctionsdenominator, setCorrectionsDenominator] = useState(null)
+  //PostVisit
 
   const [filters, setFilters] = useState(null)
   const onMessage = useCallback((e) => {
@@ -58,18 +64,29 @@ const CovidReportPostVisit = (props) => {
     .then((response) => {
       if (filters === null) {
         setNumcomplete(response.data.numcomplete)
+
+        //PostVisit
         setWorkWithCounts(response.data.workwithcounts)
+        //setWorkWithCountsDenominator(response.data.workwithcounts.denominator)
         setComplianceChart(getComplianceChart(response.data.compliance))
         setAddressNonComplianceChart(getAddressNonComplianceChart(response.data.addressnoncompliance))
         setCorrections(response.data.corrections)
+        //setCorrectionsDenominator(response.data.corrections.denominator)
+        //PostVisit
+
       }
       else {
         var numCompleteArray = getFilters(response.data.data, filters)
         setNumcomplete(numCompleteArray.length)
+
+        //PostVisit
         setWorkWithCounts(calcmodule.WorkWithCountsCalculations(numCompleteArray))
         setComplianceChart(getComplianceChart(calcmodule.ComplianceCalculations(numCompleteArray)))
         setAddressNonComplianceChart(getAddressNonComplianceChart(calcmodule.AddressNonComplianceCalculations(numCompleteArray)))
         setCorrections(calcmodule.CorrectionsCalculations(numCompleteArray))
+        //PostVisit
+
+
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
 
@@ -84,13 +101,19 @@ const CovidReportPostVisit = (props) => {
     })
   }, [onMessage, filters]);
 
+//  <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>On-Site Social Distance (based on: {workwithcountsdenominator})</div>
+//        <div style={{marginLeft:'20px',fontSize:'24px'}}>Corrections Taken by Field Person (based on: {correctionsdenominator})</div>
+
+
   return (
     <Horizontal>
+
+      {/* PostVisit */}
       <Vertical style={{flex:'1',background:'lightgray'}}>
         <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-          <div>Post-Visit COVID-19 Controls Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
+          <div>COVID-19 Post-Visit Controls Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
         </div>
-        <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>On-Site Social Distance</div>
+        <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>On-Site Social Distance (based on: Completed Policyholder Post-Visit Surveys)</div>
         <div style={{display:'flex',flexDirection:'row'}}>
           {workwithcounts != null &&
           <>
@@ -110,7 +133,8 @@ const CovidReportPostVisit = (props) => {
           <ChartWidget type='doughnut2d' dataSource={addressnoncompliancechart} flex={1}/>
           }
         </div>
-        <div style={{marginLeft:'20px',fontSize:'24px'}}>Corrections Taken by Field Person</div>
+        <div style={{marginLeft:'20px',fontSize:'24px'}}>Corrections Taken by Field Person (based on: Completed Policyholder Post-Visit Surveys)</div>
+        <div style={{display:'flex',flexDirection:'row'}}></div>
         <div style={{display:'flex',flexDirection:'row'}}>
         {corrections != null &&
           <>
@@ -123,6 +147,8 @@ const CovidReportPostVisit = (props) => {
         }
         </div>
       </Vertical>
+      {/* PostVisit */}
+
       <Splitter/>
       <Vertical style={{display:props.filterdisplay,width:'250px'}}>
         <CovidReportProperties/>

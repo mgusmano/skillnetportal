@@ -19,8 +19,13 @@ import Login from "./pages/login/Login";
 import Admin from "./pages/admin/Admin";
 import Home from './pages/home/Home';
 import CardReport from './CardReport';
+import Absolute from './pages/absolute/Absolute'
+import Dynamic from './pages/dynamic/Dynamic'
 
-//import CovidReport from './pages/covidreport/CovidReport';
+import CovidReport from './pages/covidreport/CovidReport';
+
+
+
 import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
 import CovidReportHealth from './pages/covidreport/CovidReportHealth';
 //import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
@@ -64,7 +69,7 @@ function App(props) {
   const [menudisplay, setMenudisplay] = useState('block');
   const [filterdisplay, setFilterdisplay] = useState('block');
   const [authTokens, setAuthTokens] = useState('');
-  const [activemenu, setActivemenu] = useState('/covidcnaprevisit');
+  const [activemenu, setActivemenu] = useState('/cnacovid');
 
   const items = [
 
@@ -109,22 +114,25 @@ function App(props) {
 
 
     case 'cnacovid':
-      items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
-      items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
-      items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
-      items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovid', icon: 'fa-clipboard'})
+      // items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
+      // items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
+      // items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
+      // items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
       //items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
 
       //setActivemenu('/covidcnaprevisit')
       break;
 
     case 'cnacovidadmin':
+      items.push({label: 'Covid', value: '/covid', icon: 'fa-clipboard'})
       items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
       items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
       items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
       items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
       items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
-
+      items.push({label: 'Absolute', value: '/absolute', icon: 'fa-clipboard'})
+      items.push({label: 'Dynamic', value: '/dynamic', icon: 'fa-clipboard'})
       //setActivemenu('/covidcnaprevisit')
       break;
 
@@ -198,10 +206,25 @@ function App(props) {
           </Vertical>
           <Splitter/>
           {/* <Center/> */}
+
+          <div
+              style={{flex:'1',
+              border:'0px solid green',
+              background:'whitesmoke',
+              overflow:'auto',
+              width: '100%',
+              height: '100%',
+          }}>
+
           <Switch>
             <Route exact path="/"><Redirect to="/login" /></Route>
             <Route path="/login" default component={Login} />
             {/* <Route path="/" component={() => <Home/>} exact /> */}
+            <PrivateRoute path="/absolute" component={() => <Absolute/>} />
+            <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
+
+            <PrivateRoute path="/cnacovid"  component={() => <CovidReport/>} />
+
             <PrivateRoute path="/cardcnasme" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
             <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
             <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} PartnerID='434' showlob={false}/>} />
@@ -215,6 +238,8 @@ function App(props) {
             <PrivateRoute path="/loginx" component={() => <Login Partner={PartnerCNA}/>} />
             <PrivateRoute path="/admin" component={Admin} />
           </Switch>
+
+          </div>
           {/* center */}
           {/* <Splitter/>
           <Context/> */}

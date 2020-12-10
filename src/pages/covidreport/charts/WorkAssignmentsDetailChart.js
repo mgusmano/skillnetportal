@@ -26,6 +26,9 @@ export function getWorkAssignmentsDetailChart(workassignments) {
 
   var chart = {
     caption: "Work Assignment Details",
+    "labelDisplay": "rotate",
+    "slantLabel": "1",
+    "labelStep": "10"
   }
   var categories = [
     {category: workassignments}

@@ -39,7 +39,7 @@ function Login(props) {
           setReferer(where)
           break;
         case 'cnacovid':
-          where = '/covidcnaprevisit'
+          where = '/cnacovid'
           setReferer(where)
           break;
         case 'cnacovidadmin':

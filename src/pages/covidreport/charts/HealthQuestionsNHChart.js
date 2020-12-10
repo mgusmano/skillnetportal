@@ -14,6 +14,8 @@ export function getHealthQuestionsNHChart(healthquestionsNH) {
   var chart = {
     caption: "Health Questions - New Hampshire",
     maxBarHeight: 50,
+    yAxisMaxValue: 10,
+    yAxisMinValue: 10,
   }
   var categories = [
     {
@@ -26,7 +28,7 @@ export function getHealthQuestionsNHChart(healthquestionsNH) {
   ]
   var dataset = [
     {
-      seriesname: "yes",
+      seriesname: "Number of People who Answered Yes",
       data: dataArray
     }
   ]

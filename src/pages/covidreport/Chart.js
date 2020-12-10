@@ -1,8 +1,8 @@
 import React from 'react'
-
-import FusionCharts from 'fusioncharts';
-import Charts from 'fusioncharts/fusioncharts.charts';
 import ReactFC from 'react-fusioncharts';
+import FusionCharts from 'fusioncharts';
+
+import Charts from 'fusioncharts/fusioncharts.charts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import './Chart.css'
 
@@ -14,7 +14,6 @@ class Chart extends React.Component {
     return (
       <ReactFC
         className='chart'
-        xstyle={{width:'100%',height:'100%'}}
         type={type}
         width="100%"
         height="100%"

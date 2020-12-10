@@ -8,7 +8,7 @@ const Top = (props) => {
   return (
     <div style={{display:'flex',alignItems:'center',xjustifyContent:'center',height:'60px',background:'white',color:'rgb(51,124,182)',fontSize:'24px'}}>
       <img src={SKILLNETBALL} style={{marginLeft:'80px',width:'50px'}} alt="SKILLNETBALL" />
-      <div style={{marginLeft:'20px'}}>v0.0.36</div>
+      <div style={{marginLeft:'20px'}}>v0.0.52</div>
     </div>
   )
 }

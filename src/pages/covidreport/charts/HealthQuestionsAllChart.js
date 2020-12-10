@@ -32,7 +32,7 @@ export function getHealthQuestionsChart(healthquestions) {
   ]
   var dataset = [
     {
-      seriesname: "yes",
+      seriesname: "Number of People who Answered Yes",
       data: dataArray
     }
   ]

@@ -11,23 +11,23 @@ import Vertical from '../../layout/Vertical'
 import Splitter from '../../layout/Splitter'
 //import Separator from '../../layout/Separator'
 import axios from "axios";
-import ChartWidget from '../../widgets/skillnet/ChartWidget'
+//import ChartWidget from '../../widgets/skillnet/ChartWidget'
 import CovidReportProperties from './CovidReportProperties'
 
-const Summary = (props) => {
-  //const { name, value } = props;
-  return (
-    <div style={{height:'100px',border:'1px solid gray',background:'white',margin:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
-      <div style={{fontSize:'14px'}}>{props.name}</div>
-      <div style={{marginTop:'10px',fontSize:'30px',fontWeight:'bold'}}>{props.value}</div>
-    </div>
-  )
-}
+// const Summary = (props) => {
+//   //const { name, value } = props;
+//   return (
+//     <div style={{height:'100px',border:'1px solid gray',background:'white',margin:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+//       <div style={{fontSize:'14px'}}>{props.name}</div>
+//       <div style={{marginTop:'10px',fontSize:'30px',fontWeight:'bold'}}>{props.value}</div>
+//     </div>
+//   )
+// }
 
 const CovidReportDetail = (props) => {
 
-  const [gridApi, setGridApi] = useState(null);
-  const [gridColumnApi, setGridColumnApi] = useState(null);
+  //const [gridApi, setGridApi] = useState(null);
+  //const [gridColumnApi, setGridColumnApi] = useState(null);
   const [dategenerated, setDategenerated] = useState('')
 
   // const [rowData, setRowData] = useState([
@@ -40,8 +40,8 @@ const CovidReportDetail = (props) => {
 
 
 
-    var Partner = {}
-    var PartnerID = 395;  var PartnerName = 'CNA'; var PersonID = 275399;
+    //var Partner = {}
+    //var PartnerID = 395;  var PartnerName = 'CNA'; var PersonID = 275399;
 
     // const [workedwith0, setWorkedwith0] = useState(0)
     // const [workedwith1to3, setWorkedwith1to3] = useState(0)

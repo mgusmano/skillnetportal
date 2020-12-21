@@ -42,8 +42,22 @@ function Login(props) {
           where = '/cnacovid'
           setReferer(where)
           break;
+        case 'cnacovidriskcontrol':
+          where = '/cnacovidriskcontrol'
+          setReferer(where)
+          break;
+        case 'cnacovidclaims':
+          where = '/cnacovidclaims'
+          setReferer(where)
+          break;
+        case 'cnacovidpremiumaudit':
+          where = '/cnacovidpremiumaudit'
+          setReferer(where)
+          break;
+
+
         case 'cnacovidadmin':
-          where = '/covidcnaprevisit'
+          where = '/cnacovid'
           setReferer(where)
           break;
         case 'gmi':

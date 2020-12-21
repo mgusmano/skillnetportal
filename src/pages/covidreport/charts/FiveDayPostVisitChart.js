@@ -3,7 +3,7 @@ import chartcommon from './ChartCommon'
 
 export function getFiveDayPostVisitChart(o) {
   var chart = {
-    "caption": "5 day post visit",
+    "caption": "5 day post visit completed and not completed",
 
 
     "toolTipBgcolor": "#484E69",
@@ -24,10 +24,10 @@ export function getFiveDayPostVisitChart(o) {
 
   }
   var data = [
-    {"label": "Completed, within 5 days","value": o.totalcompletedIn5},
-    {"label": "Completed, greater than 5 days","value": o.totalcompletedAfter5},
-    {"label": "Not Completed, greater than 5 days","value": o.totalnotcompletedAfter5},
-    {"label": "Not Completed, within 5 days","value": o.totalnotcompletedIn5},
+    {"label": "By 5 days","value": o.totalcompletedIn5},
+    {"label": "By > 5 days","value": o.totalcompletedAfter5},
+    {"label": "Not By > 5 days","value": o.totalnotcompletedAfter5},
+    {"label": "Not Yet < 5 days","value": o.totalnotcompletedIn5},
 
   ]
   var chartanddata = {

@@ -7,10 +7,12 @@
   overflow: hidden;
 }
 .Side-menu .children.active {
+  color:green;
   transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
   max-height: 9999px;
 }
 .Side-menu .children.inactive {
+  background:blue;
   transition: max-height 0.6s cubic-bezier(0, 1, 0, 1) -0.15s;
   max-height: 0;
 }
@@ -24,6 +26,9 @@
   padding-right: 14px;
   font-size: 16px;
 }
+
+
+
 .Side-menu.rtl .divider {
   text-align: right;
 }
@@ -45,6 +50,8 @@
   padding-left: 0;
   padding-right: 25px;
 }
+
+
 .Side-menu .item .item-title {
   height: 40px;
   padding-top: 14px;
@@ -97,17 +104,17 @@
   background-color: darkgray;
   color: #B8C7CE;
 }
-/* .Side-menu-default .item.active {
-  color: black;
+.Side-menu-default .item.active {
+  color:black;
   background-color: darkgray;
-} */
+}
 .Side-menu-default .item.active .children {
   xcolor: #B8C7CE;
   color: blue;
   background-color: darkgray;
 }
 .Side-menu-default .item.active > .item-title > a {
-  color: white;
+  color: whredite;
   background-color: darkgray;
 }
 .Side-menu-default .item:hover > .item-title {

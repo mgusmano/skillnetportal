@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import Top from './Top';
 import Header from './Header';
 
-import { Route, Switch, Link, useHistory } from 'react-router-dom';
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+//import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 import SideMenu from 'react-sidemenu';
 
-import queryString from 'query-string'
+//import queryString from 'query-string'
 
 import { AuthContext } from "./context/auth";
 //import { useAuth } from "./context/auth";
@@ -24,8 +24,6 @@ import Dynamic from './pages/dynamic/Dynamic'
 
 import CovidReport from './pages/covidreport/CovidReport';
 
-
-
 import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
 import CovidReportHealth from './pages/covidreport/CovidReportHealth';
 //import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
@@ -38,10 +36,9 @@ import Dashboard from './pages/benchmarkreport/Dashboard';
 import Horizontal from './layout/Horizontal'
 import Vertical from './layout/Vertical'
 import Splitter from './layout/Splitter'
-import Separator from './layout/Separator'
+//import Separator from './layout/Separator'
 
 import './side-menu.css'
-
 
 
 var PartnerCNA = {
@@ -70,17 +67,10 @@ function App(props) {
   const [filterdisplay, setFilterdisplay] = useState('block');
   const [authTokens, setAuthTokens] = useState('');
   const [activemenu, setActivemenu] = useState('/cnacovid');
+  // const [initialdashboard, setInitialDashboard] = useState(true);
+  const [currentdashboard, setCurrentDashboard] = useState('PreVisit');
 
-  const items = [
-
-
-
-    // {label: 'item 1', value: 'item1', icon: 'fa-search',
-    // children: [
-    //   {divider: true, label: 'Main navigation', value: 'main-nav'},
-    // ]
-    // },
-  ];
+  const items = [];
 
   switch (authTokens) {
     case 'cnasme':
@@ -90,10 +80,10 @@ function App(props) {
 
     case 'cnaadmin':
       items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
-        items.push({label: 'Card Report', value: '/cardcna', icon: 'fa-id-card'})
-        items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
-        //setActivemenu('/cardcna')
-        break;
+      items.push({label: 'Card Report', value: '/cardcna', icon: 'fa-id-card'})
+      items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
+      //setActivemenu('/cardcna')
+      break;
 
     case 'cna':
       items.push({label: 'Card Report - CNA', value: '/cardcna', icon: 'fa-id-card'})
@@ -112,19 +102,34 @@ function App(props) {
       //   //setActivemenu('/covidcnaprevisit')
       //   break;
 
-
     case 'cnacovid':
       items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovid', icon: 'fa-clipboard'})
-      // items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
-      // items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
-      // items.push({label: 'Post-Visit Controls', value: '/covidcnapostvisit', icon: 'fa-clipboard'})
-      // items.push({label: 'Consultant Compliance', value: '/covidcnacomply', icon: 'fa-clipboard'})
-      //items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
-
-      //setActivemenu('/covidcnaprevisit')
       break;
 
+    case 'cnacovidriskcontrol':
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidriskcontrol', icon: 'fa-clipboard'})
+      break;
+
+    case 'cnacovidclaims':
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidclaims', icon: 'fa-clipboard'})
+      break;
+
+    case 'cnacovidpremiumaudit':
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidpremiumaudit', icon: 'fa-clipboard'})
+      break;
+
+
     case 'cnacovidadmin':
+
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovid', icon: 'fa-clipboard', children: [
+        {label: 'Pre-Visit Controls', value: 'PreVisit', icon: 'fa-clipboard', extras: 'currentdashboard'},
+        {label: 'Health Assessment', value: 'Health', icon: 'fa-clipboard', extras: 'currentdashboard'},
+        {label: 'Post-Visit Controls', value: 'PostVisit', icon: 'fa-clipboard', extras: 'currentdashboard'},
+        {label: 'Consultant Compliance', value: 'Comply', icon: 'fa-clipboard', extras: 'currentdashboard'},
+      ]})
+
+
+
       items.push({label: 'Covid', value: '/covid', icon: 'fa-clipboard'})
       items.push({label: 'Pre-Visit Site Assessment', value: '/covidcnaprevisit', icon: 'fa-clipboard'})
       items.push({label: 'Health Assessment', value: '/covidcnahealth', icon: 'fa-clipboard'})
@@ -135,8 +140,6 @@ function App(props) {
       items.push({label: 'Dynamic', value: '/dynamic', icon: 'fa-clipboard'})
       //setActivemenu('/covidcnaprevisit')
       break;
-
-
 
     case 'gmi':
       items.push({label: 'Card Report - GMI', value: '/cardgmi', icon: 'fa-id-card'})
@@ -156,11 +159,36 @@ function App(props) {
     setAuthTokens(data);
   }
 
-  const onMenuItemClick = (value) => {
+  // const SendIt = (type, payload) => {
+  //   window.dispatchEvent(new CustomEvent(type,{detail:{payload:payload}}));
+  // }
+
+  const onMenuItemClick = (value, extras) => {
+    //console.log(extras)
+    if (extras !== undefined) {
+      //var message = extras
+      //setActivemenu(value)
+      //history.push(value);
+      //setCurrentDashboard(value)
+      //SendIt(message, value)
+      window.dispatchEvent(new CustomEvent(extras,{detail:{payload:value}}));
+
+    }
     //alert("You just clicked me:" + value)
     //let history = useHistory();
-    setActivemenu(value)
-    history.push(value);
+
+    // if (value == 'Health') {
+    //   SendIt('currentdashboard', value)
+    //   //setInitialDashboard(false)
+    //   //setCurrentDashboard(value)
+    // }
+    else {
+      setActivemenu(value)
+      history.push(value);
+    }
+
+
+
   }
 
   //const { authTokens } = useAuth();
@@ -168,7 +196,7 @@ function App(props) {
 
   const onMenuClick = (value) => {
     console.log('onMenuClick')
-    if (menudisplay == 'block') {
+    if (menudisplay === 'block') {
       setMenudisplay('none')
     }
     else {
@@ -178,7 +206,7 @@ function App(props) {
 
   const onFilterClick = (value) => {
     console.log('onFilterClick')
-    if (filterdisplay == 'block') {
+    if (filterdisplay === 'block') {
       setFilterdisplay('none')
     }
     else {
@@ -186,6 +214,10 @@ function App(props) {
     }
   }
 
+
+  //Risk Control
+  //Claims
+  //Premium Audit
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
@@ -200,7 +232,7 @@ function App(props) {
             <SideMenu
               items={items}
               collapse={false}
-              onMenuItemClick={onMenuItemClick}
+              onMenuItemClick={(value, extras) => onMenuItemClick(value,extras)}
               activeItem={activemenu}
             />
           </Vertical>
@@ -223,7 +255,10 @@ function App(props) {
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
 
-            <PrivateRoute path="/cnacovid"  component={() => <CovidReport/>} />
+            <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
+            <PrivateRoute path="/cnacovidriskcontrol"  component={() => <CovidReport jobrole={'Risk Control'} currentdashboard={currentdashboard}/>} />
+            <PrivateRoute path="/cnacovidclaims"  component={() => <CovidReport jobrole={'Claims'} currentdashboard={currentdashboard}/>} />
+            <PrivateRoute path="/cnacovidpremiumaudit"  component={() => <CovidReport jobrole={'Premium Audit'} currentdashboard={currentdashboard}/>} />
 
             <PrivateRoute path="/cardcnasme" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
             <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />

@@ -4,16 +4,16 @@ import Button from '@material-ui/core/Button';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+//import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import TreeItem from '@material-ui/lab/TreeItem';
+//import TreeItem from '@material-ui/lab/TreeItem';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
+  //KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
@@ -71,26 +71,10 @@ const CovidReportProperties = (props) => {
     axios
     .get('data/covidsummary.json', {})
     .then((response) => {
-
       setSelectedstartdate(new Date(response.data.workassignmentsstart))
       setSelectedenddate(new Date(response.data.workassignmentsend))
-
-      // var arrayCountries = response.data.countryofvisitArray.map(item => {
-      //   return {
-      //     CountryName: item
-      //   }
-      // })
-      // setCountries(arrayCountries)
       setCountries(response.data.countries)
-
-      // var arrayDivisions = response.data.jobroleArray.map(item => {
-      //   return {
-      //     DivisionName: item
-      //   }
-      // })
-      // setDivisions(arrayDivisions)
       setDivisions(response.data.jobroles)
-
     })
     .catch((error) => {
       console.log(error)
@@ -98,7 +82,7 @@ const CovidReportProperties = (props) => {
   }, []);
 
   const SendIt = (type, payload) => {
-    window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
+    window.dispatchEvent(new CustomEvent(type,{detail:{payload:payload}}));
   }
 
 
@@ -112,15 +96,19 @@ const CovidReportProperties = (props) => {
   const onApplyClick = (event) => {
     if (buttonlabel === 'No Filters Selected') {return}
 
+    var applieddivisionsstring = divisionsstring
+    if (props.jobrole !== null) {
+      applieddivisionsstring = props.jobrole
+    }
 
     var o = {
       startdate: formatMMDDYYYY(selectedstartdate),
       enddate: formatMMDDYYYY(selectedenddate),
-      divisions: divisionsstring,
+      divisions: applieddivisionsstring,
       countries: countriesstring
     }
 
-    console.log(o)
+    //console.log(o)
 
     SendIt('fromcovidfilters', o)
     setButtonLabel('Apply All Filters')
@@ -144,7 +132,6 @@ const CovidReportProperties = (props) => {
           setDivisionsString('')
         }
         else {
-          console.log(checked.name)
           setDivisionsString(checked.name)
         }
         break;
@@ -162,6 +149,12 @@ const CovidReportProperties = (props) => {
 
     setButtonLabel('Click to Apply All Filters')
   }
+
+  var showdivisions = false
+  if (divisions !== null && props.jobrole == null) {
+    showdivisions = true
+  }
+  //console.log('showdivisions',showdivisions)
 
 
   return (
@@ -217,7 +210,7 @@ const CovidReportProperties = (props) => {
         </MuiPickersUtilsProvider>
 
 
-        {divisions !== null &&
+        {showdivisions !== false &&
           <DropDown multiple={false} who="Job Role" onChanged={(event,checked) => filterChanged(checked,'job role')} options={divisions} name="name"/>
         }
 

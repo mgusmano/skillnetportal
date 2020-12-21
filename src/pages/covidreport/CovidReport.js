@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Horizontal from '../../layout/Horizontal'
 import Vertical from '../../layout/Vertical'
 import Splitter from '../../layout/Splitter'
@@ -48,9 +48,36 @@ const Summary = (props) => {
   )
 }
 
-const CovidReport = (props) => {
-  const [currentdashboard, setCurrentDashboard] = useState(null) //PreVisit Health PostVisit Comply
+function useEvent(event, handler, passive=false) {
+  useEffect(() => {
+    window.addEventListener(event, handler, passive);
+    return function cleanup() {
+      window.removeEventListener(event, handler);
+    };
+  });
+}
 
+// const useConstructor = (callBack = () => {}) => {
+//   const hasBeenCalled = useRef(false);
+//   if (hasBeenCalled.current) return;
+//   callBack();
+//   hasBeenCalled.current = true;
+// }
+//const [constructorHasRun, setConstructorHasRun] = useState(false);
+
+const CovidReport = (props) => {
+  const [currentdashboard, setCurrentDashboard] = useState(null)
+  useEvent('currentdashboard',(e) => {
+    console.log('set is here')
+    setCurrentDashboard(e.detail.payload)
+  })
+
+  var initFilters = null
+  if (props.jobrole != null) {
+    initFilters = {divisions: props.jobrole}
+  }
+  const [filters, setFilters] = useState(initFilters)
+  useEvent('fromcovidfilters',(e) => {setFilters(e.detail.payload)})
 
   const [numcomplete, setNumcomplete] = useState(null)
 
@@ -81,34 +108,42 @@ const CovidReport = (props) => {
 
   const [dategenerated, setDategenerated] = useState('')
 
-  const [filters, setFilters] = useState(null)
-  const onMessage = useCallback((e) => {
-    if (!e.detail) {return}
-    switch (e.detail.type) {
-      case 'fromcovidfilters':
-        setFilters(e.detail.payload)
-        break;
-      default:
-        break;
-    }
-  }, [])
+
+  // const onMessage = useCallback((e) => {
+  //   if (!e.detail) {return}
+  //   switch (e.detail.type) {
+  //     case 'fromcovidfilters':
+  //       setFilters(e.detail.payload)
+  //       break;
+  //     case 'currentdashboard':
+  //       setCurrentDashboard(e.detail.payload)
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [])
 
   useEffect(() => {
     var calcmodule = window['calcmodule']
     console.log('useEffect CovidReport')
-    var url
-    if (filters == null) { url = 'data/coviddetail.json' }
-    else { url = 'data/coviddetail.json' }
+
+    //setFilters({divisions: 'Claims'})
+
+    // var url
+    // if (filters == null) { url = 'data/coviddetail.json' }
+    // else { url = 'data/coviddetail.json' }
+    var url = 'data/coviddetail.json'
+    var numCompleteArray = []
+
+
 
     axios
     .get(url, {})
     .then((response) => {
       if (filters === null) {
-        setCurrentDashboard('PreVisit')
+        //setCurrentDashboard(props.currentdashboard)
         var allArray = response.data.data
-        var numCompleteArray = allArray.filter(response => response['status'] === 'Complete')
-
-        //var numCompleteArray = getFilters(response.data.data, filters)
+        numCompleteArray = allArray.filter(response => response['status'] === 'Complete')
         setNumcomplete(response.data.numcomplete)
 
         //PreVisit
@@ -138,7 +173,8 @@ const CovidReport = (props) => {
 
       }
       else {
-        var numCompleteArray = getFilters(response.data.data, filters)
+        console.log(filters)
+        numCompleteArray = getFilters(response.data.data, filters)
         setNumcomplete(numCompleteArray.length)
 
         //PreVisit
@@ -166,20 +202,28 @@ const CovidReport = (props) => {
         setFiveDayPostVisitChart(getFiveDayPostVisitChart(calcmodule.FiveDayPostVisitCalculations(numCompleteArray)))
         //Comply
 
+        // if (currentdashboard == null) {
+        //   setCurrentDashboard(props.currentdashboard)
+        // }
+
+      }
+      if (currentdashboard == null) {
+        setCurrentDashboard(props.currentdashboard)
       }
       setDategenerated(response.data.dategenerated.replace(/T/, ' ').replace(/\..+/, '') + ' (UTC)')
 
-      window.addEventListener('mjg', onMessage);
-      return function cleanup() {
-        window.removeEventListener('mjg', onMessage);
-      };
+      // window.addEventListener('mjg', onMessage);
+      // return function cleanup() {
+      //   window.removeEventListener('mjg', onMessage);
+      // };
     })
     .catch((error) => {
       console.log(error)
     })
-  }, [onMessage, filters]);
+  }, [filters, props.currentdashboard, currentdashboard]);
 
   const onClick = (e) => {
+    console.log(e.target.innerHTML)
     setCurrentDashboard(e.target.innerHTML)
   }
 
@@ -189,22 +233,21 @@ const CovidReport = (props) => {
       <div style={{display:'flex',flex:'1',flexDirection:'column',background:'lightgray'}}>
 
         <div style={{height:'40px',background:'white',padding:'5px 0 0 20px',display:'flex',alignItems:'center',justifyContent:'center'}}>
-          <Button onClick={onClick} style={{color:'white',background:currentdashboard == 'PreVisit'  ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PreVisit</Button>
-          <Button onClick={onClick} style={{color:'white',background:currentdashboard == 'Health'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Health</Button>
-          <Button onClick={onClick} style={{color:'white',background:currentdashboard == 'PostVisit' ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PostVisit</Button>
-          <Button onClick={onClick} style={{color:'white',background:currentdashboard == 'Comply'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Comply</Button>
+          <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'PreVisit'  ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PreVisit</Button>
+          <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'Health'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Health</Button>
+          <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'PostVisit' ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PostVisit</Button>
+          <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'Comply'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Comply</Button>
         </div>
 
         {currentdashboard === null &&
         <div style={{padding:'30px',fontSize:'44px'}}>Loading...</div>
         }
 
-
         {/* PreVisit */}
         {currentdashboard === 'PreVisit' &&
         <Vertical style={{flex:'1',background:'lightgray'}}>
           <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-            <div>COVID-19 Pre-Visit Site Assessment</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
+            <div>COVID-19 Pre-Visit Site Assessment {props.jobrole}</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
           </div>
 
           <div style={{display:'flex',flexDirection:'row'}}>
@@ -245,12 +288,12 @@ const CovidReport = (props) => {
         {currentdashboard === 'Health' &&
         <Vertical style={{flex:'1',background:'lightgray'}}>
           <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-            <div>COVID-19 Health Assessment Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
+            <div>COVID-19 Health Assessment Dashboard {props.jobrole}</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
           </div>
           <div style={{display:'flex',flexDirection:'row'}}>
             {authorizations != null &&
             <>
-              <div style={{flex:'1'}}><Summary name='Total Assignments' value={authorizations.totalassignments}/></div>
+              <div style={{flex:'1'}}><Summary name='Total Health Assessments Completed' value={authorizations.totalassignments}/></div>
               <div style={{flex:'1'}}><Summary name='Total Authorized' value={authorizations.totalauthorized}/></div>
               <div style={{flex:'1'}}><Summary name='Total Not Authorized' value={authorizations.totalnotauthorized}/></div>
             </>
@@ -280,7 +323,7 @@ const CovidReport = (props) => {
         {currentdashboard === 'PostVisit' &&
         <Vertical style={{flex:'1',background:'lightgray'}}>
           <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-            <div>COVID-19 Post-Visit Controls Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
+            <div>COVID-19 Post-Visit Controls Dashboard {props.jobrole}</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
           </div>
           <div style={{marginTop:'20px',marginLeft:'20px',fontSize:'24px'}}>On-Site Social Distance (based on: Completed Policyholder Post-Visit Surveys)</div>
           <div style={{display:'flex',flexDirection:'row'}}>
@@ -323,7 +366,7 @@ const CovidReport = (props) => {
         {currentdashboard === 'Comply' &&
         <Vertical style={{flex:'1',background:'lightgray'}}>
           <div style={{display:'flex',padding:'10px 0 10px 20px',justifyContent:'space-between',flexDirection:'row',background:'rgb(59,110,143)',color:'white',textAlign:'center',fontSize:'24px'}}>
-            <div>COVID-19 Consultant Compliance Dashboard</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
+            <div>COVID-19 Consultant Compliance Dashboard {props.jobrole}</div><div style={{fontSize:'14px',marginRight:'20px'}}>data as of: {dategenerated}<br/>{numcomplete} filtered policyholder visits scheduled</div>
           </div>
           <div style={{display:'flex',flexDirection:'row', height:'400px'}}>
             {dayofhealthassessmentchart != null &&
@@ -340,8 +383,8 @@ const CovidReport = (props) => {
       </div>
 
       <Splitter/>
-      <Vertical style={{display:props.filterdisplay,width:'250px'}}>
-        <CovidReportProperties/>
+      <Vertical style={{display:props.filterdisplay,width:'275px'}}>
+        <CovidReportProperties jobrole={props.jobrole}/>
       </Vertical>
     </Horizontal>
   )

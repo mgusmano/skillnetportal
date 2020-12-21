@@ -6,7 +6,7 @@ import GMI from './images/GMI.png';
 import CNA from './images/CNA.png';
 import logoImg from './images/logo.png';
 
-import ProfileDialog from './widgets/skillnet/ProfileDialog'
+//import ProfileDialog from './widgets/skillnet/ProfileDialog'
 
 import CardWidget from './widgets/skillnet/CardWidget'
 import MapWidget from './widgets/skillnet/MapWidget'
@@ -38,7 +38,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 const CardReport = (props) => {
   const { showlob, Partner } = props
   const { PartnerID, PartnerName, PersonID } = Partner;
-  const [addWidgetOpen, setAddWidgetOpen] = useState(false);
+  //const [addWidgetOpen, setAddWidgetOpen] = useState(false);
   const [filterdisplay, setFilterDisplay] = useState('block')
   const [propertywidth] = useState('375px')
 
@@ -52,7 +52,7 @@ const CardReport = (props) => {
   var SMEOnly = props.SMEOnly
 
   //console.log(SMEOnly)
-  if (SMEOnly == undefined) {
+  if (SMEOnly === undefined) {
     SMEOnly = false
   }
 
@@ -60,9 +60,9 @@ const CardReport = (props) => {
   // console.log('PartnerName',PartnerName)
   // console.log('PersonID',PersonID)
 
-  const handleAddWidgetClose = (values) => {
-    setAddWidgetOpen(false);
-  };
+  // const handleAddWidgetClose = (values) => {
+  //   setAddWidgetOpen(false);
+  // };
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);

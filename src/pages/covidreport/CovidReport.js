@@ -227,17 +227,34 @@ const CovidReport = (props) => {
     setCurrentDashboard(e.target.innerHTML)
   }
 
+  const onClickJobAid = (e) => {
+    const element = document.createElement("a");
+    element.href = '/data/CNA COVID-19 Dashboard Job Aid January 2021.pdf';
+    element.download = "CNA COVID-19 Dashboard Job Aid January 2021.pdf";
+    document.body.appendChild(element);
+    element.click();
+  }
+
   return (
 
     <Horizontal>
       <div style={{display:'flex',flex:'1',flexDirection:'column',background:'lightgray'}}>
 
-        <div style={{height:'40px',background:'white',padding:'5px 0 0 20px',display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div style={{display:'flex',height:'50px',background:'white',justifyContent:'space-between'}}>
+        <div style={{padding:'5px 0 0 20px',display:'flex',alignItems:'center',justifyContent:'center'}}>
+        </div>
+        <div style={{background:'white',padding:'5px 0 0 20px',display:'flex',alignItems:'center',justifyContent:'center'}}>
           <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'PreVisit'  ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PreVisit</Button>
           <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'Health'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Health</Button>
           <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'PostVisit' ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>PostVisit</Button>
           <Button onClick={onClick} style={{color:'white',background:currentdashboard === 'Comply'    ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Comply</Button>
         </div>
+        <div style={{height:'40px',background:'white',padding:'5px 0 0 20px',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <Button onClick={onClickJobAid} style={{color:'white',background:currentdashboard === 'Job Aid'  ? 'green' : 'rgb(59,110,143)',marginRight:'5px'}}>Job Aid</Button>
+        </div>
+      </div>
+
+
 
         {currentdashboard === null &&
         <div style={{padding:'30px',fontSize:'44px'}}>Loading...</div>

@@ -149,7 +149,7 @@
     var totalsymptomsnh= allArray.filter(response => response['symptomsnh'] === "Yes").length
     var totalcovidcontactnh= allArray.filter(response => response['covidcontactnh'] === "Yes").length
     var totalnonessentialtravelnh= allArray.filter(response => response['nonessentialtravelnh'] === "Yes").length
-    var totalpreventmask= allArray.filter(response => response['preventmask'] === "Yes").length
+    //mjg var totalpreventmask= allArray.filter(response => response['preventmask'] === "Yes").length
 
     var o = {
       totalcurrentlysick,
@@ -158,22 +158,28 @@
       totalsymptomsnh,
       totalcovidcontactnh,
       totalnonessentialtravelnh,
-      totalpreventmask,
+      //totalpreventmask,
     }
     return o
   }
 
   exports.HealthQuestionsCalculations = function(allArray) {
-    var totalcurrentlysick= allArray.filter(response => response['currentlysick'] === "Yes").length
-    var totalhadcontact= allArray.filter(response => response['hadcontact'] === "Yes").length
     var totalsymptoms= allArray.filter(response => response['symptoms'] === "Yes").length
-    var totalpreventmask= allArray.filter(response => response['preventmask'] === "Yes").length
+    var totalhadcontact= allArray.filter(response => response['hadcontact'] === "Yes").length
+    var totalcurrentlysick= allArray.filter(response => response['currentlysick'] === "Yes").length
+
+    var totalawaitingresults= allArray.filter(response => response['awaitingresults'] === "Yes").length
+    var totaltraveledtowidespreadlocation= allArray.filter(response => response['traveledtowidespreadlocation'] === "Yes").length
+
+    //var totalpreventmask= allArray.filter(response => response['preventmask'] === "Yes").length
 
     var o = {
-      totalcurrentlysick,
-      totalhadcontact,
       totalsymptoms,
-      totalpreventmask,
+      totalhadcontact,
+      totalcurrentlysick,
+      totalawaitingresults,
+      totaltraveledtowidespreadlocation,
+      //totalpreventmask,
     }
     return o
   }
@@ -397,7 +403,6 @@
     }
     return o
   }
-
 
 
 

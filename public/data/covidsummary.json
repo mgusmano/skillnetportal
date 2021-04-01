@@ -1,10 +1,10 @@
 {
-  "dategenerated": "2021-01-04T14:49:56.819Z",
+  "dategenerated": "2021-02-03T13:08:13.556Z",
   "workassignmentsstart": "09/10/2020",
-  "workassignmentsend": "12/23/2021",
-  "totalcount": 3985,
-  "numnotcomplete": 8,
-  "numcomplete": 3977,
+  "workassignmentsend": "04/06/2021",
+  "totalcount": 5403,
+  "numnotcomplete": 14,
+  "numcomplete": 5390,
   "numcompletenull": 0,
   "countries": [
     {
@@ -14,6 +14,14 @@
     {
       "id": 2,
       "name": "United Kingdom"
+    },
+    {
+      "id": 3,
+      "name": "Canada"
+    },
+    {
+      "id": 4,
+      "name": "Austria"
     }
   ],
   "jobroles": [
@@ -31,38 +39,38 @@
     }
   ],
   "comfortlevel": {
-    "denominator": 3977,
-    "totalcomfortable": 3973,
-    "totalnotcomfortable": 4,
-    "percentcomfortable": "99.90",
-    "percentnotcomfortable": "0.10"
+    "denominator": 5390,
+    "totalcomfortable": 5384,
+    "totalnotcomfortable": 6,
+    "percentcomfortable": "99.89",
+    "percentnotcomfortable": "0.11"
   },
   "measures": {
-    "denominator": 3977,
-    "totalsocialdistancing": 3749,
-    "totalfacecoverings": 3839,
-    "totaltracingplan": 1498,
-    "totalhealthsafetyplan": 2455,
-    "totalemployeehealth": 1963,
-    "totalvisitorhealth": 1724,
-    "totalvendorprohibit": 39,
-    "totalothermeasures": 460,
-    "percentsocialdistancing": "94.27",
+    "denominator": 5390,
+    "totalsocialdistancing": 5073,
+    "totalfacecoverings": 5203,
+    "totaltracingplan": 2008,
+    "totalhealthsafetyplan": 3344,
+    "totalemployeehealth": 2649,
+    "totalvisitorhealth": 2331,
+    "totalvendorprohibit": 50,
+    "totalothermeasures": 569,
+    "percentsocialdistancing": "94.12",
     "percentfacecoverings": "96.53",
-    "percenttracingplan": "37.67",
-    "percenthealthsafetyplan": "61.73",
-    "percentemployeehealth": "49.36",
-    "percentvisitorhealth": "43.35",
-    "percentvendorprohibit": "0.98",
-    "percentothermeasures": "11.57"
+    "percenttracingplan": "37.25",
+    "percenthealthsafetyplan": "62.04",
+    "percentemployeehealth": "49.15",
+    "percentvisitorhealth": "43.25",
+    "percentvendorprohibit": "0.93",
+    "percentothermeasures": "10.56"
   },
   "authorizations": {
-    "denominator": 3387,
-    "totalassignments": 3387,
-    "totalauthorized": 3376,
-    "totalnotauthorized": 11,
-    "percentauthorized": "99.68",
-    "percentnotauthorized": "0.32"
+    "denominator": 4577,
+    "totalassignments": 4577,
+    "totalauthorized": 4560,
+    "totalnotauthorized": 17,
+    "percentauthorized": "99.63",
+    "percentnotauthorized": "0.37"
   },
   "workassignments": [
     {
@@ -71,11 +79,11 @@
     },
     {
       "label": "09/11/2020",
-      "value": 16
+      "value": 15
     },
     {
       "label": "09/14/2020",
-      "value": 33
+      "value": 32
     },
     {
       "label": "09/15/2020",
@@ -99,19 +107,19 @@
     },
     {
       "label": "09/21/2020",
-      "value": 30
+      "value": 29
     },
     {
       "label": "09/22/2020",
-      "value": 54
+      "value": 52
     },
     {
       "label": "09/23/2020",
-      "value": 61
+      "value": 60
     },
     {
       "label": "09/24/2020",
-      "value": 49
+      "value": 48
     },
     {
       "label": "09/25/2020",
@@ -119,11 +127,11 @@
     },
     {
       "label": "09/28/2020",
-      "value": 54
+      "value": 53
     },
     {
       "label": "09/29/2020",
-      "value": 91
+      "value": 90
     },
     {
       "label": "09/30/2020",
@@ -131,7 +139,7 @@
     },
     {
       "label": "10/01/2020",
-      "value": 79
+      "value": 78
     },
     {
       "label": "10/02/2020",
@@ -167,15 +175,15 @@
     },
     {
       "label": "10/12/2020",
-      "value": 23
+      "value": 22
     },
     {
       "label": "10/13/2020",
-      "value": 46
+      "value": 44
     },
     {
       "label": "10/14/2020",
-      "value": 70
+      "value": 69
     },
     {
       "label": "10/15/2020",
@@ -183,7 +191,7 @@
     },
     {
       "label": "10/16/2020",
-      "value": 55
+      "value": 54
     },
     {
       "label": "10/18/2020",
@@ -219,7 +227,7 @@
     },
     {
       "label": "10/26/2020",
-      "value": 40
+      "value": 41
     },
     {
       "label": "10/27/2020",
@@ -247,7 +255,7 @@
     },
     {
       "label": "11/02/2020",
-      "value": 41
+      "value": 40
     },
     {
       "label": "11/03/2020",
@@ -255,11 +263,11 @@
     },
     {
       "label": "11/04/2020",
-      "value": 74
+      "value": 73
     },
     {
       "label": "11/05/2020",
-      "value": 75
+      "value": 74
     },
     {
       "label": "11/06/2020",
@@ -279,11 +287,11 @@
     },
     {
       "label": "11/10/2020",
-      "value": 69
+      "value": 68
     },
     {
       "label": "11/11/2020",
-      "value": 76
+      "value": 74
     },
     {
       "label": "11/12/2020",
@@ -311,11 +319,11 @@
     },
     {
       "label": "11/18/2020",
-      "value": 77
+      "value": 74
     },
     {
       "label": "11/19/2020",
-      "value": 64
+      "value": 63
     },
     {
       "label": "11/20/2020",
@@ -363,7 +371,7 @@
     },
     {
       "label": "12/03/2020",
-      "value": 81
+      "value": 80
     },
     {
       "label": "12/04/2020",
@@ -387,15 +395,15 @@
     },
     {
       "label": "12/09/2020",
-      "value": 69
-    },
-    {
-      "label": "12/10/2020",
       "value": 68
     },
     {
+      "label": "12/10/2020",
+      "value": 66
+    },
+    {
       "label": "12/11/2020",
-      "value": 48
+      "value": 45
     },
     {
       "label": "12/12/2020",
@@ -407,11 +415,11 @@
     },
     {
       "label": "12/14/2020",
-      "value": 63
+      "value": 62
     },
     {
       "label": "12/15/2020",
-      "value": 92
+      "value": 89
     },
     {
       "label": "12/16/2020",
@@ -419,11 +427,11 @@
     },
     {
       "label": "12/17/2020",
-      "value": 42
+      "value": 38
     },
     {
       "label": "12/18/2020",
-      "value": 26
+      "value": 25
     },
     {
       "label": "12/19/2020",
@@ -435,7 +443,7 @@
     },
     {
       "label": "12/21/2020",
-      "value": 16
+      "value": 14
     },
     {
       "label": "12/22/2020",
@@ -471,54 +479,203 @@
     },
     {
       "label": "01/04/2021",
-      "value": 14
+      "value": 21
     },
     {
       "label": "01/05/2021",
-      "value": 9
+      "value": 61
     },
     {
       "label": "01/06/2021",
-      "value": 8
+      "value": 86
     },
     {
       "label": "01/07/2021",
-      "value": 10
+      "value": 79
     },
     {
       "label": "01/08/2021",
-      "value": 2
+      "value": 48
+    },
+    {
+      "label": "01/09/2021",
+      "value": 5
+    },
+    {
+      "label": "01/10/2021",
+      "value": 5
     },
     {
       "label": "01/11/2021",
-      "value": 1
+      "value": 42
     },
     {
       "label": "01/12/2021",
-      "value": 2
+      "value": 87
+    },
+    {
+      "label": "01/13/2021",
+      "value": 88
+    },
+    {
+      "label": "01/14/2021",
+      "value": 90
     },
     {
       "label": "01/15/2021",
+      "value": 41
+    },
+    {
+      "label": "01/16/2021",
       "value": 1
+    },
+    {
+      "label": "01/17/2021",
+      "value": 6
+    },
+    {
+      "label": "01/18/2021",
+      "value": 21
+    },
+    {
+      "label": "01/19/2021",
+      "value": 71
+    },
+    {
+      "label": "01/20/2021",
+      "value": 62
+    },
+    {
+      "label": "01/21/2021",
+      "value": 63
+    },
+    {
+      "label": "01/22/2021",
+      "value": 26
+    },
+    {
+      "label": "01/23/2021",
+      "value": 4
+    },
+    {
+      "label": "01/24/2021",
+      "value": 5
+    },
+    {
+      "label": "01/25/2021",
+      "value": 41
+    },
+    {
+      "label": "01/26/2021",
+      "value": 73
+    },
+    {
+      "label": "01/27/2021",
+      "value": 65
+    },
+    {
+      "label": "01/28/2021",
+      "value": 95
+    },
+    {
+      "label": "01/29/2021",
+      "value": 34
+    },
+    {
+      "label": "01/30/2021",
+      "value": 9
+    },
+    {
+      "label": "01/31/2021",
+      "value": 5
     },
     {
       "label": "02/01/2021",
-      "value": 2
+      "value": 49
     },
     {
       "label": "02/02/2021",
+      "value": 63
+    },
+    {
+      "label": "02/03/2021",
+      "value": 50
+    },
+    {
+      "label": "02/04/2021",
+      "value": 43
+    },
+    {
+      "label": "02/05/2021",
+      "value": 22
+    },
+    {
+      "label": "02/06/2021",
+      "value": 3
+    },
+    {
+      "label": "02/07/2021",
       "value": 1
     },
     {
-      "label": "12/23/2021",
+      "label": "02/08/2021",
+      "value": 8
+    },
+    {
+      "label": "02/09/2021",
+      "value": 5
+    },
+    {
+      "label": "02/10/2021",
+      "value": 2
+    },
+    {
+      "label": "02/11/2021",
+      "value": 5
+    },
+    {
+      "label": "02/12/2021",
+      "value": 2
+    },
+    {
+      "label": "02/16/2021",
+      "value": 3
+    },
+    {
+      "label": "02/17/2021",
+      "value": 6
+    },
+    {
+      "label": "02/18/2021",
+      "value": 3
+    },
+    {
+      "label": "02/22/2021",
+      "value": 1
+    },
+    {
+      "label": "02/25/2021",
+      "value": 2
+    },
+    {
+      "label": "03/02/2021",
+      "value": 2
+    },
+    {
+      "label": "03/04/2021",
+      "value": 1
+    },
+    {
+      "label": "04/06/2021",
       "value": 1
     }
   ],
   "healthquestions": {
+    "totalsymptoms": 5,
+    "totalhadcontact": 9,
     "totalcurrentlysick": 2,
-    "totalhadcontact": 5,
-    "totalsymptoms": 4,
-    "totalpreventmask": 0
+    "totalawaitingresults": 1,
+    "totaltraveledtowidespreadlocation": 0
   },
   "healthquestionsNH": {
     "totalsymptomsnh": 0,
@@ -526,46 +683,46 @@
     "totalnonessentialtravelnh": 0
   },
   "workwithcounts": {
-    "totalworkwithlength": 3241,
-    "denominator": 3241,
-    "totalworkwith0": 621,
-    "totalworkwith1to3": 2539,
-    "totalworkwith4to10": 63,
-    "totalworkwith11to25": 0,
+    "totalworkwithlength": 4384,
+    "denominator": 4384,
+    "totalworkwith0": 633,
+    "totalworkwith1to3": 3543,
+    "totalworkwith4to10": 128,
+    "totalworkwith11to25": 2,
     "totalworkwithmorethan25": 8,
-    "percentworkwith0": "19.16",
-    "percentworkwith1to3": "78.34",
-    "percentworkwith4to10": "1.94",
-    "percentworkwith11to25": "0.00",
-    "percentworkwithmorethan25": "0.25"
+    "percentworkwith0": "14.44",
+    "percentworkwith1to3": "80.82",
+    "percentworkwith4to10": "2.92",
+    "percentworkwith11to25": "0.05",
+    "percentworkwithmorethan25": "0.18"
   },
   "compliance": {
-    "denominator": 3241,
-    "totalcompliant": 3209,
-    "totalnoncompliant": 32,
-    "percentcompliant": "99.01",
-    "percentnoncompliant": "0.99"
+    "denominator": 4384,
+    "totalcompliant": 4345,
+    "totalnoncompliant": 39,
+    "percentcompliant": "99.11",
+    "percentnoncompliant": "0.89"
   },
   "addressnoncompliance": {
-    "denominator": 3977,
-    "totaladdressnoncompliance": 26,
-    "totalnotaddressnoncompliance": 1,
-    "percentaddressnoncompliance": "0.65",
-    "percentnotaddressnoncompliance": "0.03"
+    "denominator": 5390,
+    "totaladdressnoncompliance": 30,
+    "totalnotaddressnoncompliance": 3,
+    "percentaddressnoncompliance": "0.56",
+    "percentnotaddressnoncompliance": "0.06"
   },
   "corrections": {
-    "denominator": 26,
-    "totalmorephysicaldistance": 19,
+    "denominator": 30,
+    "totalmorephysicaldistance": 21,
     "totalaskforchange": 1,
-    "totaladdedppe": 4,
+    "totaladdedppe": 8,
     "totaldidnotgointoarea": 0,
     "totalrescheduledvisit": 0,
     "totalothercorrections": 6,
-    "percentmorephysicaldistance": "73.08",
-    "percentaskforchange": "3.85",
-    "percentaddedppe": "15.38",
+    "percentmorephysicaldistance": "70.00",
+    "percentaskforchange": "3.33",
+    "percentaddedppe": "26.67",
     "percentdidnotgointoarea": "0.00",
     "percentrescheduledvisit": "0.00",
-    "percentothercorrections": "23.08"
+    "percentothercorrections": "20.00"
   }
 }

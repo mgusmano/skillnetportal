@@ -7,6 +7,9 @@ import { Card, Logo, Form, Input, Button, Error } from "../../components/AuthFor
 import { useAuth } from "../../context/auth";
 
 function Login(props) {
+
+  console.log(props)
+  //if (props.location.pathname == '')
   const [referer, setReferer] = useState('/'); //var referer = '/cardcnasme';
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);

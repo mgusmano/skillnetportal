@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Top from './Top';
 import Header from './Header';
 
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import { useLocation, Route, Switch, useHistory, Redirect } from 'react-router-dom';
 //import { BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 import SideMenu from 'react-sidemenu';
@@ -24,11 +24,11 @@ import Dynamic from './pages/dynamic/Dynamic'
 
 import CovidReport from './pages/covidreport/CovidReport';
 
-import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
-import CovidReportHealth from './pages/covidreport/CovidReportHealth';
-//import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
-import CovidReportPostVisit from './pages/covidreport/CovidReportPostVisit';
-import CovidReportComply from './pages/covidreport/CovidReportComply';
+// import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
+// import CovidReportHealth from './pages/covidreport/CovidReportHealth';
+// //import CovidReportOnSite from './pages/covidreport/CovidReportOnSite';
+// import CovidReportPostVisit from './pages/covidreport/CovidReportPostVisit';
+// import CovidReportComply from './pages/covidreport/CovidReportComply';
 import CovidReportDetail from './pages/covidreport/CovidReportDetail';
 
 import Dashboard from './pages/benchmarkreport/Dashboard';
@@ -72,22 +72,37 @@ function App(props) {
 
   const items = [];
 
+  const location = useLocation();
+
+  if (authTokens == '') {
+    switch (location.pathname) {
+      case '/cnasme':
+        items.push({label: 'Risk Control SME Report', value: '/cnasme', icon: 'fa-id-card'})
+        break;
+      case '/cnaadmin':
+        items.push({label: 'Risk Control SME', value: '/cnasme', icon: 'fa-id-card'})
+        items.push({label: 'Risk Control Skills Report', value: '/cnacard', icon: 'fa-id-card'})
+        items.push({label: 'Benchmark Report', value: '/cnabenchmark', icon: 'fa-balance-scale'})
+        break;
+    }
+  }
+
   switch (authTokens) {
     case 'cnasme':
-      items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
+      items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
       //setActivemenu('/cardcnasme')
       break;
 
     case 'cnaadmin':
-      items.push({label: 'Risk Control SME', value: '/cardcnasme', icon: 'fa-id-card'})
-      items.push({label: 'Card Report', value: '/cardcna', icon: 'fa-id-card'})
+      items.push({label: 'Risk Control SME Report', value: '/cardcnasme', icon: 'fa-id-card'})
+      items.push({label: 'Risk Control Skills Report', value: '/cardcna', icon: 'fa-id-card'})
       items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
       //setActivemenu('/cardcna')
       break;
 
     case 'cna':
-      items.push({label: 'Card Report - CNA', value: '/cardcna', icon: 'fa-id-card'})
-      items.push({label: 'Benchmark - CNA', value: '/benchmarkcna', icon: 'fa-balance-scale'})
+      items.push({label: 'Risk Control Skills Report', value: '/cardcna', icon: 'fa-id-card'})
+      items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
 
       //setActivemenu('/cardcna')
       break;
@@ -150,11 +165,14 @@ function App(props) {
       break;
   }
 
-  items.push({label: 'Logout', value: '/login', icon: 'fa-sign-out'})
+  if (authTokens != '') {
+    items.push({label: 'Logout', value: '/login', icon: 'fa-sign-out'})
+  }
 
   const history = useHistory();
 
   const setTokens = (data) => {
+    console.log(data)
     localStorage.setItem("tokens", JSON.stringify(data));
     setAuthTokens(data);
   }
@@ -261,14 +279,21 @@ function App(props) {
             <PrivateRoute path="/cnacovidpremiumaudit"  component={() => <CovidReport jobrole={'Premium Audit'} currentdashboard={currentdashboard}/>} />
 
             <PrivateRoute path="/cardcnasme" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
+            <PrivateRoute path="/cardcnaadmin" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
+
+            <Route path="/cnasme" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
+            <Route path="/cnaadmin" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' SMEOnly={true} showlob={false}/>} />
+            <Route path="/cnacard" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
+            <Route path="/cnabenchmark" component={() => <Dashboard Partner={PartnerCNA}/>}  />
+
             <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
             <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} PartnerID='434' showlob={false}/>} />
             <PrivateRoute path="/benchmarkcna" component={() => <Dashboard Partner={PartnerCNA}/>}  />
             <PrivateRoute path="/benchmarkgmisb" component={() => <Dashboard Partner={PartnerGMIsb}/>}  />
-            <PrivateRoute path="/covidcnaprevisit"  component={() => <CovidReportPreVisit  filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            {/* <PrivateRoute path="/covidcnaprevisit"  component={() => <CovidReportPreVisit  filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
             <PrivateRoute path="/covidcnahealth"    component={() => <CovidReportHealth    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
             <PrivateRoute path="/covidcnapostvisit" component={() => <CovidReportPostVisit filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
-            <PrivateRoute path="/covidcnacomply"    component={() => <CovidReportComply    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
+            <PrivateRoute path="/covidcnacomply"    component={() => <CovidReportComply    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} /> */}
             <PrivateRoute path="/covidcnadetail"    component={() => <CovidReportDetail    filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
             <PrivateRoute path="/loginx" component={() => <Login Partner={PartnerCNA}/>} />
             <PrivateRoute path="/admin" component={Admin} />

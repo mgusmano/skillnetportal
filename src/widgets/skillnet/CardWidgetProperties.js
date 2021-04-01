@@ -25,6 +25,8 @@ const DropDown = (props) => {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const { who, onChanged, options, name, multiple} = props
 
+  console.log(options)
+  console.log(name)
 
   // {multiple === true &&
   //   renderOption={(options, { selected }) => (
@@ -707,7 +709,7 @@ const CardWidgetProperties = (props) => {
     'managerids=' + manageridsstring + '&' +
     'percentages=' + percentidsstring + '&' +
     'skillids=' + skillidsstring
-    console.log(url)
+    console.log('url',url)
 
     axios
     .get(url, {
@@ -716,7 +718,8 @@ const CardWidgetProperties = (props) => {
     .then((response) => {
       console.log('filtered users', response)
       setNumberofusersdisplayed(response.data.length)
-
+console.log('dummy data here')
+console.log(response.data)
       SendIt('fromcardfilteredusers', {users: response.data})
       setButtonLabel('Apply All Filters')
     })
@@ -890,8 +893,12 @@ onClick={e => (e.stopPropagation())}
 <div style={{marginTop:'40px'}}>Number of Users Displayed: {numberofusersdisplayed}</div>
 } */}
 
+{smes !== null &&
+<DropDown multiple={true} who="Technical SME" onChanged={(event,checked) => filterChanged(checked,'smes')} options={smes} name="SmeName"/>
+}
+
 {leaders !== null &&
-<DropDown multiple={true} who="Leaders" onChanged={(event,checked) => filterChanged(checked,'leaders')} options={leaders} name="LeaderName"/>
+<DropDown multiple={true} who="R.C. Home Office Leader" onChanged={(event,checked) => filterChanged(checked,'leaders')} options={leaders} name="LeaderName"/>
 }
 
 {lobs !== null &&
@@ -900,9 +907,7 @@ onClick={e => (e.stopPropagation())}
 
 
 
-{smes !== null &&
-<DropDown multiple={true} who="SMEs" onChanged={(event,checked) => filterChanged(checked,'smes')} options={smes} name="SmeName"/>
-}
+
 
 {positions !== null &&
 <DropDown multiple={true} who="Positions" onChanged={(event,checked) => filterChanged(checked,'positions')} options={positions} name="JobName"/>

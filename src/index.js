@@ -5,6 +5,8 @@ import './index.css';
 import './menu.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import FusionCharts from 'fusioncharts';
+import { ModalProvider } from "react-modal-hook"
+import { TransitionGroup } from "react-transition-group"
 
 FusionCharts.options.license({ key: 'aaC1itzB1F2F5E2C1G2C2A3B4C5C5D4yi1j1A7A3A3pB3F1F2edsB2A6D2D-11C-9nE1G2C11mwuB4F1D4H2D3B3D8E2F4D5D3jI-8G-7B6A6OC2ptkD1J2B3ziB1BD3G4ggpB9D2C6F2G2H2C1I4A2A2B8D7D6E3n==', creditLabel: false });
 
@@ -12,7 +14,10 @@ FusionCharts.options.license({ key: 'aaC1itzB1F2F5E2C1G2C2A3B4C5C5D4yi1j1A7A3A3p
 
 ReactDOM.render(
   <Router>
-    <App/>
+         <ModalProvider rootComponent={TransitionGroup}>
+         <App/>
+         </ModalProvider>
+
   </Router>,
   document.getElementById('root')
 );

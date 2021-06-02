@@ -1,0 +1,24 @@
+.slice {
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  z-index: 2000;
+}
+
+.slice:hover {
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  z-index: 1000;
+  fill:yellow !important;
+}
+
+.container {
+  border: 1px solid gray;
+  background: white; 
+  font-weight: bold;
+  overflow: hidden;
+  xresize: auto;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  xxjustify-content: center;
+  xxalign-items: center;
+  margin: 0 auto;
+}

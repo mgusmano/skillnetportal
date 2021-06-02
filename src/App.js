@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Top from './Top';
 import Header from './Header';
+import TopMenu from './TopMenu';
 
 import { useLocation, Route, Switch, useHistory, Redirect } from 'react-router-dom';
 //import { BrowserRouter as Router, Redirect } from 'react-router-dom';
@@ -21,6 +22,7 @@ import Home from './pages/home/Home';
 import CardReport from './CardReport';
 import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
+import { Matrix } from './pages/matrix/Matrix'
 
 import CovidReport from './pages/covidreport/CovidReport';
 
@@ -88,6 +90,17 @@ function App(props) {
   }
 
   switch (authTokens) {
+
+    case 'mjg':
+      items.push({label: 'Matrix', value: '/matrix', icon: 'fa-clipboard'})
+      items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidpremiumaudit', icon: 'fa-clipboard'})
+      items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
+      items.push({label: 'Absolute', value: '/absolute', icon: 'fa-clipboard'})
+      items.push({label: 'Dynamic', value: '/dynamic', icon: 'fa-clipboard'})
+      items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
+      break;
+
+
     case 'cnasme':
       items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
       //setActivemenu('/cardcnasme')
@@ -134,6 +147,7 @@ function App(props) {
       break;
 
 
+
     case 'cnacovidadmin':
 
       items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovid', icon: 'fa-clipboard', children: [
@@ -153,6 +167,7 @@ function App(props) {
       items.push({label: 'Detail', value: '/covidcnadetail', icon: 'fa-clipboard'})
       items.push({label: 'Absolute', value: '/absolute', icon: 'fa-clipboard'})
       items.push({label: 'Dynamic', value: '/dynamic', icon: 'fa-clipboard'})
+
       //setActivemenu('/covidcnaprevisit')
       break;
 
@@ -242,10 +257,11 @@ function App(props) {
       <Vertical>
         <Top/>
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
+        <TopMenu menuClick={onMenuClick} filterClick={onFilterClick}/>
         {/* <Separator/> */}
         <Horizontal style={{width:'100%',background:'blue'}}>
           {/* <Menu/> */}
-          <Vertical style={{display:menudisplay,height:'100%',background:'black'}}>
+          <Vertical style={{display:menudisplay,height:'100%',background:'black',width:'0'}}>
             <div style={{height:'50px'}}></div>
             <SideMenu
               items={items}
@@ -272,6 +288,7 @@ function App(props) {
             {/* <Route path="/" component={() => <Home/>} exact /> */}
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
+            <PrivateRoute path="/matrix" component={() => <Matrix/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
             <PrivateRoute path="/cnacovidriskcontrol"  component={() => <CovidReport jobrole={'Risk Control'} currentdashboard={currentdashboard}/>} />

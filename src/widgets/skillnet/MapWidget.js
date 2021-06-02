@@ -53,6 +53,7 @@ const MapWidget = (props) => {
     })
 
     function findObjectByKey(array, key, value) {
+      if (array == null) return null;
       for (var i = 0; i < array.length; i++) {
         if (array[i][key] === value) {
           return array[i];
@@ -60,8 +61,6 @@ const MapWidget = (props) => {
       }
       return null;
     }
-
-
 
     var hist = {};
     thelocations.map( function (a) {

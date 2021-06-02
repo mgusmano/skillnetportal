@@ -15,7 +15,7 @@ function Login(props) {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("skillnet");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("swipeguide");
   const { setAuthTokens } = useAuth();
   //const referer = props.location.state.referer || '/';
 

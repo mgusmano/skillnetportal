@@ -29,6 +29,10 @@ function Login(props) {
     }).then(result => {
       var where
       switch (password) {
+        case 'swipeguide':
+          where = '/matrix'
+          setReferer(where)
+          break;
         case 'cnasme':
           where = '/card' + password
           setReferer(where)

@@ -257,7 +257,10 @@ function App(props) {
       <Vertical>
         <Top/>
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
-        <TopMenu menuClick={onMenuClick} filterClick={onFilterClick}/>
+        {console.log(authTokens)}
+        {authTokens === 'swipeguide' &&
+        <TopMenu/>
+        }
         {/* <Separator/> */}
         <Horizontal style={{width:'100%',background:'blue'}}>
           {/* <Menu/> */}

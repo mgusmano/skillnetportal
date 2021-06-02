@@ -13,10 +13,10 @@ const TopMenu = (props) => {
 
         <div>
 
-            <Link style={{marginLeft:'550px',color:'white'}} to="/matrix">Dashboard</Link>
-            <Link style={{marginLeft:'50px',color:'white'}} to="/cardcnasme">Find Experts</Link>
-            <Link style={{marginLeft:'50px',color:'white'}} to="/benchmarkcna">Benchmark</Link>
-            <Link style={{marginLeft:'50px',color:'white'}} to="/benchmarkcna">My Admin</Link>
+            <Link style={{marginLeft:'60px',color:'white',textDecoration:'none'}} to="/matrix">Dashboard</Link>
+            <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/cardcnasme">Find Experts</Link>
+            <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/benchmarkcna">Benchmark</Link>
+            <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/benchmarkcna">My Admin</Link>
 
 
             </div>

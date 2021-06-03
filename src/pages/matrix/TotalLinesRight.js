@@ -5,9 +5,9 @@ export const TotalLinesRight = React.memo(({right, xTranslateStart, yTranslateSt
     <g transform={"translate(" + (xTranslateStart + 20) + "," + yTranslateStart + ")"} className="totalsright">
     {
       right.map((row,r) => {
-        console.log(row)
+        //console.log(row)
         return row.map((col,c) => {
-          console.log(r,c,col.v)
+          //console.log(r,c,col.v)
           return (
             <text stroke="black" x={(bandX*c)+10} y={(bandY*r)+40} class="small">{col.v}</text>
           )

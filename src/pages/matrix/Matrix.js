@@ -190,7 +190,7 @@ export const Matrix = React.memo(() => {
   // const COLOR = 'c';
   // const DEPTH = 'd';
 
-  const radius = 18;
+  const radius = 10;
   var spaceBetweenY = 25;
   var spaceBetweenX = 30;
   var yTranslateStart = 200;
@@ -253,15 +253,18 @@ export const Matrix = React.memo(() => {
     setShowCorner(!showCorner)
   }
 
+  //style={{overflow:'hidden',xdisplay:'flex',flexDirection:'row'}}
+
   return (
-    <div className='container' style={{display:'flex',flexDirection:'row'}} ref={ref}>
-      <div style={{display:'none'}}>
+    <div className='container' ref={ref}>
+      {/* <div style={{display:'none'}}>
       <button onClick={onShowGridLines} style={{width:'100px',margin:'0 0 0 150px',fontSize:'16px',background:'gray',color:'white'}} >Grid Lines</button>
       <button onClick={onShowTop} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >topStart</button>
       <button onClick={onShowLeft} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >Left</button>
       <button onClick={onShowCorner} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >Grid Corner</button>
     </div>
 
+    <div> */}
     <ParentsizeSVG align="none" elementRef={ref}>
       {
       widgetData !== [] &&
@@ -289,13 +292,13 @@ export const Matrix = React.memo(() => {
 
       {showTotalsRight &&
         <g transform={"translate(" + xTotalsRightStart + "," + yTotalsRightStart + ")"} className="totals">
-          <rect fill="lightgray" x="0" y="0" width="270" height={matrixHeight} />
+          <rect fill="lightgray" x="0" y="0" width="210" height={matrixHeight} />
         </g>
       }
 
       {showTotalsBottom &&
         <g transform={"translate(" + xTotalsBottomStart + "," + yTotalsBottomStart + ")"} className="totals">
-          <rect fill="lightgray" x="0" y="0" width={matrixWidth} height="200" />
+          <rect fill="lightgray" x="0" y="0" width={matrixWidth} height="150" />
         </g>
       }
 

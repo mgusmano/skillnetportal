@@ -24,6 +24,8 @@ import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
 import { Matrix } from './pages/matrix/Matrix'
 
+import MyAdmin from './pages/MyAdmin'
+
 import CovidReport from './pages/covidreport/CovidReport';
 
 // import CovidReportPreVisit from './pages/covidreport/CovidReportPreVisit';
@@ -273,7 +275,7 @@ function App(props) {
               activeItem={activemenu}
             />
           </Vertical>
-          <Splitter/>
+          {/* <Splitter/> */}
           {/* <Center/> */}
 
           <div
@@ -292,6 +294,7 @@ function App(props) {
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
             <PrivateRoute path="/matrix" component={() => <Matrix/>} />
+            <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
             <PrivateRoute path="/cnacovidriskcontrol"  component={() => <CovidReport jobrole={'Risk Control'} currentdashboard={currentdashboard}/>} />

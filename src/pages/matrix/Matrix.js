@@ -2,13 +2,12 @@ import React from 'react';
 
 export const Matrix = React.memo((props) => {
   const {data, name, translateX, translateY, radius, bandX, bandY} = props.params
-
   return (
     <g transform={"translate(" + translateX + "," + translateY + ")"} className={name}>
     {
       data.map((row,r) => {
         return (
-          <g transform={"translate(" + "0" + "," + bandY*r + ")"} className="row">
+          <g key={r} transform={"translate(" + "0" + "," + bandY*r + ")"} className="row">
           {
             row.data.map((col,c) => {
               return (

@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { ParentsizeSVG } from '@cutting/svg';
+import React from 'react';
+//import { ParentsizeSVG } from '@cutting/svg';
 //https://blog.logrocket.com/make-any-svg-responsive-with-this-react-component/
 import './ReactPieMatrix.css';
 //import { ReactPieMatrixTop } from './ReactPieMatrixTop';
@@ -403,24 +403,23 @@ export const TrainingMatrix = React.memo(() => {
 
   var NewPie
 
-  const [showGridLines,setShowGridLines] = React.useState(true);
-  const [showTop,setShowTop] = React.useState(true);
-  const [showLeft,setShowLeft] = React.useState(true);
-  const [showCorner,setShowCorner] = React.useState(false);
-  const onShowGridLines = () => {setShowGridLines(!showGridLines)}
-  const onShowTop = () => {setShowTop(!showTop)}
-  const onShowLeft = () => {setShowLeft(!showLeft)}
-  const onShowCorner = () => {setShowCorner(!showCorner)}
+  // const [showGridLines,setShowGridLines] = React.useState(true);
+  // const [showTop,setShowTop] = React.useState(true);
+  // const [showLeft,setShowLeft] = React.useState(true);
+  // const [showCorner,setShowCorner] = React.useState(false);
+  // const onShowGridLines = () => {setShowGridLines(!showGridLines)}
+  // const onShowTop = () => {setShowTop(!showTop)}
+  // const onShowLeft = () => {setShowLeft(!showLeft)}
+  // const onShowCorner = () => {setShowCorner(!showCorner)}
 
-  const [showTotalsRight,setShowTotalsRight] = React.useState(true);
-  const [showTotalsBottom,setShowTotalsBottom] = React.useState(true);
+  // const [showTotalsRight,setShowTotalsRight] = React.useState(true);
+  // const [showTotalsBottom,setShowTotalsBottom] = React.useState(true);
 
   const renderTop = (props,r,c,row,col) => {
     const {radius, bandX, bandY} = props
     var y = (bandX/2) + (bandX * c)
     var yp = y-15
     var i = r + c;
-    console.log(row)
     return (
       <g key={{i}} transform="translate(0,0)" className="header">
         <text style={{fontSize:radius*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
@@ -485,7 +484,7 @@ export const TrainingMatrix = React.memo(() => {
       c={c}
       bandX={bandX}
       bandY={bandY}
-      showCorner={showCorner}
+      showCorner={false}
       NewPie={NewPie}
 
       radius={radius}
@@ -495,10 +494,11 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   return (
-    <div xclassName="container" style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>
+    <div style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>
       <div data-selector="cutting-svg-container" style={{background:'lightgray',position:'relative',overflow:'visible'}}>
         <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 2000 1500" style={{overflow:'hidden'}}>
           <Matrix
+            key="1"
             renderFunction={renderMain}
             params={{
               name: "main",
@@ -512,6 +512,7 @@ export const TrainingMatrix = React.memo(() => {
           />
 
           <Matrix
+            key="2"
             renderFunction={renderMain}
             params={{
               name: "secondary",
@@ -524,8 +525,9 @@ export const TrainingMatrix = React.memo(() => {
             }}
           />
 
-        {showTotalsRight &&
+        {true &&
           <Matrix
+            key="3"
             renderFunction={renderText}
             params={{
               name: "totalsright",
@@ -539,8 +541,9 @@ export const TrainingMatrix = React.memo(() => {
           />
         }
 
-        {showTotalsRight &&
+        {true &&
           <Matrix
+            key="4"
             renderFunction={renderText}
             params={{
               name: "totalsright",
@@ -554,8 +557,9 @@ export const TrainingMatrix = React.memo(() => {
           />
         }
 
-        {showTotalsBottom &&
+        {true &&
           <Matrix
+            key="5"
             renderFunction={renderText}
             params={{
               name: "totalsbottom",
@@ -575,6 +579,7 @@ export const TrainingMatrix = React.memo(() => {
 
 
           <Matrix
+            key="6"
             renderFunction={renderTop}
             params={{
               name: "totalstop",
@@ -588,6 +593,7 @@ export const TrainingMatrix = React.memo(() => {
           />
 
           <Matrix
+            key="7"
             renderFunction={renderLeft}
             params={{
               name: "totalleft",
@@ -600,32 +606,7 @@ export const TrainingMatrix = React.memo(() => {
             }}
           />
 
-
         {/* {false &&
-          <ReactPieMatrixTop
-            top={widgetData.top}
-            topStart={topStart}
-            bandX={bandXmain}
-          />
-        } */}
-
-        {/* {showLeft &&
-          <g transform="translate(0,220)" className="left">
-          {
-            widgetData !== [] &&
-            widgetData.left.map((title,i) => {
-              var leftStart = radiusmain-10;
-              //var y = leftStart + (leftSpacing * i)
-              var y = leftStart + (bandYmain * i)
-              return (
-                <text  x="40" y={y} fill="black">{title.name}</text>
-              )
-            })
-          }
-          </g>
-        } */}
-
-        {showCorner &&
           <>
           <g id="corner" transform="translate(10,10)" style={{padding:'10px',outline: '1px solid red'}} className="corner">
             <text x="0" y="15" fill="black">Current Hover:</text>
@@ -636,7 +617,7 @@ export const TrainingMatrix = React.memo(() => {
           </g>
           <g id="pieparent" transform="translate(0,100)" className="pieparent"></g>
           </>
-        }
+        } */}
 
         </svg>
       </div>

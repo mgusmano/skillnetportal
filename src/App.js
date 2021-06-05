@@ -18,11 +18,12 @@ import { AuthContext } from "./context/auth";
 import PrivateRoute from './PrivateRoute';
 import Login from "./pages/login/Login";
 import Admin from "./pages/admin/Admin";
-import Home from './pages/home/Home';
+//import Home from './pages/home/Home';
 import CardReport from './CardReport';
 import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
 import { TrainingMatrix } from './pages/matrix/TrainingMatrix'
+import { SkillsMatrix } from './pages/matrix/SkillsMatrix'
 
 import MyAdmin from './pages/MyAdmin'
 
@@ -39,7 +40,7 @@ import Dashboard from './pages/benchmarkreport/Dashboard';
 
 import Horizontal from './layout/Horizontal'
 import Vertical from './layout/Vertical'
-import Splitter from './layout/Splitter'
+//import Splitter from './layout/Splitter'
 //import Separator from './layout/Separator'
 
 import './side-menu.css'
@@ -72,13 +73,13 @@ function App(props) {
   const [authTokens, setAuthTokens] = useState('');
   const [activemenu, setActivemenu] = useState('/cnacovid');
   // const [initialdashboard, setInitialDashboard] = useState(true);
-  const [currentdashboard, setCurrentDashboard] = useState('PreVisit');
+  const [currentdashboard] = useState('PreVisit');
 
   const items = [];
 
   const location = useLocation();
 
-  if (authTokens == '') {
+  if (authTokens === '') {
     switch (location.pathname) {
       case '/cnasme':
         items.push({label: 'Risk Control SME Report', value: '/cnasme', icon: 'fa-id-card'})
@@ -87,6 +88,8 @@ function App(props) {
         items.push({label: 'Risk Control SME', value: '/cnasme', icon: 'fa-id-card'})
         items.push({label: 'Risk Control Skills Report', value: '/cnacard', icon: 'fa-id-card'})
         items.push({label: 'Benchmark Report', value: '/cnabenchmark', icon: 'fa-balance-scale'})
+        break;
+      default:
         break;
     }
   }
@@ -182,14 +185,13 @@ function App(props) {
       break;
   }
 
-  if (authTokens != '') {
+  if (authTokens !== '') {
     items.push({label: 'Logout', value: '/login', icon: 'fa-sign-out'})
   }
 
   const history = useHistory();
 
   const setTokens = (data) => {
-    console.log(data)
     localStorage.setItem("tokens", JSON.stringify(data));
     setAuthTokens(data);
   }
@@ -259,7 +261,6 @@ function App(props) {
       <Vertical>
         <Top/>
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
-        {console.log(authTokens)}
         {authTokens === 'swipeguide' &&
         <TopMenu/>
         }
@@ -294,6 +295,7 @@ function App(props) {
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
             <PrivateRoute path="/trainingmatrix" component={() => <TrainingMatrix/>} />
+            <PrivateRoute path="/skillsmatrix" component={() => <SkillsMatrix/>} />
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />

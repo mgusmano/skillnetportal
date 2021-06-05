@@ -1,0 +1,57 @@
+{/* <g transform={"translate(" + xTranslateStart + "," + yTranslateStart + ")"} className="matrix">
+{
+  widgetData.data.map((row,r) => {
+    return (
+      <g transform={"translate(" + "0" + "," + bandY*r + ")"} className="row">
+      {
+
+        row.data.map((col,c) => {
+          var props= {params: {bandX:bandX,bandY:bandY}}
+          return (
+            <g key={c} transform="translate(0,0)" className="cell">
+              <rect stroke="black" x={bandX*c} y={0} width={bandX} height={bandY} className="cell" style={{fill:'white',stroke:'black',strokeWidth:'1',fillOpacity:'0.4',strokeOpacity:0.9}}></rect>
+              {/* <Pie rowmeta={row.meta} colmeta={col.meta} data={col.data} c={c} bandX={bandX} bandY={bandY} showCorner={showCorner} NewPie={NewPie} diameter={diameter} radius={radius} top={widgetData.top} left={widgetData.left}/> */}
+              {renderMatrix(props.params,r,c,row,col)}
+
+            </g>
+          )
+        })
+      }
+      </g>
+    )
+  })
+}
+</g> */}
+
+    // console.log(props)
+    // var x = props.bandX*c
+    // //console.log(parseInt(param))
+    // switch(parseInt(r)) {
+    //   case 1:
+    //     console.log('a')
+    //     return <rect x={x} y="0" width="15" height="15" style={{fill:'blue',stroke:'black',strokeWidth:'1',fillOpacity:'0.4',strokeOpacity:0.9}}></rect>
+    //     break;
+    //   case 2:
+    //     console.log('b')
+    //     return <rect x={x} y="0" width="15" height="15" style={{fill:'yellow',stroke:'black',strokeWidth:'1',fillOpacity:'0.4',strokeOpacity:0.9}}></rect>
+    //     break;
+    //   default:
+    //     console.log('c')
+    //     return <rect x={x} y="0" width="15" height="15" style={{fill:'red',stroke:'black',strokeWidth:'1',fillOpacity:'0.4',strokeOpacity:0.9}}></rect>
+    // }
+
+
+
+  return (
+    <div className='container' ref={ref}>
+      {/* <div style={{display:'none'}}>
+      <button onClick={onShowGridLines} style={{width:'100px',margin:'0 0 0 150px',fontSize:'16px',background:'gray',color:'white'}} >Grid Lines</button>
+      <button onClick={onShowTop} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >topStart</button>
+      <button onClick={onShowLeft} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >Left</button>
+      <button onClick={onShowCorner} style={{width:'100px',margin:'0 0 0 10px',fontSize:'16px',background:'gray',color:'white'}} >Grid Corner</button>
+    </div>
+    <div> */}
+    <ParentsizeSVG align="none" elementRef={ref}>
+    </ParentsizeSVG>
+    </div>
+  )

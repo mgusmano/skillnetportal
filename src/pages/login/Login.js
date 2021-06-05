@@ -30,7 +30,7 @@ function Login(props) {
       var where
       switch (password) {
         case 'swipeguide':
-          where = '/matrix'
+          where = '/trainingmatrix'
           setReferer(where)
           break;
         case 'cnasme':

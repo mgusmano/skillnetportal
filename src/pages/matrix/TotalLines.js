@@ -1,10 +1,8 @@
 import React from 'react';
 
-export const Matrix = React.memo((props) => {
-  const {data, name, translateX, translateY, radius, bandX, bandY} = props.params
-
+export const TotalLines = React.memo(({data, name, xTranslateStart, yTranslateStart, bandX, bandY}) => {
   return (
-    <g transform={"translate(" + translateX + "," + translateY + ")"} className={name}>
+    <g transform={"translate(" + xTranslateStart + "," + yTranslateStart + ")"} className={name}>
     {
       data.map((row,r) => {
         return (
@@ -13,9 +11,8 @@ export const Matrix = React.memo((props) => {
             row.data.map((col,c) => {
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
-                  <rect stroke="black" x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:'white',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                  {/* <text dominantBaseline="middle" textAnchor="middle" stroke="black" x={(bandX*c)+(bandX/2)} y={bandY-(bandY/2)} class="small" style={{fontSize:'48px'}}>{col.data.v}</text> */}
-                  {props.renderFunction(props.params,r,c,row,col)}
+                  <rect stroke="black" x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:col.c,stroke:'black',strokeWidth:'1',fillOpacity:'0.4',strokeOpacity:0.9}}></rect>
+                  <text dominantBaseline="middle" textAnchor="middle" stroke="black" x={(bandX*c)+(bandX/2)} y={bandY-(bandY/2)} class="small">{col.data.v}</text>
                 </g>
               )
             })

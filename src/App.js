@@ -22,7 +22,7 @@ import Home from './pages/home/Home';
 import CardReport from './CardReport';
 import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
-import { Matrix } from './pages/matrix/Matrix'
+import { TrainingMatrix } from './pages/matrix/TrainingMatrix'
 
 import MyAdmin from './pages/MyAdmin'
 
@@ -94,7 +94,7 @@ function App(props) {
   switch (authTokens) {
 
     case 'mjg':
-      items.push({label: 'Matrix', value: '/matrix', icon: 'fa-clipboard'})
+      items.push({label: 'Training Matrix', value: '/trainingmatrix', icon: 'fa-clipboard'})
       items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidpremiumaudit', icon: 'fa-clipboard'})
       items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
       items.push({label: 'Absolute', value: '/absolute', icon: 'fa-clipboard'})
@@ -293,7 +293,7 @@ function App(props) {
             {/* <Route path="/" component={() => <Home/>} exact /> */}
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
-            <PrivateRoute path="/matrix" component={() => <Matrix/>} />
+            <PrivateRoute path="/trainingmatrix" component={() => <TrainingMatrix/>} />
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />

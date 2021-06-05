@@ -16,8 +16,19 @@ const STARTED = 's';
 const COLOR = 'c';
 const DEPTH = 'd';
 
-export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, radius, translate, data, testid, top, left}) => {
-    //const [modalIsOpen,setIsOpen] = React.useState(false);
+export const Pie = React.memo(({rowmeta, colmeta, data, bandX, bandY, c, showCorner, NewPie, radius, top, left}) => {
+  var diameter = radius*2;
+  var test = left.find(x => x[TESTID] === parseInt(rowmeta[TESTID]));
+  var student = top.find(x => x[STUDENTID] === parseInt(colmeta[STUDENTID]));
+  var Test = test
+  var Student = student
+
+  var testid = rowmeta[TESTID]
+
+
+  //var data = col;
+
+  //const [modalIsOpen,setIsOpen] = React.useState(false);
     // const [testID,setTestID] = React.useState(null);
     // const [studentID,setStudentID] = React.useState(null);
 
@@ -25,20 +36,27 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
       <PieDetailsDialog NewPie={NewPie} Test={Test} Student={Student} showModal={showModalPieDetails} hideModal={hideModalPieDetails} onExited={onExited} open={open}/>
     ));
 
+    var x = (c * bandX) + ((bandX /2) - radius);
+    var y = (bandY /2) - radius;
+    var ts = x + ',' + y;
+
     //console.log('Pie', data, testid)
-    const tr = `translate(${translate})`
+    const tr = `translate(${ts})`
     const originx = radius;
     const originy = radius;
     const transformOrigin = `${originx}px ${originy}px`;
     const angle = 2 * Math.PI / 4;
     const strokeWidth ='3px';
     var rotate = 0.5 * Math.PI - angle;
-    var studentid = data[STUDENTID];
+    //var studentid = data[STUDENTID];
+    var studentid = colmeta[STUDENTID];
 
-    switch (data[STATUS]) {
+
+
+    switch (colmeta[STATUS]) {
       case 'good':
         return (
-          <g transform={tr} className="cell">
+          <g transform={tr} className="good">
             {/* <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4} x2={-spaceBetweenX/2} y2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line>
             <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  y2={-spaceBetweenX/4} x2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line> */}
             <circle testid={testid} studentid={studentid} cx={radius} cy={(radius)} r={radius} stroke="gray" strokeWidth="3" fill="green" />
@@ -47,7 +65,7 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
         )
       case 'warn':
         return (
-          <g transform={tr} className="cell">
+          <g transform={tr} className="warn">
             {/* <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4} x2={-spaceBetweenX/2} y2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line>
             <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  y2={-spaceBetweenX/4} x2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line> */}
             <circle testid={testid} studentid={studentid} cx={radius} cy={(radius)} r={radius} stroke="gray" strokeWidth="3" fill="orange" />
@@ -56,7 +74,7 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
         )
       case 'error':
         return (
-          <g transform={tr} className="cell">
+          <g transform={tr} className="error">
             {/* <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4} x2={-spaceBetweenX/2} y2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line>
             <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  y2={-spaceBetweenX/4} x2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line> */}
             <circle testid={testid} studentid={studentid} cx={radius} cy={radius} r={radius} stroke="gray" strokeWidth="3" fill="red" />
@@ -65,7 +83,7 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
         )
         case 'none':
           return (
-            <g transform={tr} className="cell">
+            <g transform={tr} className="none">
               {/* <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4} x2={-spaceBetweenX/2} y2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line>
               <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  y2={-spaceBetweenX/4} x2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line> */}
             </g>
@@ -74,12 +92,12 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
     }
 
     return (
-      <g transform={tr} opacity="1" className="cell" >
+      <g transform={tr} opacity="1" className="pie" >
         {/* <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  x2={-spaceBetweenX/2} y2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line>
         <line x1={-spaceBetweenX/2} y1={-spaceBetweenX/4}  y2={-spaceBetweenX/4} x2={diameter+spaceBetweenY} style={{stroke:'black',strokeWidth:'2'}}></line> */}
 
         {
-        data[RESULTS].map((value, i) => {
+        data.map((value, i) => {
           var percent = value[PERCENT];
           var stroke;
           var fill;
@@ -133,10 +151,7 @@ export const Pie = React.memo(({showCorner, Test, Student, NewPie, diameter, rad
             //console.log(testID)
             let testid = e.target.getAttribute('testid');
             let studentid = e.target.getAttribute('studentid');
-            var test = left.find(x => x.tid === parseInt(testid))
-            var student = top.find(x => x.sid === parseInt(studentid))
-            Test = test
-            Student = student
+
 
             e.target.style.opacity = '.5'
             var pie = e.target.parentNode

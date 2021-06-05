@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ReactPieMatrixTop = React.memo(({top, topStart, xTranslateIncrement}) => {
+export const ReactPieMatrixTop = React.memo(({top, topStart, bandX}) => {
 
   return (
     <g transform="translate(120,0)" className="top">
@@ -8,7 +8,7 @@ export const ReactPieMatrixTop = React.memo(({top, topStart, xTranslateIncrement
       top !== [] &&
       top.map((person,i) => {
        // var y = topStart + (topSpacing * i)
-        var y = topStart + (xTranslateIncrement * i)
+        var y = topStart + (bandX * i)
         var yp = y-15
         return (
           <g key={i} transform="translate(0,0)" className="header">

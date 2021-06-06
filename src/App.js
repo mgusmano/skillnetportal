@@ -24,6 +24,7 @@ import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
 import { TrainingMatrix } from './pages/matrix/TrainingMatrix'
 import { SkillsMatrix } from './pages/matrix/SkillsMatrix'
+import { FixedMatrix } from './pages/matrix/FixedMatrix'
 
 import MyAdmin from './pages/MyAdmin'
 
@@ -296,6 +297,7 @@ function App(props) {
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
             <PrivateRoute path="/trainingmatrix" component={() => <TrainingMatrix/>} />
             <PrivateRoute path="/skillsmatrix" component={() => <SkillsMatrix/>} />
+            <PrivateRoute path="/fixedmatrix" component={() => <FixedMatrix/>} />
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />

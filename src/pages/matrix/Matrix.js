@@ -2,6 +2,7 @@ import React from 'react';
 
 export const Matrix = React.memo((props) => {
   const {data, name, translateX, translateY, radius, bandX, bandY} = props.params
+  console.log(name)
   return (
     <g transform={"translate(" + translateX + "," + translateY + ")"} className={name}>
     {

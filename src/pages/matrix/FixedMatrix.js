@@ -14,7 +14,7 @@ var widgetData = {
 }
 
 
-export const SkillsMatrix = React.memo(() => {
+export const FixedMatrix = React.memo(() => {
   const bandXmain = 500;
   const bandYmain = 200;
   const radiusmain = 20;
@@ -39,11 +39,11 @@ export const SkillsMatrix = React.memo(() => {
     )
   }
 
-  return (
-    <div style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>hi
-      <div data-selector="cutting-svg-container" style={{background:'lightgray',position:'relative',overflow:'visible'}}>
-        <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 2000 1500" style={{overflow:'hidden'}}>
 
+  return (
+    <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%',boxSizing:'border-box',border:'1px solid green'}}>
+      <div style={{height:'200px',border:'1px solid grey'}}>
+        <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 1100 200" width="100%" height="200px" style={{overflow:'hidden'}}>
           <foreignObject x='55px' y='40px' width='140px' height='140px'>
             <img
               alt="pic"
@@ -51,42 +51,44 @@ export const SkillsMatrix = React.memo(() => {
               style={{borderRadius:'50%',x:'55px',y:'150px',width:'140px',height:'140px'}}
             />
           </foreignObject>
-
           <text style={{fontSize:50*1.5+'px'}} x="230" y="120" fill="black">Joe Smith</text>
           <text style={{fontSize:20*1.5+'px'}} x="250" y="180" fill="black">104275</text>
+        </svg>
+      </div>
+      <div style={{flex:'1',border:'1px solid grey',overflow:'auto'}}>
+        <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 -80 1100 1200" xwidth="100%" xheight="100%">
 
-          <text style={{fontSize:40*1.5+'px'}} x="40" y="320" fill="black">MOTOR ROTOR</text>
-          <line x1="40" y1="350" x2="1500" y2="350" stroke={'black'} strokeWidth="5" />
+          <text style={{fontSize:40*1.5+'px'}} x="40" y="0" fill="black">MOTOR ROTOR</text>
+          <line x1="40" y1="30" x2="1500" y2="30" stroke={'black'} strokeWidth="5" />
 
           <Matrix
             renderFunction={renderRects}
             params={{
               name: "totalsright",
               data: widgetData.first,
-              translateX: translateXmain,
-              translateY: translateYmain + 300,
+              translateX: translateXmain-55,
+              translateY: translateYmain-20,
               radius: radiusmain,
               bandX: bandXmain,
               bandY: bandYmain
             }}
           />
 
-          <text style={{fontSize:40*1.5+'px'}} x="40" y="720" fill="black">MOTOR STATOR</text>
-          <line x1="40" y1="750" x2="1500" y2="750" stroke={'black'} strokeWidth="5" />
+          <text style={{fontSize:40*1.5+'px'}} x="40" y="380" fill="black">MOTOR STATOR</text>
+          <line x1="40" y1="400" x2="1500" y2="400" stroke={'black'} strokeWidth="5" />
 
           <Matrix
             renderFunction={renderRects}
             params={{
               name: "totalsright",
               data: widgetData.second,
-              translateX: translateXmain,
-              translateY: translateYmain+700,
+              translateX: translateXmain-55,
+              translateY: translateYmain+350,
               radius: radiusmain,
               bandX: bandXmain,
               bandY: bandYmain
             }}
           />
-
         </svg>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Slice.css'
 
 export const Slice = React.memo((props) => {
 

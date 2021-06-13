@@ -1,5 +1,6 @@
 import React from 'react';
 import { Matrix } from './Matrix';
+import './FixedMatrix.css'
 
 var widgetData = {
   first: [
@@ -39,6 +40,15 @@ export const FixedMatrix = React.memo(() => {
     )
   }
 
+  const onScroll = (a) => {
+    console.log('scroll')
+    console.log(a)
+    var o = document.getElementById('other');
+    o.scrollTop = a.target.scrollTop;
+    o.scrollLeft = a.target.scrollLeft;
+
+  }
+
 
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%',boxSizing:'border-box',border:'1px solid green'}}>
@@ -55,42 +65,58 @@ export const FixedMatrix = React.memo(() => {
           <text style={{fontSize:20*1.5+'px'}} x="250" y="180" fill="black">104275</text>
         </svg>
       </div>
-      <div style={{flex:'1',border:'1px solid grey',overflow:'auto'}}>
-        <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 -80 1100 1200" xwidth="100%" xheight="100%">
 
-          <text style={{fontSize:40*1.5+'px'}} x="40" y="0" fill="black">MOTOR ROTOR</text>
-          <line x1="40" y1="30" x2="1500" y2="30" stroke={'black'} strokeWidth="5" />
 
-          <Matrix
-            renderFunction={renderRects}
-            params={{
-              name: "totalsright",
-              data: widgetData.first,
-              translateX: translateXmain-55,
-              translateY: translateYmain-20,
-              radius: radiusmain,
-              bandX: bandXmain,
-              bandY: bandYmain
-            }}
-          />
+      <div id='other'  className="divScrollDiv tableNoScroll" style={{display:'flex',flexDirection:'row',width:'100%',height:'100px',boxSizing:'border-box',border:'1px solid green'}}>
+        <div>
+          2<br/>3<br/>4<br/>5<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+          2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>2<br/>
+        </div>
+        <div onScroll={onScroll} className="divScrollDiv" style={{flex:'1',border:'1px solid grey',overflow:'auto'}}>
+          <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 -80 1100 600" xwidth="100%" height="600px">
 
-          <text style={{fontSize:40*1.5+'px'}} x="40" y="380" fill="black">MOTOR STATOR</text>
-          <line x1="40" y1="400" x2="1500" y2="400" stroke={'black'} strokeWidth="5" />
+            <text style={{fontSize:40*1.5+'px'}} x="40" y="0" fill="black">MOTOR ROTOR</text>
+            <line x1="40" y1="30" x2="1500" y2="30" stroke={'black'} strokeWidth="5" />
 
-          <Matrix
-            renderFunction={renderRects}
-            params={{
-              name: "totalsright",
-              data: widgetData.second,
-              translateX: translateXmain-55,
-              translateY: translateYmain+350,
-              radius: radiusmain,
-              bandX: bandXmain,
-              bandY: bandYmain
-            }}
-          />
-        </svg>
+            <Matrix
+              renderFunction={renderRects}
+              params={{
+                name: "totalsright",
+                data: widgetData.first,
+                translateX: translateXmain-55,
+                translateY: translateYmain-20,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            />
+
+            <text style={{fontSize:40*1.5+'px'}} x="40" y="380" fill="black">MOTOR STATOR</text>
+            <line x1="40" y1="400" x2="1500" y2="400" stroke={'black'} strokeWidth="5" />
+
+            <Matrix
+              renderFunction={renderRects}
+              params={{
+                name: "totalsright",
+                data: widgetData.second,
+                translateX: translateXmain-55,
+                translateY: translateYmain+350,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            />
+          </svg>
+        </div>
+
       </div>
+
+
     </div>
   )
 })

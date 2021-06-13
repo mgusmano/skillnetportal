@@ -1,37 +1,31 @@
 import React from 'react';
 
-export const Matrix = React.memo((props) => {
-  const {data, name, translateX, translateY, radius, bandX, bandY, oneRow} = props.params;
+export const MatrixOneRow = React.memo((props) => {
+  const {data, name, translateX, translateY, bandX, bandY} = props.params;
 
-  const getRow = (row,oneRow) => {
-    if (row.data == undefined) {
-      return [row]
-    }
-    else {
-      return row.data
-    }
-  }
+  var r = 0
+  var row = null
 
   return (
     <g transform={"translate(" + translateX + "," + translateY + ")"} className={name}>
     {
-      data.map((row,r) => {
-        var theRow = getRow(row,oneRow)
-        return (
-          <g key={r} transform={"translate(" + "0" + "," + bandY*r + ")"} className="row">
+
+
+
+          <g transform={"translate(0," + bandY*r + ")"} className="row">
           {
-            theRow.map((col,c) => {
+            data.map((col,c) => {
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
                   <rect stroke="black" x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:'white',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                  {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row)}
+                  {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row,props.clickFunction)}
                 </g>
               )
             })
           }
           </g>
-        )
-      })
+
+
     }
     </g>
   )

@@ -1,0 +1,11 @@
+.divScrollDiv {
+  display: inline-block;
+  width: 10%;
+  border: 1px solid black;
+  height: 100px;
+  overflow: scroll;
+}
+
+.tableNoScroll {
+overflow: hidden;
+}

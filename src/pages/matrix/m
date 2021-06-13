@@ -1,3 +1,7 @@
+//import { ParentsizeSVG } from '@cutting/svg';
+//https://blog.logrocket.com/make-any-svg-responsive-with-this-react-component/
+
+
 {/* <g transform={"translate(" + xTranslateStart + "," + yTranslateStart + ")"} className="matrix">
 {
   widgetData.data.map((row,r) => {
@@ -55,3 +59,56 @@
     </ParentsizeSVG>
     </div>
   )
+
+
+    // const [showGridLines,setShowGridLines] = React.useState(true);
+  // const [showTop,setShowTop] = React.useState(true);
+  // const [showLeft,setShowLeft] = React.useState(true);
+  // const [showCorner,setShowCorner] = React.useState(false);
+  // const onShowGridLines = () => {setShowGridLines(!showGridLines)}
+  // const onShowTop = () => {setShowTop(!showTop)}
+  // const onShowLeft = () => {setShowLeft(!showLeft)}
+  // const onShowCorner = () => {setShowCorner(!showCorner)}
+  // const [showTotalsRight,setShowTotalsRight] = React.useState(true);
+  // const [showTotalsBottom,setShowTotalsBottom] = React.useState(true);
+
+
+          // var pie = e.target.parentNode
+        // var newPie=pie.cloneNode(true)
+        // newPie.removeChild(newPie.lastChild);
+        // var move="translate("+5+","+5+") scale(3)"
+        // newPie.setAttribute("transform",move)
+        // NewPie = newPie
+
+        // if (showCorner) {
+        //   document.getElementById('tid').innerHTML = testid;
+        //   document.getElementById('sid').innerHTML = studentid;
+        //   document.getElementById('tname').innerHTML = test.name;
+        //   document.getElementById('sname').innerHTML = student.name;
+        //   var pieParent  = document.getElementById('pieparent');
+        //   function removeAllChildNodes(parent) {
+        //     while (parent.firstChild) {
+        //         parent.removeChild(parent.firstChild);
+        //     }
+        //   }
+        //   removeAllChildNodes(pieParent)
+        // }
+
+          // setTimeout(function() {
+  //   if (myref.current) {
+  //     myref.current.appendChild(props.NewPie)
+  //     var pie = myref.current.firstChild
+  //     for(var slice=pie.firstChild; slice!==null; slice=slice.nextSibling) {
+  //       slice.addEventListener("mouseover", function(e) {
+  //         setPercent(e.target.getAttribute('percent'))
+  //         setFillOpacity(e.target.style.fillOpacity)
+  //         setColor(e.target.style.fill)
+  //       }, false);
+  //       slice.addEventListener("mouseout", function(e) {
+  //         setPercent(null)
+  //         setFillOpacity(null)
+  //         setColor(null)
+  //       }, false);
+  //     }
+  //   }
+  //   }, 10);

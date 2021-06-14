@@ -4,24 +4,11 @@ import { MatrixOneRow } from './MatrixOneRow';
 import { Pie } from './Pie';
 import { Solid } from './Solid';
 import { MatrixCell } from './MatrixCell';
-import MatrixDialog from './MatrixDialog';
+import { MatrixDialog } from './MatrixDialog';
+import { SkillDialog } from './SkillDialog';
+import { StudentDialog } from './StudentDialog';
 
 var widgetData = {
-  leftheading: [
-    {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
-  ],
-  left: [
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Core Loading'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Phase Paper Insertion (VW)'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Setting'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Tube Insertion'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Crimp'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Pre-Lacing'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lacing'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Terminal Crimp'}}]},
-    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Forming'}}]},
-  ],
-
   skills: [
     {id:10,line:'S',text:'Core Loading'},
     {id:20,line:'S',text:'Phase Paper Insertion (VW)'},
@@ -49,41 +36,24 @@ var widgetData = {
 
 
 
-  methodologyheading: [
-    {meta:{id:10},data:[{meta:{},data:{name:'METHODOLOGY'}}]},
+
+
+
+  leftheading: [
+    {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
   ],
-  methodology: [
-    {meta:{},data:[{meta:{},data:{l1:'Classroom training',l2:'Hands-on training',l3:'Written testing'}}]},
-  ],
-  revheading: [
-    {meta:{id:10},data:[{meta:{},data:{name:'REV#'}}]},
-  ],
-  rev: [
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:5}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  left: [
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Core Loading'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Phase Paper Insertion (VW)'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Setting'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Tube Insertion'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Crimp'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Pre-Lacing'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lacing'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Terminal Crimp'}}]},
+    {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Forming'}}]},
   ],
 
-  top: [
-    {meta:{},data:[
-      {meta:{id:1},data:{name:'Joe Smith'}},
-      {meta:{id:2},data:{name:'Marc Ester'}},
-      {meta:{id:3},data:{name:'Ted White'}},
-      {meta:{id:4},data:{name:'Betty Green'}},
-      {meta:{id:5},data:{name:'Bob Jones'}},
-      {meta:{id:6},data:{name:'Frank Davis'}},
-      {meta:{id:7},data:{name:'Jane Johnson'}},
-      {meta:{id:8},data:{name:'Mary Bird'}},
-      {meta:{id:9},data:{name:'Zoya Lee'}},
-      {meta:{id:10},data:{name:'Joe Adams'}},
-    ]},
-  ],
   data: [
     {
       meta:{type:'skill',id:10},
@@ -221,6 +191,46 @@ var widgetData = {
       ]
     },
   ],
+
+
+
+
+  methodologyheading: [
+    {meta:{id:10},data:[{meta:{},data:{name:'METHODOLOGY'}}]},
+  ],
+  methodology: [
+    {meta:{},data:[{meta:{},data:{l1:'Classroom training',l2:'Hands-on training',l3:'Written testing'}}]},
+  ],
+  revheading: [
+    {meta:{id:10},data:[{meta:{},data:{name:'REV#'}}]},
+  ],
+  rev: [
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:5}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  ],
+
+  top: [
+    {meta:{},data:[
+      {meta:{id:1},data:{name:'Joe Smith'}},
+      {meta:{id:2},data:{name:'Marc Ester'}},
+      {meta:{id:3},data:{name:'Ted White'}},
+      {meta:{id:4},data:{name:'Betty Green'}},
+      {meta:{id:5},data:{name:'Bob Jones'}},
+      {meta:{id:6},data:{name:'Frank Davis'}},
+      {meta:{id:7},data:{name:'Jane Johnson'}},
+      {meta:{id:8},data:{name:'Mary Bird'}},
+      {meta:{id:9},data:{name:'Zoya Lee'}},
+      {meta:{id:10},data:{name:'Joe Adams'}},
+    ]},
+  ],
+
   rightheading: [
     {meta:{id:10},data:[{meta:{},data:{name:'acc#'}},{meta:{},data:{name:'goal'}},{meta:{},data:{name:'comp'}},{meta:{},data:{name:'%'}},]},
   ],
@@ -294,8 +304,14 @@ var widgetData = {
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
+  const [matrixDialogData, setMatrixDialogData] = useState(null);
   const [openMatrixDialog, setOpenMatrixDialog] = useState(false);
-  const [openMatrixDialogData, setOpenMatrixDialogData] = useState(null);
+
+  const [skillDialogData, setSkillDialogData] = useState(null);
+  const [openSkillDialog, setOpenSkillDialog] = useState(false);
+
+  const [studentDialogData, setStudentDialogData] = useState(null);
+  const [openStudentDialog, setOpenStudentDialog] = useState(false);
 
   var numX = widgetData.top[0].data.length;
   var numY = widgetData.left.length;
@@ -319,6 +335,23 @@ export const TrainingMatrix = React.memo(() => {
 
   var xTotalsBottomStart = translateXmain;
   var yTotalsBottomStart = translateYmain + heightmain;
+
+  const clickStudent = (e,colid,rowid,type,data) => {
+    //var student =widgetData.students.find(x => x.id === colid)
+    //console.log(student)
+
+    var student=widgetData.students.find(x => x.id === colid)
+    //var skill=widgetData.skills.find(x => x.id === rowid)
+    setStudentDialogData({
+      studentid: colid,
+      skillid: null,
+      student: student,
+      skill: null,
+      type: type,
+      data: data
+    })
+    setOpenStudentDialog(true);
+  }
 
   const renderStudent = (props,c,col,r,row,clickFunction) => {
     const {radius, bandX, bandY} = props
@@ -366,15 +399,12 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const clickStudent = (props,c,col,r,row) => {
-    var student =widgetData.students.find(x => x.id === col)
-    console.log(student)
-  }
-
-  const clickFunctionMain = (e,colid,rowid,type,data) => {
+  const clickMain = (e,colid,rowid,type,data) => {
     var student=widgetData.students.find(x => x.id === colid)
     var skill=widgetData.skills.find(x => x.id === rowid)
-    setOpenMatrixDialogData({
+    setMatrixDialogData({
+      studentid: colid,
+      skillid: rowid,
       student: student,
       skill: skill,
       type: type,
@@ -401,7 +431,7 @@ export const TrainingMatrix = React.memo(() => {
             data={col.data}
           />
           <MatrixCell
-            clickFunction={clickFunctionMain}
+            clickFunction={clickMain}
             rowid={row.meta.id}
             colid={col.meta.id}
             bandX={bandX}
@@ -422,7 +452,7 @@ export const TrainingMatrix = React.memo(() => {
             data={status}
           />
           <MatrixCell
-            clickFunction={clickFunctionMain}
+            clickFunction={clickMain}
             rowid={row.meta.id}
             colid={col.meta.id}
             bandX={bandX}
@@ -452,6 +482,20 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
+  const clickSkillArea = (e,colid,rowid,type,data) => {
+    var skill=widgetData.skills.find(x => x.id === colid)
+    setSkillDialogData({
+      studentid: null,
+      skillid: colid,
+      student: null,
+      skill: skill,
+      type: type,
+      data: data
+    })
+    setOpenSkillDialog(true);
+  }
+
+
   const renderSkillArea = (props,c,col,r,row) => {
     const {radius, bandX, bandY} = props
     return (
@@ -467,12 +511,8 @@ export const TrainingMatrix = React.memo(() => {
             {col.text}
         </text>
         <MatrixCell
-          clickFunction={(e,rowid) => {
-            console.log(rowid)
-            var skill =widgetData.skills.find(x => x.id === rowid)
-            console.log(skill)
-          }}
-          rowid={row.id}
+          clickFunction={clickSkillArea}
+          rowid={null}
           colid={col.id}
           bandX={bandX}
           bandY={bandY}
@@ -652,14 +692,13 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const handleMatrixDialogClose = () => {
-    //onClose(selectedValue);
-    setOpenMatrixDialog(false);
-  };
+
 
   return (
     <div style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>
-      <MatrixDialog openMatrixDialogData={openMatrixDialogData} open={openMatrixDialog} onClose={handleMatrixDialogClose}/>
+      <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
+      <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+      <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/>
       <div style={{background:'lightgray',position:'relative',overflow:'visible'}}>
         <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 2500 1700" style={{overflow:'hidden'}}>
 
@@ -714,6 +753,7 @@ export const TrainingMatrix = React.memo(() => {
 
           <Matrix
             renderFunction={renderSkillArea}
+            clickFunction={clickSkillArea}
             params={{
               name: "skills",
               data: widgetData.skills,

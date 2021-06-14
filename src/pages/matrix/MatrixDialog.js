@@ -4,8 +4,8 @@ import Draggable from 'react-draggable';
 import { Pie } from './Pie';
 import { Solid } from './Solid';
 
-function MatrixDialog(props) {
-  const { openMatrixDialogData, onClose, open, student, skill} = props;
+export function MatrixDialog(props) {
+  const { dialogData, onClose, open} = props;
 
   var radius = 80
   var bandX = 100
@@ -45,10 +45,10 @@ function MatrixDialog(props) {
   var img
   var type
   var data
-  if (openMatrixDialogData !== null) {
-    img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + openMatrixDialogData.student.id + '.jpg'
-    type = openMatrixDialogData.type;
-    data = openMatrixDialogData.data;
+  if (dialogData !== null) {
+    img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + dialogData.student.id + '.jpg'
+    type = dialogData.type;
+    data = dialogData.data;
 
   }
   const PaperComponent = (props) => {
@@ -63,8 +63,8 @@ function MatrixDialog(props) {
     <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open} PaperComponent={PaperComponent}>
       <DialogTitle style={{width:'500px',height:'50px',cursor: 'move'}} id="draggable-dialog-title">Matrix Item Details</DialogTitle>
       <DialogContent>
-        {openMatrixDialogData !== null && <div>{openMatrixDialogData.student.text}</div>}
-        {openMatrixDialogData !== null && <div>{openMatrixDialogData.skill.text}</div>}
+        {dialogData !== null && <div>{dialogData.student.text}</div>}
+        {dialogData !== null && <div>{dialogData.skill.text}</div>}
         <br/>
 
 <div>
@@ -104,4 +104,4 @@ function MatrixDialog(props) {
   );
 }
 
-export default MatrixDialog
+

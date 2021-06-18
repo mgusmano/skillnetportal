@@ -55,9 +55,9 @@ export const Main = React.memo((props) => {
 
   return (
     <div>
+      <div style={{fontSize:'24px'}}>{dialogData.student.text}</div>
+      <div style={{fontSize:'18px'}}>{dialogData.skill.text}</div>
 
-    {dialogData !== null && <div>{dialogData.student.text}</div>}
-    {dialogData !== null && <div>{dialogData.skill.text}</div>}
 
 
     <div>

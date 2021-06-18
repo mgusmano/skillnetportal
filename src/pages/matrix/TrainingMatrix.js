@@ -183,6 +183,14 @@ var widgetData = {
   ],
 
 
+  first: [
+    {meta:{tid:10},data:[{meta:{},data:{v:'Assembly Machine'}},{meta:{},data:{v:'Inspection & Packaging'}},]},
+  ],
+  second: [
+    {meta:{tid:10},data:[{meta:{},data:{v:'Core Loading'}},{meta:{},data:{v:'Paper Insertion'}},]},
+    {meta:{tid:10},data:[{meta:{},data:{v:'Pre-Lacing'}},{meta:{},data:{v:'Lacing'}},]},
+    {meta:{tid:10},data:[{meta:{},data:{v:'Varnish Out'}},{meta:{},data:{v:'Insp. After Varnish'}},]},
+  ],
 
 
 
@@ -315,6 +323,7 @@ var widgetData = {
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
+  const [num, setNum] = useState(0);
   const [title, setTitle] = useState(null);
   const [specific, setSpecific] = useState(null);
 
@@ -352,6 +361,9 @@ export const TrainingMatrix = React.memo(() => {
 
   var xTotalsBottomStart = translateXmain;
   var yTotalsBottomStart = translateYmain + heightmain;
+
+
+
 
   const clickStudent = (e,colid,rowid,type,data) => {
     setTitle('student')
@@ -433,6 +445,10 @@ export const TrainingMatrix = React.memo(() => {
 
   const clickMain = (e,colid,rowid,type,data) => {
     setTitle('main')
+
+    //console.log('mouseClick')
+    //e.target.style.opacity = '.2'
+
     var student=widgetData.students.find(x => x.id === colid)
     var skill=widgetData.skills.find(x => x.id === rowid)
 
@@ -462,6 +478,9 @@ export const TrainingMatrix = React.memo(() => {
 
   const renderMain = (props,c,col,r,row) => {
     var status = col.meta.status;
+
+
+
 
     const {radius, bandX, bandY} = props
     var x = ((bandX/2) - radius);
@@ -531,11 +550,14 @@ export const TrainingMatrix = React.memo(() => {
 
   const clickSkillArea = (e,colid,rowid,type,data) => {
     setTitle('SkillArea')
+    var n = num + 1
+    setNum(n)
     var skill=widgetData.skills.find(x => x.id === colid)
 
     setSpecific(<Skill
       skill={skill}
       skillData={{
+        num: n,
         studentid: null,
         skillid: colid,
         student: null,
@@ -556,7 +578,6 @@ export const TrainingMatrix = React.memo(() => {
     // })
     // setOpenSkillDialog(true);
   }
-
 
   const renderSkillArea = (props,c,col,r,row) => {
     const {radius, bandX, bandY} = props
@@ -758,8 +779,6 @@ export const TrainingMatrix = React.memo(() => {
 //            <svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
 //<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
 
-
-
   return (
     <div style={{display:'flex',width:'100%',height:'100%',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
           <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
@@ -769,7 +788,7 @@ export const TrainingMatrix = React.memo(() => {
         <div style={{height:'300px',display:'flex',flexDirection:'row',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
           <div style={{width:'340px'}}>
             <svg  height="300px" width="700px">
-              <Matrix
+              {/* <Matrix
                 renderFunction={renderLeftHeading}
                 params={{
                   name: "totalleft",
@@ -780,7 +799,7 @@ export const TrainingMatrix = React.memo(() => {
                   bandX: 700,
                   bandY: 300
                 }}
-              />
+              /> */}
             </svg>
           </div>
           <div>
@@ -840,7 +859,7 @@ export const TrainingMatrix = React.memo(() => {
           <div style={{flex:'1',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue',overflow:'auto'}}>
 
 
-          <svg height="600px">
+          <svg height="650px" width="700px">
 
               <Matrix
                 renderFunction={renderMain}
@@ -854,12 +873,32 @@ export const TrainingMatrix = React.memo(() => {
                   bandY: bandY
                 }}
               />
+
+            <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsright",
+                data: widgetData.right,
+                translateX: 500,
+                translateY: 0,
+                radius: 15,
+                bandX: bandX,
+                bandY: bandY
+              }}
+            />
+
+
+
             </svg>
 
           </div>
-          <div style={{width:'200px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>matrix right</div>
+          {/* <div style={{width:'200px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>
+            matrix right
+          </div> */}
         </div>
-        <div style={{height:'100px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>matrix bottom</div>
+        <div style={{height:'30px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>
+          matrix bottom
+      </div>
       </div>
       <div style={{width:'400px',display:'flex',boxSizing:'border-box',border:'0px solid blue'}}>
 

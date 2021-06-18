@@ -1,0 +1,65 @@
+var widgetData = {
+  skills: [
+    {id:10,line:'S',text:'Core Loading'},
+    {id:20,line:'S',text:'Phase Paper Insertion (VW)'},
+    {id:30,line:'S',text:'Lead Wire Setting'},
+    {id:40,line:'S',text:'Neutral Tube Insertion'},
+    {id:50,line:'S',text:'Neutral Crimp'},
+    {id:60,line:'S',text:'Pre-Lacing'},
+    {id:70,line:'S',text:'Lacing'},
+    {id:80,line:'S',text:'Lead Terminal Crimp'},
+    {id:90,line:'S',text:'Lead Wire Forming'},
+  ],
+
+  students: [
+      {id:1,text:'Joe Smith'},
+      {id:2,text:'Marc Ester'},
+      {id:3,text:'Ted White'},
+      {id:4,text:'Betty Green'},
+      {id:5,text:'Bob Jones'},
+      {id:6,text:'Frank Davis'},
+      {id:7,text:'Jane Johnson'},
+      {id:8,text:'Mary Bird'},
+      {id:9,text:'Zoya Lee'},
+      {id:10,text:'Joe Adams'},
+  ],
+
+    data: [
+    {
+      meta:{type:'skill',id:10},
+      data:[
+        {meta:{type:'student',id: 1,status:'empty'},data:[]},
+        {meta:{type:'student',id: 2,status:'abc'},data:[]},
+        {meta:{type:'student',id: 3,status:'ok'},
+        data:[
+          {p:25,s:1,c:'g',d:.9},
+          {p:50,s:1,c:'g',d:.9},
+          {p:75,s:1,c:'g',d:.9},
+          {p:100,s:0,c:'g',d:.9}
+        ]},
+        {meta:{type:'student',id: 4,status:'ok'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
+        {meta:{type:'student',id: 5,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{type:'student',id: 6,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{type:'student',id: 7,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{type:'student',id: 8,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{type:'student',id: 9,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{type:'student',id:10,status:'ok'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+      ]
+    },
+    {
+      meta:{type:'skill',id:20},
+      data:[
+        {meta:{id: 1,status:'warn'},data:[]},
+        {meta:{id: 2,status:'error'},data:[]},
+        {meta:{id: 3,status:'good'},data:[]},
+        {meta:{id: 4,status:'ok'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
+        {meta:{id: 5,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 6,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 7,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 8,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 9,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id:10,status:'ok'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+      ]
+    },
+    ]
+}

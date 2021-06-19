@@ -350,16 +350,8 @@ export const TrainingMatrix = React.memo(() => {
   const [row1, setRow1] = useState(sRow1*sMultiplier);
   const [row2, setRow2] = useState(sRow2*sMultiplier);  //450 + 20 + 50
 
-  // const [fontsize, setFontsize] = useState(12/2);
-  // const [bandX, setBandX] = useState(50/2);
-  // const [bandY, setBandY] = useState(50/2);
-  // const [radius, setRadius] = useState(14/2);
-  // const [col1, setCol1] = useState(300/2) //300 + 20;
-  // const [row2, setCol2] = useState(670/2);
-  // const [row2, setRow2] = useState(520/2);  //450 + 20 + 50
-
   const [num, setNum] = useState(0);
-  const [title, setTitle] = useState(null);
+  //const [title, setTitle] = useState(null);
   const [specific, setSpecific] = useState(null);
 
   const [matrixDialogData, setMatrixDialogData] = useState(null);
@@ -395,7 +387,7 @@ export const TrainingMatrix = React.memo(() => {
   var yTotalsBottomStart = translateYmain + heightmain;
 
   const clickStudent = (e,colid,rowid,type,data) => {
-    setTitle('student')
+    //setTitle('student')
     //var student =widgetData.students.find(x => x.id === colid)
     //console.log(student)
 
@@ -473,7 +465,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const clickMain = (e,colid,rowid,type,data) => {
-    setTitle('main')
+    //setTitle('main')
 
     //console.log('mouseClick')
     //e.target.style.opacity = '.2'
@@ -507,9 +499,6 @@ export const TrainingMatrix = React.memo(() => {
 
   const renderMain = (props,c,col,r,row) => {
     var status = col.meta.status;
-
-
-
 
     const {radius, bandX, bandY} = props
     var x = ((bandX/2) - radius);
@@ -578,7 +567,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const clickSkillArea = (e,colid,rowid,type,data) => {
-    setTitle('SkillArea')
+    //setTitle('SkillArea')
     var n = num + 1
     setNum(n)
     var skill=widgetData.skills.find(x => x.id === colid)
@@ -748,17 +737,17 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderPlainHeading = (props,c,col,r) => {
-    const {radius, bandX, bandY} = props
+    const {radius, bandX, bandY, fontsize} = props
     return (
       <g key={r+c} transform="translate(0,0)" className="cell">
         <text
           dominantBaseline="left"
           textAnchor="start"
           stroke="black"
-          x={(bandX*c)+10}
+          x={(bandX*c)}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.name}
+          style={{fontSize:fontsize+'px'}}>{col.data.name}
         </text>
       </g>
     )
@@ -846,7 +835,6 @@ return (
       onDragStop={(e, d) => {
         setLegendX(d.x);
         setLegendY(d.y);
-        //this.setState({ x: d.x, y: d.y })
       }}
       onResizeStop={(e, direction, ref, delta, position) => {
         // this.setState({
@@ -876,7 +864,6 @@ return (
           onClick={
             (e)=>setShowLegend(!showLegend)
           }>Toggle Legend</button>
-
       </div>
 
     </div>
@@ -890,20 +877,21 @@ return (
             <div id="student" className='' style={{width:(col2+col3)+'px',overflow:'scroll',overflow:'hidden'}}>
               <div width={(col2+col3)+'px'} height={row1+'px'}>
               <svg width={(col2+col3)+'px'} height={row1+'px'}>
-              <MatrixOneRow
-                renderFunction={renderStudent}
-                clickFunction={clickStudent}
-                params={{
-                  name: "maintop",
-                  data: widgetData.students,
-                  fontsize: fontsize,
-                  translateX: 0,
-                  translateY: 0,
-                  radius: radius,
-                  bandX: bandX,
-                  bandY: 700
-                }}
-              />
+                <MatrixOneRow
+                  renderFunction={renderStudent}
+                  clickFunction={clickStudent}
+                  params={{
+                    name:'maintop',data: widgetData.students,fontsize: fontsize,
+                    translateX:0,translateY:0,radius:radius,bandX:bandX,bandY:700
+                  }}
+                />
+                <Matrix
+                  renderFunction={renderPlainHeading}
+                  params={{
+                    name:'totalsrightheading',data: widgetData.rightheading,
+                    translateX:row2,translateY:0,radius:radius,bandX:bandX,bandY:row1
+                  }}
+                />
               </svg>
               </div>
             </div>

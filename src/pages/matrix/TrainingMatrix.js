@@ -772,8 +772,23 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const col1 = '310px';
-  const col1a = 310;
+  const col1 = '330px'; //300 + 20
+  const col1a = 330;
+
+  const col2 = '670px';
+
+  const row2 = '520px'; //450 + 20 + 50
+
+  const onScroll = (e) => {
+    var vert = document.getElementById('skill')
+    var horz = document.getElementById('student')
+    if (vert.scrollTop !== e.target.scrollTop) {
+      vert.scrollTop = e.target.scrollTop;
+    }
+    else {
+      horz.scrollLeft = e.target.scrollLeft;
+    }
+  }
 
 //            <svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
 //<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
@@ -784,11 +799,11 @@ return (
         <div className='' style={{height:'300px'}}>
           <div className='h'  style={{width:'100%',height:'100%'}}>
             <div className='' style={{width:col1}}>
-              <svg width="310px" height="300px">placeholder</svg>
+              <svg width={col1} height="300px">placeholder</svg>
             </div>
-            <div id="student" className='' style={{width:'500px',overflow:'scroll',overflow:'hidden'}}>
-              <div width="500px" height="300px">
-              <svg width="500px" height="300px">
+            <div id="student" className='' style={{width:col2,overflow:'scroll',overflow:'hidden'}}>
+              <div width={col2} height="300px">
+              <svg width={col2} height="300px">
               <MatrixOneRow
                 renderFunction={renderStudent}
                 clickFunction={clickStudent}
@@ -809,42 +824,41 @@ return (
         </div>
         <div className='h'>
           <div id="skill" className='' style={{width:col1,overflow:'scroll',overflow:'hidden'}}>
-            <div width={col1} height="450px">
-            <svg width={col1} height="450px">
+            <div width={col1} height={row2}>
+            <svg width={col1} height={row2}>
             <Matrix
               renderFunction={renderSkillArea}
               clickFunction={clickSkillArea}
               params={{
-                name: "skills",
-                data: widgetData.skills,
-                translateX: 0,
-                translateY: 0,
-                radius: 15,
-                bandX: col1a,
-                bandY: bandX
+                name:'skills',data:widgetData.skills,
+                translateX:0,translateY:0,radius:15,bandX:col1a,bandY:bandX
               }}
             />
             </svg>
             </div>
           </div>
-          <div className='v' style={{overflow:'overlay'}}
-            onScroll={(e)=>{
-              var vert = document.getElementById('skill')
-              var horz = document.getElementById('student')
-              if (vert.scrollTop !== e.target.scrollTop) {
-                vert.scrollTop = e.target.scrollTop;
-              }
-              else {
-                horz.scrollLeft = e.target.scrollLeft;
-              }
-            }}>
-            <div height="450px" width="500px">
-            <svg height="450px" width="500px">
+          <div className='v' style={{overflow:'overlay'}} onScroll={onScroll}>
+            <div width={col2} height={row2}>
+            <svg width={col2} height={row2}>
               <Matrix
                 renderFunction={renderMain}
                 params={{
                   name:'main',data:widgetData.data,
                   translateX:0,translateY:0,radius:15,bandX:bandX,bandY:bandY
+                }}
+              />
+              <Matrix
+                renderFunction={renderText}
+                params={{
+                  name: 'totalsright',data: widgetData.right,
+                  translateX:500,translateY:0,radius:15,bandX:bandX,bandY:bandY
+                }}
+              />
+              <Matrix
+                renderFunction={renderText}
+                params={{
+                  name:'totalsbottom',data:widgetData.bottom,
+                  translateX:0,translateY:450,radius:15,bandX:50,bandY:50
                 }}
               />
             </svg>

@@ -10,6 +10,7 @@ import { StudentDialog } from './StudentDialog';
 import { Skill } from './Skill';
 import { Student } from './Student';
 import { Main } from './Main';
+import './TrainingMatrix.css'
 
 var widgetData = {
   skills: [
@@ -771,20 +772,115 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
+  const col1 = '310px';
+  const col1a = 310;
 
 //            <svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
 //<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
 
+return (
+  <div className='h' style={{width:'100%',height:'100%'}}>
+      <div className='v'>
+        <div className='' style={{height:'300px'}}>
+          <div className='h'  style={{width:'100%',height:'100%'}}>
+            <div className='' style={{width:col1}}>
+              <svg width="310px" height="300px">placeholder</svg>
+            </div>
+            <div id="student" className='' style={{width:'500px',overflow:'scroll',overflow:'hidden'}}>
+              <div width="500px" height="300px">
+              <svg width="500px" height="300px">
+              <MatrixOneRow
+                renderFunction={renderStudent}
+                clickFunction={clickStudent}
+                params={{
+                  name: "maintop",
+                  data: widgetData.students,
+                  translateX: 0,
+                  translateY: 0,
+                  radius: 20,
+                  bandX: bandX,
+                  bandY: 700
+                }}
+              />
+              </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='h'>
+          <div id="skill" className='' style={{width:col1,overflow:'scroll',overflow:'hidden'}}>
+            <div width={col1} height="450px">
+            <svg width={col1} height="450px">
+            <Matrix
+              renderFunction={renderSkillArea}
+              clickFunction={clickSkillArea}
+              params={{
+                name: "skills",
+                data: widgetData.skills,
+                translateX: 0,
+                translateY: 0,
+                radius: 15,
+                bandX: col1a,
+                bandY: bandX
+              }}
+            />
+            </svg>
+            </div>
+          </div>
+          <div className='v' style={{overflow:'overlay'}}
+            onScroll={(e)=>{
+              var vert = document.getElementById('skill')
+              var horz = document.getElementById('student')
+              if (vert.scrollTop !== e.target.scrollTop) {
+                console.log('vert')
+                vert.scrollTop = e.target.scrollTop;
+              }
+              else {
+                console.log('horz')
+                horz.scrollLeft = e.target.scrollLeft;
+              }
+              //console.log(e)
+              //console.log(t)
+
+            }}>
+            <div height="450px" width="500px">
+            <svg height="450px" width="500px">
+              <Matrix
+                renderFunction={renderMain}
+                params={{
+                  name:'main',data:widgetData.data,
+                  translateX:0,translateY:0,radius:15,bandX:bandX,bandY:bandY
+                }}
+              />
+            </svg>
+            </div>
+          </div>
+          {/* <div className='' style={{width:'150px'}}>total</div> */}
+        </div>
+        {/* <div className='' style={{height:'50px'}}>b</div> */}
+      </div>
+      <div className='' style={{width:'500px'}}>
+        <div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
+          <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+            {specific}
+          </div>
+        </div>
+      </div>
+  </div>
+)
+
+
+
   return (
-    <div style={{display:'flex',width:'100%',height:'100%',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
-          <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
-          <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
-          <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/>
-      <div style={{flex:'1',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
-        <div style={{height:'300px',display:'flex',flexDirection:'row',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
-          <div style={{width:'340px'}}>
-            <svg  height="300px" width="700px">
-              {/* <Matrix
+    <div className='h' style={{width:'100%',height:'100%'}}>
+      <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
+      <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+      <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/>
+
+      <div className='v'>
+        <div style={{width:'700px',height:'300px'}}>
+            <svg  width="700px" height="300px" >
+               <Matrix
                 renderFunction={renderLeftHeading}
                 params={{
                   name: "totalleft",
@@ -795,10 +891,10 @@ export const TrainingMatrix = React.memo(() => {
                   bandX: 700,
                   bandY: 300
                 }}
-              /> */}
+              />
             </svg>
           </div>
-          <div>
+        <div>
             <svg height="300px" width="700px">
             <MatrixOneRow
               renderFunction={renderStudent}
@@ -831,7 +927,7 @@ export const TrainingMatrix = React.memo(() => {
 
             </svg>
 
-          </div>
+
         </div>
         <div style={{flex:'1',display:'flex',flexDirection:'row',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
           <div style={{width:'340px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
@@ -925,15 +1021,15 @@ export const TrainingMatrix = React.memo(() => {
             </svg>
       </div>
       </div>
-      <div style={{width:'400px',display:'flex',boxSizing:'border-box',border:'0px solid blue'}}>
 
-<div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
-  <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
-{specific}
-</div>
-</div>
+      <div className='v' style={{width:'400px'}}>
+        <div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
+          <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+            {specific}
+          </div>
+        </div>
+      </div> */}
 
-      </div>
     </div>
     )
 

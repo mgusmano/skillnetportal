@@ -1,0 +1,19 @@
+.h {
+  display:flex;
+  flex: 1;
+  flex-direction:row;
+
+  box-sizing:border-box;
+  border:0px solid blue;
+  overflow:hidden;
+}
+
+.v {
+  display:flex;
+  flex: 1;
+  flex-direction:column;
+
+  box-sizing:border-box;
+  border:0px solid blue;
+  overflow:hidden;
+}

@@ -779,7 +779,7 @@ export const TrainingMatrix = React.memo(() => {
 //<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
 
 return (
-  <div className='h' style={{width:'100%',height:'100%'}}>
+  <div data-flex-splitter-horizontal className='h' style={{width:'100%',height:'100%'}}>
       <div className='v'>
         <div className='' style={{height:'300px'}}>
           <div className='h'  style={{width:'100%',height:'100%'}}>
@@ -832,16 +832,11 @@ return (
               var vert = document.getElementById('skill')
               var horz = document.getElementById('student')
               if (vert.scrollTop !== e.target.scrollTop) {
-                console.log('vert')
                 vert.scrollTop = e.target.scrollTop;
               }
               else {
-                console.log('horz')
                 horz.scrollLeft = e.target.scrollLeft;
               }
-              //console.log(e)
-              //console.log(t)
-
             }}>
             <div height="450px" width="500px">
             <svg height="450px" width="500px">
@@ -859,6 +854,7 @@ return (
         </div>
         {/* <div className='' style={{height:'50px'}}>b</div> */}
       </div>
+      <div role="separator"></div>
       <div className='' style={{width:'500px'}}>
         <div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
           <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>

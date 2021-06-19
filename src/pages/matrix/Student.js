@@ -24,10 +24,6 @@ export const Student = React.memo((props) => {
     ],
   }
 
-
-
-
-
   const {student} = props.studentData;
   var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + student.id + '.jpg'
 
@@ -58,7 +54,7 @@ export const Student = React.memo((props) => {
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
       <div style={{height:'200px'}}>
-        <div style={{fontSize:'24px'}}>{student.text}</div>
+        <div style={{fontSize:'32px'}}>Operator: {student.text}</div>
         <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
       </div>
 

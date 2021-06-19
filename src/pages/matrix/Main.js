@@ -55,8 +55,8 @@ export const Main = React.memo((props) => {
 
   return (
     <div>
-      <div style={{fontSize:'24px'}}>{dialogData.student.text}</div>
-      <div style={{fontSize:'18px'}}>{dialogData.skill.text}</div>
+      <div style={{fontSize:'32px'}}>Operator: {dialogData.student.text}</div>
+      <div style={{fontSize:'24px',marginBottom:'10px'}}>Skill: {dialogData.skill.text}</div>
 
 
 

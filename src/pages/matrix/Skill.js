@@ -42,7 +42,7 @@ export const Skill = React.memo((props) => {
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
       <div style={{height:'50px',fontSize:'32px'}}>
-        <div>Certification/Skill: {skill.text}</div>
+        <div>Skill: {skill.text}</div>
       </div>
 
       <div style={{flex:'1'}}>

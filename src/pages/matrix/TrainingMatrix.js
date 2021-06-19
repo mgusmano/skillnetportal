@@ -10,7 +10,10 @@ import { StudentDialog } from './StudentDialog';
 import { Skill } from './Skill';
 import { Student } from './Student';
 import { Main } from './Main';
-import './TrainingMatrix.css'
+import './TrainingMatrix.css';
+//import { Demo } from './Demo';
+import { Rnd } from "react-rnd";
+//https://github.com/bokuweb/react-rnd
 
 var widgetData = {
   skills: [
@@ -320,6 +323,40 @@ var widgetData = {
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
+
+  const [legendX, setLegendX] = useState(50);
+  const [legendY, setLegendY] = useState(70);
+
+  const sMultiplier = 10;
+  const sFontsize = 2;
+  const sBandX = 5;
+  const sBandY = 5;
+  const sRadius = 1.8;
+  const sCol1 = 30;
+  const sCol2 = 50;
+  const sCol3 = 17;
+  const sRow1 = 30;
+  const sRow2 = 52;
+
+  const [multiplier, setMultiplier] = useState(sMultiplier);
+  const [fontsize, setFontsize] = useState(sFontsize*sMultiplier);
+  const [bandX, setBandX] = useState(sBandX*sMultiplier);
+  const [bandY, setBandY] = useState(sBandY*sMultiplier);
+  const [radius, setRadius] = useState(sRadius*sMultiplier);
+  const [col1, setCol1] = useState(sCol1*sMultiplier) //300 + 20;
+  const [col2, setCol2] = useState(sCol2*sMultiplier);
+  const [col3, setCol3] = useState(sCol3*sMultiplier);
+  const [row1, setRow1] = useState(sRow1*sMultiplier);
+  const [row2, setRow2] = useState(sRow2*sMultiplier);  //450 + 20 + 50
+
+  // const [fontsize, setFontsize] = useState(12/2);
+  // const [bandX, setBandX] = useState(50/2);
+  // const [bandY, setBandY] = useState(50/2);
+  // const [radius, setRadius] = useState(14/2);
+  // const [col1, setCol1] = useState(300/2) //300 + 20;
+  // const [row2, setCol2] = useState(670/2);
+  // const [row2, setRow2] = useState(520/2);  //450 + 20 + 50
+
   const [num, setNum] = useState(0);
   const [title, setTitle] = useState(null);
   const [specific, setSpecific] = useState(null);
@@ -339,9 +376,6 @@ export const TrainingMatrix = React.memo(() => {
   var translateXmain = 1000;
   var translateYmain = 300;
 
-  var bandX = 50;
-  var bandY = 50;
-
   const radiusmain = 20;
   var spaceBetweenY = 25;
   var spaceBetweenX = 30;
@@ -358,9 +392,6 @@ export const TrainingMatrix = React.memo(() => {
 
   var xTotalsBottomStart = translateXmain;
   var yTotalsBottomStart = translateYmain + heightmain;
-
-
-
 
   const clickStudent = (e,colid,rowid,type,data) => {
     setTitle('student')
@@ -395,18 +426,18 @@ export const TrainingMatrix = React.memo(() => {
 
   const renderStudent = (props,c,col,r,row,clickFunction) => {
 
-    const {radius, bandX, bandY} = props
+    const {radius, bandX, bandY, fontsize} = props
     var y = (bandX/2) + (bandX * c)
     var yp = y-15
     var i = r + c;
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
-        <text style={{fontSize:radius*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.text}</text>
+        <text style={{fontSize:fontsize+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.text}</text>
         <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
           <img
             alt="pic"
             src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+col.id+'.jpg'}
-            style={{borderRadius:'50%',x:yp+'px',y:'150px',width:'40px',height:'40px'}}
+            style={{borderRadius:'50%',x:yp+'px',y:'150px',width: (radius*2)+'px',height:(radius*2)+'px'}}
           />
         </foreignObject>
 
@@ -530,7 +561,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderSkillLine = (props,c,col,r,row) => {
-    const {radius, bandX, bandY} = props
+    const {radius, bandX, bandY, fontsize} = props
     return (
       <text
         dominantBaseline="left"
@@ -539,7 +570,7 @@ export const TrainingMatrix = React.memo(() => {
         x={(bandX*(c+1))/2}
         y={bandY-(bandY/2)+10}
         className="text"
-        style={{fontSize:radius*1.5+'px'}}>
+        style={{fontSize:fontsize+'px'}}>
           {col.line}
       </text>
     )
@@ -577,7 +608,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderSkillArea = (props,c,col,r,row) => {
-    const {radius, bandX, bandY} = props
+    const {radius, bandX, bandY, fontsize} = props
     return (
       <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
         <text
@@ -587,7 +618,7 @@ export const TrainingMatrix = React.memo(() => {
           x={(bandX*(c+1))-10}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>
+          style={{fontSize:fontsize+'px'}}>
             {col.text}
         </text>
         <MatrixCell
@@ -605,7 +636,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderText = (props,c,col,r,row) => {
-    const {bandX, bandY} = props
+    const {bandX, bandY, fontsize} = props
     return (
       <text
         dominantBaseline="middle"
@@ -614,7 +645,7 @@ export const TrainingMatrix = React.memo(() => {
         x={(bandX*c)+(bandX/2)}
         y={bandY-(bandY/2)}
         className="text"
-        style={{fontSize:'32px'}}>
+        style={{fontSize:fontsize+'px'}}>
           {col.data.v}
       </text>
     )
@@ -772,13 +803,6 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const col1 = '330px'; //300 + 20
-  const col1a = 330;
-
-  const col2 = '670px';
-
-  const row2 = '520px'; //450 + 20 + 50
-
   const onScroll = (e) => {
     var vert = document.getElementById('skill')
     var horz = document.getElementById('student')
@@ -790,29 +814,83 @@ export const TrainingMatrix = React.memo(() => {
     }
   }
 
-//            <svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
+  const onClickSize = (e,direction) => {
+    var lMultiplier = multiplier-1;
+    if (direction == 'small') {
+      lMultiplier = multiplier-1;
+    }
+    else {
+      lMultiplier = multiplier+1;
+    }
+    setMultiplier(lMultiplier);
+    setFontsize(sFontsize*lMultiplier);
+    setBandX(sBandX*lMultiplier);
+    setBandY(sBandY*lMultiplier);
+    setRadius(sRadius*lMultiplier);
+    setCol1(sCol1*lMultiplier) //300 + 20;
+    setCol2(sCol2*lMultiplier);
+    setRow1(sRow1*lMultiplier);
+    setRow2(sRow2*lMultiplier);  //450 + 20 + 50
+  }
+
+//<svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
 //<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
 
 return (
+  <div className='v' style={{width:'100%',height:'100%',fontSize:fontsize+'pt'}}>
+    <Rnd
+      size={{ width: '200px',  height: '250px' }}
+      position={{ x: legendX, y: legendY }}
+      onDragStop={(e, d) => {
+        setLegendX(d.x);
+        setLegendY(d.y);
+        //this.setState({ x: d.x, y: d.y })
+      }}
+      onResizeStop={(e, direction, ref, delta, position) => {
+        // this.setState({
+        //   width: ref.style.width,
+        //   height: ref.style.height,
+        //   ...position,
+        // });
+      }}
+    >
+      <div className='legend' style={{background:'lightgray',width:'100%',height:'100%'}}>
+        Floating Legend
+        <br/><br/>
+        <div>legend item 1</div>
+        <div>legend item 2</div>
+        <div>legend item 3</div>
+        <div>legend item 4</div>
+        <div>legend item 5</div>
+      </div>
+    </Rnd>
+    <div style={{height:'50px',background:'gray',fontSize:'18px'}}>
+      <div style={{margin:'10px',display:'flex',flexDirection:'row',color:'white'}}>
+        <div style={{margin:'5px 10px 0 60px'}}>matrix size:</div>
+        <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'small')}>smaller</button>
+        <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'large')}>larger</button>
+      </div>
+    </div>
   <div data-flex-splitter-horizontal className='h' style={{width:'100%',height:'100%'}}>
       <div className='v'>
-        <div className='' style={{height:'300px'}}>
+        <div className='' style={{height:row1+'px'}}>
           <div className='h'  style={{width:'100%',height:'100%'}}>
-            <div className='' style={{width:col1}}>
-              <svg width={col1} height="300px">placeholder</svg>
+            <div className='' style={{width:col1+'px'}}>
+              <svg width={col1+'px'} height={row1+'px'}>placeholder</svg>
             </div>
-            <div id="student" className='' style={{width:col2,overflow:'scroll',overflow:'hidden'}}>
-              <div width={col2} height="300px">
-              <svg width={col2} height="300px">
+            <div id="student" className='' style={{width:(col2+col3)+'px',overflow:'scroll',overflow:'hidden'}}>
+              <div width={(col2+col3)+'px'} height={row1+'px'}>
+              <svg width={(col2+col3)+'px'} height={row1+'px'}>
               <MatrixOneRow
                 renderFunction={renderStudent}
                 clickFunction={clickStudent}
                 params={{
                   name: "maintop",
                   data: widgetData.students,
+                  fontsize: fontsize,
                   translateX: 0,
                   translateY: 0,
-                  radius: 20,
+                  radius: radius,
                   bandX: bandX,
                   bandY: 700
                 }}
@@ -823,42 +901,42 @@ return (
           </div>
         </div>
         <div className='h'>
-          <div id="skill" className='' style={{width:col1,overflow:'scroll',overflow:'hidden'}}>
-            <div width={col1} height={row2}>
-            <svg width={col1} height={row2}>
+          <div id="skill" className='' style={{width:col1+'px',overflow:'scroll',overflow:'hidden'}}>
+            <div width={col1+'px'} height={row2+'px'}>
+            <svg width={col1+'px'} height={row2+'px'}>
             <Matrix
               renderFunction={renderSkillArea}
               clickFunction={clickSkillArea}
               params={{
                 name:'skills',data:widgetData.skills,
-                translateX:0,translateY:0,radius:15,bandX:col1a,bandY:bandX
+                translateX:0,translateY:0,radius:radius,bandX:col1,bandY:bandX
               }}
             />
             </svg>
             </div>
           </div>
           <div className='v' style={{overflow:'overlay'}} onScroll={onScroll}>
-            <div width={col2} height={row2}>
-            <svg width={col2} height={row2}>
+            <div width={(col2+col3)+'px'} height={row2+'px'}>
+            <svg width={(col2+col3)+'px'} height={row2+'px'}>
               <Matrix
                 renderFunction={renderMain}
                 params={{
                   name:'main',data:widgetData.data,
-                  translateX:0,translateY:0,radius:15,bandX:bandX,bandY:bandY
+                  translateX:0,translateY:0,radius:radius,bandX:bandX,bandY:bandY
                 }}
               />
               <Matrix
                 renderFunction={renderText}
                 params={{
                   name: 'totalsright',data: widgetData.right,
-                  translateX:500,translateY:0,radius:15,bandX:bandX,bandY:bandY
+                  translateX:row2,translateY:0,radius:radius,bandX:bandX,bandY:bandY
                 }}
               />
               <Matrix
                 renderFunction={renderText}
                 params={{
                   name:'totalsbottom',data:widgetData.bottom,
-                  translateX:0,translateY:450,radius:15,bandX:50,bandY:50
+                  translateX:0,translateY:450,radius:radius,bandX:bandX,bandY:bandY
                 }}
               />
             </svg>
@@ -870,12 +948,13 @@ return (
       </div>
       <div role="separator"></div>
       <div className='' style={{width:'600px'}}>
-        <div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
+        <div style={{width:'100%', height:'100%', padding:'25px', background:'white', boxSizing:'border-box'}}>
           <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
             {specific}
           </div>
         </div>
       </div>
+  </div>
   </div>
 )
 

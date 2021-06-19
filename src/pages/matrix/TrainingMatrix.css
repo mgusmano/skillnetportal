@@ -17,3 +17,8 @@
   border:0px solid blue;
   overflow:hidden;
 }
+
+.legend {
+  box-sizing: border-box;
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}

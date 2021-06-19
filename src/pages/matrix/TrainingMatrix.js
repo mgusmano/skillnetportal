@@ -326,6 +326,7 @@ export const TrainingMatrix = React.memo(() => {
 
   const [legendX, setLegendX] = useState(50);
   const [legendY, setLegendY] = useState(70);
+  const [showLegend, setShowLegend] = useState(false);
 
   const sMultiplier = 10;
   const sFontsize = 2;
@@ -838,6 +839,7 @@ export const TrainingMatrix = React.memo(() => {
 
 return (
   <div className='v' style={{width:'100%',height:'100%',fontSize:fontsize+'pt'}}>
+    {showLegend &&
     <Rnd
       size={{ width: '200px',  height: '250px' }}
       position={{ x: legendX, y: legendY }}
@@ -857,19 +859,26 @@ return (
       <div className='legend' style={{background:'lightgray',width:'100%',height:'100%'}}>
         Floating Legend
         <br/><br/>
-        <div>legend item 1</div>
-        <div>legend item 2</div>
-        <div>legend item 3</div>
-        <div>legend item 4</div>
-        <div>legend item 5</div>
+        <div>Not Started</div>
+        <div>Apprentice</div>
+        <div>Beginner</div>
+        <div>Expert</div>
+        <div>Trainer</div>
       </div>
     </Rnd>
+    }
     <div style={{height:'50px',background:'gray',fontSize:'18px'}}>
       <div style={{margin:'10px',display:'flex',flexDirection:'row',color:'white'}}>
         <div style={{margin:'5px 10px 0 60px'}}>matrix size:</div>
         <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'small')}>smaller</button>
         <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'large')}>larger</button>
+        <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
+          onClick={
+            (e)=>setShowLegend(!showLegend)
+          }>Toggle Legend</button>
+
       </div>
+
     </div>
   <div data-flex-splitter-horizontal className='h' style={{width:'100%',height:'100%'}}>
       <div className='v'>

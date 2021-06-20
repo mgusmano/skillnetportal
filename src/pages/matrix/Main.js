@@ -50,7 +50,9 @@ export const Main = React.memo((props) => {
 
   }
 
-
+console.log(data)
+console.log(tr)
+console.log(radius)
 
 
   return (

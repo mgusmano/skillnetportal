@@ -5,8 +5,8 @@ import { Pie } from './Pie';
 import { Solid } from './Solid';
 import { MatrixCell } from './MatrixCell';
 import { MatrixDialog } from './MatrixDialog';
-import { SkillDialog } from './SkillDialog';
-import { StudentDialog } from './StudentDialog';
+//import { SkillDialog } from './SkillDialog';
+//import { StudentDialog } from './StudentDialog';
 import { Skill } from './Skill';
 import { Student } from './Student';
 import { Main } from './Main';
@@ -324,9 +324,9 @@ var widgetData = {
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
 
-  const [legendX, setLegendX] = useState(50);
-  const [legendY, setLegendY] = useState(70);
-  const [showLegend, setShowLegend] = useState(false);
+  const [legendX, setLegendX] = useState(10);
+  const [legendY, setLegendY] = useState(60);
+  const [showLegend, setShowLegend] = useState(true);
 
   const sMultiplier = 10;
   const sFontsize = 2;
@@ -830,7 +830,7 @@ return (
   <div className='v' style={{width:'100%',height:'100%',fontSize:fontsize+'pt'}}>
     {showLegend &&
     <Rnd
-      size={{ width: '200px',  height: '250px' }}
+      size={{ width: '300px',  height: '300px' }}
       position={{ x: legendX, y: legendY }}
       onDragStop={(e, d) => {
         setLegendX(d.x);
@@ -844,14 +844,91 @@ return (
         // });
       }}
     >
-      <div className='legend' style={{background:'lightgray',width:'100%',height:'100%'}}>
+      <div className='legend' style={{background:'whitesmoke',width:'100%',height:'100%'}}>
         Floating Legend
-        <br/><br/>
-        <div>Not Started</div>
-        <div>Apprentice</div>
-        <div>Beginner</div>
-        <div>Expert</div>
-        <div>Trainer</div>
+        <br/>
+        <svg height="300px">
+
+        <g transform="translate(10,20)" className='ball'>
+        <text x="0" y="0"style={{fontSize:'12'+'px'}}>certification:</text>
+        <text x="100" y="0"style={{fontSize:'12'+'px'}}>valid</text>
+        <text x="160" y="0"style={{fontSize:'12'+'px'}}>pending</text>
+        <text x="230" y="0"style={{fontSize:'12'+'px'}}>overdue</text>
+        </g>
+
+      <g transform="translate(10,40)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Not Started
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:0,c:'g',d:.8},{p:50,s:0,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:0,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:0,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
+      </g>
+      <g transform="translate(10,80)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Apprentice
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:0,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
+      </g>
+      <g transform="translate(10,120)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Beginner
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
+      </g>
+      <g transform="translate(10,160)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Intermediate
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
+      </g>
+
+      <g transform="translate(10,200)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Certified
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:1,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:1,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]}/>
+      </g>
+
+      <g transform="translate(10,240)" className='ball'>
+        <text
+          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
+          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
+        >
+          Trainer
+        </text>
+        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:1,c:'g',d:.8}]}/>
+        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:1,c:'y',d:.8}]}/>
+        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]}/>
+      </g>
+
+
+
+        </svg>
+
       </div>
     </Rnd>
     }
@@ -960,8 +1037,8 @@ return (
   return (
     <div className='h' style={{width:'100%',height:'100%'}}>
       <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
-      <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
-      <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/>
+      {/* <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+      <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/> */}
 
       <div className='v'>
         <div style={{width:'700px',height:'300px'}}>
@@ -1122,8 +1199,8 @@ return (
     return (
       <div style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>
         <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
-        <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
-        <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/>
+        {/* <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+        <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/> */}
         <div style={{background:'lightgray',position:'relative',overflow:'visible'}}>
           <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 2500 1700" style={{overflow:'hidden'}}>
 

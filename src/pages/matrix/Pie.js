@@ -21,6 +21,7 @@ export const Pie = React.memo(({tr, data, radius}) => {
         switch (value[COLOR]) {
           case 'r': color = 'red'; break;
           case 'g': color = 'green'; break;
+          case 'y': color = 'yellow'; break;
           default: color = 'red';
         }
         if (value[STARTED] === 0) {

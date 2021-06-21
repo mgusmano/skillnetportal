@@ -15,6 +15,8 @@ import './TrainingMatrix.css';
 import { Rnd } from "react-rnd";
 //https://github.com/bokuweb/react-rnd
 
+import { Legend } from './Legend';
+
 var widgetData = {
   skills: [
     {id:10,line:'S',text:'Core Loading'},
@@ -52,7 +54,7 @@ var widgetData = {
             {p:25,s:1},
             {p:50,s:1},
             {p:75,s:1},
-            {p:100,s:0}
+            {p:100,s:1}
           ]
         },
         {
@@ -61,7 +63,7 @@ var widgetData = {
             {p:25,s:1},
             {p:50,s:1},
             {p:75,s:1},
-            {p:100,s:0}
+            {p:100,s:1}
           ]
         },
         {
@@ -103,8 +105,8 @@ var widgetData = {
       meta:{type:'skill',id:20},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
-        {meta:{id: 3,status:'warn'},data:[]},
+        {meta:{id: 2,status:'empty',start:'02/14/2020'},data:[]},
+        {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -125,7 +127,7 @@ var widgetData = {
         {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 9,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 9,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id:10,status:'empty'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
@@ -148,7 +150,7 @@ var widgetData = {
       meta:{type:'skill',id:50},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'warn'},data:[]},
+        {meta:{id: 2,status:'empty'},data:[]},
         {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -167,9 +169,9 @@ var widgetData = {
         {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 6,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 6,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 8,status:'warn'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id:10,status:'empty'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
@@ -178,29 +180,29 @@ var widgetData = {
       meta:{type:'skill',id:70},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
+        {meta:{id: 2,status:'empty',start:'02/14/2020'},data:[]},
         {meta:{id: 3,status:'empty'},data:[]},
-        {meta:{id: 4,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
+        {meta:{id: 4,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 6,status:'error'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 7,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 7,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id:10,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+        {meta:{id:10,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
     {
       meta:{type:'skill',id:80},
       data:[
-        {meta:{id: 1,status:'error'},data:[]},
+        {meta:{id: 1,status:'empty'},data:[]},
         {meta:{id: 2,status:'empty'},data:[]},
-        {meta:{id: 3,status:'warn'},data:[]},
+        {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 8,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 9,status:'warn'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 8,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id:10,status:'empty'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
@@ -208,7 +210,7 @@ var widgetData = {
       meta:{type:'skill',id:90},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
+        {meta:{id: 2,status:'empty',start:'02/14/2020'},data:[]},
         {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -216,7 +218,7 @@ var widgetData = {
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id:10,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+        {meta:{id:10,status:'empty',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
   ],
@@ -359,9 +361,22 @@ var widgetData = {
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
 
-  const [legendX, setLegendX] = useState(10);
-  const [legendY, setLegendY] = useState(60);
+  //const [legendX, setLegendX] = useState(10);
+  //const [legendY, setLegendY] = useState(60);
   const [showLegend, setShowLegend] = useState(true);
+
+
+//   // const oneDay = 1000 * 3600 * 24;
+//   // //var yellowDay = 179 * oneDay;
+//   // var dt = Date.now();
+//   // dt.setDate( dt.getDate() - 179 );
+
+//   let d = new Date();
+// console.log('Today is: ' + d.toLocaleString());
+// d.setDate(d.getDate() - 180);
+// console.log('179 days ago was: ' + d.toLocaleDateString());
+// console.log(d.toLocaleDateString())
+// var dt = d.toLocaleDateString();
 
   const sMultiplier = 10;
   const sFontsize = 2;
@@ -864,151 +879,9 @@ export const TrainingMatrix = React.memo(() => {
 return (
   <div className='v' style={{width:'100%',height:'100%',fontSize:fontsize+'pt'}}>
     {showLegend &&
-    <Rnd
-      size={{ width: '300px',  height: '300px' }}
-      position={{ x: legendX, y: legendY }}
-      onDragStop={(e, d) => {
-        setLegendX(d.x);
-        setLegendY(d.y);
-      }}
-      onResizeStop={(e, direction, ref, delta, position) => {
-        // this.setState({
-        //   width: ref.style.width,
-        //   height: ref.style.height,
-        //   ...position,
-        // });
-      }}
-    >
-      <div className='legend' style={{background:'whitesmoke',width:'100%',height:'100%'}}>
-        Floating Legend
-        <br/>
-        <svg height="300px">
-
-        <g transform="translate(10,20)" className='ball'>
-        <text x="0" y="0"style={{fontSize:'12'+'px'}}>certification:</text>
-        <text x="100" y="0"style={{fontSize:'12'+'px'}}>valid</text>
-        <text x="160" y="0"style={{fontSize:'12'+'px'}}>pending</text>
-        <text x="230" y="0"style={{fontSize:'12'+'px'}}>overdue</text>
-        </g>
-
-      <g transform="translate(10,40)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Started
-        </text>
-        <Pie tr={'translate(100,-5)'} radius={12}
-          col = {{
-            meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:false},
-            data:[
-              {p:25,s:0},
-              {p:50,s:0},
-              {p:75,s:0},
-              {p:100,s:0}
-            ]
-          }}
-        />
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:0,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:0,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-      </g>
-      <g transform="translate(10,80)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Apprentice
-        </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:0,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-      </g>
-      <g transform="translate(10,120)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Beginner
-        </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-      </g>
-      <g transform="translate(10,160)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Intermediate
-        </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-      </g>
-
-      <g transform="translate(10,200)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Certified
-        </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:1,c:'g',d:.8}]}/>
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:1,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]}/>
-      </g>
-
-      <g transform="translate(10,240)" className='ball'>
-        <text
-          dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-          x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-        >
-          Trainer
-        </text>
-
-        <Pie tr={'translate(100,-5)'} radius={12}
-          col = {{
-            meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:true},
-            data:[
-              {p:25,s:1},
-              {p:50,s:1},
-              {p:75,s:1},
-              {p:100,s:1}
-            ]
-          }}
-        />
-        <Pie tr={'translate(170,-5)'} radius={12}
-          col = {{
-            meta:{type:'student',id: 1,status:'ok',start:'02/01/2021',trainer:true},
-            data:[
-              {p:25,s:1},
-              {p:50,s:1},
-              {p:75,s:1},
-              {p:100,s:1}
-            ]
-          }}
-        />
-        <Pie tr={'translate(240,-5)'} radius={12}
-          col = {{
-            meta:{type:'student',id: 1,status:'ok',start:'02/01/2020',trainer:true},
-            data:[
-              {p:25,s:1},
-              {p:50,s:1},
-              {p:75,s:1},
-              {p:100,s:1}
-            ]
-          }}
-        />
-
-      </g>
-
-
-
-        </svg>
-
-      </div>
-    </Rnd>
+      <Legend/>
     }
+
     <div style={{height:'50px',background:'gray',fontSize:'18px'}}>
       <div style={{margin:'10px',display:'flex',flexDirection:'row',color:'white'}}>
         <div style={{margin:'5px 10px 0 60px'}}>matrix size:</div>

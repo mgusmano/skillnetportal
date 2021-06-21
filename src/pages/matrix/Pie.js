@@ -1,10 +1,18 @@
 import React from 'react';
+import warn from './bell.svg';
+import error from './excl.svg';
+import goodBlack from './checkBlack.svg';
+import goodWhite from './checkWhite.svg';
 import { Slice } from './Slice';
 const STARTED = 's';
 const COLOR = 'c';
 const DEPTH = 'd';
 
+
 export const Pie = React.memo(({tr, radius, col, data}) => {
+  var numSlices = 0;
+  var href = goodBlack;
+  var alt = 'good';
   var meta;
   var data;
   var start = null;
@@ -33,16 +41,17 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
         var fillOpacity;
         var color;
         if (start != null) {
-          var s = Date.parse(start)
-          var n = Date.now()
-          var diff = n-s
-          var days = Math.floor(diff / (1000 * 3600 * 24));
+          var s = Date.parse(start);
+          var n = Date.now();
+          var diff = n-s;
+          var oneDay = 1000 * 3600 * 24;
+          var days = Math.floor(diff / oneDay);
           switch (true) {
             case (days<=(180-7)): color = 'green'; break;
             case (days<=(180)): color = 'orange'; break;
             default: color = 'red';
           }
-          console.log(days,start,color)
+          //console.log(days,start,color)
         }
         else {
           switch (value[COLOR]) {
@@ -53,11 +62,13 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
           }
         }
         if (value[STARTED] === 0) {
+
           stroke = color;
           fill = 'white';
           fillOpacity = '1';
         }
         else {
+          numSlices = numSlices + 1;
           stroke = color;
           fill = color;
           fillOpacity =  value[DEPTH]
@@ -75,11 +86,16 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
             style={{ stroke, strokeWidth, strokeOpacity, fill, transformOrigin, transform }}
           />
           {trainer &&
+          <>
           <circle cx={radius} cy={radius} r={radius} stroke="blue" strokeWidth="5" fillOpacity="0.0" />
+</>
           }
           </>
         )
       })}
+      {numSlices == 4 &&
+          <image style={{x:(radius/2)+'px',y:(radius/2)+'px',width:radius+'px',height:radius+'px'}} href={href} alt={alt} />
+      }
     </g>
   )
 })

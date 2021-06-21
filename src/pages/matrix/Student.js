@@ -33,11 +33,7 @@ export const Student = React.memo((props) => {
     var s = 15
     var w = 15
     var h = 40
-    console.log(c)
-    console.log(bandX)
     return (
-
-
       <g transform={"translate(" + (c*bandX) + "," + "0" + ")"} className="header">
         <text style={{fontSize:radius*1.5+'px'}} x="10" y="20" fill="black">{col.data.v}</text>
         <rect stroke="black" x={s+(width*0)} y={h} width={width-(w*1)} height={bandY-(h*1.5)} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>

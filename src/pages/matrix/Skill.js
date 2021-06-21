@@ -33,7 +33,7 @@ export const Skill = React.memo((props) => {
 
   const result = num % 2;
   var src;
-  if (result == 1) {
+  if (result === 1) {
     src="https://app.swipeguide.com/guide/example-guide-line-1-wort-cooling-wort-aeration/safety/attach-lock/2"
   }
   else {
@@ -49,7 +49,7 @@ export const Skill = React.memo((props) => {
 
         <div style={{fontSize:'24px',marginBottom:'10px'}}>Operators with this certification</div>
 
-        <svg xheight="450px" xwidth="500px">
+        <svg>
           <Matrix
             renderFunction={renderText}
             params={{
@@ -63,6 +63,7 @@ export const Skill = React.memo((props) => {
 
       <div style={{flex:'2',display:'flex'}}>
         <iframe
+          title={'SwipeGuide'}
           width="100%"
           style={{flex:'1',border:'1'}}
           src={src}

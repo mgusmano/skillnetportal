@@ -3,6 +3,7 @@ import warn from './bell.svg';
 import error from './excl.svg';
 import goodBlack from './checkBlack.svg';
 import goodWhite from './checkWhite.svg';
+import cantrain from './trainer.svg';
 import { Slice } from './Slice';
 const STARTED = 's';
 const COLOR = 'c';
@@ -13,6 +14,8 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
   var numSlices = 0;
   var href = goodBlack;
   var alt = 'good';
+  var cantrainsvg = cantrain;
+
   var meta;
   var data;
   var start = null;
@@ -88,13 +91,15 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
           {trainer &&
           <>
           <circle cx={radius} cy={radius} r={radius} stroke="blue" strokeWidth="5" fillOpacity="0.0" />
-</>
+          <image style={{x:(radius/2)+'px',y:(radius/2)+'px',width:radius+'px',height:radius+'px'}} href={cantrainsvg} alt={alt} />
+          </>
           }
           </>
         )
       })}
-      {numSlices == 4 &&
-          <image style={{x:(radius/2)+'px',y:(radius/2)+'px',width:radius+'px',height:radius+'px'}} href={href} alt={alt} />
+      {!trainer & numSlices == 4 &&
+        // <image style={{x:(radius/5)+'px',y:(radius/4)+'px',width:(radius+10)+'px',height:(radius+10)+'px'}} href={cantrainsvg} alt={alt} />
+        <image style={{x:(radius/2)+'px',y:(radius/2)+'px',width:radius+'px',height:radius+'px'}} href={goodBlack} alt={alt} />
       }
     </g>
   )

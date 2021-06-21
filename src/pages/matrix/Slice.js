@@ -15,7 +15,8 @@ export const Slice = React.memo((props) => {
         console.log('click')
       }}
       onMouseEnter={() => console.log('over')}
-      strokeOpacity="1"
+
+      fillOpacity="0.5"
       d={`M${r} ${r}V0a${r} ${r} 0 0 1 ${dx} ${dy}z`}
     />
   )

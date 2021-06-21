@@ -46,17 +46,52 @@ var widgetData = {
     {
       meta:{type:'skill',id:10},
       data:[
-        {meta:{type:'student',id: 1,status:'good'},data:[]},
-        {meta:{type:'student',id: 2,status:'abc'},data:[]},
-        {meta:{type:'student',id: 3,status:'empty'},
-        data:[
-          {p:25,s:1,c:'g',d:.9},
-          {p:50,s:1,c:'g',d:.9},
-          {p:75,s:1,c:'g',d:.9},
-          {p:100,s:0,c:'g',d:.9}
-        ]},
-        {meta:{type:'student',id: 4,status:'good'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
-        {meta:{type:'student',id: 5,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {
+          meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:true},
+          data:[
+            {p:25,s:1},
+            {p:50,s:1},
+            {p:75,s:1},
+            {p:100,s:0}
+          ]
+        },
+        {
+          meta:{type:'student',id: 2,status:'ok',start:'06/20/2020',trainer:false},
+          data:[
+            {p:25,s:1},
+            {p:50,s:1},
+            {p:75,s:1},
+            {p:100,s:0}
+          ]
+        },
+        {
+          meta:{type:'student',id: 3,status:'ok',start:'12/23/2020'},
+          data:[
+            {p:25,s:1},
+            {p:50,s:1},
+            {p:75,s:1},
+            {p:100,s:0}
+          ]
+        },
+        {
+          meta:{type:'student',id: 4,status:'ok',start:'12/22/2020'},
+          data:[
+            {p:25,s:1},
+            {p:50,s:1},
+            {p:75,s:1},
+            {p:100,s:0}
+          ]
+        },
+        {
+          meta:{type:'student',id: 5,status:'ok',start:'12/24/2020'},
+          data:[
+            {p:25,s:1},
+            {p:50,s:1},
+            {p:75,s:1},
+            {p:100,s:0}
+          ]
+        },
+
         {meta:{type:'student',id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{type:'student',id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{type:'student',id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -68,7 +103,7 @@ var widgetData = {
       meta:{type:'skill',id:20},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good'},data:[]},
+        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
         {meta:{id: 3,status:'warn'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -90,7 +125,7 @@ var widgetData = {
         {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 9,status:'good'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 9,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id:10,status:'empty'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
@@ -132,7 +167,7 @@ var widgetData = {
         {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 6,status:'good'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 6,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'warn'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -143,15 +178,15 @@ var widgetData = {
       meta:{type:'skill',id:70},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good'},data:[]},
+        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
         {meta:{id: 3,status:'empty'},data:[]},
-        {meta:{id: 4,status:'good'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
+        {meta:{id: 4,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 6,status:'error'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 7,status:'good'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 7,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id:10,status:'good'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+        {meta:{id:10,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
     {
@@ -164,7 +199,7 @@ var widgetData = {
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 6,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 7,status:'ok'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id: 8,status:'good'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
+        {meta:{id: 8,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'warn'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id:10,status:'empty'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
@@ -173,7 +208,7 @@ var widgetData = {
       meta:{type:'skill',id:90},
       data:[
         {meta:{id: 1,status:'empty'},data:[]},
-        {meta:{id: 2,status:'good'},data:[]},
+        {meta:{id: 2,status:'good',start:'02/14/2020'},data:[]},
         {meta:{id: 3,status:'empty'},data:[]},
         {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'g',d:.9},{p:50,s:1,c:'g',d:.6},{p:75,s:1,c:'g',d:.3},{p:100,s:0,c:'g',d:.3}]},
         {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
@@ -181,7 +216,7 @@ var widgetData = {
         {meta:{id: 7,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 8,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
         {meta:{id: 9,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        {meta:{id:10,status:'good'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
+        {meta:{id:10,status:'good',start:'02/14/2020'},data:[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]},
       ]
     },
   ],
@@ -512,7 +547,7 @@ export const TrainingMatrix = React.memo(() => {
           <Pie
             tr={tr}
             radius={radius}
-            data={col.data}
+            col={col}
           />
           <MatrixCell
             clickFunction={clickMain}
@@ -861,9 +896,19 @@ return (
           dominantBaseline="hanging" textAnchor="bottom" stroke="black"
           x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
         >
-          Not Started
+          Started
         </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:0,c:'g',d:.8},{p:50,s:0,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
+        <Pie tr={'translate(100,-5)'} radius={12}
+          col = {{
+            meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:false},
+            data:[
+              {p:25,s:0},
+              {p:50,s:0},
+              {p:75,s:0},
+              {p:100,s:0}
+            ]
+          }}
+        />
         <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:0,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
         <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:0,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
       </g>
@@ -920,9 +965,41 @@ return (
         >
           Trainer
         </text>
-        <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:1,c:'g',d:.8}]}/>
-        <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:1,c:'y',d:.8}]}/>
-        <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]}/>
+
+        <Pie tr={'translate(100,-5)'} radius={12}
+          col = {{
+            meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:true},
+            data:[
+              {p:25,s:1},
+              {p:50,s:1},
+              {p:75,s:1},
+              {p:100,s:1}
+            ]
+          }}
+        />
+        <Pie tr={'translate(170,-5)'} radius={12}
+          col = {{
+            meta:{type:'student',id: 1,status:'ok',start:'02/01/2021',trainer:true},
+            data:[
+              {p:25,s:1},
+              {p:50,s:1},
+              {p:75,s:1},
+              {p:100,s:1}
+            ]
+          }}
+        />
+        <Pie tr={'translate(240,-5)'} radius={12}
+          col = {{
+            meta:{type:'student',id: 1,status:'ok',start:'02/01/2020',trainer:true},
+            data:[
+              {p:25,s:1},
+              {p:50,s:1},
+              {p:75,s:1},
+              {p:100,s:1}
+            ]
+          }}
+        />
+
       </g>
 
 

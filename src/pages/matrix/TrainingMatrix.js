@@ -30,6 +30,13 @@ var widgetData = {
     {id:90,line:'S',text:'Lead Wire Forming'},
   ],
 
+  lefttotals: [
+    {id:10,line:'S',text:'Goal'},
+    {id:20,line:'S',text:'# Certified'},
+    {id:30,line:'S',text:'Gap'},
+  ],
+
+
   students: [
       {id:1,text:'Joe Smith'},
       {id:2,text:'Marc Ester'},
@@ -374,21 +381,27 @@ var widgetData = {
   ],
 
   rightheading: [
-    {meta:{id:10},data:[{meta:{},data:{name:'#Accomplished'}},{meta:{},data:{name:'#Goal'}},{meta:{},data:{name:'% of Goal'}}]},
+    {meta:{id:10},data:[
+      {meta:{},data:{name:'Goal'}},
+      {meta:{},data:{name:'# Certified'}},
+      {meta:{},data:{name:'Gap'}}
+    ]},
   ],
   right: [
-    {meta:{id:10},data:[{meta:{},data:{v:2}},{meta:{},data:{v:4}},{meta:{},data:{v:-2}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:-3}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:-3}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:0}},{meta:{},data:{v:4}},{meta:{},data:{v:-4}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:0}},{meta:{},data:{v:4}},{meta:{},data:{v:-4}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:-3}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:4}},{meta:{},data:{v:4}},{meta:{},data:{v:0}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:-3}}]},
-    {meta:{id:10},data:[{meta:{},data:{v:2}},{meta:{},data:{v:4}},{meta:{},data:{v:-2}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:2}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:0}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:0}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:4}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:1}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
+    {meta:{id:10},data:[{meta:{},data:{v:2}},{meta:{},data:{v:4}},{meta:{},data:{v:'10%'}}]},
   ],
   bottom: [
     {meta:{},data:[{meta:{},data:{v:1}},{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:2}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:2}}]},
+    {meta:{},data:[{meta:{},data:{v:1}},{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:2}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:2}}]},
+    {meta:{},data:[{meta:{},data:{v:'10%'}},{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:2}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:2}}]},
   ],
   secondary: [
     {
@@ -457,7 +470,8 @@ export const TrainingMatrix = React.memo(() => {
   const sCol2 = 50;
   const sCol3 = 17;
   const sRow1 = 30;
-  const sRow2 = 52;
+  const sRow2 = 45;
+  const sRow3 = 30;
 
   const [multiplier, setMultiplier] = useState(sMultiplier);
   const [fontsize, setFontsize] = useState(sFontsize*sMultiplier);
@@ -469,6 +483,7 @@ export const TrainingMatrix = React.memo(() => {
   const [col3, setCol3] = useState(sCol3*sMultiplier);
   const [row1, setRow1] = useState(sRow1*sMultiplier);
   const [row2, setRow2] = useState(sRow2*sMultiplier);  //450 + 20 + 50
+  const [row3, setRow3] = useState(sRow3*sMultiplier);
 
   const [num, setNum] = useState(0);
   //const [title, setTitle] = useState(null);
@@ -594,9 +609,6 @@ export const TrainingMatrix = React.memo(() => {
     const {radius, bandX, bandY, fontsize} = props
     return (
       <g key={r+c} transform="translate(0,0)" className="cell">
-
-
-
         <text
           transform="rotate(270,100,90)"
           dominantBaseline="left"
@@ -605,13 +617,11 @@ export const TrainingMatrix = React.memo(() => {
           x={-80}
           y={30*((c*1.5)+1)}
           className="text"
-          style={{fontSize:(fontsize-15)+'px'}}>{col.data.name}
+          style={{fontSize:fontsize+'px'}}>{col.data.name}
         </text>
       </g>
     )
   }
-
-
 
   const clickMain = (e,colid,rowid,type,data) => {
     //setTitle('main')
@@ -784,7 +794,7 @@ export const TrainingMatrix = React.memo(() => {
         x={(bandX*c)+(bandX/2)}
         y={bandY-(bandY/2)}
         className="text"
-        style={{fontSize:fontsize+'px'}}>
+        style={{fontSize:(fontsize-4)+'px'}}>
           {col.data.v}
       </text>
     )
@@ -1014,8 +1024,8 @@ return (
                 <Matrix
                   renderFunction={renderTotalsHeading}
                   params={{
-                    name:'totalsrightheading',data: widgetData.rightheading,
-                    translateX:row2,translateY:0,radius:radius,bandX:bandX,bandY:row1
+                    name:'totalsrightheading',data: widgetData.rightheading,fontsize,
+                    translateX:col2,translateY:0,radius:radius,bandX:bandX,bandY:row1
                   }}
                 />
               </svg>
@@ -1025,8 +1035,8 @@ return (
         </div>
         <div className='h'>
           <div id="skill" className='' style={{width:col1+'px',overflow:'scroll',overflow:'hidden'}}>
-            <div width={col1+'px'} height={row2+'px'}>
-            <svg width={col1+'px'} height={row2+'px'}>
+            <div width={col1+'px'} height={row2+row3+'px'}>
+            <svg width={col1+'px'} height={row2+row3+'px'}>
             <Matrix
               renderFunction={renderSkillArea}
               clickFunction={clickSkillArea}
@@ -1035,12 +1045,20 @@ return (
                 translateX:0,translateY:0,radius:radius,bandX:col1,bandY:bandX
               }}
             />
+            <Matrix
+              renderFunction={renderSkillArea}
+              clickFunction={clickSkillArea}
+              params={{
+                name:'skills',data:widgetData.lefttotals,fontsize,
+                translateX:0,translateY:row2,radius:radius,bandX:col1,bandY:bandX
+              }}
+            />
             </svg>
             </div>
           </div>
           <div className='v' style={{overflow:'overlay'}} onScroll={onScroll}>
-            <div width={(col2+col3)+'px'} height={row2+'px'}>
-            <svg width={(col2+col3)+'px'} height={row2+'px'}>
+            <div width={(col2+col3)+'px'} height={row2+row3+'px'}>
+            <svg width={(col2+col3)+'px'} height={row2+row3+'px'}>
               <Matrix
                 renderFunction={renderMain}
                 params={{
@@ -1051,15 +1069,15 @@ return (
               <Matrix
                 renderFunction={renderText}
                 params={{
-                  name: 'totalsright',data: widgetData.right,
-                  translateX:row2,translateY:0,radius:radius,bandX:bandX,bandY:bandY
+                  name: 'totalsright',data: widgetData.right,fontsize,
+                  translateX:col2,translateY:0,radius:radius,bandX:bandX,bandY:bandY
                 }}
               />
               <Matrix
                 renderFunction={renderText}
                 params={{
-                  name:'totalsbottom',data:widgetData.bottom,
-                  translateX:0,translateY:450,radius:radius,bandX:bandX,bandY:bandY
+                  name:'totalsbottom',data:widgetData.bottom,fontsize,
+                  translateX:0,translateY:row2,radius:radius,bandX:bandX,bandY:bandY
                 }}
               />
             </svg>
@@ -1070,7 +1088,7 @@ return (
         {/* <div className='' style={{height:'50px'}}>b</div> */}
       </div>
       <div role="separator"></div>
-      <div className='' style={{width:'600px'}}>
+      <div className='' style={{width:'525px'}}>
         <div style={{width:'100%', height:'100%', padding:'25px', background:'white', boxSizing:'border-box'}}>
           <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
             {specific}

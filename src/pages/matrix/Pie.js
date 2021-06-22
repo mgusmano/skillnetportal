@@ -90,7 +90,7 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
           />
           {trainer &&
           <>
-          <circle cx={radius} cy={radius} r={radius} stroke="blue" strokeWidth="5" fillOpacity="0.0" />
+          <circle cx={radius} cy={radius} r={radius} stroke="blue" strokeWidth="2" fillOpacity="0.0" />
           <image style={{x:(radius/2)+'px',y:(radius/2)+'px',width:radius+'px',height:radius+'px'}} href={cantrainsvg} alt={alt} />
           </>
           }

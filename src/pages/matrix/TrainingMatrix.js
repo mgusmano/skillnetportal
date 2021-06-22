@@ -224,6 +224,92 @@ var widgetData = {
   ],
 
 
+  student: [
+    {
+      meta:{type:'skill',id:10},
+      data:[
+        {
+          meta:{id: 1,status:'ok',start:'06/01/2021',trainer:false},
+          data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 2,status:'ok',start:'06/20/2021',trainer:false},
+          data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 3,status:'ok',start:'06/20/2021'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 4,status:'ok',start:'06/20/2021'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 5,status:'ok',start:'06/20/2021',trainer:false},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
+        },
+        {meta:{type:'student',id: 6,status:'ok',start:'06/20/2021',trainer:true},data:[
+          {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
+      ]
+    },
+    {
+      meta:{type:'skill',id:10},
+      data:[
+        {
+          meta:{id: 1,status:'ok',start:'06/01/2020',trainer:false},
+          data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 2,status:'ok',start:'06/20/2020',trainer:false},
+          data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 3,status:'ok',start:'06/20/2020'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 4,status:'ok',start:'06/20/2020'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 5,status:'ok',start:'06/20/2020',trainer:false},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
+        },
+        {meta:{type:'student',id: 6,status:'ok',start:'06/20/2020',trainer:true},data:[
+          {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
+      ]
+    },
+    {
+      meta:{type:'skill',id:10},
+      data:[
+        {
+          meta:{id: 1,status:'ok',start:'12/28/2020',trainer:false},
+          data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 2,status:'ok',start:'12/28/2020',trainer:false},
+          data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 3,status:'ok',start:'12/28/2020'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 4,status:'ok',start:'12/28/2020'},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
+        },
+        {
+          meta:{type:'student',id: 5,status:'ok',start:'12/28/2020',trainer:false},
+          data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
+        },
+        {meta:{type:'student',id: 6,status:'ok',start:'12/28/2020',trainer:true},data:[
+          {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
+      ]
+    },
+  ],
+
+
+
   first: [
     {meta:{tid:10},data:[{meta:{},data:{v:'Assembly Machine'}},{meta:{},data:{v:'Inspection & Packaging'}},]},
   ],
@@ -383,7 +469,7 @@ export const TrainingMatrix = React.memo(() => {
   const sBandX = 5;
   const sBandY = 5;
   const sRadius = 1.8;
-  const sCol1 = 30;
+  const sCol1 = 40;
   const sCol2 = 50;
   const sCol3 = 17;
   const sRow1 = 30;
@@ -445,8 +531,11 @@ export const TrainingMatrix = React.memo(() => {
     //var skill=widgetData.skills.find(x => x.id === rowid)
 
     setSpecific(<Student
-      student={student}
+      radius={radius}
+      bandX={bandX}
+      bandY={bandY}
       studentData={{
+        widgetData: widgetData,
         studentid: colid,
         skillid: null,
         student: student,

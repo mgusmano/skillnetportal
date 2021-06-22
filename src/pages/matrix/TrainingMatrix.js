@@ -471,7 +471,7 @@ export const TrainingMatrix = React.memo(() => {
   const sCol3 = 17;
   const sRow1 = 30;
   const sRow2 = 45;
-  const sRow3 = 30;
+  const sRow3 = 20;
 
   const [multiplier, setMultiplier] = useState(sMultiplier);
   const [fontsize, setFontsize] = useState(sFontsize*sMultiplier);

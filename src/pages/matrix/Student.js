@@ -195,6 +195,8 @@ export const Student = React.memo((props) => {
 
       <svg width="100%" height="100%">
 
+
+
         <Matrix
                 renderFunction={renderMain}
                 params={{
@@ -207,14 +209,17 @@ export const Student = React.memo((props) => {
         <text x={10} y={30} style={{fontSize:'24px'}}>Core Loading</text>
         <text x={360} y={30} style={{fontSize:'16px'}}>06/01/2021</text>
         <line x1={10} y1={35} x2={450} y2={35} stroke='black' strokeWidth="1" style={{fontSize:'16px'}}></line>
+        <rect stroke="black" x={50} y={45} width={50} height={50} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'0.3',strokeOpacity:1.0}}></rect>
 
         <text x={10} y={130} style={{fontSize:'24px'}}>Phase Paper Insertion (VW)</text>
         <text x={360} y={130} style={{fontSize:'16px'}}>06/01/2020</text>
         <line x1={10} y1={135} x2={450} y2={135} stroke='black' strokeWidth="1" style={{fontSize:'16px'}}></line>
+        <rect stroke="black" x={150} y={145} width={50} height={50} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'0.3',strokeOpacity:1.0}}></rect>
 
         <text x={10} y={230} style={{fontSize:'24px'}}>Lead Wire Setting</text>
         <text x={360} y={230} style={{fontSize:'16px'}}>12/28/2020</text>
         <line x1={10} y1={235} x2={450} y2={235} stroke='black' strokeWidth="1" style={{fontSize:'16px'}}></line>
+        <rect stroke="black" x={0} y={245} width={50} height={50} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'0.3',strokeOpacity:1.0}}></rect>
 
 
 

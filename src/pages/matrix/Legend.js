@@ -6,19 +6,13 @@ import { Pie } from './Pie';
 export const Legend = React.memo((props) => {
   const [legendX, setLegendX] = useState(10);
   const [legendY, setLegendY] = useState(60);
-  //const {dt} = props;
-
-  // const oneDay = 1000 * 3600 * 24;
-  // //var yellowDay = 179 * oneDay;
-  // var dt = Date.now();
-  // dt.setDate( dt.getDate() - 179 );
 
   let d = new Date();
-console.log('Today is: ' + d.toLocaleString());
-d.setDate(d.getDate() - 180);
-console.log('179 days ago was: ' + d.toLocaleDateString());
-console.log(d.toLocaleDateString())
-var dt = d.toLocaleDateString();
+  console.log('Today is: ' + d.toLocaleString());
+  d.setDate(d.getDate() - 180);
+  console.log('179 days ago was: ' + d.toLocaleDateString());
+  console.log(d.toLocaleDateString())
+  var dt = d.toLocaleDateString();
 
 
   return (

@@ -374,7 +374,7 @@ var widgetData = {
   ],
 
   rightheading: [
-    {meta:{id:10},data:[{meta:{},data:{name:'acc#'}},{meta:{},data:{name:'goal'}},{meta:{},data:{name:'diff'}}]},
+    {meta:{id:10},data:[{meta:{},data:{name:'#Accomplished'}},{meta:{},data:{name:'#Goal'}},{meta:{},data:{name:'% of Goal'}}]},
   ],
   right: [
     {meta:{id:10},data:[{meta:{},data:{v:2}},{meta:{},data:{v:4}},{meta:{},data:{v:-2}}]},
@@ -446,23 +446,7 @@ var widgetData = {
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
-
-  //const [legendX, setLegendX] = useState(10);
-  //const [legendY, setLegendY] = useState(60);
   const [showLegend, setShowLegend] = useState(true);
-
-
-//   // const oneDay = 1000 * 3600 * 24;
-//   // //var yellowDay = 179 * oneDay;
-//   // var dt = Date.now();
-//   // dt.setDate( dt.getDate() - 179 );
-
-//   let d = new Date();
-// console.log('Today is: ' + d.toLocaleString());
-// d.setDate(d.getDate() - 180);
-// console.log('179 days ago was: ' + d.toLocaleDateString());
-// console.log(d.toLocaleDateString())
-// var dt = d.toLocaleDateString();
 
   const sMultiplier = 10;
   const sFontsize = 2;
@@ -602,6 +586,32 @@ export const TrainingMatrix = React.memo(() => {
       //   style={{fontSize:'32px'}}>{col.data.v}</text>
     )
   }
+
+  //x={(bandX*c)}
+  //y={bandY-(bandY/3)}
+
+  const renderTotalsHeading = (props,c,col,r) => {
+    const {radius, bandX, bandY, fontsize} = props
+    return (
+      <g key={r+c} transform="translate(0,0)" className="cell">
+
+
+
+        <text
+          transform="rotate(270,100,90)"
+          dominantBaseline="left"
+          textAnchor="start"
+          stroke="black"
+          x={-80}
+          y={30*((c*1.5)+1)}
+          className="text"
+          style={{fontSize:(fontsize-15)+'px'}}>{col.data.name}
+        </text>
+      </g>
+    )
+  }
+
+
 
   const clickMain = (e,colid,rowid,type,data) => {
     //setTitle('main')
@@ -1002,7 +1012,7 @@ return (
                   }}
                 />
                 <Matrix
-                  renderFunction={renderPlainHeading}
+                  renderFunction={renderTotalsHeading}
                   params={{
                     name:'totalsrightheading',data: widgetData.rightheading,
                     translateX:row2,translateY:0,radius:radius,bandX:bandX,bandY:row1

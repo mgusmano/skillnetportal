@@ -1,5 +1,6 @@
 import React from 'react';
 import { Matrix } from './Matrix';
+import who from './who.png';
 
 export const Skill = React.memo((props) => {
   const {skill,num} = props.skillData
@@ -23,12 +24,14 @@ export const Skill = React.memo((props) => {
         x={(bandX*c)+(bandX/2)}
         y={bandY-(bandY/2)}
         className="text"
-        style={{fontSize:'24px'}}>
+        style={{fontSize:'18px'}}>
           {col.data.v}
       </text>
     )
   }
 
+  var radius=24;
+  var alt = 'alt'
 
 
   const result = num % 2;
@@ -41,7 +44,7 @@ export const Skill = React.memo((props) => {
   }
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
-      <div style={{height:'50px',fontSize:'32px'}}>
+      <div style={{height:'50px',fontSize:'24px'}}>
         <div>Skill: {skill.text}</div>
       </div>
 
@@ -50,13 +53,18 @@ export const Skill = React.memo((props) => {
         <div style={{fontSize:'24px',marginBottom:'10px'}}>Operators with this certification</div>
 
         <svg>
-          <Matrix
+          {/* <Matrix
             renderFunction={renderText}
             params={{
               name:'main',data:widgetData.who,
               translateX:0,translateY:0,radius:15,bandX:240,bandY:35
             }}
-          />
+          /> */}
+
+<image style={{x:'1px',y:'-50px',width:'300px',height:'230px'}} href={who} alt={alt} />
+
+
+
         </svg>
 
       </div>

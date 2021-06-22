@@ -864,7 +864,7 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const clickMain = (e,colid,rowid,type,data) => {
+  const clickMain = (e,colid,rowid,type,data, col) => {
     //setTitle('main')
 
     //console.log('mouseClick')
@@ -872,6 +872,9 @@ export const TrainingMatrix = React.memo(() => {
 
     var student=widgetData.students.find(x => x.id === colid)
     var skill=widgetData.skills.find(x => x.id === rowid)
+
+
+    console.log(col)
 
     setSpecific(<Main
       student={student}
@@ -881,7 +884,8 @@ export const TrainingMatrix = React.memo(() => {
         student: student,
         skill: skill,
         type: type,
-        data: data
+        data: data,
+        col: col
       }}
       skill={skill}/>
       )
@@ -923,6 +927,7 @@ export const TrainingMatrix = React.memo(() => {
             type="pie"
             data={col.data}
             widgetData={widgetData}
+            col={col}
           />
         </g>
       )

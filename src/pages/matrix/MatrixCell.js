@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useModal } from "react-modal-hook";
 import PieDetailsDialog from './PieDetailsDialog'
 
-export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, data, widgetData, clickFunction,x, stroke}) => {
+export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, data, widgetData, clickFunction,x, stroke, col}) => {
 
   var sColor = 'black'
   useEffect(() => {
@@ -38,7 +38,7 @@ export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, data, w
       height={bandY}
       style={{fill:'rgb(0,0,255)',strokeWidth:'3',stroke:sColor}}
       onClick={(e) => {
-        {clickFunction !== undefined && clickFunction(e,colid,rowid,type,data)}
+        {clickFunction !== undefined && clickFunction(e,colid,rowid,type,data,col)}
         // {clickFunction == undefined && showModalPieDetails(e)}
       }}
       onMouseEnter={(e) => {

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
 export const Matrix = React.memo((props) => {
-  const {data, name, translateX, translateY, radius, bandX, bandY, oneRow, stroke} = props.params;
+  const {data, name, translateX, translateY, bandX, bandY, oneRow, stroke, top, fontsize} = props.params;
   const [sColor, setColor] = useState('black');
+  const [sTop, setTop] = useState(0);
+  //const [header, setHeader] = useState('');
 
   useEffect(() => {
+    if (top !== undefined) {
+      setTop(top)
+    }
     console.log(stroke)
     if (stroke !== undefined) {
       setColor(stroke);
     }
-  }, [stroke]);
+  }, [stroke,top]);
 
   const getRow = (row,oneRow) => {
     if (row.data == undefined) {
@@ -26,14 +31,20 @@ export const Matrix = React.memo((props) => {
       data.map((row,r) => {
         var theRow = getRow(row,oneRow)
         return (
-          <g key={r} transform={"translate(" + "0" + "," + bandY*r + ")"} className="row">
+          <g key={r} transform={"translate(" + "0" + "," + ((bandY*r)+(sTop*r)) + ")"} className="row">
           {
-
             theRow.map((col,c) => {
+              var header = ''
+              if (col !== undefined) {
+                if (col.skill != undefined) {
+                  header = col.skill.skillName
+                }
+              }
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
-                  <rect stroke={sColor} x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                  {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row)}
+                  <rect stroke={sColor} x={(bandX*c)} y={sTop} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
+                  {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row,sTop)}
+                  {sTop !== 0 && <text style={{fontSize: fontsize+'px'}} x={5} y="30" >{header}</text>}
                 </g>
               )
             })

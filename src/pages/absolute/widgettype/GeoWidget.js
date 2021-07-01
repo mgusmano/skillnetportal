@@ -5,7 +5,7 @@ import Map from './fusion/Map'
 
 const GeoWidget = (props) => {
     //const [{widgetRecord}, dispatch] = useWidgetState();
-    var widgetRecord = props.widgetRecord
+    //var widgetRecord = props.widgetRecord
     return (
 
 
@@ -24,10 +24,9 @@ export default GeoWidget
 <div className="borderclass" style={{xflex:'1',border:'1px solid lightgray',xheight:'100%' }}>
     <Column/>
 </div>
-</div> */}
+</div>
 
-
-{/* <div>
+<div>
 <div>
     <Column/>
     {widgetRecord.defaultTitle}

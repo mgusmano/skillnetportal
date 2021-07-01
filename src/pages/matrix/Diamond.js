@@ -1,9 +1,9 @@
 import React from 'react';
-import {SvgX,GX,PathX,TextX, CircleX} from './SvgStuff';
+import {SvgX,PathX,TextX, CircleX} from './SvgStuff';
 
 export const Diamond = ({meta, data, boxSize, padding}) => {
   var status = meta.status;
-  if (meta.status == 'ok') {
+  if (meta.status === 'ok') {
     status = 'started';
   }
 
@@ -42,33 +42,25 @@ export const Diamond = ({meta, data, boxSize, padding}) => {
   const getSlice = (slice,size) => {
     var opacity = 0;
     if (slice.s === 1) { opacity = 0.6}
+    var a,path;
     switch(slice.p) {
       case (25):
-        var a = describeArc(0, 0, size, 0, 90)
-        var path = `${a} L0,0 z`
+        return [`${describeArc(0, 0, size, 0, 90)} L0,0 z`,opacity]
         //var path = `M0,0 L ${size}, 0 ${a} L-0,-${size} z`
-        return [path,opacity]
       case (50):
-        var a = describeArc(0, 0, size, 90, 180)
-        var path = `${a} L0,0 z`
+        a = describeArc(0, 0, size, 90, 180)
+        path = `${a} L0,0 z`
         return [path,opacity]
         //return [`M0,0 L 0, ${size}  L ${size}, 0 z`,opacity]
       case (75):
-        var a = ''
         a = describeArc(0, 0, size, 180, 270)
-        //console.log(a)
-        var path = ` ${a} L0,0 z`
+        path = ` ${a} L0,0 z`
         return [path,opacity]
-
         //return [`M0,0 L 0, ${size}  L-${size}, 0 z`,opacity]
       case (100):
-
-        var a = ''
         a = describeArc(0, 0, size, 270, 360)
-        //console.log(a)
-        var path = `${a}  L0,0 z`
+        path = `${a}  L0,0 z`
         return [path,opacity]
-
         //return [`M0,0 L 0, -${size} L-${size}, 0 z`,opacity]
       default:
         return ''

@@ -5,7 +5,7 @@ import React from 'react';
 export const Main = React.memo((props) => {
   const {skill, student, dialogData, col} = props;
 
-  console.log(dialogData.col)
+  console.log(col)
 
   var radius = 80
   var bandX = 100
@@ -43,25 +43,26 @@ export const Main = React.memo((props) => {
 
 
   var img
-  var type
+  //var type
   var data
-  if (dialogData !== null) {
-    img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + dialogData.student.id + '.jpg'
-    type = dialogData.type;
+  if (col !== null) {
+    img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + col.operator.operatorID + '.jpg'
+//    type = dialogData.type;
     data = dialogData.data;
 
   }
 
+//  console.log(type)
 console.log(data)
 console.log(tr)
 console.log(radius)
-console.log(col)
+console.log(dialogData.col)
 
 
   return (
     <div>
-      <div style={{fontSize:'32px'}}>Operator: {dialogData.student.text}</div>
-      <div style={{fontSize:'24px',marginBottom:'10px'}}>Skill: {dialogData.skill.text}</div>
+      <div style={{fontSize:'32px'}}>Operator: {col.operator.operatorName}</div>
+      <div style={{fontSize:'24px',marginBottom:'10px'}}>Skill: {col.skill.skillName}</div>
 
 
 

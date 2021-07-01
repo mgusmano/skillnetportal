@@ -49,6 +49,8 @@ const Widget = (props) => {
     case 'geoWidget':
       Specific = <GeoWidget widgetRecord={widgetRecord}/>;
       break;
+    default:
+      break;
   }
 
   const findAncestor = (el, cls) => {

@@ -36,7 +36,7 @@ export const Pie = React.memo(({tr, radius, col, data}) => {
   var rotate = 0.5 * Math.PI - angle;
 
   return (
-    <g transform={tr} className="pie" >
+    <g ley={col} transform={tr} className="pie" >
       {data.map((value, i) => {
         //var percent = value[PERCENT];
         var stroke;

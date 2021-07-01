@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Matrix } from './Matrix';
 import { MatrixCell } from './MatrixCell';
-import { Pie } from './Pie';
+//import { Pie } from './Pie';
+import { Diamond } from './Diamond';
 
 export const Student = React.memo((props) => {
   const {student,widgetData} = props.studentData;
@@ -54,7 +55,7 @@ export const Student = React.memo((props) => {
 
     if (status == 'ok') {
       return (
-        <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
+        <g transform={"translate(" + (c*bandX) + ",45)"} className="group" >
 
 {/* <text
         dominantBaseline="middle"
@@ -68,11 +69,9 @@ export const Student = React.memo((props) => {
       </text> */}
 
 
-          <Pie
-            tr={tr}
-            radius={radius}
-            col={col}
-          />
+          <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
+
+          {/* <Pie tr={tr} radius={radius} col={col}/> */}
           <MatrixCell
             clickFunction={clickMain}
             rowid={row.meta.id}

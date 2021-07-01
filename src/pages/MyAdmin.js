@@ -2,7 +2,7 @@ import React from 'react';
 
 const MyAdmin = (props) => {
   return (
-<iframe width="100%" height="100%" src="https://sandbox.skillnet.net/ui/login.aspx?" ></iframe>
+<iframe title="SkillNet" width="100%" height="100%" src="https://sandbox.skillnet.net/ui/login.aspx?" ></iframe>
 
   )
 }

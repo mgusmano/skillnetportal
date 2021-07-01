@@ -30,7 +30,6 @@ export const Matrix = React.memo((props) => {
           {
 
             theRow.map((col,c) => {
-              console.log(sColor)
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
                   <rect stroke={sColor} x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>

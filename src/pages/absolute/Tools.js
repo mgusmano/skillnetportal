@@ -14,8 +14,8 @@ import './Tools.css'
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import SendIcon from '@material-ui/icons/Send';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+//import SendIcon from '@material-ui/icons/Send';
+//import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 
 const Tools = (props) => {
@@ -29,7 +29,7 @@ const Tools = (props) => {
 
   const handleClose = (event, who) => {
     setAnchorEl(null);
-    if (who == 'closewidget') {
+    if (who === 'closewidget') {
       console.log('close it')
 
       //dispatch({type: 'DELETE_WIDGET', payload: { id: widgetRecord.id }});
@@ -45,7 +45,8 @@ const Tools = (props) => {
 //        dispatch({type: 'CHANGE_WIDGET_MODE', payload: { id: widgetRecord.id }});
         break;
       case 'geoWidget':
-
+        break;
+      default:
         break;
     }
   }

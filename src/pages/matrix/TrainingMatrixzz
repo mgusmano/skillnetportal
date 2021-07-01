@@ -1,0 +1,447 @@
+  // var numX = widgetData.top[0].data.length;
+  // var numY = widgetData.left.length;
+
+  // var translateXmain = 1000;
+  // var translateYmain = 300;
+
+  // const radiusmain = 20;
+  // var spaceBetweenY = 25;
+  // var spaceBetweenX = 30;
+
+  // const diameter = radiusmain * 2;
+  // var bandXmain = diameter + spaceBetweenX;
+  // var bandYmain = diameter + spaceBetweenY;
+
+  // var widthmain = bandXmain * numX;
+  // var heightmain = bandYmain * numY;
+
+  // var xTotalsRightStart = translateXmain + widthmain;
+  // var yTotalsRightStart = translateYmain;
+
+  // var xTotalsBottomStart = translateXmain;
+  // var yTotalsBottomStart = translateYmain + heightmain;
+
+  
+  // const [matrixDialogData, setMatrixDialogData] = useState(null);
+  // const [openMatrixDialog, setOpenMatrixDialog] = useState(false);
+
+  // const [skillDialogData, setSkillDialogData] = useState(null);
+  // const [openSkillDialog, setOpenSkillDialog] = useState(false);
+
+  // const [studentDialogData, setStudentDialogData] = useState(null);
+  // const [openStudentDialog, setOpenStudentDialog] = useState(false);
+
+
+//<svg style={{flex:'1',display:'flex',width:'600px',height:'600px',overflow:'auto'}}>
+//<svg width="900px" height="500px" xstyle={{overflow:'auto'}} xviewBox="0 0 900 500">
+
+  return (
+    <div className='h' style={{width:'100%',height:'100%'}}>
+      <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
+      {/* <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+      <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/> */}
+
+      <div className='v'>
+        <div style={{width:'700px',height:'300px'}}>
+            <svg  width="700px" height="300px" >
+              <Matrix
+                renderFunction={renderLeftHeading}
+                params={{
+                  name: "totalleft",
+                  data: widgetData.leftheading,
+                  translateX: 0,
+                  translateY: 0,
+                  radius: 15,
+                  bandX: 700,
+                  bandY: 300
+                }}
+              />
+            </svg>
+          </div>
+        <div>
+            <svg height="300px" width="700px">
+            <MatrixOneRow
+              renderFunction={renderStudent}
+              clickFunction={clickStudent}
+              params={{
+                name: "maintop",
+                data: widgetData.students,
+                translateX: 0,
+                translateY: 0,
+                radius: 20,
+                bandX: bandX,
+                bandY: 700
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderPlainHeading}
+              params={{
+                name: "totalsrightheading",
+                data: widgetData.rightheading,
+                translateX: 500,
+                translateY: 0,
+                radius: 10,
+                bandX: bandX,
+                bandY: 400
+              }}
+            />
+
+
+
+            </svg>
+
+
+        </div>
+        <div style={{flex:'1',display:'flex',flexDirection:'row',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
+          <div style={{width:'340px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue',overflow:'hidden'}}>
+
+          <svg width="400px" height="500px">
+          <Matrix
+              renderFunction={renderSkillLine}
+              params={{
+                name: "skills",
+                data: widgetData.skills,
+                translateX: 0,
+                translateY: 0,
+                radius: 15,
+                bandX: bandX,
+                bandY: bandX
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderSkillArea}
+              clickFunction={clickSkillArea}
+              params={{
+                name: "skills",
+                data: widgetData.skills,
+                translateX: 40,
+                translateY: 0,
+                radius: 15,
+                bandX: 300,
+                bandY: bandX
+              }}
+            />
+          </svg>
+
+
+
+          </div>
+          <div style={{flex:'1',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue',overflow:'auto'}}>
+
+
+          <svg height="650px" width="700px">
+
+              <Matrix
+                renderFunction={renderMain}
+                params={{
+                  name: "main",
+                  data: widgetData.data,
+                  translateX: 0,
+                  translateY: 0,
+                  radius: 15,
+                  bandX: bandX,
+                  bandY: bandY
+                }}
+              />
+
+            <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsright",
+                data: widgetData.right,
+                translateX: 500,
+                translateY: 0,
+                radius: 15,
+                bandX: bandX,
+                bandY: bandY
+              }}
+            />
+
+
+
+            </svg>
+
+          </div>
+          {/* <div style={{width:'200px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>
+            matrix right
+          </div> */}
+        </div>
+        <div style={{height:'50px',display:'flex',flexDirection:'column',boxSizing:'border-box',border:'0px solid blue'}}>
+          <svg height="650px" width="900px">
+          <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsbottom",
+                data: widgetData.bottom,
+                translateX: 340,
+                translateY: 0,
+                radius: 15,
+                bandX: 50,
+                bandY: 50
+              }}
+            />
+            </svg>
+      </div>
+      </div>
+
+      <div className='v' style={{width:'400px'}}>
+        <div style={{width:'100%', height:'100%', padding:'10px', background:'white', boxSizing:'border-box'}}>
+          <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
+            {specific}
+          </div>
+        </div>
+      </div> */}
+
+    </div>
+    )
+
+    return (
+      <div style={{display:'flex',flexDirection:'column',flex:'1 1 0%',overflow:'hidden'}}>
+        <MatrixDialog dialogData={matrixDialogData} open={openMatrixDialog} onClose={()=>{setOpenMatrixDialog(false);}}/>
+        {/* <SkillDialog dialogData={skillDialogData} open={openSkillDialog} onClose={()=>{setOpenSkillDialog(false);}}/>
+        <StudentDialog dialogData={studentDialogData} open={openStudentDialog} onClose={()=>{setOpenStudentDialog(false);}}/> */}
+        <div style={{background:'lightgray',position:'relative',overflow:'visible'}}>
+          <svg preserveAspectRatio="xMaxYMid meet" viewBox="0 0 2500 1700" style={{overflow:'hidden'}}>
+
+
+
+
+
+
+
+
+
+
+            <Matrix
+              renderFunction={renderLeftHeading}
+              params={{
+                name: "totalleft",
+                data: widgetData.leftheading,
+                translateX: 0,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: translateXmain-500,
+                bandY: translateYmain
+              }}
+            />
+
+            {/* <Matrix
+              renderFunction={renderLeft}
+              params={{
+                name: "totalleft",
+                data: widgetData.left,
+                translateX: 0,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: translateXmain-500,
+                bandY: bandYmain
+              }}
+            /> */}
+
+
+            <Matrix
+              renderFunction={renderSkillLine}
+              params={{
+                name: "skills",
+                data: widgetData.skills,
+                translateX: 0,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: 80,
+                bandY: bandYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderSkillArea}
+              clickFunction={clickSkillArea}
+              params={{
+                name: "skills",
+                data: widgetData.skills,
+                translateX: 80,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: translateXmain-580,
+                bandY: bandYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderPlainHeading}
+              params={{
+                name: "methodologyheading",
+                data: widgetData.methodologyheading,
+                translateX: translateXmain-500,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: 400,
+                bandY: translateYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderMethodology}
+              params={{
+                name: "methodology",
+                data: widgetData.methodology,
+                translateX: translateXmain-500,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: 400,
+                bandY: bandYmain * numY
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderPlainHeading}
+              params={{
+                name: "revheading",
+                data: widgetData.revheading,
+                translateX: translateXmain-100,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: 100,
+                bandY: translateYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "rev",
+                data: widgetData.rev,
+                translateX: translateXmain-100,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: 100,
+                bandY: bandYmain
+              }}
+            />
+
+            {/* <Matrix
+              renderFunction={renderTop}
+              params={{
+                name: "maintop",
+                data: widgetData.top,
+                translateX: translateXmain,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: translateYmain
+              }}
+            /> */}
+
+            <MatrixOneRow
+              renderFunction={renderStudent}
+              clickFunction={clickStudent}
+              params={{
+                name: "maintop",
+                data: widgetData.students,
+                translateX: translateXmain,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: translateYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderMain}
+              params={{
+                name: "main",
+                data: widgetData.data,
+                translateX: translateXmain,
+                translateY: translateYmain,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderPlainHeading}
+              params={{
+                name: "totalsrightheading",
+                data: widgetData.rightheading,
+                translateX: xTotalsRightStart,
+                translateY: 0,
+                radius: radiusmain,
+                bandX: bandXmain+20,
+                bandY: translateYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsright",
+                data: widgetData.right,
+                translateX: xTotalsRightStart,
+                translateY: yTotalsRightStart,
+                radius: radiusmain,
+                bandX: bandXmain+20,
+                bandY: bandYmain
+              }}
+            />
+
+            <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsbottom",
+                data: widgetData.bottom,
+                translateX: xTotalsBottomStart,
+                translateY: yTotalsBottomStart,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            />
+
+
+            {/* <Matrix
+              renderFunction={renderMain}
+              params={{
+                name: "secondary",
+                data: widgetData.secondary,
+                translateX: translateXmain,
+                translateY: translateYmain +700,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            /> */}
+
+            {/* <Matrix
+              renderFunction={renderText}
+              params={{
+                name: "totalsright",
+                data: widgetData.right,
+                translateX: xTotalsRightStart+400,
+                translateY: translateYmain +700,
+                radius: radiusmain,
+                bandX: bandXmain,
+                bandY: bandYmain
+              }}
+            /> */}
+
+          {/* {false &&
+            <>
+            <g id="corner" transform="translate(10,10)" style={{padding:'10px',outline: '1px solid red'}} className="corner">
+              <text x="0" y="15" fill="black">Current Hover:</text>
+              <text id="id" x="0" y="45" fill="black"></text>
+              <text id="tname" x="0" y="60" fill="black"></text>
+              <text id="id" x="0" y="90" fill="black"></text>
+              <text id="sname" x="0" y="105" fill="black"></text>
+            </g>
+            <g id="pieparent" transform="translate(0,100)" className="pieparent"></g>
+            </>
+          } */}
+
+          </svg>
+        </div>
+      </div>
+    )
+
+

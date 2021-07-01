@@ -1,170 +1,93 @@
 import React, { useState } from 'react';
 import { Rnd } from "react-rnd";
-import { Pie } from './Pie';
-//import { Solid } from './Solid';
+import { Diamond } from './Diamond';
+import { getDates } from './util';
 
 export const Legend = React.memo((props) => {
   const [legendX, setLegendX] = useState(10);
   const [legendY, setLegendY] = useState(60);
-
-  let d = new Date();
-  console.log('Today is: ' + d.toLocaleString());
-  d.setDate(d.getDate() - 180);
-  console.log('179 days ago was: ' + d.toLocaleDateString());
-  console.log(d.toLocaleDateString())
-  var dt = d.toLocaleDateString();
-
+  const [greendate, yellowdate, reddate] = getDates();
+  var dates = [greendate, yellowdate, reddate];
+  var levels = ['Started','Apprentice','Beginner','Intermediate','Certified','Trainer'];
 
   return (
-  <Rnd
-  size={{ width: '300px',  height: '300px' }}
-  position={{ x: legendX, y: legendY }}
-  onDragStop={(e, d) => {
-    setLegendX(d.x);
-    setLegendY(d.y);
-  }}
-  onResizeStop={(e, direction, ref, delta, position) => {
-    // this.setState({
-    //   width: ref.style.width,
-    //   height: ref.style.height,
-    //   ...position,
-    // });
-  }}
->
-  <div className='legend' style={{background:'whitesmoke',width:'100%',height:'100%'}}>
-    Floating Legend
-    <br/>
-    <svg height="300px">
-
-    <g transform="translate(10,20)" className='ball'>
-    <text x="0" y="0"style={{fontSize:'12'+'px'}}>certification:</text>
-    <text x="100" y="0"style={{fontSize:'12'+'px'}}>valid</text>
-    <text x="160" y="0"style={{fontSize:'12'+'px'}}>expiring</text>
-    <text x="230" y="0"style={{fontSize:'12'+'px'}}>expired</text>
-    </g>
-
-  <g key={1} transform="translate(10,40)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Started
-    </text>
-    <Pie tr={'translate(100,-5)'} radius={12}
-      col = {{
-        meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:false},
-        data:[
-          {p:25,s:0},
-          {p:50,s:0},
-          {p:75,s:0},
-          {p:100,s:0}
-        ]
+    <Rnd
+      size={{ width: '300px',  height: '360px' }}
+      position={{ x: legendX, y: legendY }}
+      onDragStop={(e, d) => {
+        setLegendX(d.x);
+        setLegendY(d.y);
       }}
-    />
-    <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:0,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-    <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:0,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-  </g>
-  <g key={2} transform="translate(10,80)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Apprentice
-    </text>
-    <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:0,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-    <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:0,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-    <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:0,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-  </g>
-  <g key={3} transform="translate(10,120)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Beginner
-    </text>
-    <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:0,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-    <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:0,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-    <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:0,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-  </g>
-  <g key={4} transform="translate(10,160)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Intermediate
-    </text>
-    <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:0,c:'g',d:.8}]}/>
-    <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:0,c:'y',d:.8}]}/>
-    <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:0,c:'r',d:.8}]}/>
-  </g>
-
-  <g key={5} transform="translate(10,200)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Certified
-    </text>
-    <Pie tr={'translate(100,-5)'} radius={12} data={[{p:25,s:1,c:'g',d:.8},{p:50,s:1,c:'g',d:.8},{p:75,s:1,c:'g',d:.8},{p:100,s:1,c:'g',d:.8}]}/>
-    <Pie tr={'translate(170,-5)'} radius={12} data={[{p:25,s:1,c:'y',d:.8},{p:50,s:1,c:'y',d:.8},{p:75,s:1,c:'y',d:.8},{p:100,s:1,c:'y',d:.8}]}/>
-    <Pie tr={'translate(240,-5)'} radius={12} data={[{p:25,s:1,c:'r',d:.8},{p:50,s:1,c:'r',d:.8},{p:75,s:1,c:'r',d:.8},{p:100,s:1,c:'r',d:.8}]}/>
-  </g>
-
-  <g key={6} transform="translate(10,240)" className='ball'>
-    <text
-      dominantBaseline="hanging" textAnchor="bottom" stroke="black"
-      x="0" y="0" className="text" style={{fontSize:'16'+'px'}}
-    >
-      Trainer
-    </text>
-
-    <Pie tr={'translate(100,-5)'} radius={12}
-      col = {{
-        meta:{type:'student',id: 1,status:'ok',start:'06/01/2021',trainer:true},
-        data:[
-          {p:25,s:1},
-          {p:50,s:1},
-          {p:75,s:1},
-          {p:100,s:1}
-        ]
+      onResizeStop={(e, direction, ref, delta, position) => {
+        // this.setState({
+        //   width: ref.style.width,
+        //   height: ref.style.height,
+        //   ...position,
+        // });
       }}
-    />
-    <Pie tr={'translate(170,-5)'} radius={12}
-      col = {{
-        meta:{type:'student',id: 1,status:'ok',start:dt,trainer:true},
-        data:[
-          {p:25,s:1},
-          {p:50,s:1},
-          {p:75,s:1},
-          {p:100,s:1}
-        ]
-      }}
-    />
-    <Pie tr={'translate(240,-5)'} radius={12}
-      col = {{
-        meta:{type:'student',id: 1,status:'ok',start:'02/01/2020',trainer:true},
-        data:[
-          {p:25,s:1},
-          {p:50,s:1},
-          {p:75,s:1},
-          {p:100,s:1}
-        ]
-      }}
-    />
-
-  </g>
-
-
-
-    </svg>
-
-  </div>
-</Rnd>
-
-
+    >
+      <div className='' style={{...styles.legend,background:'whitesmoke',width:'100%',height:'100%'}}>
+        Floating Legend
+        <br/>
+        <svg height="360px">
+          <g key={0} transform="translate(10,20)" className='heading'>
+            <text key={1} x="0" y="0"style={{fontSize:'12'+'px'}}>certification:</text>
+            <text key={2} x="100" y="0"style={{fontSize:'12'+'px'}}>valid</text>
+            <text key={3} x="160" y="0"style={{fontSize:'12'+'px'}}>expiring</text>
+            <text key={4} x="230" y="0"style={{fontSize:'12'+'px'}}>expired</text>
+          </g>
+          {levels.map((level,l) => {
+            var y = 50+(50*l)
+            var translateLevel = `translate(10,${y})`
+            var l1 = 0,l2 = 0,l3 = 0,l4 = 0;
+            var trainer = false;
+            switch (l) {
+              case 5:
+                l1=1;l2=1;l3=1;l4=1;
+                trainer=true;
+                break;
+              case 4:
+                l1=1;l2=1;l3=1;l4=1;
+                break;
+              case 3:
+                l1=1;l2=1;l3=1;
+                break;
+              case 2:
+                l1=1;l2=1;
+                break;
+              case 1:
+                l1=1;
+                break;
+              default:
+                break;
+            }
+            return (
+              <g key={l} transform={translateLevel} className='ball'>
+              <text dominantBaseline="hanging" stroke="black" style={{fontSize:'16'+'px'}}>{level}</text>
+              {dates.map((d,i) => {
+                var x = 100+(70*i)
+                var translate = `translate(${x},-10)`
+                return (
+                  <g key={i} transform={translate} className='ball'>
+                    <Diamond
+                      meta={{id:i,status:'ok',start:dates[i],trainer:trainer}}
+                      data={[{p:25,s:l1},{p:50,s:l2},{p:75,s:l3},{p:100,s:l4}]}
+                      boxSize={30} padding={15}/>
+                  </g>
+                )
+              })}
+            </g>
+            )
+          })}
+        </svg>
+      </div>
+    </Rnd>
   )
-
-
-
-
 })
+
+const styles = {
+  legend: {
+    boxSizing:'border-box',
+    boxShadow:'0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)',
+  },
+};

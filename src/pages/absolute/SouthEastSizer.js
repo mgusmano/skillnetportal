@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SouthEastSizer = (props) => {
     //const [{userName,dashboardData,widgetData}, dispatch] = useGlobalState();
-    var widgetRecord = props.widgetRecord
+    //var widgetRecord = props.widgetRecord
 
     const classes = useStyles();
 

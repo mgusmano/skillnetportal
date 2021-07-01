@@ -1,6 +1,6 @@
 import React from 'react';
-import { Pie } from './Pie';
-import { Solid } from './Solid';
+//import { Pie } from './Pie';
+//import { Solid } from './Solid';
 
 export const Main = React.memo((props) => {
   const {skill, student, dialogData, col} = props;
@@ -69,14 +69,14 @@ console.log(col)
         <div style={{display:'flex',flexDirection:'column'}}>
             <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
             <svg width="400" height="400">
-              <g transform={"translate(" + "100" + "," + "40" + ")"} className="group" >
+              {/* <g transform={"translate(" + "100" + "," + "40" + ")"} className="group" >
                 {type == 'pie' &&
                   <Pie tr={tr} radius={radius*2} data={data} col={dialogData.col}/>
                 }
                 {type == 'solid' &&
                   <Solid tr={tr} radius={radius} data={data}/>
                 }
-              </g>
+              </g> */}
             </svg>
             {/* <div  style={{display:'flex',flexDirection:'column'}}>
               {type == 'pie' &&

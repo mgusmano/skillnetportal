@@ -11,13 +11,13 @@ const Comparative = (props) => {
     var widgetRecord = props.widgetRecord
     //const [{userName,dashboardData,widgetData}, dispatch] = useGlobalState();
 
-    const renderSign = (value) => (
-        <span style={{ color: value > 0 ? 'green' : value < 0 ? 'red' : ''}}>
-            {value}
-        </span>
-    )
+    // const renderSign = (value) => (
+    //     <span style={{ color: value > 0 ? 'green' : value < 0 ? 'red' : ''}}>
+    //         {value}
+    //     </span>
+    // )
 
-    if (widgetRecord.swapGrid != undefined) {
+    if (widgetRecord.swapGrid !== undefined) {
        // console.log(widgetRecord.swapGrid.records)
     }
 

@@ -19,8 +19,50 @@ import { getDates } from './util';
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
   const [topHeight, setTopHeight] = useState(0);
+  const [maindata, setMainData] = useState(null);
+  const [maindata2, setMainData2] = useState(null);
 
   useEffect(() => {
+
+    // var out2 = []
+    // widgetData.operatorsX.map((operator,o) => {
+    //   var o = {}
+    //   o.meta = operator
+    //   o.data = []
+    //   const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
+    //   skills.map((data,i) => {
+    //     var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
+    //     o.data[i] = {};
+    //     o.data[i].operator = operator
+    //     o.data[i].skill = skill
+    //     o.data[i].meta = skills[i].meta
+    //     o.data[i].data = skills[i].data
+    //   })
+    //   out2.push(o)
+    // })
+    // setMainData2(out2)
+
+
+
+
+    var out = []
+    widgetData.skillsX.map((skill,s) => {
+      var o = {}
+      o.meta = skill
+      o.data = []
+      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
+      operators.map((data,i) => {
+        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
+        o.data[i] = {};
+        o.data[i].skill = skill
+        o.data[i].operator = operator
+        o.data[i].meta = operators[i].meta
+        o.data[i].data = operators[i].data
+      })
+      out.push(o)
+    })
+    setMainData(out)
+
     function handleResize() {
       if (window.innerWidth <1400) {
         setCol1(0*multiplier);
@@ -36,7 +78,7 @@ export const TrainingMatrix = React.memo(() => {
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize);
-  })
+  },[])
 
   const [greendate, yellowdate, reddate] = getDates();
 
@@ -68,97 +110,160 @@ export const TrainingMatrix = React.memo(() => {
     ],
 
     dataX: [
-      {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
-      {skillID:10,operatorID:2,},
-      {skillID:10,operatorID:3,},
-      {skillID:10,operatorID:4,},
-      {skillID:10,operatorID:5,},
-      {skillID:10,operatorID:6,},
-      {skillID:10,operatorID:7,},
-      {skillID:10,operatorID:8,},
-      {skillID:10,operatorID:8,},
-      {skillID:10,operatorID:10,},
+      {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:10,operatorID:3,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+      {skillID:10,operatorID:4,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:10,operatorID:5,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+      {skillID:10,operatorID:6,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:10,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:10,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:10,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:10,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
 
-      {skillID:20,operatorID:1,},
-      {skillID:20,operatorID:2,},
-      {skillID:20,operatorID:3,},
-      {skillID:20,operatorID:4,},
-      {skillID:20,operatorID:5,},
-      {skillID:20,operatorID:6,},
-      {skillID:20,operatorID:7,},
-      {skillID:20,operatorID:8,},
-      {skillID:20,operatorID:8,},
-      {skillID:20,operatorID:10,},
+      {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:20,operatorID:2,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:20,operatorID:3,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:20,operatorID:4,meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+      {skillID:20,operatorID:5,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:20,operatorID:6,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:20,operatorID:7,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:20,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:20,operatorID:9,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:20,operatorID:10,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+
+      {skillID:30,operatorID:1,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+      {skillID:30,operatorID:2,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:3,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:30,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:5,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:6,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:7,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+      {skillID:30,operatorID:9,meta:{status:'not started'},data:[],},
+      {skillID:30,operatorID:10,meta:{status:'not started'},data:[],},
+
+      {skillID:40,operatorID:1,meta:{status:'not started'},data:[],},
+      {skillID:40,operatorID:2,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:40,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+      {skillID:40,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:40,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:40,operatorID:6,meta:{status:'not started'},data:[],},
+      {skillID:40,operatorID:7,meta:{status:'not started'},data:[],},
+      {skillID:40,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:40,operatorID:9,meta:{status:'not started'},data:[],},
+      {skillID:40,operatorID:10,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+
+      {skillID:50,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:50,operatorID:2,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:3,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:50,operatorID:6,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:7,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:50,operatorID:9,meta:{status:'not started'},data:[],},
+      {skillID:50,operatorID:10,meta:{status:'not started'},data:[],},
+
+      {skillID:60,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:60,operatorID:2,meta:{status:'not started'},data:[],},
+      {skillID:60,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:60,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:60,operatorID:5,meta:{status:'not started'},data:[],},
+      {skillID:60,operatorID:6,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:60,operatorID:7,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:60,operatorID:8,meta:{status:'not started'},data:[],},
+      {skillID:60,operatorID:9,meta:{status:'not started'},data:[],},
+      {skillID:60,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+
+      {skillID:70,operatorID:1,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:70,operatorID:3,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:5,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:6,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:70,operatorID:7,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:8,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:9,meta:{status:'not started'},data:[],},
+      {skillID:70,operatorID:10,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+
+      {skillID:80,operatorID:1,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:2,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:3,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:4,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:80,operatorID:5,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:6,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:80,operatorID:8,meta:{status:'not started'},data:[],},
+      {skillID:80,operatorID:9,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:80,operatorID:10,meta:{status:'not started'},data:[],},
+
+      {skillID:90,operatorID:1,meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+      {skillID:90,operatorID:2,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:3,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
+      {skillID:90,operatorID:4,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:5,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:6,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:7,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:8,meta:{status:'not started'},data:[],},
+      {skillID:90,operatorID:9,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+      {skillID:90,operatorID:10,meta:{status:'not started'},data:[],},
+
     ],
 
-
-
-
-
-
-    data: [
+    datazzz: [
       {
         meta:{id:10,skillID:10,skillName:'Core Loading'},
         data:[
           {
             skill:{skillID:10,skillName:'Core Loading'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             operator:{operatorID:3,operatorName:'Ted White'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             operator:{operatorID:2,operatorName:'Marc Ester'},
             skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
         ]
       },
@@ -168,73 +273,63 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
         ]
       },
+
       {
         meta:{type:'skill',id:30,skillID:30,skillName:'Lead Wire Setting'},
         data:[
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
@@ -245,8 +340,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'ok',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
@@ -275,8 +369,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
@@ -292,6 +385,7 @@ export const TrainingMatrix = React.memo(() => {
           },
         ]
       },
+
       {
         meta:{type:'skill',id:40,skillID:40,skillName:'Neural Tube Insertion'},
         data:[
@@ -304,14 +398,12 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
@@ -322,8 +414,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
@@ -340,8 +431,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
@@ -352,19 +442,18 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
         ]
       },
+
       {
         meta:{type:'skill',id:50,skillID:50,skillName:'Neureal Crimp'},
         data:[
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{tatus:'started',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
@@ -387,8 +476,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
@@ -405,8 +493,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
@@ -422,14 +509,14 @@ export const TrainingMatrix = React.memo(() => {
           },
         ]
       },
+
       {
         meta:{type:'skill',id:60,skillID:60,skillName:'Pre-Lacing'},
         data:[
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
@@ -440,8 +527,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
@@ -458,14 +544,12 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
@@ -482,11 +566,11 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
           },
         ]
       },
+
       {
         meta:{type:'skill',id:70,skillID:70,skillName:'Lacing'},
         data:[
@@ -499,13 +583,12 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:70,skillName:'Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:70,skillName:'Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
+            meta:{status:'empty',start:greendate,trainer:false},
             data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
@@ -523,8 +606,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:70,skillName:'Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:70,skillName:'Lacing'},
@@ -547,8 +629,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:70,skillName:'Lacing'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
         ]
       },
@@ -576,8 +657,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
             operator:{operatorID:4,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
@@ -594,8 +674,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
             operator:{operatorID:7,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
@@ -606,8 +685,7 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
             operator:{operatorID:9,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
@@ -623,62 +701,52 @@ export const TrainingMatrix = React.memo(() => {
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:reddate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
+            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
           },
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
             operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
+            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
           },
         ]
       },
@@ -686,7 +754,7 @@ export const TrainingMatrix = React.memo(() => {
 
     ],
 
-    data2: [
+    data2zzz: [
       {
         meta:{type:'skill',id:10},
         data:[
@@ -1351,7 +1419,7 @@ export const TrainingMatrix = React.memo(() => {
     ],
   }
 
-  const [showLegend, setShowLegend] = useState(true);
+  const [showLegend, setShowLegend] = useState(false);
   const [num, setNum] = useState(0);
   const [specific, setSpecific] = useState(null);
 
@@ -1539,7 +1607,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderMain = (props,c,col,r,row,sTop) => {
-    console.log(sTop)
+    //console.log(sTop)
     var status = col.meta.status;
     const {radius, bandX, bandY} = props
     var x = ((bandX/2) - radius);
@@ -1547,7 +1615,7 @@ export const TrainingMatrix = React.memo(() => {
     var ts = x + ',' + y;
     const tr = `translate(${ts})`
     //if (status == 'started') {
-      console.log(col)
+      //console.log(col)
       return (
         <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
           <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
@@ -1942,11 +2010,13 @@ export const TrainingMatrix = React.memo(() => {
             <div className='' style={{...styles.vertical,overflow:'overlay'}} onScroll={onScroll}>
               <div width={(col2+col3)+'px'} height={row2+row3+'px'}>
               <svg width={(col2+col3)+'px'} height={row2+row3+'px'}>
+                {maindata !== null &&
+                <>
                 <Matrix
                   renderFunction={renderMain}
                   renderRowFunction={renderRowMain}
                   params={{
-                    name:'main',data:widgetData.data,fontsize:fontsize,top:topHeight,
+                    name:'main',data:maindata,fontsize:fontsize,top:topHeight,
                     translateX:0,translateY:0,bandX:bandX,bandY:bandY
                   }}
                 />
@@ -1964,6 +2034,9 @@ export const TrainingMatrix = React.memo(() => {
                     translateX:0,translateY:row2,radius:radius,bandX:bandX,bandY:bandY
                   }}
                 />
+                </>
+
+                }
               </svg>
               </div>
             </div>

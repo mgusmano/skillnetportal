@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Rnd } from "react-rnd";
 import { Diamond } from './Diamond';
 import { getDates } from './util';
+//https://github.com/bokuweb/react-rnd
 
 export const Legend = React.memo((props) => {
   const [legendX, setLegendX] = useState(10);

@@ -4,7 +4,7 @@ import { MatrixCell } from './MatrixCell';
 
 export const Skill = React.memo((props) => {
   const {data} = props;
-  const {skill,num} = props.skillData
+  const {num} = props;
   var bandX=30;
   var bandY=30;
   var fontsize=14;

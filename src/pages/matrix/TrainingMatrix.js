@@ -1,113 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Matrix } from './Matrix';
 import { MatrixOneRow } from './MatrixOneRow';
-//import { Pie } from './Pie';
 import { Diamond } from './Diamond';
-import { Solid } from './Solid';
 import { MatrixCell } from './MatrixCell';
 import { Skill } from './Skill';
-import { Student } from './Student';
+import { Operator } from './Operator';
 import { Main } from './Main';
-//import './TrainingMatrix.css';
-//import { Demo } from './Demo';
-//import { Rnd } from "react-rnd";
-//https://github.com/bokuweb/react-rnd
-
 import { Legend } from './Legend';
 import { getDates } from './util';
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = React.memo(() => {
   const [topHeight, setTopHeight] = useState(0);
-  const [maindata, setMainData] = useState(null);
-  const [maindata2, setMainData2] = useState(null);
   const [byOperator, setByOperator] = useState(null);
   const [bySkill, setBySkill] = useState(null);
 
-  useEffect(() => {
-
-    var byOperator = []
-    widgetData.operatorsX.map((operator,o) => {
-      var o = {}
-      o = operator
-      o.meta = operator
-      o.data = []
-      const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
-      skills.map((data,i) => {
-        var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
-        o.data[i] = {};
-        o.data[i].operator = operator
-        o.data[i].skill = skill
-        o.data[i].meta = skills[i].meta
-        o.data[i].data = skills[i].data
-      })
-      byOperator.push(o)
-    })
-    console.log(byOperator)
-    setByOperator(byOperator)
-
-    var bySkill = []
-    widgetData.skillsX.map((skill,s) => {
-      var o = {}
-      o = skill
-      o.meta = skill
-      o.data = []
-      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
-      operators.map((data,i) => {
-        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
-        o.data[i] = {};
-        o.data[i].skill = skill
-        o.data[i].operator = operator
-        o.data[i].meta = operators[i].meta
-        o.data[i].data = operators[i].data
-      })
-      bySkill.push(o)
-    })
-    console.log(bySkill)
-    setBySkill(bySkill)
-
-
-    var out = []
-    widgetData.skillsX.map((skill,s) => {
-      var o = {}
-      o = skill
-      o.meta = skill
-      o.data = []
-      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
-      operators.map((data,i) => {
-        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
-        o.data[i] = {};
-        o.data[i].skill = skill
-        o.data[i].operator = operator
-        o.data[i].meta = operators[i].meta
-        o.data[i].data = operators[i].data
-      })
-      out.push(o)
-    })
-    console.log(out)
-    setMainData(out)
-
-    function handleResize() {
-      if (window.innerWidth <1400) {
-        setCol1(0*multiplier);
-        setRow2((sRow2*2)*multiplier);
-        setTopHeight(50)
-      }
-      else {
-        setCol1(sCol1*multiplier);
-        setRow2(sRow2*multiplier);
-        setTopHeight(0)
-      }
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize);
-  },[])
-
   const [greendate, yellowdate, reddate] = getDates();
-
   var widgetData = {
-
     skillsX: [
       {skillID:10,line:'S',skillName:'Core Loading'},
       {skillID:20,line:'S',skillName:'Phase Paper Insertion (VW)'},
@@ -119,7 +28,6 @@ export const TrainingMatrix = React.memo(() => {
       {skillID:80,line:'S',skillName:'Lead Terminal Crimp'},
       {skillID:90,line:'S',skillName:'Lead Wire Forming'},
     ],
-
     operatorsX: [
       {operatorID:1,operatorName:'Joe Smith'},
       {operatorID:2,operatorName:'Marc Ester'},
@@ -132,7 +40,6 @@ export const TrainingMatrix = React.memo(() => {
       {operatorID:9,operatorName:'Zoya Lee'},
       {operatorID:10,operatorName:'Joe Adams'},
     ],
-
     dataX: [
       {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
       {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
@@ -235,1101 +142,9 @@ export const TrainingMatrix = React.memo(() => {
 
     ],
 
-    datazzz: [
-      {
-        meta:{id:10,skillID:10,skillName:'Core Loading'},
-        data:[
-          {
-            skill:{skillID:10,skillName:'Core Loading'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            operator:{operatorID:3,operatorName:'Ted White'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            operator:{operatorID:2,operatorName:'Marc Ester'},
-            skill:{skillID:10,skillName:'Core Loading'},
-            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:20,skillID:20,skillName:'Phase Paper Insertion (VW)'},
-        data:[
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-
-      {
-        meta:{type:'skill',id:30,skillID:30,skillName:'Lead Wire Setting'},
-        data:[
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:30,skillName:'Lead Wire Setting'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-
-      {
-        meta:{type:'skill',id:40,skillID:40,skillName:'Neural Tube Insertion'},
-        data:[
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:40,skillName:'Neural Tube Insertion'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-
-      {
-        meta:{type:'skill',id:50,skillID:50,skillName:'Neureal Crimp'},
-        data:[
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:50,skillName:'Neureal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-
-      {
-        meta:{type:'skill',id:60,skillID:60,skillName:'Pre-Lacing'},
-        data:[
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:60,skillName:'Pre-Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-        ]
-      },
-
-      {
-        meta:{type:'skill',id:70,skillID:70,skillName:'Lacing'},
-        data:[
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:70,skillName:'Lacing'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:80,skillID:80,skillName:'Lead Terminal Crimp'},
-        data:[
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:2,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:3,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:4,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:5,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:6,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:7,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:8,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:9,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:80,skillName:'Lead Terminal Crimp'},
-            operator:{operatorID:10,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:90,skillID:90,skillName:'Lead Wire Forming'},
-        data:[
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            skill:{skillID:90,skillName:'Lead Wire Forming'},
-            operator:{operatorID:1,operatorName:'Joe Smith'},
-            meta:{status:'empty',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-
-
-    ],
-
-    data2zzz: [
-      {
-        meta:{type:'skill',id:10},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'ok',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:20},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:30},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:40},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:50},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:60},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:70},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:80},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'ok',start:reddate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'ok',start:greendate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-      {
-        meta:{type:'skill',id:90},
-        data:[
-          {
-            meta:{type:'student',id: 1,status:'ok',start:reddate,trainer:true},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 2,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:greendate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],
-          },
-          {
-            meta:{type:'student',id: 4,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 5,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 6,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 7,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 8,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id: 9,status:'ok',start:yellowdate,trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],
-          },
-          {
-            meta:{type:'student',id:10,status:'empty',start:greendate,trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],
-          },
-        ]
-      },
-    ],
-
-    skills: [
-      {id:10,line:'S',text:'Core Loading'},
-      {id:20,line:'S',text:'Phase Paper Insertion (VW)'},
-      {id:30,line:'S',text:'Lead Wire Setting'},
-      {id:40,line:'S',text:'Neutral Tube Insertion'},
-      {id:50,line:'S',text:'Neutral Crimp'},
-      {id:60,line:'S',text:'Pre-Lacing'},
-      {id:70,line:'S',text:'Lacing'},
-      {id:80,line:'S',text:'Lead Terminal Crimp'},
-      {id:90,line:'S',text:'Lead Wire Forming'},
-    ],
-
-    lefttotals: [
-      {id:10,line:'S',text:'Goal'},
-      {id:20,line:'S',text:'# Certified'},
-      {id:30,line:'S',text:'Gap'},
-    ],
-
-    students: [
-        {id:1,text:'Joe Smith'},
-        {id:2,text:'Marc Ester'},
-        {id:3,text:'Ted White'},
-        {id:4,text:'Betty Green'},
-        {id:5,text:'Bob Jones'},
-        {id:6,text:'Frank Davis'},
-        {id:7,text:'Jane Johnson'},
-        {id:8,text:'Mary Bird'},
-        {id:9,text:'Zoya Lee'},
-        {id:10,text:'Joe Adams'},
-    ],
-
-    student: [
-      {
-        meta:{type:'skill',id:10},
-        data:[
-          {
-            meta:{id: 1,status:'ok',start:'06/01/2021',trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:'06/20/2021',trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:'06/20/2021'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 4,status:'ok',start:'06/20/2021'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:'06/20/2021',trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
-          },
-          {meta:{type:'student',id: 6,status:'ok',start:'06/20/2021',trainer:true},data:[
-            {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{type:'skill',id:10},
-        data:[
-          {
-            meta:{id: 1,status:'ok',start:'06/01/2020',trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:'06/20/2020',trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:'06/20/2020'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 4,status:'ok',start:'06/20/2020'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:'06/20/2020',trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
-          },
-          {meta:{type:'student',id: 6,status:'ok',start:'06/20/2020',trainer:true},data:[
-            {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{type:'skill',id:10},
-        data:[
-          {
-            meta:{id: 1,status:'ok',start:'12/28/2020',trainer:false},
-            data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 2,status:'ok',start:'12/28/2020',trainer:false},
-            data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 3,status:'ok',start:'12/28/2020'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 4,status:'ok',start:'12/28/2020'},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}]
-          },
-          {
-            meta:{type:'student',id: 5,status:'ok',start:'12/28/2020',trainer:false},
-            data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]
-          },
-          {meta:{type:'student',id: 6,status:'ok',start:'12/28/2020',trainer:true},data:[
-            {p:25,s:1},{p:50,s:1,c:'r',d:.1},{p:75,s:1,c:'r',d:.1},{p:100,s:1,c:'r',d:.1}]},
-        ]
-      },
-    ],
-
-
-
-    first: [
-      {meta:{tid:10},data:[{meta:{},data:{v:'Assembly Machine'}},{meta:{},data:{v:'Inspection & Packaging'}},]},
-    ],
-    second: [
-      {meta:{tid:10},data:[{meta:{},data:{v:'Core Loading'}},{meta:{},data:{v:'Paper Insertion'}},]},
-      {meta:{tid:10},data:[{meta:{},data:{v:'Pre-Lacing'}},{meta:{},data:{v:'Lacing'}},]},
-      {meta:{tid:10},data:[{meta:{},data:{v:'Varnish Out'}},{meta:{},data:{v:'Insp. After Varnish'}},]},
-    ],
-
-
     leftheading: [
       {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
     ],
-    left: [
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Core Loading'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Phase Paper Insertion (VW)'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Setting'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Tube Insertion'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Neutral Crimp'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Pre-Lacing'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lacing'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Terminal Crimp'}}]},
-      {meta:{id:10},data:[{meta:{},data:{line:'S',area:'Lead Wire Forming'}}]},
-    ],
-
-
-
     methodologyheading: [
       {meta:{id:10},data:[{meta:{},data:{name:'METHODOLOGY'}}]},
     ],
@@ -1350,7 +165,6 @@ export const TrainingMatrix = React.memo(() => {
       {meta:{id:10},data:[{meta:{},data:{v:1}}]},
       {meta:{id:10},data:[{meta:{},data:{v:1}}]},
     ],
-
     top: [
       {meta:{},data:[
         {meta:{id:1},data:{name:'Joe Smith'}},
@@ -1365,7 +179,6 @@ export const TrainingMatrix = React.memo(() => {
         {meta:{id:10},data:{name:'Joe Adams'}},
       ]},
     ],
-
     rightheading: [
       {meta:{id:10},data:[
         {meta:{},data:{name:'Goal'}},
@@ -1389,59 +202,63 @@ export const TrainingMatrix = React.memo(() => {
       {meta:{},data:[{meta:{},data:{v:2}},{meta:{},data:{v:2}},{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:2}}]},
       {meta:{},data:[{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}}]},
     ],
-    secondary: [
-      {
-        meta:{id:10},
-        data:[
-          {meta:{id: 1,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-          {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{id:10},
-        data:[
-          {meta:{id: 1,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-          {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{id:10},
-        data:[
-          {meta:{id: 1,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-          {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{id:10},
-        data:[
-          {meta:{id: 1,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-          {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        ]
-      },
-      {
-        meta:{id:10},
-        data:[
-          {meta:{id: 1,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 2,status:'empty'},data:[]},
-          {meta:{id: 4,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-          {meta:{id: 5,status:'empty'},data:[{p:25,s:1,c:'r',d:.9},{p:50,s:0,c:'r',d:.1},{p:75,s:0,c:'r',d:.1},{p:100,s:0,c:'r',d:.1}]},
-        ]
-      },
-    ],
   }
+
+  useEffect(() => {
+    var byOperator = []
+    widgetData.operatorsX.map((operator,o) => {
+      var o = {}
+      o = operator
+      o.meta = operator
+      o.data = []
+      const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
+      skills.map((data,i) => {
+        var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
+        o.data[i] = {};
+        o.data[i].operator = operator
+        o.data[i].skill = skill
+        o.data[i].meta = skills[i].meta
+        o.data[i].data = skills[i].data
+      })
+      byOperator.push(o)
+    })
+    setByOperator(byOperator)
+
+    var bySkill = []
+    widgetData.skillsX.map((skill,s) => {
+      var o = {}
+      o = skill
+      o.meta = skill
+      o.data = []
+      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
+      operators.map((data,i) => {
+        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
+        o.data[i] = {};
+        o.data[i].skill = skill
+        o.data[i].operator = operator
+        o.data[i].meta = operators[i].meta
+        o.data[i].data = operators[i].data
+      })
+      bySkill.push(o)
+    })
+    setBySkill(bySkill)
+
+    function handleResize() {
+      if (window.innerWidth <1400) {
+        setCol1(0*multiplier);
+        setRow2((sRow2*2)*multiplier);
+        setTopHeight(50)
+      }
+      else {
+        setCol1(sCol1*multiplier);
+        setRow2(sRow2*multiplier);
+        setTopHeight(0)
+      }
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize);
+  },[])
 
   const [showLegend, setShowLegend] = useState(false);
   const [num, setNum] = useState(0);
@@ -1493,45 +310,10 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const clickOperatorCell = (e,colid,rowid,type,data,col) => {
-    console.log(data)
-    //setTitle('student')
-    //var student =widgetData.students.find(x => x.id === colid)
-    //console.log(student)
-
-    var student=widgetData.students.find(x => x.id === colid)
-    //var skill=widgetData.skills.find(x => x.id === rowid)
-
-    setSpecific(<Student
-      data={data}
-      col={col}
-      radius={radius}
-      bandX={bandX}
-      bandY={bandY}
-      studentData={{
-        widgetData: widgetData,
-        studentid: colid,
-        skillid: null,
-        student: student,
-        skill: null,
-        type: type,
-        data: data
-      }}
-      />)
-
-    // setStudentDialogData({
-    //   studentid: colid,
-    //   skillid: null,
-    //   student: student,
-    //   skill: null,
-    //   type: type,
-    //   data: data
-    // })
-    // setOpenStudentDialog(true);
+    setSpecific(<Operator data={data}/>)
   }
 
   const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
-    //console.log(data)
-
     const {radius, bandX, bandY, fontsize} = props
     var y = (bandX/2) + (bandX * c)
     var yp = y-15
@@ -1551,31 +333,14 @@ export const TrainingMatrix = React.memo(() => {
           xclickCellFunction={(e,rowid,colid) => {console.log(colid)}}
           clickCellFunction={clickCellFunction}
           data={data}
-
           rowid={null}
           colid={col.id}
           bandX={bandX}
           x={bandX*c}
           bandY={bandY}
           type="none"
-
-          //widgetData={widgetData}
         />
-
-
       </g>
-
-
-
-
-      // <text
-      //   dominantBaseline="middle"
-      //   textAnchor="middle"
-      //   stroke="black"
-      //   x={(bandX*c)+(bandX/2)}
-      //   y={bandY-(bandY/2)}
-      //   className="text"
-      //   style={{fontSize:'32px'}}>{col.data.v}</text>
     )
   }
 
@@ -1598,92 +363,32 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const clickMainCell = (e,colid,rowid,type,data, col) => {
-    console.log(data)
-    //setTitle('main')
-
-    //console.log('mouseClick')
-    //e.target.style.opacity = '.2'
-
-    var student=widgetData.students.find(x => x.id === colid)
-    var skill=widgetData.skills.find(x => x.id === rowid)
-
-
-    console.log(col)
-
-    setSpecific(<Main
-      data={data}
-      col={col}
-      student={student}
-      dialogData={{
-        studentid: colid,
-        skillid: rowid,
-        student: student,
-        skill: skill,
-        type: type,
-        data: data,
-        col: col
-      }}
-      skill={skill}/>
-      )
-
-    // setMatrixDialogData({
-    //   studentid: colid,
-    //   skillid: rowid,
-    //   student: student,
-    //   skill: skill,
-    //   type: type,
-    //   data: data
-    // })
-    // setOpenMatrixDialog(true)
+    setSpecific(<Main data={data}/>)
   }
 
   const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     //console.log(sTop)
-    var status = col.meta.status;
-    const {radius, bandX, bandY} = props
-    var x = ((bandX/2) - radius);
-    var y = (bandY/2) - radius;
-    var ts = x + ',' + y;
-    const tr = `translate(${ts})`
-    //if (status == 'started') {
-      //console.log(col)
-      return (
-        <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
-          <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
-          <MatrixCell
-            clickCellFunction={clickCellFunction}
-            rowid={row.meta.id}
-            colid={col.meta.id}
-            bandX={bandX}
-            bandY={bandY}
-            type="pie"
-
-            widgetData={widgetData}
-            col={col}
-            data={data}
-          />
-        </g>
-      )
-    //}
-
-
-    // else {
-    //   return (
-    //     <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
-    //       <Solid tr={tr} radius={radius} data={status}/>
-    //       <MatrixCell
-    //         clickCellFunction={clickMain}
-    //         rowid={row.meta.id}
-    //         colid={col.meta.id}
-    //         bandX={bandX}
-    //         bandY={bandY}
-    //         type="solid"
-    //         data={status}
-    //         widgetData={widgetData}
-    //       />
-    //     </g>
-    //   )
-    // }
+    //var status = col.meta.status;
+    const {bandX, bandY} = props
+    //var x = ((bandX/2) - radius);
+    //var y = (bandY/2) - radius;
+    //var ts = x + ',' + y;
+    //const tr = `translate(${ts})`
+    return (
+      <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
+        <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
+        <MatrixCell
+          clickCellFunction={clickCellFunction}
+          rowid={row.meta.id}
+          colid={col.meta.id}
+          bandX={bandX}
+          bandY={bandY}
+          type="pie"
+          col={col}
+          data={data}
+        />
+      </g>
+    )
   }
 
   const renderMainRow = (props,r,row,sTop) => {
@@ -1717,35 +422,9 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const clickSkillArea = (e,colid,rowid,type,data) => {
-    //setTitle('SkillArea')
-    var n = num + 1
-    setNum(n)
-    var skill=widgetData.skills.find(x => x.id === colid)
-
-    setSpecific(<Skill
-      data={data}
-      skill={skill}
-      skillData={{
-        num: n,
-        studentid: null,
-        skillid: colid,
-        student: null,
-        skill: skill,
-        type: type,
-        data: data
-      }}
-      />
-      )
-
-    // setSkillDialogData({
-    //   studentid: null,
-    //   skillid: colid,
-    //   student: null,
-    //   skill: skill,
-    //   type: type,
-    //   data: data
-    // })
-    // setOpenSkillDialog(true);
+    var n = num + 1;
+    setNum(n);
+    setSpecific(<Skill data={data} num={num}/>)
   }
 
   const renderSkillArea = (props,c,col,r,row,sTop,data,clickCellFunction) => {
@@ -1766,14 +445,11 @@ export const TrainingMatrix = React.memo(() => {
         <MatrixCell
           clickCellFunction={clickSkillArea}
           data={data}
-
           rowid={null}
           colid={col.id}
           bandX={bandX}
           bandY={bandY}
           type="pie"
-
-          widgetData={widgetData}
         />
       </g>
     )
@@ -1999,7 +675,6 @@ export const TrainingMatrix = React.memo(() => {
                   <MatrixOneRow
                     renderCellFunction={renderOperatorCell}
                     clickCellFunction={clickOperatorCell}
-                    xdata={widgetData.operatorsX}
                     data={byOperator}
                     params={{
                       name:'maintop',fontsize: fontsize,

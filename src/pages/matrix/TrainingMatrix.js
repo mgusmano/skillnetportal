@@ -24,13 +24,16 @@ export const TrainingMatrix = React.memo(() => {
     function handleResize() {
       if (window.innerWidth <1400) {
         setCol1(0*multiplier);
+        setRow2((sRow2*2)*multiplier);
         setTopHeight(50)
       }
       else {
-        setCol1(40*multiplier);
+        setCol1(sCol1*multiplier);
+        setRow2(sRow2*multiplier);
         setTopHeight(0)
       }
     }
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize);
   })
@@ -105,7 +108,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:20},
+        meta:{type:'skill',id:20,skillID:20,skillName:'Phase Paper Insertion (VW)'},
         data:[
           {
             skill:{skillID:20,skillName:'Phase Paper Insertion (VW)'},
@@ -152,7 +155,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:30},
+        meta:{type:'skill',id:30,skillID:30,skillName:'Lead Wire Setting'},
         data:[
           {
             skill:{skillID:30,skillName:'Lead Wire Setting'},
@@ -199,7 +202,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:40},
+        meta:{type:'skill',id:40,skillID:40,skillName:'Neural Tube Insertion'},
         data:[
           {
             skill:{skillID:40,skillName:'Neural Tube Insertion'},
@@ -246,7 +249,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:50},
+        meta:{type:'skill',id:50,skillID:50,skillName:'Neureal Crimp'},
         data:[
           {
             skill:{skillID:50,skillName:'Neureal Crimp'},
@@ -293,7 +296,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:60},
+        meta:{type:'skill',id:60,skillID:60,skillName:'Pre-Lacing'},
         data:[
           {
             skill:{skillID:60,skillName:'Pre-Lacing'},
@@ -340,7 +343,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:70},
+        meta:{type:'skill',id:70,skillID:70,skillName:'Lacing'},
         data:[
           {
             skill:{skillID:70,skillName:'Lacing'},
@@ -387,7 +390,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:80},
+        meta:{type:'skill',id:80,skillID:80,skillName:'Lead Terminal Crimp'},
         data:[
           {
             skill:{skillID:80,skillName:'Lead Terminal Crimp'},
@@ -436,7 +439,7 @@ export const TrainingMatrix = React.memo(() => {
         ]
       },
       {
-        meta:{type:'skill',id:90},
+        meta:{type:'skill',id:90,skillID:90,skillName:'Lead Wire Forming'},
         data:[
           {
             skill:{skillID:90,skillName:'Lead Wire Forming'},
@@ -1386,6 +1389,20 @@ export const TrainingMatrix = React.memo(() => {
     }
   }
 
+  const renderRowMain = (props,r,row,sTop) => {
+    var header2 = ''
+    if (row.meta !== undefined) {
+      if (row.meta.skillName !== undefined) {
+        header2 = row.meta.skillName
+      }
+    }
+    return (
+      <>
+      {sTop !== 0 && <text style={{fontSize: fontsize+'px'}} x={5} y="30" >{header2}</text>}
+      </>
+    )
+  }
+
   const renderSkillLine = (props,c,col,r,row) => {
     const {radius, bandX, bandY, fontsize} = props
     return (
@@ -1730,6 +1747,7 @@ export const TrainingMatrix = React.memo(() => {
               <svg width={(col2+col3)+'px'} height={row2+row3+'px'}>
                 <Matrix
                   renderFunction={renderMain}
+                  renderRowFunction={renderRowMain}
                   params={{
                     name:'main',data:widgetData.data,fontsize:fontsize,top:topHeight,
                     translateX:0,translateY:0,bandX:bandX,bandY:bandY

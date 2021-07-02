@@ -32,6 +32,7 @@ export const Matrix = React.memo((props) => {
         var theRow = getRow(row,oneRow)
         return (
           <g key={r} transform={"translate(" + "0" + "," + ((bandY*r)+(sTop*r)) + ")"} className="row">
+            {props.renderRowFunction !== undefined && props.renderRowFunction(props.params,r,row,sTop)}
           {
             theRow.map((col,c) => {
               var header = ''
@@ -44,7 +45,7 @@ export const Matrix = React.memo((props) => {
                 <g key={c} transform="translate(0,0)" className="cell">
                   <rect stroke={sColor} x={(bandX*c)} y={sTop} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
                   {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row,sTop)}
-                  {sTop !== 0 && <text style={{fontSize: fontsize+'px'}} x={5} y="30" >{header}</text>}
+                  {/* {sTop !== 0 && <text style={{fontSize: fontsize+'px'}} x={5} y="30" >{header}</text>} */}
                 </g>
               )
             })

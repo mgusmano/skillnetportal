@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 
-export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, data, widgetData, clickFunction,x, stroke, col}) => {
+export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, widgetData, clickFunction,x, stroke, col,data, clickCellFunction}) => {
+  //console.log(data)
   var sColor = 'black'
   useEffect(() => {
     if (stroke !== undefined) {
       sColor = stroke;
     }
   });
+
+
+
 
   return (
     <rect
@@ -19,7 +23,7 @@ export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, data, w
       height={bandY}
       style={{fill:'rgb(0,0,255)',strokeWidth:'3',stroke:sColor}}
       onClick={(e) => {
-        {clickFunction !== undefined && clickFunction(e,colid,rowid,type,data,col)}
+        {clickCellFunction !== undefined && clickCellFunction(e,colid,rowid,type,data,col)}
       }}
       onMouseEnter={(e) => {
         e.target.style.opacity = '.5'

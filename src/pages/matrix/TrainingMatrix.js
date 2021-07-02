@@ -21,33 +21,56 @@ export const TrainingMatrix = React.memo(() => {
   const [topHeight, setTopHeight] = useState(0);
   const [maindata, setMainData] = useState(null);
   const [maindata2, setMainData2] = useState(null);
+  const [byOperator, setByOperator] = useState(null);
+  const [bySkill, setBySkill] = useState(null);
 
   useEffect(() => {
 
-    // var out2 = []
-    // widgetData.operatorsX.map((operator,o) => {
-    //   var o = {}
-    //   o.meta = operator
-    //   o.data = []
-    //   const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
-    //   skills.map((data,i) => {
-    //     var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
-    //     o.data[i] = {};
-    //     o.data[i].operator = operator
-    //     o.data[i].skill = skill
-    //     o.data[i].meta = skills[i].meta
-    //     o.data[i].data = skills[i].data
-    //   })
-    //   out2.push(o)
-    // })
-    // setMainData2(out2)
+    var byOperator = []
+    widgetData.operatorsX.map((operator,o) => {
+      var o = {}
+      o = operator
+      o.meta = operator
+      o.data = []
+      const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
+      skills.map((data,i) => {
+        var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
+        o.data[i] = {};
+        o.data[i].operator = operator
+        o.data[i].skill = skill
+        o.data[i].meta = skills[i].meta
+        o.data[i].data = skills[i].data
+      })
+      byOperator.push(o)
+    })
+    console.log(byOperator)
+    setByOperator(byOperator)
 
-
+    var bySkill = []
+    widgetData.skillsX.map((skill,s) => {
+      var o = {}
+      o = skill
+      o.meta = skill
+      o.data = []
+      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
+      operators.map((data,i) => {
+        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
+        o.data[i] = {};
+        o.data[i].skill = skill
+        o.data[i].operator = operator
+        o.data[i].meta = operators[i].meta
+        o.data[i].data = operators[i].data
+      })
+      bySkill.push(o)
+    })
+    console.log(bySkill)
+    setBySkill(bySkill)
 
 
     var out = []
     widgetData.skillsX.map((skill,s) => {
       var o = {}
+      o = skill
       o.meta = skill
       o.data = []
       const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
@@ -61,6 +84,7 @@ export const TrainingMatrix = React.memo(() => {
       })
       out.push(o)
     })
+    console.log(out)
     setMainData(out)
 
     function handleResize() {
@@ -118,7 +142,7 @@ export const TrainingMatrix = React.memo(() => {
       {skillID:10,operatorID:6,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
       {skillID:10,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
       {skillID:10,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:10,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+      {skillID:10,operatorID:9,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
       {skillID:10,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
 
       {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
@@ -1468,7 +1492,8 @@ export const TrainingMatrix = React.memo(() => {
     setRow3(sRow3*lMultiplier);
   }
 
-  const clickStudent = (e,colid,rowid,type,data) => {
+  const clickOperatorCell = (e,colid,rowid,type,data,col) => {
+    console.log(data)
     //setTitle('student')
     //var student =widgetData.students.find(x => x.id === colid)
     //console.log(student)
@@ -1477,6 +1502,8 @@ export const TrainingMatrix = React.memo(() => {
     //var skill=widgetData.skills.find(x => x.id === rowid)
 
     setSpecific(<Student
+      data={data}
+      col={col}
       radius={radius}
       bandX={bandX}
       bandY={bandY}
@@ -1502,7 +1529,8 @@ export const TrainingMatrix = React.memo(() => {
     // setOpenStudentDialog(true);
   }
 
-  const renderStudent = (props,c,col,r,row,clickFunction) => {
+  const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
+    //console.log(data)
 
     const {radius, bandX, bandY, fontsize} = props
     var y = (bandX/2) + (bandX * c)
@@ -1510,26 +1538,28 @@ export const TrainingMatrix = React.memo(() => {
     var i = r + c;
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
-        <text style={{fontSize:fontsize+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.text}</text>
+        <text style={{fontSize:fontsize+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{data.operatorName}</text>
         <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
           <img
             alt="pic"
-            src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+col.id+'.jpg'}
+            src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+data.operatorID+'.jpg'}
             style={{borderRadius:'50%',x:yp+'px',y:'150px',width: (radius*2)+'px',height:(radius*2)+'px'}}
           />
         </foreignObject>
 
         <MatrixCell
-          xclickFunction={(e,rowid,colid) => {console.log(colid)}}
-          clickFunction={clickFunction}
+          xclickCellFunction={(e,rowid,colid) => {console.log(colid)}}
+          clickCellFunction={clickCellFunction}
+          data={data}
+
           rowid={null}
           colid={col.id}
           bandX={bandX}
           x={bandX*c}
           bandY={bandY}
           type="none"
-          data={col.data}
-          widgetData={widgetData}
+
+          //widgetData={widgetData}
         />
 
 
@@ -1567,8 +1597,8 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const clickMain = (e,colid,rowid,type,data, col) => {
-    console.log(col)
+  const clickMainCell = (e,colid,rowid,type,data, col) => {
+    console.log(data)
     //setTitle('main')
 
     //console.log('mouseClick')
@@ -1581,6 +1611,7 @@ export const TrainingMatrix = React.memo(() => {
     console.log(col)
 
     setSpecific(<Main
+      data={data}
       col={col}
       student={student}
       dialogData={{
@@ -1606,7 +1637,7 @@ export const TrainingMatrix = React.memo(() => {
     // setOpenMatrixDialog(true)
   }
 
-  const renderMain = (props,c,col,r,row,sTop) => {
+  const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     //console.log(sTop)
     var status = col.meta.status;
     const {radius, bandX, bandY} = props
@@ -1620,15 +1651,16 @@ export const TrainingMatrix = React.memo(() => {
         <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
           <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
           <MatrixCell
-            clickFunction={clickMain}
+            clickCellFunction={clickCellFunction}
             rowid={row.meta.id}
             colid={col.meta.id}
             bandX={bandX}
             bandY={bandY}
             type="pie"
-            data={col.data}
+
             widgetData={widgetData}
             col={col}
+            data={data}
           />
         </g>
       )
@@ -1640,7 +1672,7 @@ export const TrainingMatrix = React.memo(() => {
     //     <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
     //       <Solid tr={tr} radius={radius} data={status}/>
     //       <MatrixCell
-    //         clickFunction={clickMain}
+    //         clickCellFunction={clickMain}
     //         rowid={row.meta.id}
     //         colid={col.meta.id}
     //         bandX={bandX}
@@ -1654,7 +1686,7 @@ export const TrainingMatrix = React.memo(() => {
     // }
   }
 
-  const renderRowMain = (props,r,row,sTop) => {
+  const renderMainRow = (props,r,row,sTop) => {
     var header2 = ''
     if (row.meta !== undefined) {
       if (row.meta.skillName !== undefined) {
@@ -1691,6 +1723,7 @@ export const TrainingMatrix = React.memo(() => {
     var skill=widgetData.skills.find(x => x.id === colid)
 
     setSpecific(<Skill
+      data={data}
       skill={skill}
       skillData={{
         num: n,
@@ -1715,7 +1748,8 @@ export const TrainingMatrix = React.memo(() => {
     // setOpenSkillDialog(true);
   }
 
-  const renderSkillArea = (props,c,col,r,row) => {
+  const renderSkillArea = (props,c,col,r,row,sTop,data,clickCellFunction) => {
+    //console.log(data)
     const {radius, bandX, bandY, fontsize} = props
     return (
       <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
@@ -1727,16 +1761,18 @@ export const TrainingMatrix = React.memo(() => {
           y={bandY-(bandY/3)}
           className="text"
           style={{fontSize:fontsize+'px'}}>
-            {col.text}
+            {data.skill.skillName}
         </text>
         <MatrixCell
-          clickFunction={clickSkillArea}
+          clickCellFunction={clickSkillArea}
+          data={data}
+
           rowid={null}
           colid={col.id}
           bandX={bandX}
           bandY={bandY}
           type="pie"
-          data={col.data}
+
           widgetData={widgetData}
         />
       </g>
@@ -1959,18 +1995,23 @@ export const TrainingMatrix = React.memo(() => {
               <div id="student" className='' style={{width:(col2+col3)+'px',overflow:'scroll',overflow:'hidden'}}>
                 <div width={(col2+col3)+'px'} height={row1+'px'}>
                 <svg width={(col2+col3)+'px'} height={row1+'px'}>
+                  {byOperator !== null &&
                   <MatrixOneRow
-                    renderFunction={renderStudent}
-                    clickFunction={clickStudent}
+                    renderCellFunction={renderOperatorCell}
+                    clickCellFunction={clickOperatorCell}
+                    xdata={widgetData.operatorsX}
+                    data={byOperator}
                     params={{
-                      name:'maintop',data: widgetData.students,fontsize: fontsize,
+                      name:'maintop',fontsize: fontsize,
                       translateX:0,translateY:0,radius:radius,bandX:bandX,bandY:700
                     }}
                   />
+                  }
                   <Matrix
-                    renderFunction={renderTotalsHeading}
+                    renderCellFunction={renderTotalsHeading}
+                    data={widgetData.rightheading}
                     params={{
-                      name:'totalsrightheading',data: widgetData.rightheading,fontsize: fontsize,
+                      name:'totalsrightheading',fontsize: fontsize,
                       translateX:col2,translateY:0,radius:radius,bandX:bandX,bandY:row1
                     }}
                   />
@@ -1986,22 +2027,26 @@ export const TrainingMatrix = React.memo(() => {
             <div id="skill" className='skill' style={{width:col1+'px',overflow:'scroll',overflow:'hidden'}}>
               <div width={col1+'px'} height={row2+row3+'px'}>
               <svg width={col1+'px'} height={row2+row3+'px'}>
+              {bySkill !== null &&
               <Matrix
-                renderFunction={renderSkillArea}
-                clickFunction={clickSkillArea}
+                renderCellFunction={renderSkillArea}
+                clickCellFunction={clickSkillArea}
+                data={bySkill}
                 params={{
-                  name:'skills',data:widgetData.skills,fontsize: fontsize,
+                  name:'skills',fontsize: fontsize,
                   translateX:0,translateY:0,radius:radius,bandX:col1,bandY:bandX
                 }}
               />
-              <Matrix
-                renderFunction={renderSkillArea}
-                clickFunction={clickSkillArea}
+              }
+              {/* <Matrix
+                renderCellFunction={renderSkillArea}
+                clickCellFunction={clickSkillArea}
+                data={widgetData.lefttotals}
                 params={{
-                  name:'skills',data:widgetData.lefttotals,fontsize: fontsize,
+                  name:'skills',fontsize: fontsize,
                   translateX:0,translateY:row2,radius:radius,bandX:col1,bandY:bandX
                 }}
-              />
+              /> */}
               </svg>
               </div>
             </div>
@@ -2010,27 +2055,31 @@ export const TrainingMatrix = React.memo(() => {
             <div className='' style={{...styles.vertical,overflow:'overlay'}} onScroll={onScroll}>
               <div width={(col2+col3)+'px'} height={row2+row3+'px'}>
               <svg width={(col2+col3)+'px'} height={row2+row3+'px'}>
-                {maindata !== null &&
+                {bySkill !== null &&
                 <>
                 <Matrix
-                  renderFunction={renderMain}
-                  renderRowFunction={renderRowMain}
+                  renderRowFunction={renderMainRow}
+                  renderCellFunction={renderMainCell}
+                  clickCellFunction={clickMainCell}
+                  data={bySkill}
                   params={{
-                    name:'main',data:maindata,fontsize:fontsize,top:topHeight,
+                    name:'main',fontsize:fontsize,top:topHeight,
                     translateX:0,translateY:0,bandX:bandX,bandY:bandY
                   }}
                 />
                 <Matrix
-                  renderFunction={renderText}
+                  renderCellFunction={renderText}
+                  data={widgetData.right}
                   params={{
-                    name: 'totalsright',data: widgetData.right,fontsize: fontsize,top: topHeight,
+                    name: 'totalsright',fontsize: fontsize,top: topHeight,
                     translateX:col2,translateY:0,radius:radius,bandX:bandX,bandY:bandY
                   }}
                 />
                 <Matrix
-                  renderFunction={renderText}
+                  renderCellFunction={renderText}
+                  data={widgetData.bottom}
                   params={{
-                    name:'totalsbottom',data:widgetData.bottom,fontsize: fontsize,
+                    name:'totalsbottom',fontsize: fontsize,
                     translateX:0,translateY:row2,radius:radius,bandX:bandX,bandY:bandY
                   }}
                 />

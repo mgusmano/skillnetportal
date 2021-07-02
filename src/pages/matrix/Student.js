@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Matrix } from './Matrix';
+//import { Matrix } from './Matrix';
+import { Diamond } from './Diamond';
 import { MatrixCell } from './MatrixCell';
 //import { Pie } from './Pie';
-import { Diamond } from './Diamond';
+
 
 export const Student = React.memo((props) => {
   const {student,widgetData} = props.studentData;
-  console.log(student)
-  var studentid = student.id;
 
-  const clickMain = (e,colid,rowid,type,data) => {
+  const {radius, bandX, bandY} = props
+  var x = ((bandX/2) - radius);
+  var y = (bandY/2) - radius;
+  var ts = x + ',' + y;
+  const tr = `translate(${ts})`
+
+  const {data} = props;
+
+  console.log(data)
+  var fontsize=14
+
+
+
+
+  var studentid = data.operatorID;
+
+  const clickMain = (e,colid,rowid,type,data,col) => {
+    console.log(col)
     //setTitle('main')
 
     //console.log('mouseClick')
@@ -112,27 +128,23 @@ export const Student = React.memo((props) => {
 
   const [studentData, setStudentData] = useState(null)
 
-  const {radius, bandX, bandY} = props
-  var x = ((bandX/2) - radius);
-  var y = (bandY/2) - radius;
-  var ts = x + ',' + y;
-  const tr = `translate(${ts})`
 
-  useEffect(() => {
-    var oneStudent = []
-    widgetData.data.map((row,i) => {
-      //console.log(row.data)
-      //console.log(studentid)
-      var studentrow=row.data.find(x => x.meta.id === studentid)
-      studentrow.meta.skillid = row.meta.id;
-      studentrow.meta.studentid = studentid;
-      studentrow.meta.student = student;
-      var skill=widgetData.skills.find(x => x.id === row.meta.id)
-      studentrow.meta.skill = skill;
-      oneStudent.push(studentrow)
-    })
-    setStudentData(oneStudent)
-  }, [studentid]);
+
+  // useEffect(() => {
+  //   var oneStudent = []
+  //   widgetData.dataX.map((row,i) => {
+  //     //console.log(row.data)
+  //     //console.log(studentid)
+  //     var studentrow=row.data.find(x => x.meta.id === studentid)
+  //     studentrow.meta.skillid = row.meta.id;
+  //     studentrow.meta.studentid = studentid;
+  //     studentrow.meta.student = student;
+  //     var skill=widgetData.skills.find(x => x.id === row.meta.id)
+  //     studentrow.meta.skill = skill;
+  //     oneStudent.push(studentrow)
+  //   })
+  //   setStudentData(oneStudent)
+  // }, [studentid]);
 
   // var widgetData = {
   //   first: [
@@ -158,7 +170,7 @@ export const Student = React.memo((props) => {
   //var student=widgetData.students.find(x => x.id === colid)
   //var skill=widgetData.skills.find(x => x.id === rowid)
 
-  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + student.id + '.jpg'
+  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + data.operatorID + '.jpg'
 
   const renderRects = (props,c,col,r,row,clickFunction) => {
     const {radius, bandX, bandY} = props
@@ -183,7 +195,7 @@ export const Student = React.memo((props) => {
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
       <div style={{height:'200px'}}>
-        <div style={{fontSize:'32px'}}>Operator: {student.text}</div>
+        <div style={{fontSize:'32px'}}>Operator: {data.operatorName}</div>
         <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
       </div>
 
@@ -194,18 +206,51 @@ export const Student = React.memo((props) => {
 
       <svg width="100%" height="100%">
 
+      {data.data.map((item,i) => {
+        console.log(item)
+        return (
+          <g key={i} transform={"translate(" + "200," + (i*bandX) + ")"} className="group" >
 
 
-        <Matrix
+
+            <text
+              dominantBaseline="left"
+              textAnchor="end"
+              stroke="black"
+              x={1}
+              y={bandY-(bandY/3)}
+              className="text"
+              style={{fontSize:fontsize+'px'}}>
+                {item.skill.skillName}
+            </text>
+
+            <Diamond meta={item.meta} data={item.data} boxSize={bandX} padding={30}/>
+            <MatrixCell
+              rowid={item.meta.id}
+              colid={1}
+              bandX={bandX}
+              bandY={bandY}
+              type="pie"
+              widgetData={widgetData}
+              data={data}
+            />
+          </g>
+        )
+      })}
+
+
+
+
+        {/* <Matrix
                 renderFunction={renderMain}
                 params={{
                   name:'main',data:widgetData.student,
                   stroke:'white',
                   translateX:0,translateY:0,radius:radius,bandX:bandX,bandY:bandY*2
                 }}
-              />
+              /> */}
 
-        <text x={10} y={30} style={{fontSize:'24px'}}>Core Loading</text>
+        {/* <text x={10} y={30} style={{fontSize:'24px'}}>Core Loading</text>
         <text x={360} y={30} style={{fontSize:'16px'}}>06/01/2021</text>
         <line x1={10} y1={35} x2={450} y2={35} stroke='black' strokeWidth="1" style={{fontSize:'16px'}}></line>
         <rect stroke="black" x={50} y={45} width={50} height={50} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'0.3',strokeOpacity:1.0}}></rect>
@@ -219,7 +264,7 @@ export const Student = React.memo((props) => {
         <text x={360} y={230} style={{fontSize:'16px'}}>12/28/2020</text>
         <line x1={10} y1={235} x2={450} y2={235} stroke='black' strokeWidth="1" style={{fontSize:'16px'}}></line>
         <rect stroke="black" x={0} y={245} width={50} height={50} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'0.3',strokeOpacity:1.0}}></rect>
-
+ */}
 
 
         {studentData !== null &&

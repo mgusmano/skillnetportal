@@ -3,9 +3,8 @@ import React from 'react';
 //import { Solid } from './Solid';
 
 export const Main = React.memo((props) => {
-  const {skill, student, dialogData, col} = props;
-
-  console.log(col)
+  const {data} = props;
+  console.log(data)
 
   var radius = 80
   var bandX = 100
@@ -16,53 +15,55 @@ export const Main = React.memo((props) => {
   const tr = `translate(${ts})`
 
 
-  const dealWithItem = (item,i) => {
-    if (item.s == 1) {
-      var desc;
-      var s;
-      switch(item.c) {
-        case 'g':
-          desc = 'good'
-          break;
-        case 'r':
-          desc = 'bad'
-          break;
-        default:
-          desc = 'unknown'
-      }
-      s = `${item.p}% - ${item.d} ${desc}`
-    }
-    else {
-      s = `${item.p}% not started`
-      s = ''
-    }
-    return (
-      <div key={i}>{s}</div>
-    )
-  }
+  // const dealWithItem = (item,i) => {
+  //   if (item.s == 1) {
+  //     var desc;
+  //     var s;
+  //     switch(item.c) {
+  //       case 'g':
+  //         desc = 'good'
+  //         break;
+  //       case 'r':
+  //         desc = 'bad'
+  //         break;
+  //       default:
+  //         desc = 'unknown'
+  //     }
+  //     s = `${item.p}% - ${item.d} ${desc}`
+  //   }
+  //   else {
+  //     s = `${item.p}% not started`
+  //     s = ''
+  //   }
+  //   return (
+  //     <div key={i}>{s}</div>
+  //   )
+  // }
 
 
-  var img
+  //var img
+
+  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + data.operator.operatorID + '.jpg'
   //var type
-  var data
-  if (col !== null) {
-    img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + col.operator.operatorID + '.jpg'
-//    type = dialogData.type;
-    data = dialogData.data;
+  //var data
+//   if (data !== null) {
+//     img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + data.operator.operatorID + '.jpg'
+// //    type = dialogData.type;
+//     //data = dialogData.data;
 
-  }
+//   }
 
 //  console.log(type)
 console.log(data)
 console.log(tr)
 console.log(radius)
-console.log(dialogData.col)
+//console.log(dialogData.col)
 
 
   return (
     <div>
-      <div style={{fontSize:'32px'}}>Operator: {col.operator.operatorName}</div>
-      <div style={{fontSize:'24px',marginBottom:'10px'}}>Skill: {col.skill.skillName}</div>
+      <div style={{fontSize:'32px'}}>Operator: {data.operator.operatorName}</div>
+      <div style={{fontSize:'24px',marginBottom:'10px'}}>Skill: {data.skill.skillName}</div>
 
 
 

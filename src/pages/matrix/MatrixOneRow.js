@@ -1,7 +1,9 @@
 import React from 'react';
 
 export const MatrixOneRow = React.memo((props) => {
-  const {data, name, translateX, translateY, bandX, bandY} = props.params;
+  const {name, translateX, translateY, bandX, bandY} = props.params;
+  const {data,renderCellFunction,clickCellFunction} = props;
+  //console.log(data)
 
   var r = 0
   var row = null
@@ -18,7 +20,8 @@ export const MatrixOneRow = React.memo((props) => {
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
                   <rect stroke="black" x={bandX*c} y={0} width={bandX} height={bandY} style={{fill:'white',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                  {props.renderFunction !== undefined && props.renderFunction(props.params,c,col,r,row,props.clickFunction)}
+                  {renderCellFunction !== undefined && renderCellFunction(props.params,c,col,r,row,null,data[c],clickCellFunction)}
+
                 </g>
               )
             })

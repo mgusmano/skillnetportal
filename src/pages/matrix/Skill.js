@@ -1,39 +1,13 @@
 import React from 'react';
-import { Matrix } from './Matrix';
-import who from './who.png';
+import { Diamond } from './Diamond';
+import { MatrixCell } from './MatrixCell';
 
 export const Skill = React.memo((props) => {
+  const {data} = props;
   const {skill,num} = props.skillData
-
-  var widgetData = {
-    who: [
-      {meta:{tid:10},data:[{meta:{},data:{v:'Joe Smith'}}]},
-      {meta:{tid:10},data:[{meta:{},data:{v:'Dan Smith'}},]},
-      {meta:{tid:10},data:[{meta:{},data:{v:'Mike Smith'}}]},
-      {meta:{tid:10},data:[{meta:{},data:{v:'Marc Smith'}},]},
-    ]
-  }
-
-  const renderText = (props,c,col,r,row) => {
-    const {bandX, bandY} = props
-    return (
-      <text
-        dominantBaseline="middle"
-        textAnchor="middle"
-        stroke="black"
-        x={(bandX*c)+(bandX/2)}
-        y={bandY-(bandY/2)}
-        className="text"
-        style={{fontSize:'18px'}}>
-          {col.data.v}
-      </text>
-    )
-  }
-
-  var radius=24;
-  var alt = 'alt'
-
-
+  var bandX=30;
+  var bandY=30;
+  var fontsize=14;
   const result = num % 2;
   var src;
   if (result === 1) {
@@ -44,32 +18,41 @@ export const Skill = React.memo((props) => {
   }
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
-      <div style={{height:'50px',fontSize:'24px'}}>
-        <div>Skill: {skill.text}</div>
+      <div style={{height:'30px',fontSize:'18px'}}>
+        <div>Skill: {data.skill.skillName}</div>
       </div>
-
       <div style={{flex:'1'}}>
-
-        <div style={{fontSize:'24px',marginBottom:'10px'}}>Operators with this certification</div>
-
-        <svg>
-          {/* <Matrix
-            renderFunction={renderText}
-            params={{
-              name:'main',data:widgetData.who,
-              translateX:0,translateY:0,radius:15,bandX:240,bandY:35
-            }}
-          /> */}
-
-<image style={{x:'1px',y:'-50px',width:'300px',height:'230px'}} href={who} alt={alt} />
-
-
-
+        <svg width="100%" height="100%">
+        {data.skill.data.map((item,i) => {
+          //console.log(data)
+          return (
+            <g key={i} transform={"translate(" + "100," + (i*bandY) + ")"} className="group" >
+              <text
+                dominantBaseline="left"
+                textAnchor="end"
+                stroke="black"
+                x={-5}
+                y={bandY-(bandY/3)}
+                className="text"
+                style={{fontSize:fontsize+'px'}}>
+                  {item.operator.operatorName}
+              </text>
+              <Diamond meta={item.meta} data={item.data} boxSize={bandX} padding={20}/>
+              <MatrixCell
+                rowid={item.meta.id}
+                colid={1}
+                bandX={bandX}
+                bandY={bandY}
+                type="pie"
+                data={data}
+              />
+            </g>
+          )
+        })}
         </svg>
-
       </div>
 
-      <div style={{flex:'2',display:'flex'}}>
+      <div style={{flex:'1',display:'flex'}}>
         <iframe
           title={'SwipeGuide'}
           width="100%"

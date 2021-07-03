@@ -5,6 +5,7 @@ export const Matrix = React.memo((props) => {
   const {data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
   const [sColor, setColor] = useState('black');
   const [sTop, setTop] = useState(0);
+  console.log(name,translateX)
   //const [header, setHeader] = useState('');
   //console.log(data)
 

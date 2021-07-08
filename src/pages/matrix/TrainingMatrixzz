@@ -1276,7 +1276,39 @@
     ],
   }
 
+  // const clickSkillCell = (e,colid,rowid,type,data,col) => {
+  //   var n = num + 1;
+  //   setNum(n);
+  //   setSpecific(<Skill data={data} num={num}/>)
+  // }
 
+  // const renderSkillCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
+  //   //console.log(data)
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         stroke="black"
+  //         x={(bandX*(c+1))-10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:fontsize+'px'}}>
+  //           {data.skill.skillName}
+  //       </text>
+  //       <MatrixCell
+  //         clickCellFunction={clickSkillCell}
+  //         data={data}
+  //         rowid={null}
+  //         colid={col.id}
+  //         bandX={bandX}
+  //         bandY={bandY}
+  //         type="pie"
+  //       />
+  //     </g>
+  //   )
+  // }
 
 // var numX = widgetData.top[0].data.length;
   // var numY = widgetData.left.length;

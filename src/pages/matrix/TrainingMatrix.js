@@ -9,12 +9,136 @@ import { Main } from './Main';
 import { Legend } from './Legend';
 import { getDates } from './util';
 import { Log } from './Log';
+import { Toolbar } from './Toolbar';
+import { SkillSheet } from './SkillSheet';
+import { useMatrixState } from './state/MatrixProvider';
+
+export default function useEvent(event, handler, passive = false) {
+  useEffect(() => {
+    window.addEventListener(event, handler, passive)
+    return function cleanup() {
+      window.removeEventListener(event, handler)
+    }
+  })
+}
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
-export const TrainingMatrix = React.memo(() => {
-  const [topHeight, setTopHeight] = useState(0);
+export const TrainingMatrix = () => {
+
+  useEffect(() => {
+    var byOperator = []
+    widgetData.operatorsX.map((operator,o) => {
+      var o = {}
+      o = operator
+      o.meta = operator
+      o.data = []
+      const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
+      skills.map((data,i) => {
+        var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
+        o.data[i] = {};
+        o.data[i].operator = operator
+        o.data[i].skill = skill
+        o.data[i].meta = skills[i].meta
+        o.data[i].data = skills[i].data
+      })
+      byOperator.push(o)
+    })
+    setByOperator(byOperator)
+
+    var bySkill = []
+    widgetData.skillsX.map((skill,s) => {
+      var o = {}
+      o = skill
+      o.meta = skill
+      o.data = []
+      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
+      operators.map((data,i) => {
+        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
+        o.data[i] = {};
+        o.data[i].skill = skill
+        o.data[i].operator = operator
+        o.data[i].meta = operators[i].meta
+        o.data[i].data = operators[i].data
+      })
+      bySkill.push(o)
+    })
+    setBySkill(bySkill)
+
+    var x =widgetData.operatorsX.length
+    var y =widgetData.skillsX.length
+    const multiplier = 7;
+    const topHeight = 0;
+    const fontsize = 2;
+    const bandX = 5;
+    const bandY = 5;
+    var col1 = 40;
+    var col2 = bandX * x;
+    var col3 =(bandX*3);
+    var row1 = 20;
+    var row2 = (bandY * y)+0;
+    var row3 = bandX*3;
+
+    var d2= {
+      multiplier: multiplier,
+      topHeight: topHeight,
+      fontsize: fontsize,
+      bandX: bandX,
+      bandY: bandY,
+      col1: col1,
+      col2: col2,
+      col3: col3,
+      row1: row1,
+      row2: row2,
+      row3: row3,
+    }
+    matrixState.setOriginal(d2)
+
+    var d = {
+      multiplier: multiplier,
+      topHeight: topHeight*multiplier,
+      fontsize: fontsize*multiplier,
+      bandX: bandX*multiplier,
+      bandY: bandY*multiplier,
+      col1: col1*multiplier,
+      col2: (col2*multiplier)+0,
+      col3: col3*multiplier,
+      row1: row1*multiplier,
+      row2: (row2*multiplier)+0,
+      row3: row3*multiplier,
+    }
+    matrixState.setDimensions(d)
+  },[])
+
+  const handleResize = () => {
+    var multiplier = matrixState.original.multiplier
+    var col1 = 0, row2 = 0;
+    if (window.innerWidth <1400) {
+      col1 = 0*multiplier;
+      row2 = ((matrixState.original.row2*2)*multiplier)+(matrixState.original.topHeight*multiplier);
+    }
+    else {
+      col1 = matrixState.original.col1*multiplier;
+      row2 = matrixState.original.row2*multiplier;
+    }
+    var d ={
+      topHeight: matrixState.original.topHeight*multiplier,
+      fontsize: matrixState.original.fontsize*multiplier,
+      bandX: matrixState.original.bandX*multiplier,
+      bandY: matrixState.original.bandY*multiplier,
+      col1: col1,
+      col2: (matrixState.original.col2*multiplier)+0,
+      col3: matrixState.original.col3*multiplier,
+      row1: matrixState.original.row1*multiplier,
+      row2: (row2+0),
+      row3: matrixState.original.row3*multiplier,
+    }
+    matrixState.setDimensions(d);
+  }
+
+  useEvent('resize', handleResize);
   const [byOperator, setByOperator] = useState(null);
   const [bySkill, setBySkill] = useState(null);
+  const matrixState = useMatrixState();
 
   const [greendate, yellowdate, reddate] = getDates();
   var widgetData = {
@@ -166,6 +290,27 @@ export const TrainingMatrix = React.memo(() => {
       ]},
     ],
 
+    bottomleftheading: [
+      {
+        meta:{id:10},
+        data:[
+          {meta:{},data:{v:'Goal'}}
+        ],
+      },
+      {
+        meta:{id:20},
+        data:[
+          {meta:{},data:{v:'# Certified'}}
+        ],
+      },
+      {
+        meta:{id:30},
+        data:[
+          {meta:{},data:{v:'Gap'}}
+        ],
+      }
+    ],
+
     leftheading: [
       {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
     ],
@@ -280,192 +425,25 @@ export const TrainingMatrix = React.memo(() => {
 
   }
 
-  const handleResize = () => {
-    var col2 = sCol2Ref.current
-    var row2 = sRow2Ref.current
-    if (window.innerWidth <1400) {
-      var topHeight = 5
-      setTopHeight(topHeight)
-      var d ={
-        col1: 0*sMultiplier,
-        col2: col2*sMultiplier,
-        col3: sCol3*sMultiplier,
-        row1: sRow1*sMultiplier,
-        row2: ((row2*2)*sMultiplier)+(topHeight*sMultiplier),
-        row3: sRow3*sMultiplier,
-      }
-      setDimensions(d)
-    }
-    else {
-      var topHeight = 0
-      setTopHeight(topHeight)
-      var d = {
-        col1: sCol1*sMultiplier,
-        col2: col2*sMultiplier,
-        col3: sCol3*sMultiplier,
-        row1: sRow1*sMultiplier,
-        row2: row2*sMultiplier,
-        row3: sRow3*sMultiplier,
-      }
-      setDimensions(d)
-    }
-  }
 
-
-  useEffect(() => {
-    var byOperator = []
-    widgetData.operatorsX.map((operator,o) => {
-      var o = {}
-      o = operator
-      o.meta = operator
-      o.data = []
-      const skills = widgetData.dataX.filter(item => item.operatorID == operator.operatorID);
-      skills.map((data,i) => {
-        var skill  = widgetData.skillsX.find(item => item.skillID == data.skillID);
-        o.data[i] = {};
-        o.data[i].operator = operator
-        o.data[i].skill = skill
-        o.data[i].meta = skills[i].meta
-        o.data[i].data = skills[i].data
-      })
-      byOperator.push(o)
-    })
-    setByOperator(byOperator)
-
-    var bySkill = []
-    widgetData.skillsX.map((skill,s) => {
-      var o = {}
-      o = skill
-      o.meta = skill
-      o.data = []
-      const operators = widgetData.dataX.filter(item => item.skillID == skill.skillID);
-      operators.map((data,i) => {
-        var operator  = widgetData.operatorsX.find(item => item.operatorID == data.operatorID);
-        o.data[i] = {};
-        o.data[i].skill = skill
-        o.data[i].operator = operator
-        o.data[i].meta = operators[i].meta
-        o.data[i].data = operators[i].data
-      })
-      bySkill.push(o)
-    })
-    setBySkill(bySkill)
-
-    var x =widgetData.operatorsX.length
-    var y =widgetData.skillsX.length
-    var col2 = sBandX * x;
-    var row2 = sBandY * y;
-    setSCol2(col2)
-    setSRow2(row2)
-    console.log(col2)
-    console.log(row2)
-    console.log(sMultiplier)
-
-    var d = {
-      col1: sCol1*sMultiplier,
-      col2: col2*sMultiplier,
-      col3: sCol3*sMultiplier,
-      row1: sRow1*sMultiplier,
-      row2: row2*sMultiplier,
-      row3: sRow3*sMultiplier,
-    }
-    console.log(d)
-
-    setDimensions(d)
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize);
-  },[])
-
-  const [showLegend, setShowLegend] = useState(false);
-  const [num, setNum] = useState(0);
-  const [specific, setSpecific] = useState(null);
-
-  const sMultiplier = 10;
-  const sFontsize = 2;
-  const sBandX = 5;
-  const sBandY = 5;
-  const sRadius = 1.8;
-  const sCol1 = 40;
-  //var sCol2;
-  const [sCol2, setSCol2] = useState(0);
-  const sCol2Ref = useRef();
-  sCol2Ref.current = sCol2;
-  const sCol3 = 17;
-  const sRow1 = 30;
-  //var sRow2;
-  const [sRow2, setSRow2] = useState(0);
-  const sRow2Ref = useRef();
-  sRow2Ref.current = sCol2;
-  const sRow3 = 20;
-
-  const [multiplier, setMultiplier] = useState(sMultiplier);
-  const [fontsize, setFontsize] = useState(sFontsize*sMultiplier);
-  const [bandX, setBandX] = useState(sBandX*sMultiplier);
-  const [bandY, setBandY] = useState(sBandY*sMultiplier);
-  const [radius, setRadius] = useState(sRadius*sMultiplier);
-  // const [col1, setCol1] = useState(sCol1*sMultiplier) //300 + 20;
-  // const [col2, setCol2] = useState(sCol2*sMultiplier);
-  // const [col3, setCol3] = useState(sCol3*sMultiplier);
-  // const [row1, setRow1] = useState(sRow1*sMultiplier);
-  // const [row2, setRow2] = useState(sRow2*sMultiplier);  //450 + 20 + 50
-  // const [row3, setRow3] = useState(sRow3*sMultiplier);
-
-  const [dimensions,setDimensions] = useState(null);
-
-
-  const onClickSize = (e,direction) => {
-    var lMultiplier;
-    if (direction == 'small') {
-      lMultiplier = multiplier-1;
-    }
-    else {
-      lMultiplier = multiplier+1;
-    }
-    setMultiplier(lMultiplier);
-    setFontsize(sFontsize*lMultiplier);
-    setBandX(sBandX*lMultiplier);
-    setBandY(sBandY*lMultiplier);
-    setRadius(sRadius*lMultiplier);
-
-    var col1, row2
-    if (topHeight == 0) {
-      col1 = sCol1*lMultiplier
-      row2 = sRow2*lMultiplier
-    }
-    else {
-      col1 = 0*lMultiplier
-      row2 =((sRow2*2)*lMultiplier)+topHeight
-    }
-
-
-    setDimensions({
-      col1: col1,
-      col2: sCol2*lMultiplier,
-      col3: sCol3*lMultiplier,
-      row1: sRow1*lMultiplier,
-      row2: row2,
-      row3: sRow3*lMultiplier,
-    })
-  }
 
   const clickOperatorCell = (e,colid,rowid,type,data,col) => {
-    setSpecific(<Operator data={data}/>)
+    matrixState.setSpecific(<Operator data={data}/>)
   }
 
   const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
-    const {radius, bandX, bandY, fontsize} = props
+    const {bandX, bandY, fontsize} = props
     var y = (bandX/2) + (bandX * c)
     var yp = y-15
     var i = r + c;
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
-        <text style={{fontSize:fontsize+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{data.operatorName}</text>
-        <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
+        <text style={{fontSize:fontsize+'px'}} alignmentBaseline="baseline" transform="translate(0,0) rotate(90)" x={bandX*1.4} y={-(bandX * c)-10} fill="black">{data.operatorName}</text>
+        <foreignObject x={(bandX*c)+5} y={10} width='50px' height='50px'>
           <img
             alt="pic"
             src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+data.operatorID+'.jpg'}
-            style={{borderRadius:'50%',x:yp+'px',y:'150px',width: (radius*2)+'px',height:(radius*2)+'px'}}
+            style={{borderRadius:'50%',width: bandX-10,height:bandX-10}}
           />
         </foreignObject>
 
@@ -484,40 +462,6 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
-  const clickSkillCell = (e,colid,rowid,type,data) => {
-    var n = num + 1;
-    setNum(n);
-    setSpecific(<Skill data={data} num={num}/>)
-  }
-
-  const renderSkillCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
-    //console.log(data)
-    const {radius, bandX, bandY, fontsize} = props
-    return (
-      <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
-        <text
-          dominantBaseline="left"
-          textAnchor="end"
-          stroke="black"
-          x={(bandX*(c+1))-10}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:fontsize+'px'}}>
-            {data.skill.skillName}
-        </text>
-        <MatrixCell
-          clickCellFunction={clickSkillCell}
-          data={data}
-          rowid={null}
-          colid={col.id}
-          bandX={bandX}
-          bandY={bandY}
-          type="pie"
-        />
-      </g>
-    )
-  }
-
   const renderMainRow = (props,r,row,sTop) => {
     var header2 = ''
     if (row.meta !== undefined) {
@@ -527,23 +471,18 @@ export const TrainingMatrix = React.memo(() => {
     }
     return (
       <>
-      {sTop !== 0 && <text dominantBaseline="auto" style={{fontSize: fontsize+'px'}} x={5} y={props.bandY-10} height={props.sTop} >{header2}</text>}
+      {sTop !== 0 && <text dominantBaseline="auto" style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY-10} height={props.sTop} >{header2}</text>}
       </>
     )
   }
 
-  const clickMainCell = (e,colid,rowid,type,data, col) => {
-    setSpecific(<Main data={data}/>)
+  const clickMainCell = (e,colid,rowid,type,data,col) => {
+    matrixState.setSpecific(<Main data={data}/>)
   }
 
-  const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
-    //console.log(sTop)
-    //var status = col.meta.status;
+  const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
+    //console.log(data)
     const {bandX, bandY} = props
-    //var x = ((bandX/2) - radius);
-    //var y = (bandY/2) - radius;
-    //var ts = x + ',' + y;
-    //const tr = `translate(${ts})`
     return (
       <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
         <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
@@ -562,25 +501,30 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderTotalsHeading = (props,c,col,r) => {
-    const {radius, bandX, bandY, fontsize} = props
+
+
+
+    const {bandX, bandY, fontsize} = props
     return (
       <g key={r+c} transform="translate(0,0)" className="cell">
         <text
-          transform="rotate(270,100,90)"
+          style={{fontSize:fontsize+'px'}}
           dominantBaseline="left"
-          textAnchor="start"
-          stroke="black"
-          x={-80}
-          y={30*((c*1.5)+1)}
-          className="text"
-          style={{fontSize:fontsize+'px'}}>{col.data.name}
+          textAnchor="end"
+          alignmentBaseline="baseline"
+          transform="translate(0,0) rotate(90)"
+          x={bandX*3.8}
+          y={-(bandX * c)-10}
+          fill="black"
+        >
+          {col.data.name}
         </text>
       </g>
     )
   }
 
   const renderSkillLine = (props,c,col,r,row) => {
-    const {radius, bandX, bandY, fontsize} = props
+    const {bandX, bandY, fontsize} = props
     return (
       <text
         dominantBaseline="left"
@@ -604,12 +548,10 @@ export const TrainingMatrix = React.memo(() => {
     }
     return (
       <>
-      {sTop !== 0 && <text style={{fontSize: fontsize+'px'}} x={5} y={props.bandY} height={props.sTop} >{header2}</text>}
+      {sTop !== 0 && <text style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY} height={props.sTop} >{header2}</text>}
       </>
     )
   }
-
-
 
   const renderText = (props,c,col,r,row,sTop) => {
     const {bandX, bandY, fontsize} = props
@@ -617,7 +559,6 @@ export const TrainingMatrix = React.memo(() => {
       <text
         dominantBaseline="middle"
         textAnchor="middle"
-        stroke="black"
         x={(bandX*c)+(bandX/2)}
         y={bandY-(bandY/2)+(sTop)}
         className="text"
@@ -627,14 +568,44 @@ export const TrainingMatrix = React.memo(() => {
     )
   }
 
+  const renderBottomLeftText = (props,c,col,r,row,sTop) => {
+    const {bandX, bandY, fontsize} = props
+    return (
+      <text
+        dominantBaseline="left"
+        textAnchor="end"
+        x={(bandX*(c+1))-10}
+        y={bandY-(bandY/2.5)+(sTop)}
+        className="text"
+        style={{fontSize:(fontsize-4)+'px'}}>
+          {col.data.v}
+      </text>
+    )
+
+
+  //   <text
+  //   dominantBaseline="left"
+  //   textAnchor="end"
+  //   x={(bandX*(c+1))-10}
+  //   y={bandY-(bandY/3)}
+  //   className="text"
+  //   style={{fontSize:matrixState.dimensions.fontsize+'px'}}>
+  //     {data.skill.skillName}
+  // </text>
+
+
+
+
+  }
+
   const renderTop = (props,c,col,r) => {
-    const {radius, bandX, bandY} = props
+    const {bandX, bandY} = props
     var y = (bandX/2) + (bandX * c)
     var yp = y-15
     var i = r + c;
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
-        <text style={{fontSize:radius*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
+        <text style={{fontSize:bandX*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
         <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
           <img
             alt="pic"
@@ -659,7 +630,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderLeftHeading = (props,c,col,r) => {
-    const {radius, bandX, bandY} = props
+    const {bandX, bandY} = props
 
     var col1Width = 70;
 
@@ -672,7 +643,7 @@ export const TrainingMatrix = React.memo(() => {
           x={(bandX*c)+10}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.line}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
         </text>
 
         <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
@@ -684,14 +655,14 @@ export const TrainingMatrix = React.memo(() => {
           x={(bandX*(c+1))-10}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.area}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
         </text>
       </g>
     )
   }
 
   const renderLeft = (props,c,col,r) => {
-    const {radius, bandX, bandY} = props
+    const {bandX, bandY} = props
     //console.log(col)
     var col1Width = 70;
 
@@ -704,7 +675,7 @@ export const TrainingMatrix = React.memo(() => {
           x={((col1Width/2)+ bandX*c)}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.line}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
         </text>
 
         <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
@@ -716,14 +687,14 @@ export const TrainingMatrix = React.memo(() => {
           x={(bandX*(c+1))-10}
           y={bandY-(bandY/3)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.area}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
         </text>
       </g>
     )
   }
 
   const renderPlainHeading = (props,c,col,r) => {
-    const {radius, bandX, bandY, fontsize} = props
+    const {bandX, bandY, fontsize} = props
     return (
       <g key={r+c} transform="translate(0,0)" className="cell">
         <text
@@ -740,7 +711,7 @@ export const TrainingMatrix = React.memo(() => {
   }
 
   const renderMethodology = (props,c,col,r) => {
-    const {radius, bandX, bandY} = props
+    const {bandX, bandY} = props
 
     var col1Width = 70;
 
@@ -753,7 +724,7 @@ export const TrainingMatrix = React.memo(() => {
           x={((col1Width/2)+ bandX*c)}
           y={bandY-(bandY/2)}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.l1}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.l1}
         </text>
         <text
           dominantBaseline="left"
@@ -762,7 +733,7 @@ export const TrainingMatrix = React.memo(() => {
           x={((col1Width/2)+ bandX*c)}
           y={bandY-(bandY/2)+40}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.l2}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.l2}
         </text>
         <text
           dominantBaseline="left"
@@ -771,7 +742,7 @@ export const TrainingMatrix = React.memo(() => {
           x={((col1Width/2)+ bandX*c)}
           y={bandY-(bandY/2)+40+40}
           className="text"
-          style={{fontSize:radius*1.5+'px'}}>{col.data.l3}
+          style={{fontSize:bandX*1.5+'px'}}>{col.data.l3}
         </text>
 
 
@@ -781,162 +752,199 @@ export const TrainingMatrix = React.memo(() => {
 
   const onScroll = (e) => {
     var vert = document.getElementById('skill')
+    var vert2 = document.getElementById('skilltotals')
     var horz = document.getElementById('student')
+    var horz2 = document.getElementById('studenttotals')
     if (vert.scrollTop !== e.target.scrollTop) {
       vert.scrollTop = e.target.scrollTop;
+      vert2.scrollTop = e.target.scrollTop;
     }
     else {
       horz.scrollLeft = e.target.scrollLeft;
+      horz2.scrollLeft = e.target.scrollLeft;
     }
   }
 
+  //<div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:matrixState.dimensions.fontsize+'pt'}}>
   return (
-    <div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:fontsize+'pt'}}>
 
-
-      {showLegend && <Legend/>}
-      <div style={{height:'50px',background:'gray',fontSize:'18px'}}>
-        <div style={{margin:'10px',display:'flex',flexDirection:'row',color:'white'}}>
-          <div style={{margin:'5px 10px 0 60px'}}>
-            matrix size:
-          </div>
-          <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'small')}>smaller</button>
-          <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'large')}>larger</button>
-          <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
-            onClick={
-              (e)=>setShowLegend(!showLegend)
-            }
-          >
-            Toggle Legend
-          </button>
-        </div>
-      </div>
-
-
+    <div className='trainingmatrix' style={{...styles.v,width:'100%',height:'100%'}}>
+      {matrixState.showTheLegend && <Legend/>}
+      <Toolbar/>
       {/* main area start */}
-      {dimensions !== null &&
-      <div data-flex-splitter-horizontal className='' style={{...styles.horizontal,width:'100%',height:'100%'}}>
-<Log data={dimensions}/>
-<Log data={sCol2}/>
-<Log data={sRow2}/>
+      {matrixState.dimensions !== null &&
+      <div className='mainarea' data-flex-splitter-horizontal style={{...styles.horizontal,width:'100%',height:'100%'}}>
+        <Log data={matrixState.dimensions}/>
+
         {/* left area - matrix - start */}
-        <div className='' style={styles.vertical}>
+        <div className='left' style={{...styles.v,flex:1,boxSizing:'border-box'}}>
+
+
+
           {/* row 1 start */}
-          <div className='' style={{height:dimensions.row1+'px'}}>
-            <div className=''  style={{...styles.horizontal,width:'100%',height:'100%'}}>
-              <div className='' style={{width:dimensions.col1+'px'}}>
-                <svg width={dimensions.col1+'px'} height={dimensions.row1+'px'}>placeholder</svg>
+          <div className='leftrow1' height={matrixState.dimensions.row1} style={{...styles.h,height:matrixState.dimensions.row1+'px'}}>
+
+              {/* row 1 column 1 start */}
+              <div className='' style={{width:matrixState.dimensions.col1+'px',boxSizing:'border-box'}}>
+                <svg width={matrixState.dimensions.col1+'px'} height={matrixState.dimensions.row1+'px'}></svg>
               </div>
-              <div id="student" className='' style={{width:(dimensions.col2+dimensions.col3)+'px',overflow:'scroll',overflow:'hidden'}}>
-                <div width={(dimensions.col2+dimensions.col3)+'px'} height={dimensions.row1+'px'}>
-                <svg width={(dimensions.col2+dimensions.col3)+'px'} height={dimensions.row1+'px'}>
+              {/* row 1 column 1 end */}
+
+              {/* row 1 column 2 start */}
+              <div id="student" className='' style={{boxSizing:'border-box',width:matrixState.dimensions.col2+'px',overflow:'scroll',overflow:'hidden'}}>
+                <div style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
+                <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
                   {byOperator !== null &&
                   <MatrixOneRow
                     renderCellFunction={renderOperatorCell}
                     clickCellFunction={clickOperatorCell}
                     data={byOperator}
                     params={{
-                      name:'maintop',fontsize: fontsize,
-                      translateX:0,translateY:0,radius:radius,bandX:bandX,bandY:700
+                      name:'maintop',fontsize: matrixState.dimensions.fontsize,
+                      translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:700
                     }}
                   />
                   }
+                </svg>
+                </div>
+              </div>
+              {/* row 1 column 2 end */}
+
+              {/* row 1 column 3 start */}
+              <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row1+'px'}}>
+                <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
+                <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
                   <Matrix
                     renderCellFunction={renderTotalsHeading}
                     data={widgetData.rightheading}
                     params={{
-                      name:'totalsrightheading',fontsize: fontsize,
-                      translateX:dimensions.col2,translateY:0,radius:radius,bandX:bandX,bandY:dimensions.row1
+                      name:'totalsrightheading',fontsize: matrixState.dimensions.fontsize,
+                      translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.row1
                     }}
                   />
                 </svg>
                 </div>
               </div>
-            </div>
+              {/* row 1 column 3 end */}
+
           </div>
           {/* row 1 end */}
+
           {/* row 2 start */}
-          <div style={styles.horizontal}>
+          <div className='leftrow2' style={{...styles.h,height:(matrixState.dimensions.row2)+'px'}}>
             {/* row 2 column 1 start */}
-            <div id="skill" className='skill' style={{width:dimensions.col1+'px',overflow:'scroll',overflow:'hidden'}}>
-              <div width={dimensions.col1+'px'} height={dimensions.row2+dimensions.row3+'px'}>
-              <svg width={dimensions.col1+'px'} height={dimensions.row2+dimensions.row3+'px'}>
-              {bySkill !== null &&
-              <Matrix
-                renderCellFunction={renderSkillCell}
-                clickCellFunction={clickSkillCell}
-                data={bySkill}
-                params={{
-                  name:'skills',fontsize: fontsize,
-                  translateX:0,translateY:0,radius:radius,bandX:dimensions.col1,bandY:bandX
-                }}
-              />
-              }
-              {/* <Matrix
-                renderCellFunction={renderSkillCell}
-                clickCellFunction={clickSkillCell}
-                data={widgetData.lefttotals}
-                params={{
-                  name:'skills',fontsize: fontsize,
-                  translateX:0,translateY:row2,radius:radius,bandX:col1,bandY:bandX
-                }}
-              /> */}
-              </svg>
-              </div>
-            </div>
+            <SkillSheet data={bySkill}/>
             {/* row 2 column 1 End */}
             {/* row 2 column 2 start */}
-            <div className='' style={{...styles.vertical,overflow:'overlay'}} onScroll={onScroll}>
-              <div width={(dimensions.col2+dimensions.col3)+'px'} height={dimensions.row2+dimensions.row3+'px'}>
-              <svg width={(dimensions.col2+dimensions.col3)+'px'} height={dimensions.row2+dimensions.row3+'px'}>
+
+              <div style={{width:(matrixState.dimensions.col2)+'px',height:(matrixState.dimensions.row2)+'px',maxWidth:(matrixState.dimensions.col2)+'px',maxHeight:(matrixState.dimensions.row2)+'px',overflow:'auto'}} onScroll={onScroll} >
+
+              <div width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2)+'px'}>
+              <svg width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2-4)+'px'}>
                 {bySkill !== null &&
-                <>
                 <Matrix
                   renderRowFunction={renderMainRow}
                   renderCellFunction={renderMainCell}
                   clickCellFunction={clickMainCell}
                   data={bySkill}
                   params={{
-                    name:'main',fontsize:fontsize,top:topHeight*sMultiplier,
-                    translateX:0,translateY:0,bandX:bandX,bandY:bandY
+                    name:'main',fontsize:matrixState.dimensions.fontsize,top:matrixState.dimensions.topHeight,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
                   }}
                 />
+                }
+              </svg>
+              </div>
+
+              </div>
+
+            {/* row 2 column 2 end */}
+
+
+            {/* row 2 column 3 start */}
+            <div id="skilltotals" style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',overflowY:'scroll',overflowY:'hidden',boxSizing:'border-box'}}>
+
+
+              <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
+              <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
                 <Matrix
                   renderRowFunction={renderTextRow}
                   renderCellFunction={renderText}
                   data={widgetData.right}
                   params={{
-                    name: 'totalsright',fontsize: fontsize,top: topHeight*sMultiplier,
-                    translateX:dimensions.col2,translateY:0,radius:radius,bandX:bandX,bandY:bandY
+                    name: 'totalsright',fontsize: matrixState.dimensions.fontsize,top: matrixState.dimensions.topHeight,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
                   }}
                 />
+              </svg>
+              </div>
+
+
+            </div>
+            {/* row 2 column 3 end */}
+
+          </div>
+          {/* row 2 end */}
+
+          {/* row 3 start */}
+          <div style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>
+
+            {/* row 3 column 1 start */}
+            <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px'}}>
+
+              <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
+              <svg style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
+                <Matrix
+                  renderCellFunction={renderBottomLeftText}
+                  data={widgetData.bottomleftheading}
+                  params={{
+                    name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.col1,bandY:matrixState.dimensions.bandY
+                  }}
+                />
+              </svg>
+              </div>
+
+            </div>
+            {/* row 3 column 1 end */}
+
+            {/* row 3 column 2 start */}
+            <div id="studenttotals" style={{...styles.v,overflow:'scroll',overflow:'hidden',border:'0px solid red'}}>
+              <div style={{ maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
+              <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
                 <Matrix
                   renderCellFunction={renderText}
                   data={widgetData.bottom}
                   params={{
-                    name:'totalsbottom',fontsize: fontsize,
-                    translateX:0,translateY:dimensions.row2,radius:radius,bandX:bandX,bandY:bandY
+                    name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
                   }}
                 />
-                </>
-
-                }
               </svg>
               </div>
             </div>
-            {/* row 2 column 2 end */}
+            {/* row 3 column 2 end */}
+
+            {/* row 3 column 3 start */}
+            <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row3+'px',border:'0px solid green'}}>
+             
+            </div>
+            {/* row 3 column 3 end */}
+
+
           </div>
-          {/* row 2 end */}
+          {/* row 3 end */}
+
         </div>
         {/* left area - matrix - end */}
 
         <div role="separator"></div>
 
         {/* right area - details - start */}
-        <div className='' style={{width:'525px'}}>
+        <div className='right' style={{width:'525px'}}>
           <div style={{width:'100%', height:'100%', padding:'25px', background:'white', boxSizing:'border-box'}}>
             <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
-              {specific}
+              {matrixState.specific}
             </div>
           </div>
         </div>
@@ -948,7 +956,7 @@ export const TrainingMatrix = React.memo(() => {
     </div>
   )
 
-})
+}
 
 const styles = {
   horizontal: {
@@ -962,6 +970,21 @@ const styles = {
   vertical: {
     display:'flex',
     flex:1,
+    flexDirection:'column',
+    boxSizing:'border-box',
+    border:'0px solid blue',
+    overflow:'hidden'
+  },
+
+  h: {
+    display:'flex',
+    flexDirection:'row',
+    boxSizing:'border-box',
+    border:'0px solid blue',
+    overflow:'hidden'
+  },
+  v: {
+    display:'flex',
     flexDirection:'column',
     boxSizing:'border-box',
     border:'0px solid blue',

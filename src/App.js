@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { MatrixProvider } from './pages/matrix/state/MatrixProvider';
+
 import Top from './Top';
 import Header from './Header';
 import TopMenu from './TopMenu';
@@ -258,7 +260,9 @@ function App(props) {
   //Premium Audit
 
   return (
+
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+      <MatrixProvider>
       <Vertical>
         <Top/>
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
@@ -334,7 +338,9 @@ function App(props) {
         {/* <Splitter/>
         <div>footer</div> */}
       </Vertical>
+      </MatrixProvider>
     </AuthContext.Provider>
+
   );
 }
 

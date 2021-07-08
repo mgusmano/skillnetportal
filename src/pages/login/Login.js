@@ -18,6 +18,19 @@ function Login(props) {
   //const referer = props.location.state.referer || '/';
 
   function postLogin() {
+    setIsLoading(false);
+    setReferer('swipeguide')
+    setAuthTokens(password);
+    setLoggedIn(true);
+    return <Redirect to={referer} />;
+  
+
+
+
+
+
+
+
     setIsLoading(true);
     axios.get("https://skillnetusersapi.azurewebsites.net/api/users?partnerid=434", {
       //auth: {username: 'skillnet',password: 'demo'},

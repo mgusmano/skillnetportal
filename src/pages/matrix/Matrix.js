@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useMatrixState } from './state/MatrixProvider';
 
 export const Matrix = React.memo((props) => {
+  const matrixState = useMatrixState();
+
   const {name, translateX, translateY, bandX, bandY, oneRow, stroke, top, fontsize} = props.params;
   const {data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
   const [sColor, setColor] = useState('black');
   const [sTop, setTop] = useState(0);
-  console.log(name,translateX)
+  //console.log(name,translateX)
   //const [header, setHeader] = useState('');
   //console.log(data)
 
@@ -35,7 +38,7 @@ export const Matrix = React.memo((props) => {
         var theRow = getRow(row,oneRow)
         return (
           <g key={r} transform={"translate(" + "0" + "," + ((bandY*r)+(sTop*r)) + ")"} className="row">
-            {renderRowFunction !== undefined && renderRowFunction(props.params,r,row,sTop)}
+            {renderRowFunction !== undefined && renderRowFunction(props.params,r,row,sTop,fontsize)}
           {
             theRow.map((col,c) => {
               var header = ''
@@ -47,7 +50,7 @@ export const Matrix = React.memo((props) => {
               return (
                 <g key={c} transform="translate(0,0)" className="cell">
                   <rect stroke={sColor} x={(bandX*c)} y={sTop} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                  {renderCellFunction !== undefined && renderCellFunction(props.params,c,col,r,row,sTop,col,clickCellFunction)}
+                  {renderCellFunction !== undefined && renderCellFunction(props.params,c,col,r,row,sTop,col,clickCellFunction,fontsize)}
                 </g>
               )
             })

@@ -3,15 +3,20 @@ import { Matrix } from './Matrix';
 import { MatrixOneRow } from './MatrixOneRow';
 import { Diamond } from './Diamond';
 import { MatrixCell } from './MatrixCell';
-import { Skill } from './Skill';
+//import { Skill } from './Skill';
 import { Operator } from './Operator';
 import { Main } from './Main';
 import { Legend } from './Legend';
 import { getDates } from './util';
 import { Log } from './Log';
 import { Toolbar } from './Toolbar';
-import { SkillSheet } from './SkillSheet';
+import { Row2Col1 } from './Row2Col1';
+import { Row2Col2 } from './Row2Col2';
+import { Row2Col3 } from './Row2Col3';
+import { Row3Col1 } from './Row3Col1';
+import { Row3Col2 } from './Row3Col2';
 import { useMatrixState } from './state/MatrixProvider';
+import { styles } from './styles';
 
 export default function useEvent(event, handler, passive = false) {
   useEffect(() => {
@@ -425,8 +430,6 @@ export const TrainingMatrix = () => {
 
   }
 
-
-
   const clickOperatorCell = (e,colid,rowid,type,data,col) => {
     matrixState.setSpecific(<Operator data={data}/>)
   }
@@ -462,43 +465,43 @@ export const TrainingMatrix = () => {
     )
   }
 
-  const renderMainRow = (props,r,row,sTop) => {
-    var header2 = ''
-    if (row.meta !== undefined) {
-      if (row.meta.skillName !== undefined) {
-        header2 = row.meta.skillName
-      }
-    }
-    return (
-      <>
-      {sTop !== 0 && <text dominantBaseline="auto" style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY-10} height={props.sTop} >{header2}</text>}
-      </>
-    )
-  }
+  // const renderMainRow = (props,r,row,sTop) => {
+  //   var header2 = ''
+  //   if (row.meta !== undefined) {
+  //     if (row.meta.skillName !== undefined) {
+  //       header2 = row.meta.skillName
+  //     }
+  //   }
+  //   return (
+  //     <>
+  //     {sTop !== 0 && <text dominantBaseline="auto" style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY-10} height={props.sTop} >{header2}</text>}
+  //     </>
+  //   )
+  // }
 
-  const clickMainCell = (e,colid,rowid,type,data,col) => {
-    matrixState.setSpecific(<Main data={data}/>)
-  }
+  // const clickMainCell = (e,colid,rowid,type,data,col) => {
+  //   matrixState.setSpecific(<Main data={data}/>)
+  // }
 
-  const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
-    //console.log(data)
-    const {bandX, bandY} = props
-    return (
-      <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
-        <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
-        <MatrixCell
-          clickCellFunction={clickCellFunction}
-          rowid={row.meta.id}
-          colid={col.meta.id}
-          bandX={bandX}
-          bandY={bandY}
-          type="pie"
-          col={col}
-          data={data}
-        />
-      </g>
-    )
-  }
+  // const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
+  //   //console.log(data)
+  //   const {bandX, bandY} = props
+  //   return (
+  //     <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
+  //       <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
+  //       <MatrixCell
+  //         clickCellFunction={clickCellFunction}
+  //         rowid={row.meta.id}
+  //         colid={col.meta.id}
+  //         bandX={bandX}
+  //         bandY={bandY}
+  //         type="pie"
+  //         col={col}
+  //         data={data}
+  //       />
+  //     </g>
+  //   )
+  // }
 
   const renderTotalsHeading = (props,c,col,r) => {
 
@@ -523,247 +526,247 @@ export const TrainingMatrix = () => {
     )
   }
 
-  const renderSkillLine = (props,c,col,r,row) => {
-    const {bandX, bandY, fontsize} = props
-    return (
-      <text
-        dominantBaseline="left"
-        textAnchor="middle"
-        stroke="black"
-        x={(bandX*(c+1))/2}
-        y={bandY-(bandY/2)+10}
-        className="text"
-        style={{fontSize:fontsize+'px'}}>
-          {col.line}
-      </text>
-    )
-  }
+  // const renderSkillLine = (props,c,col,r,row) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="left"
+  //       textAnchor="middle"
+  //       stroke="black"
+  //       x={(bandX*(c+1))/2}
+  //       y={bandY-(bandY/2)+10}
+  //       className="text"
+  //       style={{fontSize:fontsize+'px'}}>
+  //         {col.line}
+  //     </text>
+  //   )
+  // }
 
-  const renderTextRow = (props,r,row,sTop) => {
-    var header2 = ''
-    if (row.meta !== undefined) {
-      if (row.meta.skillName !== undefined) {
-        header2 = row.meta.skillName
-      }
-    }
-    return (
-      <>
-      {sTop !== 0 && <text style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY} height={props.sTop} >{header2}</text>}
-      </>
-    )
-  }
+  // const renderTextRow = (props,r,row,sTop) => {
+  //   var header2 = ''
+  //   if (row.meta !== undefined) {
+  //     if (row.meta.skillName !== undefined) {
+  //       header2 = row.meta.skillName
+  //     }
+  //   }
+  //   return (
+  //     <>
+  //     {sTop !== 0 && <text style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY} height={props.sTop} >{header2}</text>}
+  //     </>
+  //   )
+  // }
 
-  const renderText = (props,c,col,r,row,sTop) => {
-    const {bandX, bandY, fontsize} = props
-    return (
-      <text
-        dominantBaseline="middle"
-        textAnchor="middle"
-        x={(bandX*c)+(bandX/2)}
-        y={bandY-(bandY/2)+(sTop)}
-        className="text"
-        style={{fontSize:(fontsize-4)+'px'}}>
-          {col.data.v}
-      </text>
-    )
-  }
+  // const renderText = (props,c,col,r,row,sTop) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="middle"
+  //       textAnchor="middle"
+  //       x={(bandX*c)+(bandX/2)}
+  //       y={bandY-(bandY/2)+(sTop)}
+  //       className="text"
+  //       style={{fontSize:(fontsize-4)+'px'}}>
+  //         {col.data.v}
+  //     </text>
+  //   )
+  // }
 
-  const renderBottomLeftText = (props,c,col,r,row,sTop) => {
-    const {bandX, bandY, fontsize} = props
-    return (
-      <text
-        dominantBaseline="left"
-        textAnchor="end"
-        x={(bandX*(c+1))-10}
-        y={bandY-(bandY/2.5)+(sTop)}
-        className="text"
-        style={{fontSize:(fontsize-4)+'px'}}>
-          {col.data.v}
-      </text>
-    )
-
-
-  //   <text
-  //   dominantBaseline="left"
-  //   textAnchor="end"
-  //   x={(bandX*(c+1))-10}
-  //   y={bandY-(bandY/3)}
-  //   className="text"
-  //   style={{fontSize:matrixState.dimensions.fontsize+'px'}}>
-  //     {data.skill.skillName}
-  // </text>
+  // const renderBottomLeftText = (props,c,col,r,row,sTop) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="left"
+  //       textAnchor="end"
+  //       x={(bandX*(c+1))-10}
+  //       y={bandY-(bandY/2.5)+(sTop)}
+  //       className="text"
+  //       style={{fontSize:(fontsize-4)+'px'}}>
+  //         {col.data.v}
+  //     </text>
+  //   )
 
 
-
-
-  }
-
-  const renderTop = (props,c,col,r) => {
-    const {bandX, bandY} = props
-    var y = (bandX/2) + (bandX * c)
-    var yp = y-15
-    var i = r + c;
-    return (
-      <g key={r+c} transform="translate(0,0)" className="header">
-        <text style={{fontSize:bandX*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
-        <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
-          <img
-            alt="pic"
-            src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+col.meta.id+'.jpg'}
-            style={{borderRadius:'50%',x:yp+'px',y:'150px',width:'40px',height:'40px'}}
-          />
-        </foreignObject>
-      </g>
+  // //   <text
+  // //   dominantBaseline="left"
+  // //   textAnchor="end"
+  // //   x={(bandX*(c+1))-10}
+  // //   y={bandY-(bandY/3)}
+  // //   className="text"
+  // //   style={{fontSize:matrixState.dimensions.fontsize+'px'}}>
+  // //     {data.skill.skillName}
+  // // </text>
 
 
 
 
-      // <text
-      //   dominantBaseline="middle"
-      //   textAnchor="middle"
-      //   stroke="black"
-      //   x={(bandX*c)+(bandX/2)}
-      //   y={bandY-(bandY/2)}
-      //   className="text"
-      //   style={{fontSize:'32px'}}>{col.data.v}</text>
-    )
-  }
+  // }
 
-  const renderLeftHeading = (props,c,col,r) => {
-    const {bandX, bandY} = props
-
-    var col1Width = 70;
-
-    return (
-      <g key={r+c} transform="translate(0,0)" className="cell">
-        <text
-          dominantBaseline="left"
-          textAnchor="start"
-          stroke="black"
-          x={(bandX*c)+10}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
-        </text>
-
-        <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
-
-        <text
-          dominantBaseline="left"
-          textAnchor="end"
-          stroke="black"
-          x={(bandX*(c+1))-10}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
-        </text>
-      </g>
-    )
-  }
-
-  const renderLeft = (props,c,col,r) => {
-    const {bandX, bandY} = props
-    //console.log(col)
-    var col1Width = 70;
-
-    return (
-      <g key={r+c} transform="translate(0,0)" className="cell">
-        <text
-          dominantBaseline="left"
-          textAnchor="center"
-          stroke="black"
-          x={((col1Width/2)+ bandX*c)}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
-        </text>
-
-        <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
-
-        <text
-          dominantBaseline="left"
-          textAnchor="end"
-          stroke="black"
-          x={(bandX*(c+1))-10}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
-        </text>
-      </g>
-    )
-  }
-
-  const renderPlainHeading = (props,c,col,r) => {
-    const {bandX, bandY, fontsize} = props
-    return (
-      <g key={r+c} transform="translate(0,0)" className="cell">
-        <text
-          dominantBaseline="left"
-          textAnchor="start"
-          stroke="black"
-          x={(bandX*c)}
-          y={bandY-(bandY/3)}
-          className="text"
-          style={{fontSize:fontsize+'px'}}>{col.data.name}
-        </text>
-      </g>
-    )
-  }
-
-  const renderMethodology = (props,c,col,r) => {
-    const {bandX, bandY} = props
-
-    var col1Width = 70;
-
-    return (
-      <g key={r+c} transform="translate(0,0)" className="cell">
-        <text
-          dominantBaseline="left"
-          textAnchor="center"
-          stroke="black"
-          x={((col1Width/2)+ bandX*c)}
-          y={bandY-(bandY/2)}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.l1}
-        </text>
-        <text
-          dominantBaseline="left"
-          textAnchor="center"
-          stroke="black"
-          x={((col1Width/2)+ bandX*c)}
-          y={bandY-(bandY/2)+40}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.l2}
-        </text>
-        <text
-          dominantBaseline="left"
-          textAnchor="center"
-          stroke="black"
-          x={((col1Width/2)+ bandX*c)}
-          y={bandY-(bandY/2)+40+40}
-          className="text"
-          style={{fontSize:bandX*1.5+'px'}}>{col.data.l3}
-        </text>
+  // const renderTop = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+  //   var y = (bandX/2) + (bandX * c)
+  //   var yp = y-15
+  //   var i = r + c;
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="header">
+  //       <text style={{fontSize:bandX*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
+  //       <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
+  //         <img
+  //           alt="pic"
+  //           src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+col.meta.id+'.jpg'}
+  //           style={{borderRadius:'50%',x:yp+'px',y:'150px',width:'40px',height:'40px'}}
+  //         />
+  //       </foreignObject>
+  //     </g>
 
 
-      </g>
-    )
-  }
 
-  const onScroll = (e) => {
-    var vert = document.getElementById('skill')
-    var vert2 = document.getElementById('skilltotals')
-    var horz = document.getElementById('student')
-    var horz2 = document.getElementById('studenttotals')
-    if (vert.scrollTop !== e.target.scrollTop) {
-      vert.scrollTop = e.target.scrollTop;
-      vert2.scrollTop = e.target.scrollTop;
-    }
-    else {
-      horz.scrollLeft = e.target.scrollLeft;
-      horz2.scrollLeft = e.target.scrollLeft;
-    }
-  }
+
+  //     // <text
+  //     //   dominantBaseline="middle"
+  //     //   textAnchor="middle"
+  //     //   stroke="black"
+  //     //   x={(bandX*c)+(bandX/2)}
+  //     //   y={bandY-(bandY/2)}
+  //     //   className="text"
+  //     //   style={{fontSize:'32px'}}>{col.data.v}</text>
+  //   )
+  // }
+
+  // const renderLeftHeading = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="start"
+  //         stroke="black"
+  //         x={(bandX*c)+10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
+  //       </text>
+
+  //       <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
+
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         stroke="black"
+  //         x={(bandX*(c+1))-10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderLeft = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+  //   //console.log(col)
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
+  //       </text>
+
+  //       <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
+
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         stroke="black"
+  //         x={(bandX*(c+1))-10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderPlainHeading = (props,c,col,r) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="start"
+  //         stroke="black"
+  //         x={(bandX*c)}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:fontsize+'px'}}>{col.data.name}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderMethodology = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l1}
+  //       </text>
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)+40}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l2}
+  //       </text>
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)+40+40}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l3}
+  //       </text>
+
+
+  //     </g>
+  //   )
+  // }
+
+  // const onScroll = (e) => {
+  //   var vert = document.getElementById('skill')
+  //   var vert2 = document.getElementById('skilltotals')
+  //   var horz = document.getElementById('student')
+  //   var horz2 = document.getElementById('studenttotals')
+  //   if (vert.scrollTop !== e.target.scrollTop) {
+  //     vert.scrollTop = e.target.scrollTop;
+  //     vert2.scrollTop = e.target.scrollTop;
+  //   }
+  //   else {
+  //     horz.scrollLeft = e.target.scrollLeft;
+  //     horz2.scrollLeft = e.target.scrollLeft;
+  //   }
+  // }
 
   //<div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:matrixState.dimensions.fontsize+'pt'}}>
   return (
@@ -775,57 +778,53 @@ export const TrainingMatrix = () => {
       {matrixState.dimensions !== null &&
       <div className='mainarea' data-flex-splitter-horizontal style={{...styles.horizontal,width:'100%',height:'100%'}}>
         <Log data={matrixState.dimensions}/>
-
         {/* left area - matrix - start */}
         <div className='left' style={{...styles.v,flex:1,boxSizing:'border-box'}}>
 
-
-
           {/* row 1 start */}
           <div className='leftrow1' height={matrixState.dimensions.row1} style={{...styles.h,height:matrixState.dimensions.row1+'px'}}>
+            {/* row 1 column 1 start */}
+            <div className='' style={{width:matrixState.dimensions.col1+'px',boxSizing:'border-box'}}>
+              <svg width={matrixState.dimensions.col1+'px'} height={matrixState.dimensions.row1+'px'}></svg>
+            </div>
+            {/* row 1 column 1 end */}
 
-              {/* row 1 column 1 start */}
-              <div className='' style={{width:matrixState.dimensions.col1+'px',boxSizing:'border-box'}}>
-                <svg width={matrixState.dimensions.col1+'px'} height={matrixState.dimensions.row1+'px'}></svg>
+            {/* row 1 column 2 start */}
+            <div id="student" className='' style={{boxSizing:'border-box',width:matrixState.dimensions.col2+'px',overflow:'scroll',overflow:'hidden'}}>
+              <div style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
+              <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
+                {byOperator !== null &&
+                <MatrixOneRow
+                  renderCellFunction={renderOperatorCell}
+                  clickCellFunction={clickOperatorCell}
+                  data={byOperator}
+                  params={{
+                    name:'maintop',fontsize: matrixState.dimensions.fontsize,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:700
+                  }}
+                />
+                }
+              </svg>
               </div>
-              {/* row 1 column 1 end */}
+            </div>
+            {/* row 1 column 2 end */}
 
-              {/* row 1 column 2 start */}
-              <div id="student" className='' style={{boxSizing:'border-box',width:matrixState.dimensions.col2+'px',overflow:'scroll',overflow:'hidden'}}>
-                <div style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
-                <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
-                  {byOperator !== null &&
-                  <MatrixOneRow
-                    renderCellFunction={renderOperatorCell}
-                    clickCellFunction={clickOperatorCell}
-                    data={byOperator}
-                    params={{
-                      name:'maintop',fontsize: matrixState.dimensions.fontsize,
-                      translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:700
-                    }}
-                  />
-                  }
-                </svg>
-                </div>
+            {/* row 1 column 3 start */}
+            <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row1+'px'}}>
+              <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
+              <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
+                <Matrix
+                  renderCellFunction={renderTotalsHeading}
+                  data={widgetData.rightheading}
+                  params={{
+                    name:'totalsrightheading',fontsize: matrixState.dimensions.fontsize,
+                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.row1
+                  }}
+                />
+              </svg>
               </div>
-              {/* row 1 column 2 end */}
-
-              {/* row 1 column 3 start */}
-              <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row1+'px'}}>
-                <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
-                <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
-                  <Matrix
-                    renderCellFunction={renderTotalsHeading}
-                    data={widgetData.rightheading}
-                    params={{
-                      name:'totalsrightheading',fontsize: matrixState.dimensions.fontsize,
-                      translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.row1
-                    }}
-                  />
-                </svg>
-                </div>
-              </div>
-              {/* row 1 column 3 end */}
+            </div>
+            {/* row 1 column 3 end */}
 
           </div>
           {/* row 1 end */}
@@ -833,105 +832,28 @@ export const TrainingMatrix = () => {
           {/* row 2 start */}
           <div className='leftrow2' style={{...styles.h,height:(matrixState.dimensions.row2)+'px'}}>
             {/* row 2 column 1 start */}
-            <SkillSheet data={bySkill}/>
+            <Row2Col1 data={bySkill}/>
             {/* row 2 column 1 End */}
             {/* row 2 column 2 start */}
-
-              <div style={{width:(matrixState.dimensions.col2)+'px',height:(matrixState.dimensions.row2)+'px',maxWidth:(matrixState.dimensions.col2)+'px',maxHeight:(matrixState.dimensions.row2)+'px',overflow:'auto'}} onScroll={onScroll} >
-
-              <div width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2)+'px'}>
-              <svg width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2-4)+'px'}>
-                {bySkill !== null &&
-                <Matrix
-                  renderRowFunction={renderMainRow}
-                  renderCellFunction={renderMainCell}
-                  clickCellFunction={clickMainCell}
-                  data={bySkill}
-                  params={{
-                    name:'main',fontsize:matrixState.dimensions.fontsize,top:matrixState.dimensions.topHeight,
-                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
-                  }}
-                />
-                }
-              </svg>
-              </div>
-
-              </div>
-
+            <Row2Col2 data={bySkill}/>
             {/* row 2 column 2 end */}
-
-
             {/* row 2 column 3 start */}
-            <div id="skilltotals" style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',overflowY:'scroll',overflowY:'hidden',boxSizing:'border-box'}}>
-
-
-              <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
-              <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
-                <Matrix
-                  renderRowFunction={renderTextRow}
-                  renderCellFunction={renderText}
-                  data={widgetData.right}
-                  params={{
-                    name: 'totalsright',fontsize: matrixState.dimensions.fontsize,top: matrixState.dimensions.topHeight,
-                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
-                  }}
-                />
-              </svg>
-              </div>
-
-
-            </div>
+            <Row2Col3 data={widgetData.right}/>
             {/* row 2 column 3 end */}
-
           </div>
           {/* row 2 end */}
 
           {/* row 3 start */}
           <div style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>
-
             {/* row 3 column 1 start */}
-            <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px'}}>
-
-              <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
-              <svg style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
-                <Matrix
-                  renderCellFunction={renderBottomLeftText}
-                  data={widgetData.bottomleftheading}
-                  params={{
-                    name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
-                    translateX:0,translateY:0,bandX:matrixState.dimensions.col1,bandY:matrixState.dimensions.bandY
-                  }}
-                />
-              </svg>
-              </div>
-
-            </div>
+            <Row3Col1 data={widgetData.bottomleftheading}/>
             {/* row 3 column 1 end */}
-
             {/* row 3 column 2 start */}
-            <div id="studenttotals" style={{...styles.v,overflow:'scroll',overflow:'hidden',border:'0px solid red'}}>
-              <div style={{ maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
-              <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
-                <Matrix
-                  renderCellFunction={renderText}
-                  data={widgetData.bottom}
-                  params={{
-                    name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
-                    translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
-                  }}
-                />
-              </svg>
-              </div>
-            </div>
+            <Row3Col2 data={widgetData.bottom}/>
             {/* row 3 column 2 end */}
-
             {/* row 3 column 3 start */}
-            <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row3+'px',border:'0px solid green'}}>
-             
-            </div>
+            <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row3+'px',border:'0px solid green'}}></div>
             {/* row 3 column 3 end */}
-
-
           </div>
           {/* row 3 end */}
 
@@ -957,38 +879,3 @@ export const TrainingMatrix = () => {
   )
 
 }
-
-const styles = {
-  horizontal: {
-    display:'flex',
-    flex:1,
-    flexDirection:'row',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-  vertical: {
-    display:'flex',
-    flex:1,
-    flexDirection:'column',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-
-  h: {
-    display:'flex',
-    flexDirection:'row',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-  v: {
-    display:'flex',
-    flexDirection:'column',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-};
-

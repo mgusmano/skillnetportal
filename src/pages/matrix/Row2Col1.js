@@ -3,8 +3,9 @@ import { Matrix } from './Matrix';
 import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
 import { Skill } from './Skill';
+import { styles } from './styles'
 
-export const SkillSheet = (props) => {
+export const Row2Col1 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
   const [num, setNum] = useState(0);
@@ -62,36 +63,36 @@ export const SkillSheet = (props) => {
   )
 }
 
-const styles = {
-  horizontal: {
-    display:'flex',
-    flex:1,
-    flexDirection:'row',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-  vertical: {
-    display:'flex',
-    flex:1,
-    flexDirection:'column',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
+// const styles = {
+//   horizontal: {
+//     display:'flex',
+//     flex:1,
+//     flexDirection:'row',
+//     boxSizing:'border-box',
+//     border:'0px solid blue',
+//     overflow:'hidden'
+//   },
+//   vertical: {
+//     display:'flex',
+//     flex:1,
+//     flexDirection:'column',
+//     boxSizing:'border-box',
+//     border:'0px solid blue',
+//     overflow:'hidden'
+//   },
 
-  h: {
-    display:'flex',
-    flexDirection:'row',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-  v: {
-    display:'flex',
-    flexDirection:'column',
-    boxSizing:'border-box',
-    border:'0px solid blue',
-    overflow:'hidden'
-  },
-};
+//   h: {
+//     display:'flex',
+//     flexDirection:'row',
+//     boxSizing:'border-box',
+//     border:'0px solid blue',
+//     overflow:'hidden'
+//   },
+//   v: {
+//     display:'flex',
+//     flexDirection:'column',
+//     boxSizing:'border-box',
+//     border:'0px solid blue',
+//     overflow:'hidden'
+//   },
+// };

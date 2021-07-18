@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Matrix } from './Matrix';
-import { MatrixCell } from './MatrixCell';
+//import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
-import { styles } from './styles';
+//import { styles } from './styles';
 
 export const Row2Col3 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {col3,row2Orig,row2} = matrixState.dimensions;
 
   const renderTextRow = (props,r,row,sTop) => {
     var header2 = ''
@@ -39,9 +39,9 @@ export const Row2Col3 = (props) => {
   }
 
   return (
-    <div id="skilltotals" style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',overflowY:'scroll',overflowY:'hidden',boxSizing:'border-box'}}>
-      <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
-      <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row2+'px'}>
+    <div id="skilltotals" style={{width:col3+'px',minWidth:col3+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflowY:'scroll',overflowY:'hidden',boxSizing:'border-box'}}>
+      <div width={col3+'px'} height={(row2+14)+'px'}>
+      <svg width={col3+'px'} height={(row2+14)+'px'}>
         <Matrix
           renderRowFunction={renderTextRow}
           renderCellFunction={renderText}

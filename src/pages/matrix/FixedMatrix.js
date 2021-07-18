@@ -29,7 +29,7 @@ export const FixedMatrix = React.memo(() => {
     var w = 15
     var h = 80
     return (
-      <g transform={"translate(" + (c*bandX) + "," + "0" + ")"} className="header">
+      <g transform={"translate(" + (c*bandX) + ",0)"} className="header">
         <text style={{fontSize:radius*1.5+'px'}} x="10" y="50" fill="black">{col.data.v}</text>
         <rect stroke="black" x={s+(width*0)} y={h} width={width-(w*1)} height={bandY-(h*1.5)} style={{fill:'gray',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
         <rect stroke="black" x={s+(width*1)} y={h} width={width-(w*1)} height={bandY-(h*1.5)} style={{fill:'red',stroke:'black',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
@@ -57,7 +57,7 @@ export const FixedMatrix = React.memo(() => {
           <foreignObject x='55px' y='40px' width='140px' height='140px'>
             <img
               alt="pic"
-              src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+'1'+'.jpg'}
+              src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/1.jpg'}
               style={{borderRadius:'50%',x:'55px',y:'150px',width:'140px',height:'140px'}}
             />
           </foreignObject>

@@ -17,7 +17,7 @@ export const Operator = React.memo((props) => {
         <svg width="100%" height="100%">
         {data.data.map((item,i) => {
           return (
-            <g key={i} transform={"translate(" + "200," + (i*bandX) + ")"} className="group" >
+            <g key={i} transform={"translate(200," + (i*bandX) + ")"} className="group" >
               <text
                 dominantBaseline="left"
                 textAnchor="end"

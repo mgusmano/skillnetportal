@@ -1,4 +1,428 @@
+  // var widgetData2 = {
+  //   skillsX: [
+  //     {skillID:10,line:'S',skillName:'Core Loading'},
+  //     {skillID:20,line:'S',skillName:'Phase Paper Insertion (VW)'},
+  //     {skillID:30,line:'S',skillName:'Lead Wire Setting'},
 
+  //   ],
+  //   operatorsX: [
+  //     {operatorID:1,operatorName:'Joe Smith'},
+  //     {operatorID:2,operatorName:'Marc Ester'},
+  //     {operatorID:3,operatorName:'Ted White'},
+
+  //   ],
+  //   dataX: [
+  //     {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //     {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //     {skillID:10,operatorID:3,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+
+
+  //     {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //     {skillID:20,operatorID:2,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //     {skillID:20,operatorID:3,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+
+
+  //     {skillID:30,operatorID:1,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //     {skillID:30,operatorID:2,meta:{status:'not started'},data:[],},
+  //     {skillID:30,operatorID:3,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+
+
+  //   ],
+
+  //   right: [
+  //     {meta:{id:10},data:[{meta:{},data:{v:7}},{meta:{},data:{v:2}},{meta:{},data:{v:'-5'}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:4}},{meta:{},data:{v:3}},{meta:{},data:{v:'-1'}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
+
+  //   ],
+  //   bottom: [
+  //     {meta:{},data:[{meta:{},data:{v:5}},{meta:{},data:{v:4}},{meta:{},data:{v:5}},]},
+  //     {meta:{},data:[{meta:{},data:{v:2}},{meta:{},data:{v:2}},{meta:{},data:{v:3}},]},
+  //     {meta:{},data:[{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}},]},
+  //   ],
+
+  //   leftheading: [
+  //     {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
+  //   ],
+  //   methodologyheading: [
+  //     {meta:{id:10},data:[{meta:{},data:{name:'METHODOLOGY'}}]},
+  //   ],
+  //   methodology: [
+  //     {meta:{},data:[{meta:{},data:{l1:'Classroom training',l2:'Hands-on training',l3:'Written testing'}}]},
+  //   ],
+  //   revheading: [
+  //     {meta:{id:10},data:[{meta:{},data:{name:'REV#'}}]},
+  //   ],
+  //   rev: [
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:5}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //     {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   ],
+  //   // top: [
+  //   //   {meta:{},data:[
+  //   //     {meta:{id:1},data:{name:'Joe Smith'}},
+  //   //     {meta:{id:2},data:{name:'Marc Ester'}},
+  //   //     {meta:{id:3},data:{name:'Ted White'}},
+  //   //     {meta:{id:4},data:{name:'Betty Green'}},
+  //   //     {meta:{id:5},data:{name:'Bob Jones'}},
+  //   //     {meta:{id:6},data:{name:'Frank Davis'}},
+  //   //     {meta:{id:7},data:{name:'Jane Johnson'}},
+  //   //     {meta:{id:8},data:{name:'Mary Bird'}},
+  //   //     {meta:{id:9},data:{name:'Zoya Lee'}},
+  //   //     {meta:{id:10},data:{name:'Joe Adams'}},
+  //   //   ]},
+  //   // ],
+  //   rightheading: [
+  //     {meta:{id:10},data:[
+  //       {meta:{},data:{name:'Goal'}},
+  //       {meta:{},data:{name:'# Certified'}},
+  //       {meta:{},data:{name:'Gap'}}
+  //     ]},
+  //   ],
+
+  // }
+
+  // const clickOperatorCell = (e,colid,rowid,type,data,col) => {
+  //   matrixState.setSpecific(<Operator data={data}/>)
+  // }
+
+  // const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   //var y = (bandX/2) + (bandX * c)
+  //   //var yp = y-15
+  //   //var i = r + c;
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="header">
+  //       <text style={{fontSize:fontsize+'px'}} alignmentBaseline="baseline" transform="translate(0,0) rotate(90)" x={bandX*1.4} y={-(bandX * c)-10} fill="black">{data.operatorName}</text>
+  //       <foreignObject x={(bandX*c)+5} y={10} width='50px' height='50px'>
+  //         <img
+  //           alt="pic"
+  //           src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+data.operatorID+'.jpg'}
+  //           style={{borderRadius:'50%',width: bandX-10,height:bandX-10}}
+  //         />
+  //       </foreignObject>
+
+  //       <MatrixCell
+  //         xclickCellFunction={(e,rowid,colid) => {console.log(colid)}}
+  //         clickCellFunction={clickCellFunction}
+  //         data={data}
+  //         rowid={null}
+  //         colid={col.id}
+  //         bandX={bandX}
+  //         x={bandX*c}
+  //         bandY={bandY}
+  //         type="none"
+  //       />
+  //     </g>
+  //   )
+  // }
+
+  // const renderMainRow = (props,r,row,sTop) => {
+  //   var header2 = ''
+  //   if (row.meta !== undefined) {
+  //     if (row.meta.skillName !== undefined) {
+  //       header2 = row.meta.skillName
+  //     }
+  //   }
+  //   return (
+  //     <>
+  //     {sTop !== 0 && <text dominantBaseline="auto" style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY-10} height={props.sTop} >{header2}</text>}
+  //     </>
+  //   )
+  // }
+
+  // const clickMainCell = (e,colid,rowid,type,data,col) => {
+  //   matrixState.setSpecific(<Main data={data}/>)
+  // }
+
+  // const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
+  //   //console.log(data)
+  //   const {bandX, bandY} = props
+  //   return (
+  //     <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
+  //       <Diamond meta={col.meta} data={col.data} boxSize={bandX} padding={30}/>
+  //       <MatrixCell
+  //         clickCellFunction={clickCellFunction}
+  //         rowid={row.meta.id}
+  //         colid={col.meta.id}
+  //         bandX={bandX}
+  //         bandY={bandY}
+  //         type="pie"
+  //         col={col}
+  //         data={data}
+  //       />
+  //     </g>
+  //   )
+  // }
+
+  // const renderTotalsHeading = (props,c,col,r) => {
+  //   const {bandX, fontsize} = props
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         style={{fontSize:fontsize+'px'}}
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         alignmentBaseline="baseline"
+  //         transform="translate(0,0) rotate(90)"
+  //         x={bandX*3.8}
+  //         y={-(bandX * c)-10}
+  //         fill="black"
+  //       >
+  //         {col.data.name}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderSkillLine = (props,c,col,r,row) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="left"
+  //       textAnchor="middle"
+  //       stroke="black"
+  //       x={(bandX*(c+1))/2}
+  //       y={bandY-(bandY/2)+10}
+  //       className="text"
+  //       style={{fontSize:fontsize+'px'}}>
+  //         {col.line}
+  //     </text>
+  //   )
+  // }
+
+  // const renderTextRow = (props,r,row,sTop) => {
+  //   var header2 = ''
+  //   if (row.meta !== undefined) {
+  //     if (row.meta.skillName !== undefined) {
+  //       header2 = row.meta.skillName
+  //     }
+  //   }
+  //   return (
+  //     <>
+  //     {sTop !== 0 && <text style={{fontSize: matrixState.dimensions.fontsize+'px'}} x={5} y={props.bandY} height={props.sTop} >{header2}</text>}
+  //     </>
+  //   )
+  // }
+
+  // const renderText = (props,c,col,r,row,sTop) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="middle"
+  //       textAnchor="middle"
+  //       x={(bandX*c)+(bandX/2)}
+  //       y={bandY-(bandY/2)+(sTop)}
+  //       className="text"
+  //       style={{fontSize:(fontsize-4)+'px'}}>
+  //         {col.data.v}
+  //     </text>
+  //   )
+  // }
+
+  // const renderBottomLeftText = (props,c,col,r,row,sTop) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <text
+  //       dominantBaseline="left"
+  //       textAnchor="end"
+  //       x={(bandX*(c+1))-10}
+  //       y={bandY-(bandY/2.5)+(sTop)}
+  //       className="text"
+  //       style={{fontSize:(fontsize-4)+'px'}}>
+  //         {col.data.v}
+  //     </text>
+  //   )
+
+
+  // //   <text
+  // //   dominantBaseline="left"
+  // //   textAnchor="end"
+  // //   x={(bandX*(c+1))-10}
+  // //   y={bandY-(bandY/3)}
+  // //   className="text"
+  // //   style={{fontSize:matrixState.dimensions.fontsize+'px'}}>
+  // //     {data.skill.skillName}
+  // // </text>
+
+
+
+
+  // }
+
+  // const renderTop = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+  //   var y = (bandX/2) + (bandX * c)
+  //   var yp = y-15
+  //   var i = r + c;
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="header">
+  //       <text style={{fontSize:bandX*1.5+'px'}} transform="rotate(270,100,90)" x="-30" y={y} fill="black">{col.data.name}</text>
+  //       <foreignObject x={yp+'px'} y='240px' width='40px' height='40px'>
+  //         <img
+  //           alt="pic"
+  //           src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+col.meta.id+'.jpg'}
+  //           style={{borderRadius:'50%',x:yp+'px',y:'150px',width:'40px',height:'40px'}}
+  //         />
+  //       </foreignObject>
+  //     </g>
+
+
+
+
+  //     // <text
+  //     //   dominantBaseline="middle"
+  //     //   textAnchor="middle"
+  //     //   stroke="black"
+  //     //   x={(bandX*c)+(bandX/2)}
+  //     //   y={bandY-(bandY/2)}
+  //     //   className="text"
+  //     //   style={{fontSize:'32px'}}>{col.data.v}</text>
+  //   )
+  // }
+
+  // const renderLeftHeading = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="start"
+  //         stroke="black"
+  //         x={(bandX*c)+10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
+  //       </text>
+
+  //       <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
+
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         stroke="black"
+  //         x={(bandX*(c+1))-10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderLeft = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+  //   //console.log(col)
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.line}
+  //       </text>
+
+  //       <line x1={(bandX*(c+0))+10+col1Width} y1="0" x2={(bandX*(c+0))+10+col1Width} y2={bandY} stroke={'black'} strokeWidth="1" />
+
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="end"
+  //         stroke="black"
+  //         x={(bandX*(c+1))-10}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.area}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderPlainHeading = (props,c,col,r) => {
+  //   const {bandX, bandY, fontsize} = props
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="start"
+  //         stroke="black"
+  //         x={(bandX*c)}
+  //         y={bandY-(bandY/3)}
+  //         className="text"
+  //         style={{fontSize:fontsize+'px'}}>{col.data.name}
+  //       </text>
+  //     </g>
+  //   )
+  // }
+
+  // const renderMethodology = (props,c,col,r) => {
+  //   const {bandX, bandY} = props
+
+  //   var col1Width = 70;
+
+  //   return (
+  //     <g key={r+c} transform="translate(0,0)" className="cell">
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l1}
+  //       </text>
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)+40}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l2}
+  //       </text>
+  //       <text
+  //         dominantBaseline="left"
+  //         textAnchor="center"
+  //         stroke="black"
+  //         x={((col1Width/2)+ bandX*c)}
+  //         y={bandY-(bandY/2)+40+40}
+  //         className="text"
+  //         style={{fontSize:bandX*1.5+'px'}}>{col.data.l3}
+  //       </text>
+
+
+  //     </g>
+  //   )
+  // }
+
+  // const onScroll = (e) => {
+  //   var vert = document.getElementById('skill')
+  //   var vert2 = document.getElementById('skilltotals')
+  //   var horz = document.getElementById('student')
+  //   var horz2 = document.getElementById('studenttotals')
+  //   if (vert.scrollTop !== e.target.scrollTop) {
+  //     vert.scrollTop = e.target.scrollTop;
+  //     vert2.scrollTop = e.target.scrollTop;
+  //   }
+  //   else {
+  //     horz.scrollLeft = e.target.scrollLeft;
+  //     horz2.scrollLeft = e.target.scrollLeft;
+  //   }
+  // }
+  
   var widgetData2 = {
 
     skillsX: [

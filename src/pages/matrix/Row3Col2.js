@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Matrix } from './Matrix';
-import { MatrixCell } from './MatrixCell';
+//import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
 import { styles } from './styles';
 
@@ -8,7 +8,7 @@ import { styles } from './styles';
 export const Row3Col2 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  //const {col1,row2,fontsize,bandY} = matrixState.dimensions;
 
   const renderText = (props,c,col,r,row,sTop) => {
     const {bandX, bandY, fontsize} = props

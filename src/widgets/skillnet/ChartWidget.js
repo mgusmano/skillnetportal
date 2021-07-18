@@ -11,7 +11,7 @@ const ChartWidget = (props) => {
 
   useEffect(() => {
     console.log('useEffect in ChartWidget')
-    if (data == undefined) {
+    if (data === undefined) {
       //var name = 'column2d'
       //var name = 'scrollline2d'
       axios

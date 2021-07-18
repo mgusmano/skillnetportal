@@ -9,91 +9,6 @@ const MapWidget = (props) => {
   var originallocations = null
   const [currid, setCurrId] = useState(null)
 
-  const onMessage = (e) => {
-    if (!e.detail) {return}
-    var type = e.detail.type
-    var payload = e.detail.payload
-    switch (type) {
-
-      // case 'fromcard':
-      //   onChange(payload.filters)
-      //   break;
-
-      case 'filteredusers':
-        //console.log(payload)
-        onChange2(payload)
-        break;
-
-        case 'fromcardfilteredusers':
-          //console.log('in map')
-          //console.log(payload.users)
-          onChange2(payload.users)
-          //setUsers(payload.users)
-          //setWaiting(false)
-          break;
-
-
-
-      default:
-        break;
-    }
-  }
-
-  const onChange2 = (filteredusers) => {
-    //console.log(filteredusers)
-    var thelocations = []
-    filteredusers.map(user => {
-      var userlocation = user.Location
-      //console.log(userlocation)
-      if (userlocation !== undefined)
-        if (userlocation !== '') {
-          thelocations.push(userlocation)
-      }
-      //return
-    })
-
-    function findObjectByKey(array, key, value) {
-      if (array == null) return null;
-      for (var i = 0; i < array.length; i++) {
-        if (array[i][key] === value) {
-          return array[i];
-        }
-      }
-      return null;
-    }
-
-    var hist = {};
-    thelocations.map( function (a) {
-      //console.log(a)
-      if (a in hist) hist[a] ++; else hist[a] = 1;
-    } );
-    //console.log(hist);
-    //console.log(thelocations)
-
-    var finallocations = []
-    for (const [key, value] of Object.entries(hist)) {
-      //console.log(`${key}: ${value}`);
-      var result = findObjectByKey(originallocations, 'LocationName', key);
-      if (result !== null) {
-        result.num = value
-        //console.log(result)
-        finallocations.push(result)
-      }
-      else {
-        finallocations.push([])
-      }
-    }
-
-    var i;
-    for (i = 0; i < finallocations.length; i++) {
-      const users = filteredusers.filter(user => user.Location === finallocations[i].LocationName);
-      finallocations[i].users = users
-    }
-
-    //console.log('finallocations',finallocations)
-    setFilteredlocations(finallocations)
-  }
-
 
   // const onChange = (filterdata) => {
   //   setFilteredlocations(filterdata.filteredusers)
@@ -186,18 +101,108 @@ const MapWidget = (props) => {
         }
       })
       //console.log('locations',arrayLocations)
-      originallocations = arrayLocations
-      setFilteredlocations(originallocations)
+      //originallocations = arrayLocations
+      setFilteredlocations(arrayLocations)
       //setLocations(arrayLocations)
       //setFilteredlocations(arrayLocations)
     })
+
+
+
+    const onChange2 = (filteredusers) => {
+      //console.log(filteredusers)
+      var thelocations = []
+      filteredusers.map(user => {
+        var userlocation = user.Location
+        //console.log(userlocation)
+        if (userlocation !== undefined)
+          if (userlocation !== '') {
+            thelocations.push(userlocation)
+        }
+        return null
+      })
+
+      function findObjectByKey(array, key, value) {
+        if (array == null) return null;
+        for (var i = 0; i < array.length; i++) {
+          if (array[i][key] === value) {
+            return array[i];
+          }
+        }
+        return null;
+      }
+
+      var hist = {};
+      thelocations.map( function (a) {
+        //console.log(a)
+        if (a in hist) hist[a] ++; else hist[a] = 1;
+        return null
+      } );
+      //console.log(hist);
+      //console.log(thelocations)
+
+      var finallocations = []
+      for (const [key, value] of Object.entries(hist)) {
+        //console.log(`${key}: ${value}`);
+        var result = findObjectByKey(originallocations, 'LocationName', key);
+        if (result !== null) {
+          result.num = value
+          //console.log(result)
+          finallocations.push(result)
+        }
+        else {
+          finallocations.push([])
+        }
+      }
+
+
+      for (var i = 0; i < finallocations.length; i++) {
+        const users = filteredusers.filter((user,i) => user.Location === finallocations[i].LocationName);
+        finallocations[i].users = users
+      }
+
+      //console.log('finallocations',finallocations)
+      setFilteredlocations(finallocations)
+    }
+
+
+  const onMessage = (e) => {
+    if (!e.detail) {return}
+    var type = e.detail.type
+    var payload = e.detail.payload
+    switch (type) {
+
+      // case 'fromcard':
+      //   onChange(payload.filters)
+      //   break;
+
+      case 'filteredusers':
+        //console.log(payload)
+        onChange2(payload)
+        break;
+
+        case 'fromcardfilteredusers':
+          //console.log('in map')
+          //console.log(payload.users)
+          onChange2(payload.users)
+          //setUsers(payload.users)
+          //setWaiting(false)
+          break;
+
+
+
+      default:
+        break;
+    }
+  }
+
 
     window.addEventListener('mjg', onMessage);
     return function cleanup() {
       window.removeEventListener('mjg', onMessage);
     };
 
-  }, [])
+  }, [props.PartnerID])
 
   const defaultProps = {
     center: {lat: 39.099728,lng: -94.578568},

@@ -77,7 +77,7 @@ const DropDown = (props) => {
 }
 
 const CardWidgetProperties = (props) => {
-  const {propertywidth, SMEOnly, showlob, Partner} = props
+  const {SMEOnly, showlob, Partner} = props
   const { PartnerID, PartnerName, PersonID, GroupID } = Partner;
 
   //title:Card Report//title:
@@ -182,7 +182,7 @@ const CardWidgetProperties = (props) => {
     if (Array.isArray(checked)) {
       checked.forEach(check => {
         console.log(check)
-        if (idVal == '') {
+        if (idVal === '') {
           checkedString = checkedString + check + suffix + ','
         }
         else {
@@ -860,7 +860,7 @@ onClick={e => (e.stopPropagation())}
   );
 
   const changeIt = () => {
-    if (checkboxdisplay == 'none') {
+    if (checkboxdisplay === 'none') {
       setCheckboxdisplay('block')
       setArrowclass('MuiAutocomplete-popupIndicatorOpen')
     }

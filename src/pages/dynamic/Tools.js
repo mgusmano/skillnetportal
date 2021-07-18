@@ -5,8 +5,8 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import SpaceBarIcon from '@material-ui/icons/SpaceBar';
 import TodayIcon from '@material-ui/icons/Today';
-import GridOnIcon from '@material-ui/icons/GridOn';
-import BarChartIcon from '@material-ui/icons/BarChart';
+//import GridOnIcon from '@material-ui/icons/GridOn';
+//import BarChartIcon from '@material-ui/icons/BarChart';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -14,14 +14,14 @@ import './Tools.css'
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import SendIcon from '@material-ui/icons/Send';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+//import SendIcon from '@material-ui/icons/Send';
+//import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 
 const Tools = (props) => {
   //const [{userName,dashboardData,widgetData}, dispatch] = useGlobalState();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [toolFontSize, setToolFontSize] = React.useState(18);
+  const [toolFontSize] = React.useState(18);
   //var widgetRecord = props.widgetRecord
 
   const handleClick = (event) => {
@@ -30,7 +30,7 @@ const Tools = (props) => {
 
   const handleClose = (event, who) => {
     setAnchorEl(null);
-    if (who == 'closewidget') {
+    if (who === 'closewidget') {
       console.log('close it')
       // props.fromWidget({
       //   id:widgetRecord.id,
@@ -45,14 +45,14 @@ const Tools = (props) => {
   const handleButton1Click = (event, who) => {
     //dispatch({type: 'appTitle', payload: who});
 
-    switch (who) {
-      case 'GridOn':
-        //dispatch({type: 'CHANGE_WIDGET_MODE', payload: { id: widgetRecord.id }});
-        break;
-      case 'geoWidget':
+    // switch (who) {
+    //   case 'GridOn':
+    //     //dispatch({type: 'CHANGE_WIDGET_MODE', payload: { id: widgetRecord.id }});
+    //     break;
+    //   case 'geoWidget':
 
-        break;
-    }
+    //     break;
+    // }
   }
 
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import CheckboxTree from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import 'font-awesome/css/font-awesome.css';
-import { PeopleAlt } from '@material-ui/icons';
+//import { PeopleAlt } from '@material-ui/icons';
 
 // const nodes3 = [{
 //     value: 'mars',
@@ -1822,7 +1822,7 @@ export default class CheckboxWidget extends React.Component {
       super(props);
 
       var nodes
-      if (this.props.Partner.PartnerID == 395) {
+      if (this.props.Partner.PartnerID === 395) {
         nodes = nodesCNA
       }
       else {

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Matrix } from './Matrix';
 import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
 import { Diamond } from './Diamond';
 import { Main } from './Main';
-import { styles } from './styles';
+//{ styles } from './styles';
 
 export const Row2Col2 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {col2,row2Orig,row2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
   const onScroll = (e) => {
     var vert = document.getElementById('skill')
@@ -65,9 +65,9 @@ export const Row2Col2 = (props) => {
   }
 
   return (
-    <div style={{width:(matrixState.dimensions.col2)+'px',height:(matrixState.dimensions.row2)+'px',maxWidth:(matrixState.dimensions.col2)+'px',maxHeight:(matrixState.dimensions.row2)+'px',overflow:'auto'}} onScroll={onScroll} >
-      <div width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2)+'px'}>
-      <svg width={(matrixState.dimensions.col2)+'px'} height={(matrixState.dimensions.row2-4)+'px'}>
+    <div style={{width:(col2)+'px',maxWidth:(col2)+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflow:'auto'}} onScroll={onScroll} >
+      <div width={(col2)+'px'} height={(row2)+'px'}>
+      <svg width={(col2)+'px'} height={(row2-4)+'px'}>
         {data !== null &&
         <Matrix
           renderRowFunction={renderMainRow}
@@ -75,8 +75,8 @@ export const Row2Col2 = (props) => {
           clickCellFunction={clickMainCell}
           data={data}
           params={{
-            name:'main',fontsize:matrixState.dimensions.fontsize,top:matrixState.dimensions.topHeight,
-            translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
+            name:'main',fontsize:fontsize,top:topHeight,
+            translateX:0,translateY:0,bandX:bandX,bandY:bandY
           }}
         />
         }

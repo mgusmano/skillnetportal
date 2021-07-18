@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMatrixState } from './state/MatrixProvider';
 
 
@@ -7,7 +7,7 @@ export const Toolbar = React.memo((props) => {
 
   const onClickSize = (e,direction) => {
     var multiplier;
-    if (direction == 'small') {
+    if (direction === 'small') {
       multiplier = matrixState.dimensions.multiplier-1;
     }
     else {
@@ -26,7 +26,7 @@ export const Toolbar = React.memo((props) => {
 
     var col1=0
     var row2=0
-    if (matrixState.dimensions.topHeight == 0) {
+    if (matrixState.dimensions.topHeight === 0) {
       //here
       col1 = matrixState.original.col1*multiplier
       row2 = matrixState.original.row2*multiplier

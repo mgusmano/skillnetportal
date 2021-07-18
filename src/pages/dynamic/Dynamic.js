@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback } from 'react';
-import Vertical from '../../layout/Vertical'
-import Horizontal from '../../layout/Horizontal'
-import Splitter from '../../layout/Splitter'
+import React, { useEffect } from 'react';
+// import Vertical from '../../layout/Vertical'
+// import Horizontal from '../../layout/Horizontal'
+// import Splitter from '../../layout/Splitter'
 
 import Tools from './Tools'
 
 import './react-grid-layout.css';
 import RGL, { WidthProvider } from "react-grid-layout";
-import ChildWindow from './ChildWindow'
+//import ChildWindow from './ChildWindow'
 import ReactChildWindow from './ReactChildWindow'
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -30,17 +30,17 @@ const ReactGridLayout = WidthProvider(RGL);
 //import ImportFile from './ImportFile'
 
 const Dynamic = (props) => {
-  const [widgets, setWidgets] = React.useState([])
+  //const [widgets, setWidgets] = React.useState([])
   const [layout, setLayout] = React.useState([])
-  const [dashboardTitle, setDashboardTitle] = React.useState('')
+  //const [dashboardTitle, setDashboardTitle] = React.useState('')
 
-  const [addWidgetOpen, setAddWidgetOpen] = React.useState(false);
-  const [importOpen, setImportOpen] = React.useState(false);
-  const [exportOpen, setExportOpen] = React.useState(false);
+  //const [addWidgetOpen, setAddWidgetOpen] = React.useState(false);
+  //const [importOpen, setImportOpen] = React.useState(false);
+  //const [exportOpen, setExportOpen] = React.useState(false);
 
 
   //const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [anchorEl, setAnchorEl] = React.useState(null);
 
   const generateLayout = (widgets) => {
     console.log(widgets)
@@ -54,7 +54,7 @@ const Dynamic = (props) => {
       var w = size.width
       var h = size.height
       var wid
-      if (widgets.length == 100) {
+      if (widgets.length === 100) {
         wid = { x: x, y: y, w: w, h: h, i: i.toString(), draggableHandle: ".x-title-text", isDraggable: false, onDragStart: function() {console.log('onDragStart')} }
       }
       else {
@@ -70,10 +70,10 @@ const Dynamic = (props) => {
   useEffect(() => {
     console.log('useEffect for dynamic ')
     setTimeout(function(){
-      setWidgets(window.dashboardData.dashboard.widgets)
+      //setWidgets(window.dashboardData.dashboard.widgets)
       console.log(window.dashboardData.apptitle)
       //setDashboardTitle(window.dashboardData.appTitle)
-      setDashboardTitle('SkillNet Dashboard')
+      //setDashboardTitle('SkillNet Dashboard')
 
       var l =generateLayout(window.dashboardData.dashboard.widgets)
       setLayout(l);
@@ -89,137 +89,137 @@ const Dynamic = (props) => {
     }, 0);
   }, []);
 
-  const fromWidget = (e) => {
-    console.log('fromWidget')
-    console.log(e)
+  // const fromWidget = (e) => {
+  //   console.log('fromWidget')
+  //   console.log(e)
 
-    switch(e.command) {
-      // case 'init':
-      //   console.log('init')
-      //   break;
+  //   switch(e.command) {
+  //     // case 'init':
+  //     //   console.log('init')
+  //     //   break;
 
-      case 'resize':
-        console.log('resize')
-        console.log(e.box)
-        //change box and then do a setWidget
+  //     case 'resize':
+  //       console.log('resize')
+  //       console.log(e.box)
+  //       //change box and then do a setWidget
 
-        var position = {
-          x: parseInt(e.box.left.slice(0, e.box.left.length - 2)),
-          y: parseInt(e.box.top.slice(0, e.box.top.length - 2)),
-        }
+  //       var position = {
+  //         x: parseInt(e.box.left.slice(0, e.box.left.length - 2)),
+  //         y: parseInt(e.box.top.slice(0, e.box.top.length - 2)),
+  //       }
 
-        var size = {
-          width: parseInt(e.box.width.slice(0, e.box.width.length - 2)),
-          height: parseInt(e.box.height.slice(0, e.box.left.length - 2)),
-        }
-
-
-        const newWidgetsResize = [...widgets]
-        var index = newWidgetsResize.map(item => item.id).indexOf(e.id);
-        console.log(index)
-        if (index !== -1) {
-
-          console.log(newWidgetsResize[index].properties.position)
-          console.log(newWidgetsResize[index].properties.size)
+  //       var size = {
+  //         width: parseInt(e.box.width.slice(0, e.box.width.length - 2)),
+  //         height: parseInt(e.box.height.slice(0, e.box.left.length - 2)),
+  //       }
 
 
-          newWidgetsResize[index].properties.position = position
-          newWidgetsResize[index].properties.size = size
+  //       const newWidgetsResize = [...widgets]
+  //       var index = newWidgetsResize.map(item => item.id).indexOf(e.id);
+  //       console.log(index)
+  //       if (index !== -1) {
 
-          console.log(newWidgetsResize[index].properties.position)
-          console.log(newWidgetsResize[index].properties.size)
-          //var n = newWidgetsResize[index];
-          //console.log(n)
-          //console.log(position)
-          //console.log(size)
-
-          // newWidgets.splice(index, 1);
-          console.log(newWidgetsResize)
-          setWidgets(newWidgetsResize)
-        }
-        break;
-
-      case 'delete':
-        console.log('delete')
-        //setWidgets(widgets.concat(values))
-        const newWidgets = [...widgets]
-        var index = newWidgets.map(item => item.id).indexOf(e.id);
-        console.log(index)
-        if (index !== -1) {
-          newWidgets.splice(index, 1);
-          console.log(newWidgets)
-          setWidgets(newWidgets)
-        }
-        break;
-      default:
-        console.log('default',e)
-    }
-  };
-
-  const handleAddWidgetOpen = () => {
-    setAddWidgetOpen(true);
-  };
-
-  const handleAddWidgetClose = (values) => {
-    console.log(values)
-    setAddWidgetOpen(false);
-    if (values == null) {return}
-    console.log(widgets)
-    var maxId = Math.max.apply(Math, widgets.map(function(o) { return o.id; }))
-    console.log(maxId)
-    if (maxId == -Infinity) {
-      maxId = 0
-    }
-    console.log(maxId)
-    values.forEach(value => {
-      value.id = ++maxId
-    })
-    console.log(values)
-    setWidgets(widgets.concat(values))
-  };
-
-  const handleImportOpen = () => {
-    setImportOpen(true);
-  };
-  const handleImportClose = (values) => {
-    setImportOpen(false);
-
-    var j = JSON.parse(values)
-    //console.log(j)
-
-    setWidgets([])
-    setDashboardTitle('')
+  //         console.log(newWidgetsResize[index].properties.position)
+  //         console.log(newWidgetsResize[index].properties.size)
 
 
-    requestAnimationFrame(function() {
-      console.log(j.dashboardData.appTitle)
-      setDashboardTitle(j.dashboardData.appTitle)
-      setWidgets(j.dashboardData.dashboard.widgets)
-    })
-    // setTimeout(function(){
-    //   setWidgets(j)
-    // }, 0);
-  };
+  //         newWidgetsResize[index].properties.position = position
+  //         newWidgetsResize[index].properties.size = size
 
-  const handleExportOpen = () => {
-    setExportOpen(true);
-  };
-  const handleExportClose = (values) => {
-    setExportOpen(false);
-  };
+  //         console.log(newWidgetsResize[index].properties.position)
+  //         console.log(newWidgetsResize[index].properties.size)
+  //         //var n = newWidgetsResize[index];
+  //         //console.log(n)
+  //         //console.log(position)
+  //         //console.log(size)
 
-  const onClearClick = (e) => {
-    setWidgets([])
-    //dispatch({type: 'CLEAR_WIDGETS', payload: {}});
-  };
+  //         // newWidgets.splice(index, 1);
+  //         console.log(newWidgetsResize)
+  //         setWidgets(newWidgetsResize)
+  //       }
+  //       break;
 
-  const handleMenuClose = (e) => {
+  //     case 'delete':
+  //       console.log('delete')
+  //       //setWidgets(widgets.concat(values))
+  //       const newWidgets = [...widgets]
+  //       var index = newWidgets.map(item => item.id).indexOf(e.id);
+  //       console.log(index)
+  //       if (index !== -1) {
+  //         newWidgets.splice(index, 1);
+  //         console.log(newWidgets)
+  //         setWidgets(newWidgets)
+  //       }
+  //       break;
+  //     default:
+  //       console.log('default',e)
+  //   }
+  // };
 
-  };
+  // const handleAddWidgetOpen = () => {
+  //   setAddWidgetOpen(true);
+  // };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleAddWidgetClose = (values) => {
+  //   console.log(values)
+  //   setAddWidgetOpen(false);
+  //   if (values == null) {return}
+  //   console.log(widgets)
+  //   var maxId = Math.max.apply(Math, widgets.map(function(o) { return o.id; }))
+  //   console.log(maxId)
+  //   if (maxId == -Infinity) {
+  //     maxId = 0
+  //   }
+  //   console.log(maxId)
+  //   values.forEach(value => {
+  //     value.id = ++maxId
+  //   })
+  //   console.log(values)
+  //   setWidgets(widgets.concat(values))
+  // };
+
+  // const handleImportOpen = () => {
+  //   setImportOpen(true);
+  // };
+  // const handleImportClose = (values) => {
+  //   setImportOpen(false);
+
+  //   var j = JSON.parse(values)
+  //   //console.log(j)
+
+  //   setWidgets([])
+  //   setDashboardTitle('')
+
+
+  //   requestAnimationFrame(function() {
+  //     console.log(j.dashboardData.appTitle)
+  //     setDashboardTitle(j.dashboardData.appTitle)
+  //     setWidgets(j.dashboardData.dashboard.widgets)
+  //   })
+  //   // setTimeout(function(){
+  //   //   setWidgets(j)
+  //   // }, 0);
+  // };
+
+  // const handleExportOpen = () => {
+  //   setExportOpen(true);
+  // };
+  // const handleExportClose = (values) => {
+  //   setExportOpen(false);
+  // };
+
+  // const onClearClick = (e) => {
+  //   setWidgets([])
+  //   //dispatch({type: 'CLEAR_WIDGETS', payload: {}});
+  // };
+
+  // const handleMenuClose = (e) => {
+
+  // };
+
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const generateDOM = () => {
     return layout.map((layoutitem, index) => {
@@ -281,45 +281,45 @@ const Dynamic = (props) => {
   )
 
 
-  return (
-  <Vertical style={{display:'flex',flex:'auto',xminWidth:'100px', xmaxWidth: '250px',xwidth:'500px'}}>
+  // return (
+  // <Vertical style={{display:'flex',flex:'auto',xminWidth:'100px', xmaxWidth: '250px',xwidth:'500px'}}>
 
-    <Horizontal>
-      {/* center */}
-      <div id='absolute' className='center' style={{width:'100%',flex:'1',position:'relative',border:'0px solid #73AD21',display: 'flex'}}>
+  //   <Horizontal>
+  //     {/* center */}
+  //     <div id='absolute' className='center' style={{width:'100%',flex:'1',position:'relative',border:'0px solid #73AD21',display: 'flex'}}>
 
-        <div
-              style={{flex:'1',
-              border:'0px solid green',
-              background:'whitesmoke',
-              overflow:'auto',
-              width: '100%',
-              height: '100%',
-          }}>
-              <ReactGridLayout
-                  rowHeight={1}
-                  cols= {1000}
-                  margin={[0, 0]}
-                  resizeHandles={['se','e','s']}
-                  draggableHandle='.layout-item-dragger'
-                  compactType={null}
-                  isDraggable={true}
-                  isBounded={false}
-                  onLayoutChange = {function(layout) {
-                      console.log('onLayoutChange',layout)
-                  }}
-              >
-                  {generateDOM()}
-              </ReactGridLayout>
-          </div>
-      </div>
-      {/* center */}
-      <Splitter/>
-      {/* <Context/> */}
-    </Horizontal>
+  //       <div
+  //             style={{flex:'1',
+  //             border:'0px solid green',
+  //             background:'whitesmoke',
+  //             overflow:'auto',
+  //             width: '100%',
+  //             height: '100%',
+  //         }}>
+  //             <ReactGridLayout
+  //                 rowHeight={1}
+  //                 cols= {1000}
+  //                 margin={[0, 0]}
+  //                 resizeHandles={['se','e','s']}
+  //                 draggableHandle='.layout-item-dragger'
+  //                 compactType={null}
+  //                 isDraggable={true}
+  //                 isBounded={false}
+  //                 onLayoutChange = {function(layout) {
+  //                     console.log('onLayoutChange',layout)
+  //                 }}
+  //             >
+  //                 {generateDOM()}
+  //             </ReactGridLayout>
+  //         </div>
+  //     </div>
+  //     {/* center */}
+  //     <Splitter/>
+  //     {/* <Context/> */}
+  //   </Horizontal>
 
-  </Vertical>
-  )
+  // </Vertical>
+  // )
 }
 
 export default Dynamic

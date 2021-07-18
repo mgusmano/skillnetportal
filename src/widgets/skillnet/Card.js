@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import Star from '@material-ui/icons/Star';
 import ProfileDialog from './ProfileDialog'
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 
 
 const Card = (props) => {
@@ -32,19 +32,19 @@ const Card = (props) => {
 
   useEffect(() => {
     //console.log('x' + user.location + 'x')
-    if (user.SME == undefined) {
+    if (user.SME === undefined) {
       user.SME = ''
     }
-    if (user.Leader == undefined) {
+    if (user.Leader === undefined) {
       user.Leader = ''
     }
-    if (user.Segment == undefined) {
+    if (user.Segment === undefined) {
       user.Segment = ''
     }
-    if (user.Function == undefined) {
+    if (user.Function === undefined) {
       user.Function = ''
     }
-    if (user.Subfunction == undefined) {
+    if (user.Subfunction === undefined) {
       user.Subfunction = ''
     }
 
@@ -130,20 +130,20 @@ const Card = (props) => {
         <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>&nbsp;{user.JobName}</div>
         <div style={{fontSize:'11px',marginTop:'10px',textAlign:'right'}}></div>
         <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>&nbsp;{PartnerName}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.location != undefined && <div>Locationx: {user.Location}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.location !== undefined && <div>Locationx: {user.Location}</div>}</div>
 
 {SMEOnly === true &&
         <>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Leader != '' && <div>Leader: {user.Leader}</div>}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.SME != '' && <div>{all}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Leader !== '' && <div>Leader: {user.Leader}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.SME !== '' && <div>{all}</div>}</div>
         </>
 }
 
         {PartnerName === 'General Mills' &&
         <>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Segment != '' && <div>Segment: {user.Segment}</div>}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Function != '' && <div>Function: {user.Function}</div>}</div>
-        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Subfunction != '' && <div>SubFunction: {user.Subfunction}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Segment !== '' && <div>Segment: {user.Segment}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Function !== '' && <div>Function: {user.Function}</div>}</div>
+        <div style={{fontSize:'11px',marginTop:'1px',textAlign:'right'}}>{user.Subfunction !== '' && <div>SubFunction: {user.Subfunction}</div>}</div>
         </>
         }
 

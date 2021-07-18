@@ -9,9 +9,9 @@ import axios from 'axios';
  * @return {Objet Callback}          [Return Object Callback]
  */
 export default function requestData(httpObj, successHandler, errorHandler, isJSON = true) {
-    const hostName = process.env.REACT_APP_SERVER_HOST;
-    const port = process.env.REACT_APP_SERVER_PORT;
-    const serverUrl = `${hostName}:${port}/`;
+    //const hostName = process.env.REACT_APP_SERVER_HOST;
+    //const port = process.env.REACT_APP_SERVER_PORT;
+    //const serverUrl = `${hostName}:${port}/`;
 
     let paramsInfo = httpObj.params;
 

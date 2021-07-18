@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useMatrixState } from './state/MatrixProvider';
+//import { useMatrixState } from './state/MatrixProvider';
 
 export const Matrix = React.memo((props) => {
-  const matrixState = useMatrixState();
+  //const matrixState = useMatrixState();
 
   const {name, translateX, translateY, bandX, bandY, oneRow, stroke, top, fontsize} = props.params;
   const {data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
@@ -23,7 +23,7 @@ export const Matrix = React.memo((props) => {
   }, [stroke,top]);
 
   const getRow = (row,oneRow) => {
-    if (row.data == undefined) {
+    if (row.data === undefined) {
       return [row]
     }
     else {
@@ -37,14 +37,14 @@ export const Matrix = React.memo((props) => {
       data.map((row,r) => {
         var theRow = getRow(row,oneRow)
         return (
-          <g key={r} transform={"translate(" + "0" + "," + ((bandY*r)+(sTop*r)) + ")"} className="row">
+          <g key={r} transform={"translate(0," + ((bandY*r)+(sTop*r)) + ")"} className="row">
             {renderRowFunction !== undefined && renderRowFunction(props.params,r,row,sTop,fontsize)}
           {
             theRow.map((col,c) => {
-              var header = ''
+              //var header = ''
               if (col !== undefined) {
-                if (col.skill != undefined) {
-                  header = col.skill.skillName
+                if (col.skill !== undefined) {
+                  //header = col.skill.skillName
                 }
               }
               return (

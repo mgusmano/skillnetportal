@@ -34,7 +34,7 @@ import UploadCSVStyle from "../../styles/uploadCSV";
 import httpHelper from "./helper/httpHelper";
 
 import Chart from "./Chart";
-import { dynamicsort } from './helper/commonHelper';
+//import { dynamicsort } from './helper/commonHelper';
 
 import evaluateLocationGraph from './helper/locationGraphHelper';
 import evaluatePositionGraph from './helper/positionGraphHelper';
@@ -442,6 +442,9 @@ class Dashboard extends Component {
         if (selected.some((s) => s.label === d[property])) {
           return d;
         }
+        else {
+          return null;
+        }
       });
       return filterData;
     } else {
@@ -456,6 +459,9 @@ class Dashboard extends Component {
       filterData = data.filter((d) => {
         if (selected.some((s) => s.value === d[property])) {
           return d;
+        }
+        else {
+          return null;
         }
       });
     } else {
@@ -1156,8 +1162,8 @@ class Dashboard extends Component {
   };
 
   handleRadioChange = (event) => {
-    let { filterObj, options, userData, userDataClone, skillData,
-      skillDataClone,
+    let { filterObj, options, userData, userDataClone,
+      //skillData,skillDataClone,
       coreOptionData, ebOptionData } = this.state;
     let name = event.target.name;
     console.log(name)
@@ -1168,7 +1174,7 @@ class Dashboard extends Component {
       userDataClone = [...userData]
       options.ebOption = [...ebOptionData]
     } else if (name === 'isSkill') {
-      skillDataClone = [...skillData]
+      //skillDataClone = [...skillData]
       options.coreOption = [...coreOptionData];
       options.filterSkillOptions = [...options.skillOption]
     }
@@ -1365,23 +1371,23 @@ class Dashboard extends Component {
       // segementOption,
       // lineOption,
       // competencyOption,
-      userOption,
+      //userOption,
       // skillOption,
       // sourceOption,
       // coreOption,
       // ebOption,
       // filterSkillOptions,
-      filterUserOptions,
+      //filterUserOptions,
       outputOption,
       themeOption
     } = options;
 
     //subFunctionOption = subFunctionOption.sort(dynamicsort("label"));
 
-    filterUserOptions = filterUserOptions.sort(dynamicsort("label"));
+//    filterUserOptions = filterUserOptions.sort(dynamicsort("label"));
     //managerOption = managerOption.sort(dynamicsort("label"));
     //locationOption = locationOption.sort(dynamicsort("label"));
-    userOption = userOption.sort(dynamicsort("label"));
+//    userOption = userOption.sort(dynamicsort("label"));
     //positionOption = positionOption.sort(dynamicsort("value"));
 
 

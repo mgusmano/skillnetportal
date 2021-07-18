@@ -32,10 +32,10 @@ export const Legend = React.memo((props) => {
         <br/>
         <svg height="360px">
           <g key={0} transform="translate(10,20)" className='heading'>
-            <text key={1} x="0" y="0"style={{fontSize:'12'+'px'}}>certification:</text>
-            <text key={2} x="100" y="0"style={{fontSize:'12'+'px'}}>valid</text>
-            <text key={3} x="160" y="0"style={{fontSize:'12'+'px'}}>expiring</text>
-            <text key={4} x="230" y="0"style={{fontSize:'12'+'px'}}>expired</text>
+            <text key={1} x="0" y="0"style={{fontSize:'12px'}}>certification:</text>
+            <text key={2} x="100" y="0"style={{fontSize:'12px'}}>valid</text>
+            <text key={3} x="160" y="0"style={{fontSize:'12px'}}>expiring</text>
+            <text key={4} x="230" y="0"style={{fontSize:'12px'}}>expired</text>
           </g>
           {levels.map((level,l) => {
             var y = 50+(50*l)
@@ -64,7 +64,7 @@ export const Legend = React.memo((props) => {
             }
             return (
               <g key={l} transform={translateLevel} className='ball'>
-              <text dominantBaseline="hanging" stroke="black" style={{fontSize:'16'+'px'}}>{level}</text>
+              <text dominantBaseline="hanging" stroke="black" style={{fontSize:'16px'}}>{level}</text>
               {dates.map((d,i) => {
                 var x = 100+(70*i)
                 var translate = `translate(${x},-10)`

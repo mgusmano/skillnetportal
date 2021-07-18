@@ -3,25 +3,26 @@ import { SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './Mat
 
 export const MatrixReducer = (state, action) => {
   const { type, payload } = action;
+  var s;
   switch (type) {
     case SET_SPECIFIC:
       console.log(state)
       console.log(payload)
-      var s = {...state,specific:payload}
+      s = {...state,specific:payload}
       console.log(s)
       return s
     case SET_DIMENSIONS:
-      var s = {...state,dimensions:payload}
+      s = {...state,dimensions:payload}
       return s
       case SET_ORIGINAL:
-        var s = {...state,original:payload}
+        s = {...state,original:payload}
         return s
     case TOGGLE_LEGEND:
       var val = !state.showTheLegend
-      var s = {...state,showTheLegend:val}
+      s = {...state,showTheLegend:val}
       return s
     case "U":
-      var s = {...state,userName:payload}
+      s = {...state,userName:payload}
       return s
       // return produce(state, draft => {
       //   console.log('in reducer: ',payload)

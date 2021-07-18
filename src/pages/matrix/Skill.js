@@ -26,7 +26,7 @@ export const Skill = React.memo((props) => {
         {data.skill.data.map((item,i) => {
           //console.log(data)
           return (
-            <g key={i} transform={"translate(" + "100," + (i*bandY) + ")"} className="group" >
+            <g key={i} transform={"translate(100," + (i*bandY) + ")"} className="group" >
               <text
                 dominantBaseline="left"
                 textAnchor="end"

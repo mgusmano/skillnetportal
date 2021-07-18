@@ -77,7 +77,7 @@ const ProfileDialog = (props) => {
 
   //console.log(open)
 
-  if (open == true) {
+  if (open === true) {
     //console.log(props)
     axios
     .get('https://skillnetusersapi.azurewebsites.net/api/resume?personid=' + props.PersonId, {
@@ -102,7 +102,7 @@ const ProfileDialog = (props) => {
   };
 
   const handleClick = (widgets) => {
-    if (widgets == undefined) {
+    if (widgets === undefined) {
       onClose(null)
     }
     else {

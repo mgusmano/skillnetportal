@@ -58,7 +58,7 @@ const DashboardProperties = (props) => {
   } = state;
 
   let {
-    jobBandOption,
+    //jobBandOption,
     segmentOption,
     subFunctionOption,
     functionOption,
@@ -71,12 +71,12 @@ const DashboardProperties = (props) => {
     userOption,
     skillOption,
     sourceOption,
-    coreOption,
+    //coreOption,
     ebOption,
     filterSkillOptions,
     filterUserOptions,
-    outputOption,
-    themeOption
+    //outputOption,
+    //themeOption
   } = options;
 //console.log(sourceOption)
 

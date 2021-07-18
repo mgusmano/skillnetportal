@@ -49,14 +49,15 @@ const CardWidget = (props) => {
         //console.log(payload.users)
 
         var toShow = []
-        if (props.SMEOnly == true) {
+        if (props.SMEOnly === true) {
           payload.users.map(user => {
-            if (user.Leader == '' && user.SME == '') {
+            if (user.Leader === '' && user.SME === '') {
 
             }
             else {
               toShow.push(user)
             }
+            return null
           })
           setUsers(toShow)
         }

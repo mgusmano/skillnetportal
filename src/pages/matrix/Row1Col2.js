@@ -19,6 +19,7 @@ export const Row1Col2 = (props) => {
 
   const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     const {bandX, bandY, fontsize} = props
+
     //var y = (bandX/2) + (bandX * c)
     //var yp = y-15
     //var i = r + c;
@@ -28,7 +29,7 @@ export const Row1Col2 = (props) => {
         <foreignObject x={(bandX*c)+5} y={10} width='50px' height='50px'>
           <img
             alt="pic"
-            src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+data.operatorID+'.jpg'}
+            src={'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/'+data.id+'.jpg'}
             style={{borderRadius:'50%',width: bandX-10,height:bandX-10}}
           />
         </foreignObject>
@@ -53,7 +54,7 @@ export const Row1Col2 = (props) => {
     <div id="student" className='' style={{boxSizing:'border-box',width:matrixState.dimensions.col2+'px',overflow:'scroll',overflow:'hidden'}}>
     <div style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
     <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
-      {DataTransferItem !== null &&
+      {/* {DataTransferItem !== null && */}
       <MatrixOneRow
         renderCellFunction={renderOperatorCell}
         clickCellFunction={clickOperatorCell}
@@ -63,7 +64,7 @@ export const Row1Col2 = (props) => {
           translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:700
         }}
       />
-      }
+
     </svg>
     </div>
   </div>

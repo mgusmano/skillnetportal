@@ -11,6 +11,8 @@ export const Row2Col2 = (props) => {
   const matrixState = useMatrixState();
   const {col2,row2Orig,row2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
+  console.log(data)
+
   const onScroll = (e) => {
     var vert = document.getElementById('skill')
     var vert2 = document.getElementById('skilltotals')
@@ -45,7 +47,7 @@ export const Row2Col2 = (props) => {
   }
 
   const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
-    //console.log(data)
+    //console.log('remderMainCell',data,col)
     const {bandX, bandY} = props
     return (
       <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >

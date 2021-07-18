@@ -5,6 +5,8 @@ export const MatrixOneRow = React.memo((props) => {
   const {data,renderCellFunction,clickCellFunction} = props;
   //console.log(data)
 
+  if (data === null) return (<div></div>)
+
   var r = 0
   var row = null
 

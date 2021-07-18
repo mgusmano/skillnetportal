@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Matrix } from './Matrix';
-import { MatrixCell } from './MatrixCell';
+//import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
-import { Skill } from './Skill';
-import { styles } from './styles'
-import { Operator } from './Operator';
-import { MatrixOneRow } from './MatrixOneRow';
+//import { Skill } from './Skill';
+//import { styles } from './styles'
+//import { Operator } from './Operator';
+//import { MatrixOneRow } from './MatrixOneRow';
 
 export const Row1Col3 = (props) => {
   const {data} = props;

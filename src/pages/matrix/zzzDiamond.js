@@ -2,17 +2,12 @@ import React from 'react';
 import {SvgX,PathX,TextX, CircleX} from './SvgStuff';
 
 export const Diamond = ({meta, data, boxSize, padding}) => {
-
-  if (typeof meta === 'string') {
-    meta = JSON.parse(meta)
-    if (meta.trainer === 'true') { meta.trainer = true }
-    if (meta.trainer === 'false') { meta.trainer = false }
-  }
-  if (typeof data === 'string') {
-    data = JSON.parse(data)
-  }
-
+  console.log(meta)
+  console.log(data)
   var status = meta.status;
+  if (meta.status === 'ok') {
+    status = 'started';
+  }
 
   function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
     var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -87,11 +82,12 @@ export const Diamond = ({meta, data, boxSize, padding}) => {
     {status === 'started' &&
     data.map((slice,s)=>{
       var [d,f] = getSlice(slice,diamondSize)
+      //console.log(d)
       return (
         <PathX key={s} d={d} style={{fill:color,stroke:color,fillOpacity:f,strokeWidth:pieStrokeWidth}}/>
       )
     })}
-    {status === 'started' && meta.trainer === true &&
+    {status === 'started' & meta.trainer === true &&
     <>
     <TextX textAnchor="middle" alignmentBaseline="middle" fontSize={(130-padding)} fill="black" x ={'0'} y ={(diamondSize/4)} width={(44-padding)} height={(40-padding)} strokeWidth="1" stroke="black">T</TextX>
     <CircleX cx={0} cy={0} r={radius} stroke="blue" strokeWidth={(40-padding)} fillOpacity="0.0" />

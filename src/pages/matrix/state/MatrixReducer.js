@@ -22,10 +22,10 @@ export const MatrixReducer = (state, action) => {
       return s
 
     case SET_SPECIFIC:
-      console.log(state)
-      console.log(payload)
+      //console.log(state)
+      //console.log(payload)
       s = {...state,specific:payload}
-      console.log(s)
+      //console.log(s)
       return s
     case SET_DIMENSIONS:
       s = {...state,dimensions:payload}

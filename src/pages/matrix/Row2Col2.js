@@ -11,7 +11,7 @@ export const Row2Col2 = (props) => {
   const matrixState = useMatrixState();
   const {col2,row2Orig,row2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
-  console.log(data)
+  //console.log(data)
 
   const onScroll = (e) => {
     var vert = document.getElementById('skill')

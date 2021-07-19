@@ -23,9 +23,112 @@ import { listCertifications} from '../../graphql/queries'
 export const Main = (props) => {
   //const [greendate, yellowdate, reddate] = getDates();
   const [diamonddata, setDiamondData] = useState(null)
+  const [metadata, setMetaData] = useState(null)
+
+  const [notstarted, setNotStarted] = useState(false)
+  const [started, setStarted] = useState(false)
+  const [apprentice, setApprentice] = useState(false)
+  const [beginner, setBeginner] = useState(false)
+  const [intermediate, setIntermediate] = useState(false)
+  const [certified, setCertified] = useState(false)
+
+  //const [md, setMD] = useState(false)
+  //const {data} = props;
+
+  const data = JSON.parse(props.data.data)
+  const meta = JSON.parse(props.data.meta)
+  const operator = props.data.operator
+  const skill = props.data.skill
+  const certificationID = props.data.certificationID
+
+  console.log(props)
+  // console.log(operator)
+  // console.log(skill)
+  // console.log(data)
+  // console.log(meta)
+
+const setIt = (data,meta) => {
+  console.log(meta)
+  //var dd = JSON.parse(data)
+  //console.log(dd)
+  var num = 0
+  data.map((d,i) => {
+    //console.log(d)
+    if (d.s === 1) {num++}
+  })
+
+  //console.log(meta)
+
+
+
+  //console.log(num)
+  setNotStarted(false)
+  setStarted(false)
+  setApprentice(false)
+  setBeginner(false)
+  setIntermediate(false)
+  setCertified(false)
+  setMetaData(meta)
+
+  //var md = JSON.parse(meta)
+  console.log(meta.status)
+  if (meta.status === 'not started') {
+    //setNotStarted(true)
+    //setStarted(false)
+    num = -1;
+  }
+
+  // else {
+  //   setNotStarted(false)
+  //   setStarted(true)
+  // }
+
+console.log(num)
+
+  switch (num) {
+    case -1:
+      setNotStarted(true)
+      break;
+    case 0:
+      setStarted(true)
+
+      // console.log(meta)
+      // var md = JSON.parse(meta)
+      // console.log(md)
+      // md.status = 'started'
+      // setMetaData(JSON.stringify(md))
+
+      break;
+    case 1:
+      setApprentice(true)
+      break;
+    case 2:
+      setBeginner(true)
+      break;
+    case 3:
+      setIntermediate(true)
+      break;
+    case 4:
+      setCertified(true)
+      break;
+    default:
+      break;
+  }
+}
+
   useEffect(() => {
-    setDiamondData(data.data)
-  },[])
+    console.log('here')
+
+    setDiamondData(data)
+    //setMetaData(data.meta)
+
+    // md.status = 'started'
+    // setMD(md)
+
+
+
+    setIt(data,meta)
+  },[props])
 
   const matrixState = useMatrixState();
 
@@ -115,17 +218,26 @@ export const Main = (props) => {
 
 
 
-  const {data} = props;
+
+
 
 
   var bandX = 150
-  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + data.operator.id + '.jpg'
+  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
 
   async function onChangePercent(event) {
+
+
+    var metadatalocal = {...metadata};
     console.log(event.target.value);
     var s25 = 0, s50 = 0, s75 = 0, s100 = 0;
     switch (event.target.value) {
+      case '-1':
+        console.log('here?')
+        metadatalocal.status = 'not started'
+        break;
       case '0':
+        metadatalocal.status = 'started'
         break;
       case '25':
         s25 = 1;
@@ -150,12 +262,20 @@ export const Main = (props) => {
     }
     var dd = `[{"p":25,"s":${s25}},{"p":50,"s":${s50}},{"p":75,"s":${s75}},{"p":100,"s":${s100}}]`
     setDiamondData(dd)
+    console.log(metadatalocal)
+    setIt(JSON.parse(dd),metadatalocal)
+    //setMetaData(JSON.stringify(md))
+
+
     var c = {
-      id: data.certificationID,
+      id: certificationID,
       //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
-      meta: data.meta,
+      meta: JSON.stringify(metadatalocal),
+      //meta: JSON.stringify(md),
+      //meta: data.meta,
       data: dd
     }
+    console.log(c)
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
     callAll()
   }
@@ -166,18 +286,20 @@ export const Main = (props) => {
 
   return (
     <div>
-      <div style={{fontSize:'24px'}}>Operator: {data.operator.operatorName}</div>
-      <div style={{fontSize:'20px',marginBottom:'10px'}}>{matrixState.userName}Skill: {data.skill.skillName}</div>
+      <div style={{fontSize:'24px'}}>Operator: {operator.operatorName}</div>
+      <div style={{fontSize:'20px',marginBottom:'10px'}}>{matrixState.userName}Skill: {skill.skillName}</div>
       <div>
         <div style={{display:'flex',flexDirection:'column'}}>
           <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
 
           <div style={{margin:'30px',display:'flex',flexDirection:'column'}} onChange={onChangePercent}>
             Certification:
-            <div><input style={{marginLeft:'20px'}} type="radio" value="25" name="percent" /> Apprentice</div>
-            <div><input style={{marginLeft:'20px'}} type="radio" value="50" name="percent" /> Beginner</div>
-            <div><input style={{marginLeft:'20px'}} type="radio" value="75" name="percent" /> Intermediate</div>
-            <div><input style={{marginLeft:'20px'}} type="radio" value="100" name="percent" /> Certified</div>
+            <div><input checked={notstarted} style={{marginLeft:'20px'}} type="radio" value="-1" name="percent" /> Not Started</div>
+            <div><input checked={started} style={{marginLeft:'20px'}} type="radio" value="0" name="percent" /> Started</div>
+            <div><input checked={apprentice} style={{marginLeft:'20px'}} type="radio" value="25" name="percent" /> Apprentice</div>
+            <div><input checked={beginner} style={{marginLeft:'20px'}} type="radio" value="50" name="percent" /> Beginner</div>
+            <div><input checked={intermediate} style={{marginLeft:'20px'}} type="radio" value="75" name="percent" /> Intermediate</div>
+            <div><input checked={certified} style={{marginLeft:'20px'}} type="radio" value="100" name="percent" /> Certified</div>
           </div>
 
           {/* <div onChange={onChangeTrainer}>
@@ -188,7 +310,7 @@ export const Main = (props) => {
 
           <svg width="400" height="400">
             {diamonddata !== null &&
-            <Diamond meta={data.meta} data={diamonddata} boxSize={bandX} padding={30}/>
+            <Diamond meta={metadata} data={diamonddata} boxSize={bandX} padding={30}/>
             }
           </svg>
 

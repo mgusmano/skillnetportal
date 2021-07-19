@@ -240,18 +240,22 @@ console.log(num)
         metadatalocal.status = 'started'
         break;
       case '25':
+        metadatalocal.status = 'started'
         s25 = 1;
         break;
       case '50':
+        metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
         break;
       case '75':
+        metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
         s75 = 1;
         break;
       case '100':
+        metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
         s75 = 1;

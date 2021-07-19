@@ -44,15 +44,8 @@ export default function useEvent(event, handler, passive = false) {
 
 //export const TrainingMatrix = React.memo(({widgetData}) => {
 export const TrainingMatrix = () => {
-  //const [skills, setSkills] = useState([])
-  //const [operators, setOperators] = useState([])
-  //const [certifications, setCertifications] = useState([])
-
-  //const [byOperator, setByOperator] = useState(null);
-  //const [bySkill, setBySkill] = useState(null);
   const matrixState = useMatrixState();
   const { setOriginal, setDimensions } = matrixState;
-
 
   const subscribeCertifications = async () => {
     await API.graphql(graphqlOperation(onUpdateCertification)).subscribe({
@@ -65,130 +58,130 @@ export const TrainingMatrix = () => {
 
   const [greendate, yellowdate, reddate] = getDates();
   var widgetData = {
-    skillsX: [
-      {skillID:10,line:'S',skillName:'Core Loading'},
-      {skillID:20,line:'S',skillName:'Phase Paper Insertion (VW)'},
-      {skillID:30,line:'S',skillName:'Lead Wire Setting'},
-      {skillID:40,line:'S',skillName:'Neutral Tube Insertion'},
-      {skillID:50,line:'S',skillName:'Neutral Crimp'},
-      {skillID:60,line:'S',skillName:'Pre-Lacing'},
-      {skillID:70,line:'S',skillName:'Lacing'},
-      {skillID:80,line:'S',skillName:'Lead Terminal Crimp'},
-      {skillID:90,line:'S',skillName:'Lead Wire Forming'},
-    ],
-    operatorsX: [
-      {operatorID:1,operatorName:'Joe Smith'},
-      {operatorID:2,operatorName:'Marc Ester'},
-      {operatorID:3,operatorName:'Ted White'},
-      {operatorID:4,operatorName:'Betty Green'},
-      {operatorID:5,operatorName:'Bob Jones'},
-      {operatorID:6,operatorName:'Frank Davis'},
-      {operatorID:7,operatorName:'Jane Johnson'},
-      {operatorID:8,operatorName:'Mary Bird'},
-      {operatorID:9,operatorName:'Zoya Lee'},
-      {operatorID:10,operatorName:'Joe Adams'},
-    ],
-    dataX: [
-      {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:10,operatorID:3,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
-      {skillID:10,operatorID:4,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:10,operatorID:5,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
-      {skillID:10,operatorID:6,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:10,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:10,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:10,operatorID:9,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:10,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
+    // skillsX: [
+    //   {skillID:10,line:'S',skillName:'Core Loading'},
+    //   {skillID:20,line:'S',skillName:'Phase Paper Insertion (VW)'},
+    //   {skillID:30,line:'S',skillName:'Lead Wire Setting'},
+    //   {skillID:40,line:'S',skillName:'Neutral Tube Insertion'},
+    //   {skillID:50,line:'S',skillName:'Neutral Crimp'},
+    //   {skillID:60,line:'S',skillName:'Pre-Lacing'},
+    //   {skillID:70,line:'S',skillName:'Lacing'},
+    //   {skillID:80,line:'S',skillName:'Lead Terminal Crimp'},
+    //   {skillID:90,line:'S',skillName:'Lead Wire Forming'},
+    // ],
+    // operatorsX: [
+    //   {operatorID:1,operatorName:'Joe Smith'},
+    //   {operatorID:2,operatorName:'Marc Ester'},
+    //   {operatorID:3,operatorName:'Ted White'},
+    //   {operatorID:4,operatorName:'Betty Green'},
+    //   {operatorID:5,operatorName:'Bob Jones'},
+    //   {operatorID:6,operatorName:'Frank Davis'},
+    //   {operatorID:7,operatorName:'Jane Johnson'},
+    //   {operatorID:8,operatorName:'Mary Bird'},
+    //   {operatorID:9,operatorName:'Zoya Lee'},
+    //   {operatorID:10,operatorName:'Joe Adams'},
+    // ],
+    // dataX: [
+    //   {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:10,operatorID:3,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:10,operatorID:4,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:10,operatorID:5,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:10,operatorID:6,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:10,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:10,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:10,operatorID:9,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:10,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
 
-      {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:20,operatorID:2,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:20,operatorID:3,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:20,operatorID:4,meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
-      {skillID:20,operatorID:5,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:20,operatorID:6,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:20,operatorID:7,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:20,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:20,operatorID:9,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:20,operatorID:10,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:2,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:20,operatorID:3,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:4,meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:20,operatorID:5,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:6,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:20,operatorID:7,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:20,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:9,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:20,operatorID:10,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
 
-      {skillID:30,operatorID:1,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
-      {skillID:30,operatorID:2,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:3,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:30,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:5,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:6,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:7,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
-      {skillID:30,operatorID:9,meta:{status:'not started'},data:[],},
-      {skillID:30,operatorID:10,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:1,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:30,operatorID:2,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:3,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:30,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:5,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:6,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:7,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:30,operatorID:9,meta:{status:'not started'},data:[],},
+    //   {skillID:30,operatorID:10,meta:{status:'not started'},data:[],},
 
-      {skillID:40,operatorID:1,meta:{status:'not started'},data:[],},
-      {skillID:40,operatorID:2,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:40,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
-      {skillID:40,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:40,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:40,operatorID:6,meta:{status:'not started'},data:[],},
-      {skillID:40,operatorID:7,meta:{status:'not started'},data:[],},
-      {skillID:40,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:40,operatorID:9,meta:{status:'not started'},data:[],},
-      {skillID:40,operatorID:10,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:40,operatorID:1,meta:{status:'not started'},data:[],},
+    //   {skillID:40,operatorID:2,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:40,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:40,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:40,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:40,operatorID:6,meta:{status:'not started'},data:[],},
+    //   {skillID:40,operatorID:7,meta:{status:'not started'},data:[],},
+    //   {skillID:40,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:40,operatorID:9,meta:{status:'not started'},data:[],},
+    //   {skillID:40,operatorID:10,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
 
-      {skillID:50,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:50,operatorID:2,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:3,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:50,operatorID:6,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:7,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:50,operatorID:9,meta:{status:'not started'},data:[],},
-      {skillID:50,operatorID:10,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:50,operatorID:2,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:3,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:50,operatorID:6,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:7,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:50,operatorID:9,meta:{status:'not started'},data:[],},
+    //   {skillID:50,operatorID:10,meta:{status:'not started'},data:[],},
 
-      {skillID:60,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:60,operatorID:2,meta:{status:'not started'},data:[],},
-      {skillID:60,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:60,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:60,operatorID:5,meta:{status:'not started'},data:[],},
-      {skillID:60,operatorID:6,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:60,operatorID:7,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:60,operatorID:8,meta:{status:'not started'},data:[],},
-      {skillID:60,operatorID:9,meta:{status:'not started'},data:[],},
-      {skillID:60,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+    //   {skillID:60,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:60,operatorID:2,meta:{status:'not started'},data:[],},
+    //   {skillID:60,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:60,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:60,operatorID:5,meta:{status:'not started'},data:[],},
+    //   {skillID:60,operatorID:6,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:60,operatorID:7,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:60,operatorID:8,meta:{status:'not started'},data:[],},
+    //   {skillID:60,operatorID:9,meta:{status:'not started'},data:[],},
+    //   {skillID:60,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
 
-      {skillID:70,operatorID:1,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:70,operatorID:3,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:5,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:6,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:70,operatorID:7,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:8,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:9,meta:{status:'not started'},data:[],},
-      {skillID:70,operatorID:10,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:70,operatorID:1,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:70,operatorID:3,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:5,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:6,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:70,operatorID:7,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:8,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:9,meta:{status:'not started'},data:[],},
+    //   {skillID:70,operatorID:10,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
 
-      {skillID:80,operatorID:1,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:2,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:3,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:4,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:80,operatorID:5,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:6,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
-      {skillID:80,operatorID:8,meta:{status:'not started'},data:[],},
-      {skillID:80,operatorID:9,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:80,operatorID:10,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:1,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:2,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:3,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:4,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:80,operatorID:5,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:6,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:80,operatorID:8,meta:{status:'not started'},data:[],},
+    //   {skillID:80,operatorID:9,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:80,operatorID:10,meta:{status:'not started'},data:[],},
 
-      {skillID:90,operatorID:1,meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
-      {skillID:90,operatorID:2,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:3,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
-      {skillID:90,operatorID:4,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:5,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:6,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:7,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:8,meta:{status:'not started'},data:[],},
-      {skillID:90,operatorID:9,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
-      {skillID:90,operatorID:10,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:1,meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+    //   {skillID:90,operatorID:2,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:3,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
+    //   {skillID:90,operatorID:4,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:5,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:6,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:7,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:8,meta:{status:'not started'},data:[],},
+    //   {skillID:90,operatorID:9,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+    //   {skillID:90,operatorID:10,meta:{status:'not started'},data:[],},
 
-    ],
+    // ],
     right: [
       {meta:{id:10},data:[{meta:{},data:{v:7}},{meta:{},data:{v:2}},{meta:{},data:{v:'-5'}}]},
       {meta:{id:10},data:[{meta:{},data:{v:4}},{meta:{},data:{v:3}},{meta:{},data:{v:'-1'}}]},
@@ -321,116 +314,81 @@ export const TrainingMatrix = () => {
 
   const callAll = async () => {
     var operators = await getDataOperators()
+    var oLen = operators.length
     matrixState.setOperators(operators)
     var skills = await getDataSkills()
+    var sLen = skills.length
     matrixState.setSkills(skills)
     var certifications = await getDataCertifications()
+    console.log(certifications)
     matrixState.setCertifications(certifications)
     doByOperator(operators,skills,certifications)
     doBySkill(operators,skills,certifications)
+    return {oLen,sLen}
   };
 
-
   useEffect(() => {
-    callAll()
+    var vals = callAll()
+    vals.then((o) => {
+      var x = o.oLen
+      var y = o.sLen
 
-    subscribeCertifications();
+      subscribeCertifications();
+
+      const multiplier = 7;
+      const topHeight = 0;
+      const fontsize = 2;
+      const bandX = 5;
+      const bandY = 5;
+      var col1 = 40;
+      var col2 = bandX * x;
+      var col3 =(bandX*3);
+      var row1 = 20;
+      var row2 = (bandY * y)+0;
+      var row3 = bandX*3;
+
+      var d2= {
+        multiplier: multiplier,
+        topHeight: topHeight,
+        fontsize: fontsize,
+        bandX: bandX,
+        bandY: bandY,
+        col1: col1,
+        col2: col2,
+        col3: col3,
+        row1: row1,
+        row2Orig: row2,
+        row2: row2,
+        row3: row3,
+      }
+      setOriginal(d2)
+
+      var d = {
+        multiplier: multiplier,
+        topHeight: topHeight*multiplier,
+        fontsize: fontsize*multiplier,
+        bandX: bandX*multiplier,
+        bandY: bandY*multiplier,
+        col1: col1*multiplier,
+        col2: col2*multiplier,
+        col3: col3*multiplier,
+        row1: row1*multiplier,
+        row2Orig: row2*multiplier,
+        row2: row2*multiplier,
+        row3: row3*multiplier,
+      }
+      setDimensions(d)
+
+    })
 
 
-    // var byOperator = []
-    // widgetData.operatorsX.map((operator,o) => {
-    //   //var o = {}
-    //   o = operator
-    //   o.meta = operator
-    //   o.data = []
-    //   const skills = widgetData.dataX.filter(item => item.operatorID === operator.operatorID);
-    //   skills.map((data,i) => {
-    //     var skill  = widgetData.skillsX.find(item => item.skillID === data.skillID);
-    //     o.data[i] = {};
-    //     o.data[i].operator = operator
-    //     o.data[i].skill = skill
-    //     o.data[i].meta = skills[i].meta
-    //     o.data[i].data = skills[i].data
-    //     return null
-    //   })
-    //   byOperator.push(o)
-    //   return null
-    // })
-    // setByOperator(byOperator)
 
-
-    // var bySkill = []
-    // widgetData.skillsX.map((skill,s) => {
-    //   var o = {}
-    //   o = skill
-    //   o.meta = skill
-    //   o.data = []
-    //   const operators = widgetData.dataX.filter(item => item.skillID === skill.skillID);
-    //   operators.map((data,i) => {
-    //     var operator  = widgetData.operatorsX.find(item => item.operatorID === data.operatorID);
-    //     o.data[i] = {};
-    //     o.data[i].skill = skill
-    //     o.data[i].operator = operator
-    //     o.data[i].meta = operators[i].meta
-    //     o.data[i].data = operators[i].data
-    //     return null
-    //   })
-    //   bySkill.push(o)
-    //   return null
-    // })
-    // setBySkill(bySkill)
-
-    var x =widgetData.operatorsX.length
-    var y =widgetData.skillsX.length
-    const multiplier = 7;
-    const topHeight = 0;
-    const fontsize = 2;
-    const bandX = 5;
-    const bandY = 5;
-    var col1 = 40;
-    var col2 = bandX * x;
-    var col3 =(bandX*3);
-    var row1 = 20;
-    var row2 = (bandY * y)+0;
-    var row3 = bandX*3;
-
-    var d2= {
-      multiplier: multiplier,
-      topHeight: topHeight,
-      fontsize: fontsize,
-      bandX: bandX,
-      bandY: bandY,
-      col1: col1,
-      col2: col2,
-      col3: col3,
-      row1: row1,
-      row2Orig: row2,
-      row2: row2,
-      row3: row3,
-    }
-    setOriginal(d2)
-
-    var d = {
-      multiplier: multiplier,
-      topHeight: topHeight*multiplier,
-      fontsize: fontsize*multiplier,
-      bandX: bandX*multiplier,
-      bandY: bandY*multiplier,
-      col1: col1*multiplier,
-      col2: col2*multiplier,
-      col3: col3*multiplier,
-      row1: row1*multiplier,
-      row2Orig: row2*multiplier,
-      row2: row2*multiplier,
-      row3: row3*multiplier,
-    }
-    setDimensions(d)
   },[])
 
   const handleResize = () => {
     var multiplier = matrixState.original.multiplier
     var col1 = 0, row2 = 0, topHeight = 0, row2Orig = 0;
-    if (window.innerWidth <1400) {
+    if (window.innerWidth <200) {
       col1 = 0*multiplier;
       topHeight = 5;
       //row2 = ((matrixState.original.row2*2)*multiplier)+(topHeight*multiplier);

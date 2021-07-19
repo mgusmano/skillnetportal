@@ -2,23 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Diamond } from './Diamond';
 import { useMatrixState } from './state/MatrixProvider';
 
-import { getDates } from './util';
-
+//import { getDates } from './util';
 
 import { API, graphqlOperation } from 'aws-amplify'
 //import { listCertifications} from '../../graphql/queries'
-import { createCertification, deleteCertification, updateCertification } from '../../graphql/mutations'
-
+import { updateCertification } from '../../graphql/mutations'
 import { listOperators} from '../../graphql/queries'
-import { createOperator, deleteOperator } from '../../graphql/mutations'
-
+//import { createOperator, deleteOperator } from '../../graphql/mutations'
 import { listSkills } from '../../graphql/queries'
-import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
-
+//import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
 import { listCertifications} from '../../graphql/queries'
-
-
-
 
 export const Main = (props) => {
   //const [greendate, yellowdate, reddate] = getDates();
@@ -32,36 +25,27 @@ export const Main = (props) => {
   const [intermediate, setIntermediate] = useState(false)
   const [certified, setCertified] = useState(false)
 
-  //const [md, setMD] = useState(false)
-  //const {data} = props;
-
   const data = JSON.parse(props.data.data)
   const meta = JSON.parse(props.data.meta)
   const operator = props.data.operator
   const skill = props.data.skill
   const certificationID = props.data.certificationID
 
-  console.log(props)
+  var bandX = 150
+  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
+
+  // console.log(props)
   // console.log(operator)
   // console.log(skill)
   // console.log(data)
   // console.log(meta)
 
 const setIt = (data,meta) => {
-  console.log(meta)
-  //var dd = JSON.parse(data)
-  //console.log(dd)
   var num = 0
   data.map((d,i) => {
-    //console.log(d)
     if (d.s === 1) {num++}
   })
 
-  //console.log(meta)
-
-
-
-  //console.log(num)
   setNotStarted(false)
   setStarted(false)
   setApprentice(false)
@@ -70,20 +54,9 @@ const setIt = (data,meta) => {
   setCertified(false)
   setMetaData(meta)
 
-  //var md = JSON.parse(meta)
-  console.log(meta.status)
   if (meta.status === 'not started') {
-    //setNotStarted(true)
-    //setStarted(false)
     num = -1;
   }
-
-  // else {
-  //   setNotStarted(false)
-  //   setStarted(true)
-  // }
-
-console.log(num)
 
   switch (num) {
     case -1:
@@ -91,13 +64,6 @@ console.log(num)
       break;
     case 0:
       setStarted(true)
-
-      // console.log(meta)
-      // var md = JSON.parse(meta)
-      // console.log(md)
-      // md.status = 'started'
-      // setMetaData(JSON.stringify(md))
-
       break;
     case 1:
       setApprentice(true)
@@ -117,16 +83,7 @@ console.log(num)
 }
 
   useEffect(() => {
-    console.log('here')
-
     setDiamondData(data)
-    //setMetaData(data.meta)
-
-    // md.status = 'started'
-    // setMD(md)
-
-
-
     setIt(data,meta)
   },[props])
 
@@ -222,18 +179,14 @@ console.log(num)
 
 
 
-  var bandX = 150
-  var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
+
 
   async function onChangePercent(event) {
-
-
     var metadatalocal = {...metadata};
     console.log(event.target.value);
     var s25 = 0, s50 = 0, s75 = 0, s100 = 0;
     switch (event.target.value) {
       case '-1':
-        console.log('here?')
         metadatalocal.status = 'not started'
         break;
       case '0':
@@ -268,15 +221,11 @@ console.log(num)
     setDiamondData(dd)
     console.log(metadatalocal)
     setIt(JSON.parse(dd),metadatalocal)
-    //setMetaData(JSON.stringify(md))
-
 
     var c = {
       id: certificationID,
       //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
       meta: JSON.stringify(metadatalocal),
-      //meta: JSON.stringify(md),
-      //meta: data.meta,
       data: dd
     }
     console.log(c)

@@ -2,28 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Diamond } from './Diamond';
 import { useMatrixState } from './state/MatrixProvider';
 
-//import { getDates } from './util';
-
 import { API, graphqlOperation } from 'aws-amplify'
-//import { listCertifications} from '../../graphql/queries'
 import { updateCertification } from '../../graphql/mutations'
 import { listOperators} from '../../graphql/queries'
-//import { createOperator, deleteOperator } from '../../graphql/mutations'
 import { listSkills } from '../../graphql/queries'
-//import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
 import { listCertifications} from '../../graphql/queries'
 
 export const Main = (props) => {
-  //const [greendate, yellowdate, reddate] = getDates();
   const [diamonddata, setDiamondData] = useState(null)
   const [metadata, setMetaData] = useState(null)
-
-  const [notstarted, setNotStarted] = useState(false)
-  const [started, setStarted] = useState(false)
-  const [apprentice, setApprentice] = useState(false)
-  const [beginner, setBeginner] = useState(false)
-  const [intermediate, setIntermediate] = useState(false)
-  const [certified, setCertified] = useState(false)
+  const [certification, setCertification] = useState(null)
+  const [trainer, setTrainer] = useState(false)
 
   const data = JSON.parse(props.data.data)
   const meta = JSON.parse(props.data.meta)
@@ -34,25 +23,11 @@ export const Main = (props) => {
   var bandX = 150
   var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
 
-  // console.log(props)
-  // console.log(operator)
-  // console.log(skill)
-  // console.log(data)
-  // console.log(meta)
-
-const setIt = (data,meta) => {
+const setIt2 = (data,meta) => {
   var num = 0
   data.map((d,i) => {
     if (d.s === 1) {num++}
   })
-
-  setNotStarted(false)
-  setStarted(false)
-  setApprentice(false)
-  setBeginner(false)
-  setIntermediate(false)
-  setCertified(false)
-  setMetaData(meta)
 
   if (meta.status === 'not started') {
     num = -1;
@@ -60,31 +35,43 @@ const setIt = (data,meta) => {
 
   switch (num) {
     case -1:
-      setNotStarted(true)
+      setCertification('notstarted')
       break;
     case 0:
-      setStarted(true)
+      setCertification('started')
       break;
     case 1:
-      setApprentice(true)
+      setCertification('apprentice')
       break;
     case 2:
-      setBeginner(true)
+      setCertification('beginner')
       break;
     case 3:
-      setIntermediate(true)
+      setCertification('intermediate')
       break;
     case 4:
-      setCertified(true)
+      setCertification('certified')
       break;
     default:
       break;
   }
+
+
 }
 
   useEffect(() => {
     setDiamondData(data)
-    setIt(data,meta)
+    setMetaData(meta)
+    setIt2(data,meta)
+    console.log(meta)
+    console.log(meta.trainer)
+    if (meta.trainer == 'true') {
+      setTrainer(true)
+    }
+    else {
+      setTrainer(false)
+    }
+
   },[props])
 
   const matrixState = useMatrixState();
@@ -175,39 +162,56 @@ const setIt = (data,meta) => {
 
 
 
-
-
-
-
-
-
-  async function onChangePercent(event) {
+  const onTrainerChange = async (event) => {
+    console.log(metadata)
     var metadatalocal = {...metadata};
-    console.log(event.target.value);
+    console.log(metadatalocal)
+    if (event.target.value == 'true') {
+      setTrainer(true)
+      metadatalocal.trainer = "true"
+    }
+    else {
+      setTrainer(false)
+      metadatalocal.trainer = "false"
+    }
+    setMetaData(metadatalocal)
+    var c = {
+      id: certificationID,
+      //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
+      meta: JSON.stringify(metadatalocal),
+      data: JSON.stringify(diamonddata),
+    }
+    console.log(c)
+    await API.graphql(graphqlOperation(updateCertification, { input: c } ))
+    callAll()
+  }
+
+  const onCertificationChange = async (event) => {
+    var metadatalocal = {...metadata};
     var s25 = 0, s50 = 0, s75 = 0, s100 = 0;
     switch (event.target.value) {
-      case '-1':
+      case 'notstarted':
         metadatalocal.status = 'not started'
         break;
-      case '0':
+      case 'started':
         metadatalocal.status = 'started'
         break;
-      case '25':
+      case 'apprentice':
         metadatalocal.status = 'started'
         s25 = 1;
         break;
-      case '50':
+      case 'beginner':
         metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
         break;
-      case '75':
+      case 'intermediate':
         metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
         s75 = 1;
         break;
-      case '100':
+      case 'certified':
         metadatalocal.status = 'started'
         s25 = 1;
         s50 = 1;
@@ -217,25 +221,23 @@ const setIt = (data,meta) => {
       default:
         break;
     }
-    var dd = `[{"p":25,"s":${s25}},{"p":50,"s":${s50}},{"p":75,"s":${s75}},{"p":100,"s":${s100}}]`
-    setDiamondData(dd)
-    console.log(metadatalocal)
-    setIt(JSON.parse(dd),metadatalocal)
+
+    var dd2 = [{"p":25,"s":s25},{"p":50,"s":s50},{"p":75,"s":s75},{"p":100,"s":s100}]
+    setDiamondData(dd2)
+
+    setMetaData(metadatalocal)
+    setCertification(event.target.value)
 
     var c = {
       id: certificationID,
       //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
       meta: JSON.stringify(metadatalocal),
-      data: dd
+      data: JSON.stringify(dd2),
     }
     console.log(c)
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
     callAll()
   }
-
-  // const onChangeTrainer = (event) => {
-  //   console.log(event.target.value);
-  // }
 
   return (
     <div>
@@ -245,21 +247,21 @@ const setIt = (data,meta) => {
         <div style={{display:'flex',flexDirection:'column'}}>
           <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
 
-          <div style={{margin:'30px',display:'flex',flexDirection:'column'}} onChange={onChangePercent}>
+          <div style={{margin:'30px',display:'flex',flexDirection:'column'}}>
             Certification:
-            <div><input checked={notstarted} style={{marginLeft:'20px'}} type="radio" value="-1" name="percent" /> Not Started</div>
-            <div><input checked={started} style={{marginLeft:'20px'}} type="radio" value="0" name="percent" /> Started</div>
-            <div><input checked={apprentice} style={{marginLeft:'20px'}} type="radio" value="25" name="percent" /> Apprentice</div>
-            <div><input checked={beginner} style={{marginLeft:'20px'}} type="radio" value="50" name="percent" /> Beginner</div>
-            <div><input checked={intermediate} style={{marginLeft:'20px'}} type="radio" value="75" name="percent" /> Intermediate</div>
-            <div><input checked={certified} style={{marginLeft:'20px'}} type="radio" value="100" name="percent" /> Certified</div>
+            <div><input value="notstarted" checked={certification === 'notstarted'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Not Started</div>
+            <div><input value="started" checked={certification === 'started'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Started</div>
+            <div><input value="apprentice" checked={certification === 'apprentice'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Apprentice</div>
+            <div><input value="beginner" checked={certification === 'beginner'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Beginner</div>
+            <div><input value="intermediate" checked={certification === 'intermediate'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Intermediate</div>
+            <div><input value="certified" checked={certification === 'certified'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Certified</div>
           </div>
 
-          {/* <div onChange={onChangeTrainer}>
+          <div style={{marginLeft:'30px',display:'flex',flexDirection:'column'}}>
             Trainer:
-            <input type="radio" value="true" name="trainer" /> true
-            <input type="radio" value="false" name="trainer" /> false
-          </div> */}
+            <div><input value="false" checked={trainer == false} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> No</div>
+            <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
+          </div>
 
           <svg width="400" height="400">
             {diamonddata !== null &&

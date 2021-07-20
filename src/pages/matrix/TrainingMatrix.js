@@ -23,15 +23,15 @@ import { styles } from './styles';
 import { API, graphqlOperation } from 'aws-amplify'
 
 import { listOperators} from '../../graphql/queries'
-import { createOperator, deleteOperator } from '../../graphql/mutations'
+//import { createOperator, deleteOperator } from '../../graphql/mutations'
 
 import { listSkills } from '../../graphql/queries'
-import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
+//import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
 
 import { listCertifications} from '../../graphql/queries'
 
 import { onUpdateCertification} from '../../graphql/subscriptions'
-import frCA from 'date-fns/locale/fr-CA/index';
+//import frCA from 'date-fns/locale/fr-CA/index';
 
 export default function useEvent(event, handler, passive = false) {
   useEffect(() => {
@@ -49,9 +49,10 @@ export const TrainingMatrix = () => {
 
   const subscribeCertifications = async () => {
     await API.graphql(graphqlOperation(onUpdateCertification)).subscribe({
-      next: (subonUpdateCertifications) => {
-        var certifications = getDataCertifications()
-        matrixState.setCertifications(certifications)
+      next: () => {
+        callAll()
+        //var certifications = getDataCertifications()
+        //matrixState.setCertifications(certifications)
       }
     });
   };
@@ -252,17 +253,18 @@ export const TrainingMatrix = () => {
 
   async function getDataOperators() {
     const operatorData = await API.graphql(graphqlOperation(listOperators))
-    return operatorData.data.listOperators.items
+    return operatorData.data.listOperators.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
   }
 
   async function getDataSkills() {
     const skillData = await API.graphql(graphqlOperation(listSkills))
-    return skillData.data.listSkills.items
+    return skillData.data.listSkills.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
   }
 
   async function getDataCertifications() {
     const certificationData = await API.graphql(graphqlOperation(listCertifications))
-    return certificationData.data.listCertifications.items
+
+    return certificationData.data.listCertifications.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
   }
 
   const doByOperator = (operators, skills, certifications) => {
@@ -309,6 +311,7 @@ export const TrainingMatrix = () => {
       bySkill.push(o)
       return null
     })
+    console.log(bySkill)
     matrixState.setBySkill(bySkill)
   }
 
@@ -319,8 +322,8 @@ export const TrainingMatrix = () => {
     var skills = await getDataSkills()
     var sLen = skills.length
     matrixState.setSkills(skills)
+
     var certifications = await getDataCertifications()
-    console.log(certifications)
     matrixState.setCertifications(certifications)
     doByOperator(operators,skills,certifications)
     doBySkill(operators,skills,certifications)

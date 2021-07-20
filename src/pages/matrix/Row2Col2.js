@@ -8,6 +8,7 @@ import { Main } from './Main';
 
 export const Row2Col2 = (props) => {
   const {data} = props;
+
   const matrixState = useMatrixState();
   const {col2,row2Orig,row2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
@@ -66,6 +67,8 @@ export const Row2Col2 = (props) => {
     )
   }
 
+  //console.log(data)
+  console.log('Row2Col2')
   return (
     <div style={{width:(col2)+'px',maxWidth:(col2)+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflow:'auto'}} onScroll={onScroll} >
       <div width={(col2)+'px'} height={(row2)+'px'}>

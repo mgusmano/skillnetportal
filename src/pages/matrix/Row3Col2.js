@@ -25,6 +25,7 @@ export const Row3Col2 = (props) => {
     )
   }
 
+  console.log('Row3Col2')
   return (
     <div id="studenttotals" style={{...styles.v,overflow:'scroll',overflow:'hidden',border:'0px solid red'}}>
       <div style={{ maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>

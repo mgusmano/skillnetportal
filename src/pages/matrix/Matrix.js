@@ -31,6 +31,8 @@ export const Matrix = React.memo((props) => {
     }
   }
 
+  //console.log(data)
+  //console.log(data.map)
   return (
     <g transform={"translate(" + translateX + "," + translateY + ")"} className={name}>
     {

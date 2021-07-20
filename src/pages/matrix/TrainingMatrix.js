@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
-//import { Matrix } from './Matrix';
-//import { MatrixOneRow } from './MatrixOneRow';
-//import { Diamond } from './Diamond';
-//import { MatrixCell } from './MatrixCell';
-//import { Skill } from './Skill';
-//import { Operator } from './Operator';
-//import { Main } from './Main';
+
 import { Legend } from './Legend';
-import { getDates } from './util';
 import { Log } from './Log';
 import { Toolbar } from './Toolbar';
+import { Row1Col1 } from './Row1Col1';
 import { Row1Col2 } from './Row1Col2';
 import { Row1Col3 } from './Row1Col3';
 import { Row2Col1 } from './Row2Col1';
@@ -17,21 +11,14 @@ import { Row2Col2 } from './Row2Col2';
 import { Row2Col3 } from './Row2Col3';
 import { Row3Col1 } from './Row3Col1';
 import { Row3Col2 } from './Row3Col2';
+import { Row3Col3 } from './Row3Col3';
 import { useMatrixState } from './state/MatrixProvider';
 import { styles } from './styles';
 
 import { API, graphqlOperation } from 'aws-amplify'
-
 import { listOperators} from '../../graphql/queries'
-//import { createOperator, deleteOperator } from '../../graphql/mutations'
-
 import { listSkills } from '../../graphql/queries'
-//import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
-
-import { listCertifications} from '../../graphql/queries'
-
 import { onUpdateCertification} from '../../graphql/subscriptions'
-//import frCA from 'date-fns/locale/fr-CA/index';
 
 export default function useEvent(event, handler, passive = false) {
   useEffect(() => {
@@ -47,17 +34,50 @@ export const TrainingMatrix = () => {
   const matrixState = useMatrixState();
   const { setOriginal, setDimensions } = matrixState;
 
+  const handleResize = () => {
+    var multiplier = matrixState.original.multiplier
+    var col1 = 0, row2 = 0, topHeight = 0, row2Orig = 0;
+    if (window.innerWidth <200) {
+      col1 = 0*multiplier;
+      topHeight = 5;
+      //row2 = ((matrixState.original.row2*2)*multiplier)+(topHeight*multiplier);
+      row2Orig = matrixState.original.row2*multiplier;
+      row2 = ((matrixState.original.row2*2)*multiplier);
+    }
+    else {
+      col1 = matrixState.original.col1*multiplier;
+      row2Orig = matrixState.original.row2*multiplier;
+      row2 = matrixState.original.row2*multiplier;
+    }
+    //console.log(row2)
+    var d ={
+      topHeight: topHeight*multiplier,
+      fontsize: matrixState.original.fontsize*multiplier,
+      bandX: matrixState.original.bandX*multiplier,
+      bandY: matrixState.original.bandY*multiplier,
+      col1: col1,
+      col2: matrixState.original.col2*multiplier,
+      col3: matrixState.original.col3*multiplier,
+      row1: matrixState.original.row1*multiplier,
+      row2Orig: row2Orig,
+      row2: row2,
+      row3: matrixState.original.row3*multiplier,
+    }
+    matrixState.setDimensions(d);
+  }
+
+  useEvent('resize', handleResize);
+
   const subscribeCertifications = async () => {
     await API.graphql(graphqlOperation(onUpdateCertification)).subscribe({
       next: () => {
-        callAll()
-        //var certifications = getDataCertifications()
-        //matrixState.setCertifications(certifications)
+        //callAll()
+        matrixState.setAll()
       }
     });
   };
 
-  const [greendate, yellowdate, reddate] = getDates();
+  //const [greendate, yellowdate, reddate] = getDates();
   var widgetData = {
     // skillsX: [
     //   {skillID:10,line:'S',skillName:'Core Loading'},
@@ -261,82 +281,22 @@ export const TrainingMatrix = () => {
     return skillData.data.listSkills.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
   }
 
-  async function getDataCertifications() {
-    const certificationData = await API.graphql(graphqlOperation(listCertifications))
-
-    return certificationData.data.listCertifications.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
-  }
-
-  const doByOperator = (operators, skills, certifications) => {
-    var byOperator = []
-    operators.map((operator,o) => {
-      //var o = {}
-      o = operator
-      o.meta = operator
-      o.data = []
-      const filteredcertifications = certifications.filter(item => item.operatorID === operator.id);
-      filteredcertifications.map((fc,i) => {
-        var skill  = skills.find(item => item.id === fc.skillID);
-        o.data[i] = {};
-        o.data[i].operator = operator
-        o.data[i].skill = skill
-        o.data[i].meta = fc.meta
-        o.data[i].data = fc.data
-        return null
-      })
-      byOperator.push(o)
-      return null
-    })
-    matrixState.setByOperator(byOperator)
-  }
-
-  const doBySkill = (operators, skills, certifications) => {
-    var bySkill = []
-    skills.map((skill,s) => {
-      var o = {}
-      o = skill
-      o.meta = skill
-      o.data = []
-      const filteredcertifications = certifications.filter(item => item.skillID === skill.id);
-      filteredcertifications.map((fc,i) => {
-        var operator  = operators.find(item => item.id === fc.operatorID);
-        o.data[i] = {};
-        o.data[i].certificationID = fc.id
-        o.data[i].skill = skill
-        o.data[i].operator = operator
-        o.data[i].meta = fc.meta
-        o.data[i].data = fc.data
-        return null
-      })
-      bySkill.push(o)
-      return null
-    })
-    console.log(bySkill)
-    matrixState.setBySkill(bySkill)
-  }
-
-  const callAll = async () => {
+  const callAll2 = async () => {
     var operators = await getDataOperators()
-    var oLen = operators.length
-    matrixState.setOperators(operators)
     var skills = await getDataSkills()
+    var oLen = operators.length
     var sLen = skills.length
-    matrixState.setSkills(skills)
-
-    var certifications = await getDataCertifications()
-    matrixState.setCertifications(certifications)
-    doByOperator(operators,skills,certifications)
-    doBySkill(operators,skills,certifications)
     return {oLen,sLen}
   };
 
   useEffect(() => {
-    var vals = callAll()
+    matrixState.setAll()
+    var vals = callAll2()
     vals.then((o) => {
       var x = o.oLen
       var y = o.sLen
 
-      subscribeCertifications();
+      //subscribeCertifications();
 
       const multiplier = 7;
       const topHeight = 0;
@@ -383,45 +343,7 @@ export const TrainingMatrix = () => {
       setDimensions(d)
 
     })
-
-
-
   },[])
-
-  const handleResize = () => {
-    var multiplier = matrixState.original.multiplier
-    var col1 = 0, row2 = 0, topHeight = 0, row2Orig = 0;
-    if (window.innerWidth <200) {
-      col1 = 0*multiplier;
-      topHeight = 5;
-      //row2 = ((matrixState.original.row2*2)*multiplier)+(topHeight*multiplier);
-      row2Orig = matrixState.original.row2*multiplier;
-      row2 = ((matrixState.original.row2*2)*multiplier);
-    }
-    else {
-      col1 = matrixState.original.col1*multiplier;
-      row2Orig = matrixState.original.row2*multiplier;
-      row2 = matrixState.original.row2*multiplier;
-    }
-    //console.log(row2)
-    var d ={
-      topHeight: topHeight*multiplier,
-      fontsize: matrixState.original.fontsize*multiplier,
-      bandX: matrixState.original.bandX*multiplier,
-      bandY: matrixState.original.bandY*multiplier,
-      col1: col1,
-      col2: matrixState.original.col2*multiplier,
-      col3: matrixState.original.col3*multiplier,
-      row1: matrixState.original.row1*multiplier,
-      row2Orig: row2Orig,
-      row2: row2,
-      row3: matrixState.original.row3*multiplier,
-    }
-    matrixState.setDimensions(d);
-  }
-
-  useEvent('resize', handleResize);
-
 
 
   //<div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:matrixState.dimensions.fontsize+'pt'}}>
@@ -431,61 +353,39 @@ export const TrainingMatrix = () => {
       {matrixState.showTheLegend && <Legend/>}
       <Toolbar/>
 
-      {/* {
-  certifications.map((item, index) => {
-    return (
-      <div key={index}>
-        id:{item.id} skillID:{item.skillID} operatorID:{item.operatorID}
-        meta:{item.meta}
-        data:{item.data}
-      </div>
-    )
-  })
-} */}
-
       {/* main area start */}
       {matrixState.dimensions !== null &&
       <div className='mainarea' data-flex-splitter-horizontal style={{...styles.horizontal,width:'100%',height:'100%'}}>
         {/* <Log data={matrixState.dimensions}/> */}
+
         {/* left area - matrix - start */}
         <div className='left' style={{...styles.v,flex:1,boxSizing:'border-box'}}>
 
-          {/* row 1 start */}
           <div className='leftrow1' height={matrixState.dimensions.row1} style={{...styles.h,height:matrixState.dimensions.row1+'px'}}>
-            {/* row 1 column 1 start */}
-            <div className='' style={{width:matrixState.dimensions.col1+'px',boxSizing:'border-box'}}>
-              <svg width={matrixState.dimensions.col1+'px'} height={matrixState.dimensions.row1+'px'}></svg>
-            </div>
-            {/* row 1 column 1 end */}
+            <Row1Col1/>
             <Row1Col2 data={matrixState.byOperator}/>
             <Row1Col3 data={widgetData.rightheading}/>
           </div>
-          {/* row 1 end */}
 
-          {/* row 2 start */}
           <div className='leftrow2' style={{...styles.h,height:(matrixState.dimensions.row2Orig)+'px'}}>
             <Row2Col1 data={matrixState.bySkill}/>
             <Row2Col2 data={matrixState.bySkill}/>
             <Row2Col3 data={widgetData.right}/>
           </div>
-          {/* row 2 end */}
 
-          {/* row 3 start */}
-          <div style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>
+          <div className='leftrow3' style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>
             <Row3Col1 data={widgetData.bottomleftheading}/>
             <Row3Col2 data={widgetData.bottom}/>
-            {/* row 3 column 3 start */}
-            <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row3+'px',border:'0px solid green'}}></div>
-            {/* row 3 column 3 end */}
+            <Row3Col3/>
           </div>
-          {/* row 3 end */}
 
         </div>
         {/* left area - matrix - end */}
 
         <div role="separator"></div>
+
         {/* right area - details - start */}
-        <div className='right' style={{width:'525px'}}>
+        <div className='right' style={{width:'325px'}}>
           <div style={{width:'100%', height:'100%', padding:'25px', background:'white', boxSizing:'border-box'}}>
             <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
               {matrixState.specific}
@@ -493,6 +393,7 @@ export const TrainingMatrix = () => {
           </div>
         </div>
         {/* right area - details - end */}
+
       </div>
       }
       {/* main area end */}

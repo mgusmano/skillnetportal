@@ -18,11 +18,11 @@ function Login(props) {
   //const referer = props.location.state.referer || '/';
 
   function postLogin() {
-    // setIsLoading(false);
-    // setReferer('swipeguide')
-    // setAuthTokens(password);
-    // setLoggedIn(true);
-    // return <Redirect to={referer} />;
+    setIsLoading(false);
+    setReferer('swipeguide')
+    setAuthTokens(password);
+    setLoggedIn(true);
+    return <Redirect to={referer} />;
 
 
 
@@ -38,6 +38,7 @@ function Login(props) {
       //userName,
       //password
     }).then(result => {
+      console.log('after auth read')
       var where
       switch (password) {
         case 'swipeguide':

@@ -24,6 +24,7 @@ export const Row3Col1 = (props) => {
     )
   }
 
+  console.log('Row3Col1')
   return (
     <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px'}}>
       <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>

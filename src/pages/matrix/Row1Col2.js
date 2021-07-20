@@ -23,6 +23,7 @@ export const Row1Col2 = (props) => {
     //var y = (bandX/2) + (bandX * c)
     //var yp = y-15
     //var i = r + c;
+    console.log('Row1Col2')
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
         <text style={{fontSize:fontsize+'px'}} alignmentBaseline="baseline" transform="translate(0,0) rotate(90)" x={bandX*1.4} y={-(bandX * c)-10} fill="black">{data.operatorName}</text>

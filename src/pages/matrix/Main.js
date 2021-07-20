@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef} from 'react';
 import { Diamond } from './Diamond';
 import { useMatrixState } from './state/MatrixProvider';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCertification } from '../../graphql/mutations'
-import { listOperators} from '../../graphql/queries'
-import { listSkills } from '../../graphql/queries'
-import { listCertifications} from '../../graphql/queries'
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+// import { listOperators} from '../../graphql/queries'
+// import { listSkills } from '../../graphql/queries'
+// import { listCertifications} from '../../graphql/queries'
 
 export const Main = (props) => {
   const [diamonddata, setDiamondData] = useState(null)
   const [metadata, setMetaData] = useState(null)
   const [certification, setCertification] = useState(null)
   const [trainer, setTrainer] = useState(false)
+  const [startDate, setStartDate] = useState(new Date());
 
   const data = JSON.parse(props.data.data)
   const meta = JSON.parse(props.data.meta)
@@ -63,8 +68,10 @@ const setIt2 = (data,meta) => {
     setDiamondData(data)
     setMetaData(meta)
     setIt2(data,meta)
-    console.log(meta)
-    console.log(meta.trainer)
+    //console.log(meta)
+
+    setStartDate(new Date(meta.start))
+
     if (meta.trainer == 'true') {
       setTrainer(true)
     }
@@ -75,86 +82,6 @@ const setIt2 = (data,meta) => {
   },[props])
 
   const matrixState = useMatrixState();
-
-
-
-
-
-
-  async function getDataOperators() {
-    const operatorData = await API.graphql(graphqlOperation(listOperators))
-    return operatorData.data.listOperators.items
-  }
-
-  async function getDataSkills() {
-    const skillData = await API.graphql(graphqlOperation(listSkills))
-    return skillData.data.listSkills.items
-  }
-
-  async function getDataCertifications() {
-    const certificationData = await API.graphql(graphqlOperation(listCertifications))
-    return certificationData.data.listCertifications.items
-  }
-
-  const doByOperator = (operators, skills, certifications) => {
-    var byOperator = []
-    operators.map((operator,o) => {
-      //var o = {}
-      o = operator
-      o.meta = operator
-      o.data = []
-      const filteredcertifications = certifications.filter(item => item.operatorID === operator.id);
-      filteredcertifications.map((fc,i) => {
-        var skill  = skills.find(item => item.id === fc.skillID);
-        o.data[i] = {};
-        o.data[i].operator = operator
-        o.data[i].skill = skill
-        o.data[i].meta = fc.meta
-        o.data[i].data = fc.data
-        return null
-      })
-      byOperator.push(o)
-      return null
-    })
-    matrixState.setByOperator(byOperator)
-  }
-
-  const doBySkill = (operators, skills, certifications) => {
-    var bySkill = []
-    skills.map((skill,s) => {
-      var o = {}
-      o = skill
-      o.meta = skill
-      o.data = []
-      const filteredcertifications = certifications.filter(item => item.skillID === skill.id);
-      filteredcertifications.map((fc,i) => {
-        var operator  = operators.find(item => item.id === fc.operatorID);
-        o.data[i] = {};
-        o.data[i].certificationID = fc.id
-        o.data[i].skill = skill
-        o.data[i].operator = operator
-        o.data[i].meta = fc.meta
-        o.data[i].data = fc.data
-        return null
-      })
-      bySkill.push(o)
-      return null
-    })
-    matrixState.setBySkill(bySkill)
-  }
-
-  const callAll = async () => {
-    var operators = await getDataOperators()
-    matrixState.setOperators(operators)
-    var skills = await getDataSkills()
-    matrixState.setSkills(skills)
-    var certifications = await getDataCertifications()
-    matrixState.setCertifications(certifications)
-    doByOperator(operators,skills,certifications)
-    doBySkill(operators,skills,certifications)
-  };
-
-
 
 
 
@@ -183,7 +110,11 @@ const setIt2 = (data,meta) => {
     }
     console.log(c)
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
-    callAll()
+
+    matrixState.setAll()
+
+
+    //callAll()
   }
 
   const onCertificationChange = async (event) => {
@@ -234,10 +165,17 @@ const setIt2 = (data,meta) => {
       meta: JSON.stringify(metadatalocal),
       data: JSON.stringify(dd2),
     }
-    console.log(c)
+    //console.log(c)
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
-    callAll()
+    matrixState.setAll()
+    //callAll()
   }
+
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button className="example-custom-input" onClick={onClick} ref={ref}>
+      {value}
+    </button>
+  ));
 
   return (
     <div>
@@ -248,6 +186,45 @@ const setIt2 = (data,meta) => {
           <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
 
           <div style={{margin:'30px',display:'flex',flexDirection:'column'}}>
+            Date Started:
+            <DatePicker
+              customInput={<ExampleCustomInput />}
+              dateFormat="MM/dd/yyyy"
+              selected={startDate}
+              onChange={async (date) => {
+                console.log(date)
+
+                //console.log(date.toLocaleDateString('en-US'))
+                var metadatalocal = {...metadata};
+
+                var d = ('0'+ (date.getMonth()+1)).slice(-2) +  "/" + ('0' + (date.getDate())).slice(-2) + "/" + date.getFullYear();
+
+                metadatalocal.start = d
+                setMetaData(metadatalocal)
+
+
+                var c = {
+                  id: certificationID,
+                  meta: JSON.stringify(metadatalocal),
+                  data: JSON.stringify(diamonddata),
+                }
+                await API.graphql(graphqlOperation(updateCertification, { input: c } ))
+                matrixState.setAll()
+
+
+
+                //console.log(d)
+
+
+                // var metadatalocal = {...metadata};
+                // setMetaData(metadatalocal)
+
+
+                setStartDate(date)
+              }} />
+          </div>
+
+          <div style={{marginLeft:'30px',display:'flex',flexDirection:'column'}}>
             Certification:
             <div><input value="notstarted" checked={certification === 'notstarted'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Not Started</div>
             <div><input value="started" checked={certification === 'started'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Started</div>
@@ -257,15 +234,15 @@ const setIt2 = (data,meta) => {
             <div><input value="certified" checked={certification === 'certified'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Certified</div>
           </div>
 
-          <div style={{marginLeft:'30px',display:'flex',flexDirection:'column'}}>
+          <div style={{marginLeft:'30px',marginTop:'30px',display:'flex',flexDirection:'column'}}>
             Trainer:
             <div><input value="false" checked={trainer == false} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> No</div>
             <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
           </div>
 
-          <svg width="400" height="400">
+          <svg width="200" height="200">
             {diamonddata !== null &&
-            <Diamond meta={metadata} data={diamonddata} boxSize={bandX} padding={30}/>
+            <Diamond meta={metadata} data={diamonddata} boxSize={bandX} padding={35}/>
             }
           </svg>
 

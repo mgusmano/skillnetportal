@@ -18,6 +18,7 @@ export const Row2Col1 = (props) => {
 
   const renderSkillCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     const {bandX, bandY} = props
+    //console.log('Row2Col1')
     return (
       <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
         <text

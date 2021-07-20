@@ -2,16 +2,14 @@ import React from 'react';
 import {SvgX,PathX,TextX, CircleX} from './SvgStuff';
 
 export const Diamond = ({meta, data, boxSize, padding}) => {
-
-  if (typeof meta === 'string') {
-    meta = JSON.parse(meta)
-    if (meta.trainer === 'true') { meta.trainer = true }
-    if (meta.trainer === 'false') { meta.trainer = false }
-  }
   if (typeof data === 'string') {
     data = JSON.parse(data)
   }
-
+  if (typeof meta === 'string') {
+    meta = JSON.parse(meta)
+  }
+  if (meta.trainer === "true") { meta.trainer = true }
+  if (meta.trainer === "false") { meta.trainer = false }
   var status = meta.status;
 
   function polarToCartesian(centerX, centerY, radius, angleInDegrees) {

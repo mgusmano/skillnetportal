@@ -1,3 +1,4 @@
+export const SET_ALL = 'SET_ALL';
 export const SET_OPERATORS = 'SET_OPERATORS';
 export const SET_SKILLS = 'SET_SKILLS';
 export const SET_CERTIFICATIONS = 'SET_CERTIFICATIONS';

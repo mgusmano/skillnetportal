@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
+import { SET_ACTIVE,SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCertification } from '../../../graphql/mutations'
@@ -166,6 +166,11 @@ export const MatrixReducer = (state, action) => {
       //   certifications:payload.certifications,
       // }
       // return s
+
+    case SET_ACTIVE:
+      s = {...state,active:payload}
+      return s
+
     case SET_OPERATORS:
       s = {...state,operators:payload}
       return s

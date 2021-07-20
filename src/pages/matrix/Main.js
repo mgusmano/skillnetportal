@@ -83,6 +83,7 @@ const setIt2 = (data,meta) => {
   const matrixState = useMatrixState();
 
   const onTrainerChange = async (event) => {
+    matrixState.setActive(true)
     console.log(metadata)
     var metadatalocal = {...metadata};
     console.log(metadatalocal)
@@ -108,6 +109,7 @@ const setIt2 = (data,meta) => {
   }
 
   const onCertificationChange = async (event) => {
+    matrixState.setActive(true)
     var metadatalocal = {...metadata};
     var s25 = 0, s50 = 0, s75 = 0, s100 = 0;
     switch (event.target.value) {
@@ -182,6 +184,7 @@ const setIt2 = (data,meta) => {
               dateFormat="MM/dd/yyyy"
               selected={startDate}
               onChange={async (date) => {
+                matrixState.setActive(true)
                 var metadatalocal = {...metadata};
                 var d = ('0'+(date.getMonth()+1)).slice(-2)+"/"+('0'+(date.getDate())).slice(-2)+"/"+date.getFullYear();
                 metadatalocal.start = d

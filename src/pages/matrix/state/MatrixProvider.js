@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import { MatrixReducer } from './MatrixReducer';
-import { SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
+import { SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCertification } from '../../../graphql/mutations'
@@ -107,6 +107,7 @@ export const MatrixProvider = (props) => {
       certifications: certifications
     }
     dispatch({type: SET_ALL, payload: payload});
+    dispatch({type: SET_ACTIVE, payload: false});
 
     //var oLen = operators.length
     //var sLen = skills.length
@@ -115,9 +116,14 @@ export const MatrixProvider = (props) => {
 
   //console.log('here')
   //console.log(state)
+  //dispatch({type: SET_ACTIVE, payload: true});
   callAll()
 
 
+  }
+
+  const setActive = (payload) => {
+    dispatch({type: SET_ACTIVE, payload: payload});
   }
 
 
@@ -163,6 +169,7 @@ export const MatrixProvider = (props) => {
   }
 
   const initialState = {
+    active: false,
     operators: null,
     skills: null,
     certifications: null,
@@ -180,6 +187,7 @@ export const MatrixProvider = (props) => {
 
   return (
     <MatrixContext.Provider value={{
+      active: state.active,
       operators: state.operators,
       skills: state.skills,
       certifications: state.certifications,
@@ -190,6 +198,7 @@ export const MatrixProvider = (props) => {
       showTheLegend: state.showTheLegend,
       dimensions: state.dimensions,
       original: state.original,
+      setActive,
       setAll,
       setSkills,
       setOperators,

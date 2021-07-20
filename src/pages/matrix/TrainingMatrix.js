@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import LoadingOverlay from 'react-loading-overlay';
+
 import { Legend } from './Legend';
 import { Log } from './Log';
 import { Toolbar } from './Toolbar';
@@ -290,6 +292,7 @@ export const TrainingMatrix = () => {
   };
 
   useEffect(() => {
+    matrixState.setActive(true)
     matrixState.setAll()
     var vals = callAll2()
     vals.then((o) => {
@@ -341,6 +344,7 @@ export const TrainingMatrix = () => {
         row3: row3*multiplier,
       }
       setDimensions(d)
+      matrixState.setActive(false)
 
     })
   },[])
@@ -349,7 +353,12 @@ export const TrainingMatrix = () => {
   //<div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:matrixState.dimensions.fontsize+'pt'}}>
   return (
 
+
+
     <div className='trainingmatrix' style={{...styles.v,width:'100%',height:'100%'}}>
+
+
+
       {matrixState.showTheLegend && <Legend/>}
       <Toolbar/>
 
@@ -357,6 +366,8 @@ export const TrainingMatrix = () => {
       {matrixState.dimensions !== null &&
       <div className='mainarea' data-flex-splitter-horizontal style={{...styles.horizontal,width:'100%',height:'100%'}}>
         {/* <Log data={matrixState.dimensions}/> */}
+
+
 
         {/* left area - matrix - start */}
         <div className='left' style={{...styles.v,flex:1,boxSizing:'border-box'}}>
@@ -369,7 +380,15 @@ export const TrainingMatrix = () => {
 
           <div className='leftrow2' style={{...styles.h,height:(matrixState.dimensions.row2Orig)+'px'}}>
             <Row2Col1 data={matrixState.bySkill}/>
-            <Row2Col2 data={matrixState.bySkill}/>
+
+            <LoadingOverlay
+              style={{width:'100%',height:'100%'}}
+              active={matrixState.active}
+              spinner
+              text='Loading...'
+              >
+              <Row2Col2 data={matrixState.bySkill}/>
+            </LoadingOverlay>
             <Row2Col3 data={widgetData.right}/>
           </div>
 
@@ -397,7 +416,13 @@ export const TrainingMatrix = () => {
       </div>
       }
       {/* main area end */}
+
+
     </div>
+
+
+
+
   )
 
 }

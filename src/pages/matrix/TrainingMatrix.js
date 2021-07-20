@@ -385,7 +385,7 @@ export const TrainingMatrix = () => {
         <div role="separator"></div>
 
         {/* right area - details - start */}
-        <div className='right' style={{width:'325px'}}>
+        <div className='right' style={{width:'400px'}}>
           <div style={{width:'100%', height:'100%', padding:'25px', background:'white', boxSizing:'border-box'}}>
             <div style={{width:'100%', height:'100%', boxSizing:'border-box', padding:'10px', boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)'}}>
               {matrixState.specific}

@@ -19,7 +19,7 @@ export const Skill = React.memo((props) => {
   return (
     <div style={{display:'flex',flexDirection:'column',width:'100%',height:'100%'}}>
       <div style={{height:'30px',fontSize:'18px'}}>
-        <div>Skill: {data.skill.skillName}</div>
+        <div style={{fontSize:'24px'}}>Skill: {data.skill.skillName}</div>
       </div>
       <div style={{flex:'1'}}>
         <svg width="100%" height="100%">

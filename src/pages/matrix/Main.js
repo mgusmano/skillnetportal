@@ -25,7 +25,6 @@ export const Main = (props) => {
   const skill = props.data.skill
   const certificationID = props.data.certificationID
 
-  var bandX = 150
   var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
 
 const setIt2 = (data,meta) => {
@@ -83,12 +82,6 @@ const setIt2 = (data,meta) => {
 
   const matrixState = useMatrixState();
 
-
-
-
-
-
-
   const onTrainerChange = async (event) => {
     console.log(metadata)
     var metadatalocal = {...metadata};
@@ -112,9 +105,6 @@ const setIt2 = (data,meta) => {
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
 
     matrixState.setAll()
-
-
-    //callAll()
   }
 
   const onCertificationChange = async (event) => {
@@ -192,17 +182,10 @@ const setIt2 = (data,meta) => {
               dateFormat="MM/dd/yyyy"
               selected={startDate}
               onChange={async (date) => {
-                console.log(date)
-
-                //console.log(date.toLocaleDateString('en-US'))
                 var metadatalocal = {...metadata};
-
-                var d = ('0'+ (date.getMonth()+1)).slice(-2) +  "/" + ('0' + (date.getDate())).slice(-2) + "/" + date.getFullYear();
-
+                var d = ('0'+(date.getMonth()+1)).slice(-2)+"/"+('0'+(date.getDate())).slice(-2)+"/"+date.getFullYear();
                 metadatalocal.start = d
                 setMetaData(metadatalocal)
-
-
                 var c = {
                   id: certificationID,
                   meta: JSON.stringify(metadatalocal),
@@ -210,16 +193,6 @@ const setIt2 = (data,meta) => {
                 }
                 await API.graphql(graphqlOperation(updateCertification, { input: c } ))
                 matrixState.setAll()
-
-
-
-                //console.log(d)
-
-
-                // var metadatalocal = {...metadata};
-                // setMetaData(metadatalocal)
-
-
                 setStartDate(date)
               }} />
           </div>
@@ -240,9 +213,9 @@ const setIt2 = (data,meta) => {
             <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
           </div>
 
-          <svg width="200" height="200">
+          <svg style={{marginLeft:'30px',marginTop:'20px'}} width="200" height="200">
             {diamonddata !== null &&
-            <Diamond meta={metadata} data={diamonddata} boxSize={bandX} padding={35}/>
+            <Diamond meta={metadata} data={diamonddata} boxSize={80} padding={25}/>
             }
           </svg>
 

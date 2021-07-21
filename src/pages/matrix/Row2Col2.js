@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Matrix } from './Matrix';
 import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
@@ -39,10 +39,10 @@ export const Row2Col2 = (props) => {
     )
   }
 
-  const clickMainCell = (e,colid,rowid,type,data,col) => {
+  const clickMainCell = useCallback((e,colid,rowid,type,data,col) => {
     matrixState.setCurrentCertification(data.certificationID)
     matrixState.setSpecific(<Main data={data}/>)
-  }
+  })
 
   const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
     // console.log(row)

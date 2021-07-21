@@ -134,7 +134,11 @@ export const MatrixProvider = (props) => {
         certifications: certifications
       }
       dispatch({type: SET_ALL, payload: payload});
-      dispatch({type: SET_ACTIVE, payload: false});
+
+      setTimeout(function(){
+        dispatch({type: SET_ACTIVE, payload: false});
+      }, 1000);
+
     };
     callAll()
   }

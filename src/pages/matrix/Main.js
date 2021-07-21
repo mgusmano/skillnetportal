@@ -106,7 +106,7 @@ const setIt2 = (data,meta) => {
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
 
     matrixState.setAll()
-    matrixState.setActive(false)
+    //matrixState.setActive(false)
   }
 
   const onCertificationChange = async (event) => {
@@ -158,10 +158,9 @@ const setIt2 = (data,meta) => {
       meta: JSON.stringify(metadatalocal),
       data: JSON.stringify(dd2),
     }
-    //console.log(c)
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
     matrixState.setAll()
-    //callAll()
+    //matrixState.setActive(false)
   }
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (

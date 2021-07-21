@@ -90,6 +90,71 @@ export const MatrixProvider = (props) => {
         o.meta = operator
         o.data = []
         const filteredcertifications = certifications.filter(item => item.operatorID === operator.id);
+
+
+        //need to finish this
+        var operatorsummary = []
+        var bottomtotals = []
+        var ss = {}
+        ss.numstarted = 0
+        ss.numtrainers = 0
+        ss.numcertified = 0
+        filteredcertifications.map((fc,i) => {
+          var meta = JSON.parse(fc.meta)
+          var data = JSON.parse(fc.data)
+          var num = 0;
+          data.map((slice,i) => {
+            if (slice.s == 1) {
+              num++
+            }
+          })
+          if (num >  0 && meta.status == 'started') {
+            var dStart = new Date(meta.start);
+            var dToday = new Date();
+            var difftime = dToday.getTime() - dStart.getTime()
+            var diffdays = difftime / (1000 * 3600 * 24);
+            console.log(diffdays)
+            if (diffdays < 180) {
+              ss.numcertified ++
+            }
+          }
+          if (data.status == 'started') {
+            ss.numstarted ++
+          }
+          if (meta.status == 'started') {
+            ss.numstarted ++
+          }
+          if (meta.trainer == 'true' || meta.trainer == true ) {
+            ss.numtrainers ++
+          }
+        })
+        operatorsummary.push(ss)
+
+        // var val ={meta:{},
+        // data:[
+        //   {meta:{},data:{v:5}},
+        //   {meta:{},data:{v:4}},
+        //   {meta:{},data:{v:5}},
+        //   {meta:{},data:{v:2}},
+        //   {meta:{},data:{v:3}},
+        //   {meta:{},data:{v:3}},
+        //   {meta:{},data:{v:4}},
+        //   {meta:{},data:{v:3}},
+        //   {meta:{},data:{v:3}},
+        //   {meta:{},data:{v:4}}
+        // ]},
+
+        //var val = {meta:{},data:[{meta:{},data:{v:''}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:''}}]}
+        //bottomtotals.push(val)
+
+
+
+
+
+
+
+
+
         filteredcertifications.map((fc,i) => {
           var skill  = skills.find(item => item.id === fc.skillID);
           o.data[i] = {};
@@ -108,22 +173,21 @@ export const MatrixProvider = (props) => {
       var bySkill = []
       var skillsummary = []
       var righttotals = []
-      skills.map((skill,s) => {
 
+      skills.map((skill,s) => {
         var o = {}
         o = skill
         o.meta = skill
         o.data = []
         const filteredcertifications = certifications.filter(item => item.skillID === skill.id);
-        console.log(filteredcertifications)
+
+
+
+
         var ss = {}
         ss.numstarted = 0
         ss.numtrainers = 0
         ss.numcertified = 0
-        //ss.certificationID = filteredcertifications.id
-        //ss.skillID = filteredcertifications.skillID
-        //ss.data = filteredcertifications.dat
-
         filteredcertifications.map((fc,i) => {
           var meta = JSON.parse(fc.meta)
           var data = JSON.parse(fc.data)
@@ -134,15 +198,11 @@ export const MatrixProvider = (props) => {
             }
           })
           if (num >  0 && meta.status == 'started') {
-
             var dStart = new Date(meta.start);
             var dToday = new Date();
             var difftime = dToday.getTime() - dStart.getTime()
             var diffdays = difftime / (1000 * 3600 * 24);
-
             console.log(diffdays)
-            //var diff = dNow - d.getDate()
-            //console.log(meta.start,diff)
             if (diffdays < 180) {
               ss.numcertified ++
             }
@@ -158,9 +218,8 @@ export const MatrixProvider = (props) => {
           }
         })
         skillsummary.push(ss)
-
-
-        var val = {meta:{},data:[{meta:{},data:{v:''}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:''}}]}
+        var goal = 7;
+        var val = {meta:{},data:[{meta:{},data:{v:goal}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:goal-ss.numcertified}}]}
         righttotals.push(val)
 
 

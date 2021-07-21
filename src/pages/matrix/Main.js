@@ -209,21 +209,28 @@ const setIt2 = (data,meta) => {
               }} />
           </div>
 
-          <div style={{marginLeft:'30px',display:'flex',flexDirection:'column'}}>
-            Certification:
-            <div><input value="notstarted" checked={certification === 'notstarted'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Not Started</div>
-            <div><input value="started" checked={certification === 'started'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Started</div>
-            <div><input value="apprentice" checked={certification === 'apprentice'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Apprentice</div>
-            <div><input value="beginner" checked={certification === 'beginner'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Beginner</div>
-            <div><input value="intermediate" checked={certification === 'intermediate'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Intermediate</div>
-            <div><input value="certified" checked={certification === 'certified'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Certified</div>
+          <div style={{display:'flex',flexDirection:'row'}}>
+            <div style={{marginLeft:'30px',display:'flex',flexDirection:'column'}}>
+              Certification:
+              <div><input value="notstarted" checked={certification === 'notstarted'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Not Started</div>
+              <div><input value="started" checked={certification === 'started'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Started</div>
+              <div><input value="apprentice" checked={certification === 'apprentice'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Apprentice</div>
+              <div><input value="beginner" checked={certification === 'beginner'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Beginner</div>
+              <div><input value="intermediate" checked={certification === 'intermediate'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Intermediate</div>
+              <div><input value="certified" checked={certification === 'certified'} onChange={onCertificationChange} style={{marginLeft:'20px'}} type="radio" name="percent2" /> Certified</div>
+            </div>
+
+            <div style={{marginLeft:'40px',marginTop:'0',display:'flex',flexDirection:'column'}}>
+              Trainer:
+              <div><input value="false" checked={trainer == false} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> No</div>
+              <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
+            </div>
           </div>
 
-          <div style={{marginLeft:'30px',marginTop:'30px',display:'flex',flexDirection:'column'}}>
-            Trainer:
-            <div><input value="false" checked={trainer == false} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> No</div>
-            <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
-          </div>
+
+
+
+
 
 
 

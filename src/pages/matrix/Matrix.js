@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useMatrixState } from './state/MatrixProvider';
-import { Log } from './Log';
 
 export const Matrix = React.memo((props) => {
-
-  const matrixState = useMatrixState();
-
   const {name, translateX, translateY, bandX, bandY, oneRow, stroke, top, fontsize} = props.params;
-  const {id,data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
+  const {data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
   const [sColor, setColor] = useState('black');
   const [sTop, setTop] = useState(0);
-  //console.log(name,translateX)
-  //const [header, setHeader] = useState('');
-  //console.log(data)
+
 
   useEffect(() => {
     if (top !== undefined) {
       setTop(top)
     }
-    //console.log(stroke)
     if (stroke !== undefined) {
       setColor(stroke);
     }
@@ -26,7 +18,12 @@ export const Matrix = React.memo((props) => {
 
   const getRow = (row,oneRow) => {
     if (row.data === undefined) {
-      return [row]
+      if (Array.isArray(row)) {
+        return row;
+      }
+      else {
+        return [row]
+      }
     }
     else {
       return row.data
@@ -34,39 +31,25 @@ export const Matrix = React.memo((props) => {
   }
 
   const getJ = () => {
-
     var r = data.map((row,r) => {
       var theRow = getRow(row,oneRow)
       return (
         <g key={r} transform={"translate(0," + ((bandY*r)+(sTop*r)) + ")"} className="row">
           {renderRowFunction !== undefined && renderRowFunction(props.params,r,row,sTop,fontsize)}
-        {
-          theRow.map((col,c) => {
-            //var header = ''
-            if (col !== undefined) {
-              if (col.skill !== undefined) {
-                //header = col.skill.skillName
-              }
-            }
-            return (
-              <g key={c} transform="translate(0,0)" className="cell">
-                <rect stroke={sColor} x={(bandX*c)} y={sTop} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
-                {renderCellFunction !== undefined && renderCellFunction(props.params,c,col,r,row,sTop,col,clickCellFunction,fontsize)}
-              </g>
-            )
-          })
-
-        }
+          {
+            theRow.map((col,c) => {
+              return (
+                <g key={c} transform="translate(0,0)" className="cell">
+                  <rect stroke={sColor} x={(bandX*c)} y={sTop} width={bandX} height={bandY} style={{fill:'white',strokeWidth:'1',fillOpacity:'1.0',strokeOpacity:1.0}}></rect>
+                  {renderCellFunction !== undefined && renderCellFunction(props.params,c,col,r,row,sTop,col,clickCellFunction,fontsize)}
+                </g>
+              )
+            })
+          }
         </g>
       )
     })
-
-    console.log(r)
-    //matrixState.setActive(false)
-
-
     return r;
-
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import { MatrixReducer } from './MatrixReducer';
-import { SET_RIGHTTOTALS, SET_CURRENT_CERTIFICATION, SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
+import { SET_BOTTOMTOTALS, SET_RIGHTTOTALS, SET_CURRENT_CERTIFICATION, SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCertification } from '../../../graphql/mutations'
@@ -17,6 +17,10 @@ export const MatrixProvider = (props) => {
 
   const setRightTotals = (payload) => {
     dispatch({type: SET_RIGHTTOTALS, payload: payload});
+  }
+
+  const setBottomTotals = (payload) => {
+    dispatch({type: SET_BOTTOMTOTALS, payload: payload});
   }
 
 
@@ -85,16 +89,15 @@ export const MatrixProvider = (props) => {
     }
     const doByOperator = (operators, skills, certifications) => {
       var byOperator = []
+      var operatorsummary = []
+      var bottomtotals = []
+
       operators.map((operator,o) => {
         o = operator
         o.meta = operator
         o.data = []
         const filteredcertifications = certifications.filter(item => item.operatorID === operator.id);
 
-
-        //need to finish this
-        var operatorsummary = []
-        var bottomtotals = []
         var ss = {}
         ss.numstarted = 0
         ss.numtrainers = 0
@@ -113,7 +116,6 @@ export const MatrixProvider = (props) => {
             var dToday = new Date();
             var difftime = dToday.getTime() - dStart.getTime()
             var diffdays = difftime / (1000 * 3600 * 24);
-            console.log(diffdays)
             if (diffdays < 180) {
               ss.numcertified ++
             }
@@ -130,30 +132,9 @@ export const MatrixProvider = (props) => {
         })
         operatorsummary.push(ss)
 
-        // var val ={meta:{},
-        // data:[
-        //   {meta:{},data:{v:5}},
-        //   {meta:{},data:{v:4}},
-        //   {meta:{},data:{v:5}},
-        //   {meta:{},data:{v:2}},
-        //   {meta:{},data:{v:3}},
-        //   {meta:{},data:{v:3}},
-        //   {meta:{},data:{v:4}},
-        //   {meta:{},data:{v:3}},
-        //   {meta:{},data:{v:3}},
-        //   {meta:{},data:{v:4}}
-        // ]},
-
-        //var val = {meta:{},data:[{meta:{},data:{v:''}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:''}}]}
-        //bottomtotals.push(val)
-
-
-
-
-
-
-
-
+        var goal = 7;
+        var val = [goal, ss.numcertified, goal-ss.numcertified]
+        bottomtotals.push(val)
 
         filteredcertifications.map((fc,i) => {
           var skill  = skills.find(item => item.id === fc.skillID);
@@ -167,6 +148,10 @@ export const MatrixProvider = (props) => {
         byOperator.push(o)
         return null
       })
+
+      var transpose = m => m[0].map((x,i) => m.map(x => x[i]))
+      var bottomtotalstransposed = transpose(bottomtotals)
+      dispatch({type: SET_BOTTOMTOTALS, payload: bottomtotalstransposed});
       return byOperator
     }
     const doBySkill = (operators, skills, certifications) => {
@@ -180,9 +165,6 @@ export const MatrixProvider = (props) => {
         o.meta = skill
         o.data = []
         const filteredcertifications = certifications.filter(item => item.skillID === skill.id);
-
-
-
 
         var ss = {}
         ss.numstarted = 0
@@ -202,7 +184,6 @@ export const MatrixProvider = (props) => {
             var dToday = new Date();
             var difftime = dToday.getTime() - dStart.getTime()
             var diffdays = difftime / (1000 * 3600 * 24);
-            console.log(diffdays)
             if (diffdays < 180) {
               ss.numcertified ++
             }
@@ -219,11 +200,8 @@ export const MatrixProvider = (props) => {
         })
         skillsummary.push(ss)
         var goal = 7;
-        var val = {meta:{},data:[{meta:{},data:{v:goal}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:goal-ss.numcertified}}]}
+        var val = [goal, ss.numcertified, goal-ss.numcertified]
         righttotals.push(val)
-
-
-
 
         filteredcertifications.map((fc,i) => {
           var operator  = operators.find(item => item.id === fc.operatorID);
@@ -239,11 +217,9 @@ export const MatrixProvider = (props) => {
         bySkill.push(o)
         return null
       })
-      console.log(skillsummary)
-      console.log(righttotals)
+
       dispatch({type: SET_RIGHTTOTALS, payload: righttotals});
       return bySkill
-      //matrixState.setBySkill(bySkill)
     }
     const callAll = async (state) => {
       var operators = await getDataOperators()
@@ -267,6 +243,7 @@ export const MatrixProvider = (props) => {
   }
 
   const initialState = {
+    bottomtotals: [],
     righttotals: [],
     currentcertification: null,
     active: false,
@@ -279,12 +256,13 @@ export const MatrixProvider = (props) => {
     dimensions: null,
     original: null,
     userName: '',
-    showTheLegend: true,
+    showTheLegend: false,
   }
   const[state, dispatch] = useReducer(MatrixReducer, initialState);
 
   return (
     <MatrixContext.Provider value={{
+      bottomtotals: state.bottomtotals,
       righttotals: state.righttotals,
       currentcertification: state.currentcertification,
       active: state.active,
@@ -298,6 +276,7 @@ export const MatrixProvider = (props) => {
       showTheLegend: state.showTheLegend,
       dimensions: state.dimensions,
       original: state.original,
+      setBottomTotals,
       setRightTotals,
       setCurrentCertification,
       setActive,

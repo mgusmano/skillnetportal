@@ -216,6 +216,23 @@ export const TrainingMatrix = () => {
     //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
     //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
     // ],
+    bottomA: [
+      [1,0,0,0,0,0,0,0,0],
+      [0,2,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,9],
+    ],
+    righttotals: [
+      [1,0,0],
+      [1,0,0],
+      [1,0,0],
+      [1,0,0],
+      [1,0,0],
+      [1,0,0],
+      [1,0,0],
+      [1,2,0],
+      [1,0,3],
+
+    ],
     bottom: [
       {meta:{},data:[{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}}]},
       {meta:{},data:[{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}}]},
@@ -391,7 +408,7 @@ export const TrainingMatrix = () => {
 
           <div className='leftrow3' style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>
             <Row3Col1 data={widgetData.bottomleftheading}/>
-            <Row3Col2 data={widgetData.bottom}/>
+            <Row3Col2 data={matrixState.bottomtotals}/>
             <Row3Col3/>
           </div>
 

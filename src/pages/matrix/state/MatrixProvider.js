@@ -279,7 +279,7 @@ export const MatrixProvider = (props) => {
     dimensions: null,
     original: null,
     userName: '',
-    showTheLegend: false,
+    showTheLegend: true,
   }
   const[state, dispatch] = useReducer(MatrixReducer, initialState);
 

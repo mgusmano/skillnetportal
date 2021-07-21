@@ -379,7 +379,7 @@ export const TrainingMatrix = () => {
 
             {/* <Log data={matrixState.active}/> */}
             <LoadingOverlay
-              style={{width:'100%',height:'100%'}}
+              style={{width:'100%',height:'100%',zIndex:'10'}}
               active={matrixState.active}
               spinner
               text='Loading...'

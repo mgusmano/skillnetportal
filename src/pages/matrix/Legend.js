@@ -14,6 +14,7 @@ export const Legend = React.memo((props) => {
   return (
     <Rnd
       size={{ width: '300px',  height: '360px' }}
+      style={{zIndex: '10000'}}
       position={{ x: legendX, y: legendY }}
       onDragStop={(e, d) => {
         setLegendX(d.x);
@@ -27,7 +28,7 @@ export const Legend = React.memo((props) => {
         // });
       }}
     >
-      <div className='' style={{...styles.legend,background:'whitesmoke',width:'100%',height:'100%'}}>
+      <div className='' style={{...styles.legend,background:'whitesmoke',width:'100%',height:'100%',zIndex:'10000'}}>
         Floating Legend
         <br/>
         <svg height="360px">
@@ -71,7 +72,7 @@ export const Legend = React.memo((props) => {
                 return (
                   <g key={i} transform={translate} className='ball'>
                     <Diamond
-                      meta={{id:i,status:'ok',start:dates[i],trainer:trainer}}
+                      meta={{id:i,status:'started',start:dates[i],trainer:trainer}}
                       data={[{p:25,s:l1},{p:50,s:l2},{p:75,s:l3},{p:100,s:l4}]}
                       boxSize={30} padding={15}/>
                   </g>

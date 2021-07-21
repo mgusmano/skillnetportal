@@ -4,15 +4,11 @@ import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
 import { Diamond } from './Diamond';
 import { Main } from './Main';
-//{ styles } from './styles';
 
 export const Row2Col2 = (props) => {
   const {data} = props;
-
   const matrixState = useMatrixState();
-  const {col2,row2Orig,row2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
-
-  //console.log(data)
+  const {row2Orig,row2,col2,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
   const onScroll = (e) => {
     var vert = document.getElementById('skill')
@@ -44,11 +40,15 @@ export const Row2Col2 = (props) => {
   }
 
   const clickMainCell = (e,colid,rowid,type,data,col) => {
+    matrixState.setCurrentCertification(data.certificationID)
     matrixState.setSpecific(<Main data={data}/>)
   }
 
   const renderMainCell = (props,c,col,r,row,sTop,data,clickCellFunction,fontsize) => {
-    //console.log('remderMainCell',data,col)
+    // console.log(row)
+    // console.log(col)
+    var certificationID = col.certificationID;
+
     const {bandX, bandY} = props
     return (
       <g key={r+c} transform={"translate(" + (c*bandX) + "," + sTop + ")"} className="group" >
@@ -67,8 +67,6 @@ export const Row2Col2 = (props) => {
     )
   }
 
-  //console.log(data)
-  console.log('Row2Col2')
   return (
     <div style={{width:(col2)+'px',maxWidth:(col2)+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflow:'auto'}} onScroll={onScroll} >
       <div width={(col2)+'px'} height={(row2)+'px'}>

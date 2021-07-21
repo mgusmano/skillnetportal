@@ -9,7 +9,7 @@ export const Row2Col1 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
   const [num, setNum] = useState(0);
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {row2,col1,fontsize,bandY} = matrixState.dimensions;
 
   const clickSkillCell = (e,colid,rowid,type,data,col) => {
     setNum(num + 1);
@@ -18,7 +18,6 @@ export const Row2Col1 = (props) => {
 
   const renderSkillCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     const {bandX, bandY} = props
-    //console.log('Row2Col1')
     return (
       <g transform={"translate(" + (c*bandX) + ",0)"} className="group" >
         <text

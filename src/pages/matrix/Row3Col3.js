@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMatrixState } from './state/MatrixProvider';
 
-export const Row3Col3 = (props) => {
+export const Row3Col3 = () => {
   const matrixState = useMatrixState();
   const {col3,row3} = matrixState.dimensions;
 

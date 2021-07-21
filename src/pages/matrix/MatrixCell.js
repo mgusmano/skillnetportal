@@ -1,6 +1,14 @@
 import React from 'react';
+import { useMatrixState } from './state/MatrixProvider';
 
-export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, x, stroke, col,data, clickCellFunction}) => {
+export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, x, stroke, col, data, clickCellFunction}) => {
+  const matrixState = useMatrixState();
+
+  var certificationID = -1;
+  if (col !== undefined) {
+    certificationID = col.certificationID;
+  }
+
   var sColor = 'black'
   //useEffect(() => {
     if (stroke !== undefined) {
@@ -8,19 +16,34 @@ export const MatrixCell = React.memo(({rowid, colid, bandX, bandY, type, x, stro
     }
   //});
 
+  //console.log(data,matrixState.currentcertification)
+
+  var strokeOpacity = "0"
+  //var fillOpacity = "0"
+  //var strokeWidth = 5;
+  if (matrixState.currentcertification === certificationID) {
+    strokeOpacity = "1"
+  }
+
   return (
     <rect
+    style={{boxSizing:'border-box'}}
       rowid={rowid}
       colid={colid}
-      opacity="0"
-      fillOpacity=".5"
+      opacity="1"
+      strokeOpacity={strokeOpacity}
+      fillOpacity="0"
+      stroke="blue"
+      fill="gray"
+      strokeWidth="5"
+
       x={x}
       width={bandX}
       height={bandY}
-      style={{fill:'rgb(0,0,255)',strokeWidth:'3',stroke:sColor}}
+
       onClick={(e) => {clickCellFunction !== undefined && clickCellFunction(e,colid,rowid,type,data,col)}}
-      onMouseEnter={(e) => {e.target.style.opacity = '.5'}}
-      onMouseOut={(e) => {e.target.style.opacity = '0'}}
+      onMouseEnter={(e) => {e.target.style.fillOpacity = '.5'}}
+      onMouseOut={(e) => {e.target.style.fillOpacity = '0'}}
     />
   )
 })

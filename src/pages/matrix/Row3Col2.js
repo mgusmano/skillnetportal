@@ -8,7 +8,7 @@ import { styles } from './styles';
 export const Row3Col2 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  //const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {row3,col2,fontsize,bandX,bandY} = matrixState.dimensions;
 
   const renderText = (props,c,col,r,row,sTop) => {
     const {bandX, bandY, fontsize} = props
@@ -25,17 +25,16 @@ export const Row3Col2 = (props) => {
     )
   }
 
-  console.log('Row3Col2')
   return (
     <div id="studenttotals" style={{...styles.v,overflow:'scroll',overflow:'hidden',border:'0px solid red'}}>
-      <div style={{ maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
-      <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row3+'px'}>
+      <div style={{ maxWidth:col2+'px'}} width={(col2)+'px'} height={row3+'px'}>
+      <svg style={{maxWidth:col2+'px'}} width={(col2)+'px'} height={row3+'px'}>
         <Matrix
           renderCellFunction={renderText}
           data={data}
           params={{
-            name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
-            translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
+            name:'totalsbottom',fontsize: fontsize,
+            translateX:0,translateY:0,bandX:bandX,bandY:bandY
           }}
         />
       </svg>

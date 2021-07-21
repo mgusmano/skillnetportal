@@ -7,7 +7,7 @@ import { useMatrixState } from './state/MatrixProvider';
 export const Row2Col3 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  const {col3,row2Orig,row2} = matrixState.dimensions;
+  const {row2Orig,row2,col3,fontsize,topHeight,bandX,bandY} = matrixState.dimensions;
 
   const renderTextRow = (props,r,row,sTop) => {
     var header2 = ''
@@ -38,7 +38,6 @@ export const Row2Col3 = (props) => {
     )
   }
 
-  console.log('Row2Col3')
   return (
     <div id="skilltotals" style={{width:col3+'px',minWidth:col3+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflowY:'scroll',overflowY:'hidden',boxSizing:'border-box'}}>
       <div width={col3+'px'} height={(row2+14)+'px'}>
@@ -48,8 +47,8 @@ export const Row2Col3 = (props) => {
           renderCellFunction={renderText}
           data={data}
           params={{
-            name: 'totalsright',fontsize: matrixState.dimensions.fontsize,top: matrixState.dimensions.topHeight,
-            translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.bandY
+            name: 'totalsright',fontsize: fontsize,top: topHeight,
+            translateX:0,translateY:0,bandX:bandX,bandY:bandY
           }}
         />
       </svg>

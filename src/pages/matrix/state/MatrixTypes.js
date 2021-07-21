@@ -1,3 +1,4 @@
+export const SET_CURRENT_CERTIFICATION = 'SET_CURRENT_CERTIFICATION';
 export const SET_ACTIVE = 'SET_ACTIVE';
 export const SET_ALL = 'SET_ALL';
 export const SET_OPERATORS = 'SET_OPERATORS';

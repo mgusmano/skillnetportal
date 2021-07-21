@@ -106,6 +106,7 @@ const setIt2 = (data,meta) => {
     await API.graphql(graphqlOperation(updateCertification, { input: c } ))
 
     matrixState.setAll()
+    matrixState.setActive(false)
   }
 
   const onCertificationChange = async (event) => {
@@ -173,10 +174,19 @@ const setIt2 = (data,meta) => {
     <div>
       <div style={{fontSize:'24px'}}>Operator: {operator.operatorName}</div>
       <div style={{fontSize:'20px',marginBottom:'10px'}}>{matrixState.userName}Skill: {skill.skillName}</div>
+      <div style={{fontSize:'12px',marginBottom:'10px'}}>certificationID: {certificationID} - skill.id: {skill.id} - operator.id: {operator.id}</div>
       <div>
         <div style={{display:'flex',flexDirection:'column'}}>
-          <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
+          <div style={{display:'flex',flexDirection:'row'}}>
+            <img alt="pic" src={img} style={{borderRadius: '50%', x: '125px', y: '250px', width: '140px', height: '140px'}}/>
 
+            <svg style={{marginLeft:'30',marginTop:'5'}} width="150" height="150">
+            {diamonddata !== null &&
+            <Diamond meta={metadata} data={diamonddata} boxSize={140} padding={25}/>
+            }
+            </svg>
+
+          </div>
           <div style={{margin:'30px',display:'flex',flexDirection:'column'}}>
             Date Started:
             <DatePicker
@@ -216,11 +226,7 @@ const setIt2 = (data,meta) => {
             <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
           </div>
 
-          <svg style={{marginLeft:'30px',marginTop:'20px'}} width="200" height="200">
-            {diamonddata !== null &&
-            <Diamond meta={metadata} data={diamonddata} boxSize={80} padding={25}/>
-            }
-          </svg>
+
 
         </div>
       </div>

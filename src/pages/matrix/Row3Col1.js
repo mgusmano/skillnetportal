@@ -7,7 +7,7 @@ import { useMatrixState } from './state/MatrixProvider';
 export const Row3Col1 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  //const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {row3,col1,fontsize,bandY} = matrixState.dimensions;
 
   const renderBottomLeftText = (props,c,col,r,row,sTop) => {
     const {bandX, bandY, fontsize} = props
@@ -24,17 +24,16 @@ export const Row3Col1 = (props) => {
     )
   }
 
-  console.log('Row3Col1')
   return (
-    <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px'}}>
-      <div style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
-      <svg style={{width:matrixState.dimensions.col1+'px',maxWidth:matrixState.dimensions.col1+'px',height:matrixState.dimensions.row3+'px'}}>
+    <div style={{width:col1+'px',maxWidth:col1+'px'}}>
+      <div style={{width:col1+'px',maxWidth:col1+'px',height:row3+'px'}}>
+      <svg style={{width:col1+'px',maxWidth:col1+'px',height:row3+'px'}}>
         <Matrix
           renderCellFunction={renderBottomLeftText}
           data={data}
           params={{
-            name:'totalsbottom',fontsize: matrixState.dimensions.fontsize,
-            translateX:0,translateY:0,bandX:matrixState.dimensions.col1,bandY:matrixState.dimensions.bandY
+            name:'totalsbottom',fontsize: fontsize,
+            translateX:0,translateY:0,bandX:col1,bandY:bandY
           }}
         />
       </svg>

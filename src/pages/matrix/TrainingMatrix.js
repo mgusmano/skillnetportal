@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import LoadingOverlay from 'react-loading-overlay';
 
@@ -352,13 +352,7 @@ export const TrainingMatrix = () => {
 
   //<div className='' style={{...styles.vertical,width:'100%',height:'100%',fontSize:matrixState.dimensions.fontsize+'pt'}}>
   return (
-
-
-
     <div className='trainingmatrix' style={{...styles.v,width:'100%',height:'100%'}}>
-
-
-
       {matrixState.showTheLegend && <Legend/>}
       <Toolbar/>
 
@@ -366,9 +360,6 @@ export const TrainingMatrix = () => {
       {matrixState.dimensions !== null &&
       <div className='mainarea' data-flex-splitter-horizontal style={{...styles.horizontal,width:'100%',height:'100%'}}>
         {/* <Log data={matrixState.dimensions}/> */}
-
-
-
         {/* left area - matrix - start */}
         <div className='left' style={{...styles.v,flex:1,boxSizing:'border-box'}}>
 
@@ -381,6 +372,7 @@ export const TrainingMatrix = () => {
           <div className='leftrow2' style={{...styles.h,height:(matrixState.dimensions.row2Orig)+'px'}}>
             <Row2Col1 data={matrixState.bySkill}/>
 
+            {/* <Log data={matrixState.active}/> */}
             <LoadingOverlay
               style={{width:'100%',height:'100%'}}
               active={matrixState.active}

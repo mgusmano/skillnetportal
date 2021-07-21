@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-//import { useMatrixState } from './state/MatrixProvider';
+import { useMatrixState } from './state/MatrixProvider';
 
 export const Matrix = React.memo((props) => {
-  //const matrixState = useMatrixState();
+
+  const matrixState = useMatrixState();
 
   const {name, translateX, translateY, bandX, bandY, oneRow, stroke, top, fontsize} = props.params;
-  const {data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
+  const {id,data,renderRowFunction,renderCellFunction,clickCellFunction} = props;
   const [sColor, setColor] = useState('black');
   const [sTop, setTop] = useState(0);
   //console.log(name,translateX)
@@ -30,6 +31,17 @@ export const Matrix = React.memo((props) => {
       return row.data
     }
   }
+
+
+  // var opacity = "0"
+  // var strokeWidth = 1;
+  // if (matrixState.currentcertification === id) {
+  //   console.log(id)
+  //   opacity = "0.3"
+  //   strokeWidth = 5;
+  // }
+
+
 
   //console.log(data)
   //console.log(data.map)

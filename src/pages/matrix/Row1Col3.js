@@ -11,7 +11,7 @@ export const Row1Col3 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
   const [num, setNum] = useState(0);
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  const {row1,col3,fontsize,bandX} = matrixState.dimensions;
 
   const renderTotalsHeading = (props,c,col,r) => {
     const {bandX, fontsize} = props
@@ -33,17 +33,16 @@ export const Row1Col3 = (props) => {
     )
   }
 
-  console.log('Row1Col3')
   return (
-    <div style={{width:matrixState.dimensions.col3+'px',minWidth:matrixState.dimensions.col3+'px',height:matrixState.dimensions.row1+'px'}}>
-    <div width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
-    <svg width={matrixState.dimensions.col3+'px'} height={matrixState.dimensions.row1+'px'}>
+    <div style={{width:col3+'px',minWidth:col3+'px',height:row1+'px'}}>
+    <div width={col3+'px'} height={row1+'px'}>
+    <svg width={col3+'px'} height={row1+'px'}>
       <Matrix
         renderCellFunction={renderTotalsHeading}
         data={data}
         params={{
-          name:'totalsrightheading',fontsize: matrixState.dimensions.fontsize,
-          translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:matrixState.dimensions.row1
+          name:'totalsrightheading',fontsize: fontsize,
+          translateX:0,translateY:0,bandX:bandX,bandY:row1
         }}
       />
     </svg>

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Matrix } from './Matrix';
+import React from 'react';
+//import { Matrix } from './Matrix';
 import { MatrixCell } from './MatrixCell';
 import { useMatrixState } from './state/MatrixProvider';
-import { Skill } from './Skill';
-import { styles } from './styles'
+//import { Skill } from './Skill';
+//import { styles } from './styles'
 import { Operator } from './Operator';
 import { MatrixOneRow } from './MatrixOneRow';
 
 export const Row1Col2 = (props) => {
   const {data} = props;
   const matrixState = useMatrixState();
-  const [num, setNum] = useState(0);
-  const {col1,row2,fontsize,bandY} = matrixState.dimensions;
+  //const [num, setNum] = useState(0);
+  const {row1,col2,fontsize,bandX} = matrixState.dimensions;
 
   const clickOperatorCell = (e,colid,rowid,type,data,col) => {
     matrixState.setSpecific(<Operator data={data}/>)
@@ -20,10 +20,6 @@ export const Row1Col2 = (props) => {
   const renderOperatorCell = (props,c,col,r,row,sTop,data,clickCellFunction) => {
     const {bandX, bandY, fontsize} = props
 
-    //var y = (bandX/2) + (bandX * c)
-    //var yp = y-15
-    //var i = r + c;
-    console.log('Row1Col2')
     return (
       <g key={r+c} transform="translate(0,0)" className="header">
         <text style={{fontSize:fontsize+'px'}} alignmentBaseline="baseline" transform="translate(0,0) rotate(90)" x={bandX*1.4} y={-(bandX * c)-10} fill="black">{data.operatorName}</text>
@@ -50,22 +46,19 @@ export const Row1Col2 = (props) => {
     )
   }
 
-
   return (
-    <div id="student" className='' style={{boxSizing:'border-box',width:matrixState.dimensions.col2+'px',overflow:'scroll',overflow:'hidden'}}>
-    <div style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
-    <svg style={{maxWidth:matrixState.dimensions.col2+'px'}} width={(matrixState.dimensions.col2)+'px'} height={matrixState.dimensions.row1+'px'}>
-      {/* {DataTransferItem !== null && */}
+    <div id="student" className='' style={{boxSizing:'border-box',width:col2+'px',overflow:'scroll',overflow:'hidden'}}>
+    <div width={(col2)+'px'} height={row1+'px'}>
+    <svg width={(col2)+'px'} height={row1+'px'}>
       <MatrixOneRow
         renderCellFunction={renderOperatorCell}
         clickCellFunction={clickOperatorCell}
         data={data}
         params={{
-          name:'maintop',fontsize: matrixState.dimensions.fontsize,
-          translateX:0,translateY:0,bandX:matrixState.dimensions.bandX,bandY:700
+          name:'maintop',fontsize: fontsize,
+          translateX:0,translateY:0,bandX:bandX,bandY:700
         }}
       />
-
     </svg>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react';
 import { MatrixReducer } from './MatrixReducer';
-import { SET_CURRENT_CERTIFICATION, SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
+import { SET_RIGHTTOTALS, SET_CURRENT_CERTIFICATION, SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
 
 import { API, graphqlOperation } from 'aws-amplify'
 import { updateCertification } from '../../../graphql/mutations'
@@ -14,6 +14,12 @@ const MatrixContext = createContext();
 
 export const MatrixProvider = (props) => {
   //const matrixState = useMatrixState();
+
+  const setRightTotals = (payload) => {
+    dispatch({type: SET_RIGHTTOTALS, payload: payload});
+  }
+
+
 
   const setCurrentCertification = (payload) => {
     dispatch({type: SET_CURRENT_CERTIFICATION, payload: payload});
@@ -100,12 +106,66 @@ export const MatrixProvider = (props) => {
     }
     const doBySkill = (operators, skills, certifications) => {
       var bySkill = []
+      var skillsummary = []
+      var righttotals = []
       skills.map((skill,s) => {
+
         var o = {}
         o = skill
         o.meta = skill
         o.data = []
         const filteredcertifications = certifications.filter(item => item.skillID === skill.id);
+        console.log(filteredcertifications)
+        var ss = {}
+        ss.numstarted = 0
+        ss.numtrainers = 0
+        ss.numcertified = 0
+        //ss.certificationID = filteredcertifications.id
+        //ss.skillID = filteredcertifications.skillID
+        //ss.data = filteredcertifications.dat
+
+        filteredcertifications.map((fc,i) => {
+          var meta = JSON.parse(fc.meta)
+          var data = JSON.parse(fc.data)
+          var num = 0;
+          data.map((slice,i) => {
+            if (slice.s == 1) {
+              num++
+            }
+          })
+          if (num >  0 && meta.status == 'started') {
+
+            var dStart = new Date(meta.start);
+            var dToday = new Date();
+            var difftime = dToday.getTime() - dStart.getTime()
+            var diffdays = difftime / (1000 * 3600 * 24);
+
+            console.log(diffdays)
+            //var diff = dNow - d.getDate()
+            //console.log(meta.start,diff)
+            if (diffdays < 180) {
+              ss.numcertified ++
+            }
+          }
+          if (data.status == 'started') {
+            ss.numstarted ++
+          }
+          if (meta.status == 'started') {
+            ss.numstarted ++
+          }
+          if (meta.trainer == 'true' || meta.trainer == true ) {
+            ss.numtrainers ++
+          }
+        })
+        skillsummary.push(ss)
+
+
+        var val = {meta:{},data:[{meta:{},data:{v:''}},{meta:{},data:{v:ss.numcertified}},{meta:{},data:{v:''}}]}
+        righttotals.push(val)
+
+
+
+
         filteredcertifications.map((fc,i) => {
           var operator  = operators.find(item => item.id === fc.operatorID);
           o.data[i] = {};
@@ -116,9 +176,13 @@ export const MatrixProvider = (props) => {
           o.data[i].data = fc.data
           return null
         })
+
         bySkill.push(o)
         return null
       })
+      console.log(skillsummary)
+      console.log(righttotals)
+      dispatch({type: SET_RIGHTTOTALS, payload: righttotals});
       return bySkill
       //matrixState.setBySkill(bySkill)
     }
@@ -144,6 +208,7 @@ export const MatrixProvider = (props) => {
   }
 
   const initialState = {
+    righttotals: [],
     currentcertification: null,
     active: false,
     operators: null,
@@ -161,6 +226,7 @@ export const MatrixProvider = (props) => {
 
   return (
     <MatrixContext.Provider value={{
+      righttotals: state.righttotals,
       currentcertification: state.currentcertification,
       active: state.active,
       operators: state.operators,
@@ -173,6 +239,7 @@ export const MatrixProvider = (props) => {
       showTheLegend: state.showTheLegend,
       dimensions: state.dimensions,
       original: state.original,
+      setRightTotals,
       setCurrentCertification,
       setActive,
       setSkills,

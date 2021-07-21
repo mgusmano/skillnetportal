@@ -381,7 +381,7 @@ export const TrainingMatrix = () => {
               >
               <Row2Col2 data={matrixState.bySkill}/>
             </LoadingOverlay>
-            <Row2Col3 data={widgetData.right}/>
+            <Row2Col3 data={matrixState.righttotals}/>
           </div>
 
           <div className='leftrow3' style={{...styles.h,height: matrixState.dimensions.row3+'px',minHeight:matrixState.dimensions.row3+'px'}}>

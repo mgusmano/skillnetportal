@@ -19,7 +19,9 @@ function Login(props) {
 
   function postLogin() {
     setIsLoading(false);
-    setReferer('swipeguide')
+    var where
+    where = '/trainingmatrix'
+    setReferer(where)
     setAuthTokens(password);
     setLoggedIn(true);
     return <Redirect to={referer} />;

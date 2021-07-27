@@ -27,7 +27,7 @@ export const Row1Col3 = (props) => {
           y={-(bandX * c)-10}
           fill="black"
         >
-          {col.data.name}
+          {col}
         </text>
       </g>
     )

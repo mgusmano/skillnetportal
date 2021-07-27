@@ -3,17 +3,16 @@ import { MatrixReducer } from './MatrixReducer';
 import { SET_BOTTOMTOTALS, SET_RIGHTTOTALS, SET_CURRENT_CERTIFICATION, SET_ACTIVE, SET_ALL, SET_OPERATORS, SET_SKILLS, SET_CERTIFICATIONS, SET_BYSKILL, SET_BYOPERATOR, SET_SPECIFIC, TOGGLE_LEGEND, SET_DIMENSIONS, SET_ORIGINAL } from './MatrixTypes';
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { updateCertification } from '../../../graphql/mutations'
 import { listOperators} from '../../../graphql/queries'
 import { listSkills } from '../../../graphql/queries'
 import { listCertifications} from '../../../graphql/queries'
-
-//import { useMatrixState } from './state/MatrixProvider';
+import { updateCertification } from '../../../graphql/mutations'
 
 const MatrixContext = createContext();
 
 export const MatrixProvider = (props) => {
-  //const matrixState = useMatrixState();
+
+
 
   const setRightTotals = (payload) => {
     dispatch({type: SET_RIGHTTOTALS, payload: payload});
@@ -22,8 +21,6 @@ export const MatrixProvider = (props) => {
   const setBottomTotals = (payload) => {
     dispatch({type: SET_BOTTOMTOTALS, payload: payload});
   }
-
-
 
   const setCurrentCertification = (payload) => {
     dispatch({type: SET_CURRENT_CERTIFICATION, payload: payload});
@@ -65,7 +62,6 @@ export const MatrixProvider = (props) => {
     dispatch({type: SET_ORIGINAL, payload: payload});
   }
 
-
   const updateUserName = (payload) => {
     dispatch({type: "U", payload: payload});
   }
@@ -74,7 +70,13 @@ export const MatrixProvider = (props) => {
     dispatch({type: TOGGLE_LEGEND, payload: payload});
   }
 
-  const setAll = () => {
+  const updateCert = async (payload) => {
+    await API.graphql(graphqlOperation(updateCertification, { input: payload } ))
+    setAll(false)
+  }
+
+  const setAll = (first) => {
+
     async function getDataOperators() {
       const operatorData = await API.graphql(graphqlOperation(listOperators))
       return operatorData.data.listOperators.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
@@ -87,11 +89,13 @@ export const MatrixProvider = (props) => {
       const certificationData = await API.graphql(graphqlOperation(listCertifications))
       return certificationData.data.listCertifications.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
     }
+
     const doByOperator = (operators, skills, certifications) => {
       var byOperator = []
       var operatorsummary = []
       var bottomtotals = []
 
+      //if (operators = []) { return }
       operators.map((operator,o) => {
         o = operator
         o.meta = operator
@@ -221,12 +225,91 @@ export const MatrixProvider = (props) => {
       dispatch({type: SET_RIGHTTOTALS, payload: righttotals});
       return bySkill
     }
-    const callAll = async (state) => {
+
+    const setInit = (o) => {
+
+      var x = o.oLen
+      var y = o.sLen
+
+      //subscribeCertifications();
+
+      const multiplier = 7;
+      const topHeight = 0;
+      const fontsize = 2;
+      const bandX = 5;
+      const bandY = 5;
+      var col1 = 40;
+      var col2 = bandX * x;
+      var col3 =(bandX*3);
+      var row1 = 20;
+      var row2 = (bandY * y)+0;
+      var row3 = bandX*3;
+
+      var d2= {
+        multiplier: multiplier,
+        topHeight: topHeight,
+        fontsize: fontsize,
+        bandX: bandX,
+        bandY: bandY,
+        col1: col1,
+        col2: col2,
+        col3: col3,
+        row1: row1,
+        row2Orig: row2,
+        row2: row2,
+        row3: row3,
+      }
+      //matrixState.setOriginal(d2)
+      dispatch({type: SET_ORIGINAL, payload: d2});
+
+      var d = {
+        multiplier: multiplier,
+        topHeight: topHeight*multiplier,
+        fontsize: fontsize*multiplier,
+        bandX: bandX*multiplier,
+        bandY: bandY*multiplier,
+        col1: col1*multiplier,
+        col2: col2*multiplier,
+        col3: col3*multiplier,
+        row1: row1*multiplier,
+        row2Orig: row2*multiplier,
+        row2: row2*multiplier,
+        row3: row3*multiplier,
+      }
+      //matrixState.setDimensions(d)
+      dispatch({type: SET_DIMENSIONS, payload: d});
+
+
+      //matrixState.setActive(false)
+
+
+
+
+    }
+
+
+    const callAll = async (first) => {
+
       var operators = await getDataOperators()
       var skills = await getDataSkills()
       var certifications = await getDataCertifications()
+
       var byOperator = doByOperator(operators,skills,certifications)
       var bySkill = doBySkill(operators,skills,certifications)
+
+// console.log(operators)
+// console.log(skills)
+// console.log(certifications)
+// console.log(byOperator)
+// console.log(bySkill)
+
+      if (first == true) {
+        var oLen = operators.length
+        var sLen = skills.length
+        setInit({oLen,sLen})
+      }
+
+
       var payload = {
         bySkill: bySkill,
         byOperator: byOperator,
@@ -234,12 +317,12 @@ export const MatrixProvider = (props) => {
       }
       dispatch({type: SET_ALL, payload: payload});
 
-      setTimeout(function(){
+      //setTimeout(function(){
         dispatch({type: SET_ACTIVE, payload: false});
-      }, 1000);
+      //}, 1000);
 
     };
-    callAll()
+    callAll(first)
   }
 
   const initialState = {
@@ -276,6 +359,7 @@ export const MatrixProvider = (props) => {
       showTheLegend: state.showTheLegend,
       dimensions: state.dimensions,
       original: state.original,
+      updateCert,
       setBottomTotals,
       setRightTotals,
       setCurrentCertification,

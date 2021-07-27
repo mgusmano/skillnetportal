@@ -1,18 +1,12 @@
 import React, { useState, useEffect, forwardRef} from 'react';
 import { Diamond } from './Diamond';
 import { useMatrixState } from './state/MatrixProvider';
-
-import { API, graphqlOperation } from 'aws-amplify'
-import { updateCertification } from '../../graphql/mutations'
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// import { listOperators} from '../../graphql/queries'
-// import { listSkills } from '../../graphql/queries'
-// import { listCertifications} from '../../graphql/queries'
-
 export const Main = (props) => {
+  const matrixState = useMatrixState();
+
   const [diamonddata, setDiamondData] = useState(null)
   const [metadata, setMetaData] = useState(null)
   const [certification, setCertification] = useState(null)
@@ -27,66 +21,58 @@ export const Main = (props) => {
 
   var img = 'https://examples.sencha.com/extjs/7.4.0/examples/kitchensink/resources/images/staff/' + operator.id + '.jpg'
 
-const setIt2 = (data,meta) => {
-  var num = 0
-  data.map((d,i) => {
-    if (d.s === 1) {num++}
-  })
+  const setTheCert = (data,meta) => {
+    var num = 0
+    data.map((d,i) => {
+      if (d.s === 1) {num++}
+    })
 
-  if (meta.status === 'not started') {
-    num = -1;
+    if (meta.status === 'not started') {
+      num = -1;
+    }
+
+    switch (num) {
+      case -1:
+        setCertification('notstarted')
+        break;
+      case 0:
+        setCertification('started')
+        break;
+      case 1:
+        setCertification('apprentice')
+        break;
+      case 2:
+        setCertification('beginner')
+        break;
+      case 3:
+        setCertification('intermediate')
+        break;
+      case 4:
+        setCertification('certified')
+        break;
+      default:
+        break;
+    }
+
+
   }
-
-  switch (num) {
-    case -1:
-      setCertification('notstarted')
-      break;
-    case 0:
-      setCertification('started')
-      break;
-    case 1:
-      setCertification('apprentice')
-      break;
-    case 2:
-      setCertification('beginner')
-      break;
-    case 3:
-      setCertification('intermediate')
-      break;
-    case 4:
-      setCertification('certified')
-      break;
-    default:
-      break;
-  }
-
-
-}
 
   useEffect(() => {
     setDiamondData(data)
     setMetaData(meta)
-    setIt2(data,meta)
-    //console.log(meta)
-
+    setTheCert(data,meta)
     setStartDate(new Date(meta.start))
-
     if (meta.trainer == 'true') {
       setTrainer(true)
     }
     else {
       setTrainer(false)
     }
-
   },[props])
-
-  const matrixState = useMatrixState();
 
   const onTrainerChange = async (event) => {
     matrixState.setActive(true)
-    console.log(metadata)
     var metadatalocal = {...metadata};
-    console.log(metadatalocal)
     if (event.target.value == 'true') {
       setTrainer(true)
       metadatalocal.trainer = "true"
@@ -98,15 +84,10 @@ const setIt2 = (data,meta) => {
     setMetaData(metadatalocal)
     var c = {
       id: certificationID,
-      //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
       meta: JSON.stringify(metadatalocal),
       data: JSON.stringify(diamonddata),
     }
-    console.log(c)
-    await API.graphql(graphqlOperation(updateCertification, { input: c } ))
-
-    matrixState.setAll()
-    //matrixState.setActive(false)
+    matrixState.updateCert(c)
   }
 
   const onCertificationChange = async (event) => {
@@ -148,22 +129,17 @@ const setIt2 = (data,meta) => {
 
     var dd2 = [{"p":25,"s":s25},{"p":50,"s":s50},{"p":75,"s":s75},{"p":100,"s":s100}]
     setDiamondData(dd2)
-
     setMetaData(metadatalocal)
     setCertification(event.target.value)
-
     var c = {
       id: certificationID,
-      //meta: `{"status":"started","start":"${reddate}","trainer":"false"}`,
       meta: JSON.stringify(metadatalocal),
       data: JSON.stringify(dd2),
     }
-    await API.graphql(graphqlOperation(updateCertification, { input: c } ))
-    matrixState.setAll()
-    //matrixState.setActive(false)
+    matrixState.updateCert(c)
   }
 
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+  const DatePickerInput = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input" onClick={onClick} ref={ref}>
       {value}
     </button>
@@ -172,7 +148,7 @@ const setIt2 = (data,meta) => {
   return (
     <div>
       <div style={{fontSize:'24px'}}>Operator: {operator.operatorName}</div>
-      <div style={{fontSize:'20px',marginBottom:'10px'}}>{matrixState.userName}Skill: {skill.skillName}</div>
+      <div style={{fontSize:'20px',marginBottom:'10px'}}>Skill: {skill.skillName}</div>
       <div style={{fontSize:'12px',marginBottom:'10px'}}>certificationID: {certificationID} - skill.id: {skill.id} - operator.id: {operator.id}</div>
       <div>
         <div style={{display:'flex',flexDirection:'column'}}>
@@ -189,11 +165,12 @@ const setIt2 = (data,meta) => {
           <div style={{margin:'30px',display:'flex',flexDirection:'column'}}>
             Date Started:
             <DatePicker
-              customInput={<ExampleCustomInput />}
+              customInput={<DatePickerInput />}
               dateFormat="MM/dd/yyyy"
               selected={startDate}
               onChange={async (date) => {
                 matrixState.setActive(true)
+                setStartDate(date)
                 var metadatalocal = {...metadata};
                 var d = ('0'+(date.getMonth()+1)).slice(-2)+"/"+('0'+(date.getDate())).slice(-2)+"/"+date.getFullYear();
                 metadatalocal.start = d
@@ -203,9 +180,7 @@ const setIt2 = (data,meta) => {
                   meta: JSON.stringify(metadatalocal),
                   data: JSON.stringify(diamonddata),
                 }
-                await API.graphql(graphqlOperation(updateCertification, { input: c } ))
-                matrixState.setAll()
-                setStartDate(date)
+                matrixState.updateCert(c)
               }} />
           </div>
 
@@ -226,13 +201,6 @@ const setIt2 = (data,meta) => {
               <div><input value="true" checked={trainer == true} onChange={onTrainerChange} style={{marginLeft:'20px'}} type="radio" name="trainer" /> Yes</div>
             </div>
           </div>
-
-
-
-
-
-
-
 
         </div>
       </div>

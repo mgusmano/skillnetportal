@@ -1,3 +1,225 @@
+
+  //const [greendate, yellowdate, reddate] = getDates();
+  // var widgetData = {
+  //   // skillsX: [
+  //   //   {skillID:10,line:'S',skillName:'Core Loading'},
+  //   //   {skillID:20,line:'S',skillName:'Phase Paper Insertion (VW)'},
+  //   //   {skillID:30,line:'S',skillName:'Lead Wire Setting'},
+  //   //   {skillID:40,line:'S',skillName:'Neutral Tube Insertion'},
+  //   //   {skillID:50,line:'S',skillName:'Neutral Crimp'},
+  //   //   {skillID:60,line:'S',skillName:'Pre-Lacing'},
+  //   //   {skillID:70,line:'S',skillName:'Lacing'},
+  //   //   {skillID:80,line:'S',skillName:'Lead Terminal Crimp'},
+  //   //   {skillID:90,line:'S',skillName:'Lead Wire Forming'},
+  //   // ],
+  //   // operatorsX: [
+  //   //   {operatorID:1,operatorName:'Joe Smith'},
+  //   //   {operatorID:2,operatorName:'Marc Ester'},
+  //   //   {operatorID:3,operatorName:'Ted White'},
+  //   //   {operatorID:4,operatorName:'Betty Green'},
+  //   //   {operatorID:5,operatorName:'Bob Jones'},
+  //   //   {operatorID:6,operatorName:'Frank Davis'},
+  //   //   {operatorID:7,operatorName:'Jane Johnson'},
+  //   //   {operatorID:8,operatorName:'Mary Bird'},
+  //   //   {operatorID:9,operatorName:'Zoya Lee'},
+  //   //   {operatorID:10,operatorName:'Joe Adams'},
+  //   // ],
+  //   // dataX: [
+  //   //   {skillID:10,operatorID:1,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:10,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:10,operatorID:3,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:4,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:5,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:6,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:10,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:9,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:10,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
+
+  //   //   {skillID:20,operatorID:1,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:2,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:20,operatorID:3,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:4,meta:{status:'ok',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:5,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:6,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:20,operatorID:7,meta:{status:'ok',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:20,operatorID:8,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:9,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:20,operatorID:10,meta:{status:'not started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+
+  //   //   {skillID:30,operatorID:1,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //   //   {skillID:30,operatorID:2,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:3,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:30,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:5,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:6,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:7,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+  //   //   {skillID:30,operatorID:9,meta:{status:'not started'},data:[],},
+  //   //   {skillID:30,operatorID:10,meta:{status:'not started'},data:[],},
+
+  //   //   {skillID:40,operatorID:1,meta:{status:'not started'},data:[],},
+  //   //   {skillID:40,operatorID:2,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:40,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:40,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:40,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:40,operatorID:6,meta:{status:'not started'},data:[],},
+  //   //   {skillID:40,operatorID:7,meta:{status:'not started'},data:[],},
+  //   //   {skillID:40,operatorID:8,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:40,operatorID:9,meta:{status:'not started'},data:[],},
+  //   //   {skillID:40,operatorID:10,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+
+  //   //   {skillID:50,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:50,operatorID:2,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:3,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:5,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:50,operatorID:6,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:7,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:8,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:50,operatorID:9,meta:{status:'not started'},data:[],},
+  //   //   {skillID:50,operatorID:10,meta:{status:'not started'},data:[],},
+
+  //   //   {skillID:60,operatorID:1,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:60,operatorID:2,meta:{status:'not started'},data:[],},
+  //   //   {skillID:60,operatorID:3,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:60,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:60,operatorID:5,meta:{status:'not started'},data:[],},
+  //   //   {skillID:60,operatorID:6,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:60,operatorID:7,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:60,operatorID:8,meta:{status:'not started'},data:[],},
+  //   //   {skillID:60,operatorID:9,meta:{status:'not started'},data:[],},
+  //   //   {skillID:60,operatorID:10,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:0}],},
+
+  //   //   {skillID:70,operatorID:1,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:2,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:70,operatorID:3,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:5,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:6,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:70,operatorID:7,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:8,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:9,meta:{status:'not started'},data:[],},
+  //   //   {skillID:70,operatorID:10,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+
+  //   //   {skillID:80,operatorID:1,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:2,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:3,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:4,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:0},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:80,operatorID:5,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:6,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:7,meta:{status:'started',start:reddate,trainer:false},data:[{p:25,s:1},{p:50,s:0},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:80,operatorID:8,meta:{status:'not started'},data:[],},
+  //   //   {skillID:80,operatorID:9,meta:{status:'started',start:greendate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:80,operatorID:10,meta:{status:'not started'},data:[],},
+
+  //   //   {skillID:90,operatorID:1,meta:{status:'started',start:reddate,trainer:true},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}],},
+  //   //   {skillID:90,operatorID:2,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:3,meta:{status:'started',start:greendate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:1},{p:100,s:1}]},
+  //   //   {skillID:90,operatorID:4,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:5,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:6,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:7,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:8,meta:{status:'not started'},data:[],},
+  //   //   {skillID:90,operatorID:9,meta:{status:'started',start:yellowdate,trainer:false},data:[{p:25,s:1},{p:50,s:1},{p:75,s:0},{p:100,s:0}],},
+  //   //   {skillID:90,operatorID:10,meta:{status:'not started'},data:[],},
+
+  //   // ],
+  //   // right: [
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:7}},{meta:{},data:{v:2}},{meta:{},data:{v:'-5'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:4}},{meta:{},data:{v:3}},{meta:{},data:{v:'-1'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:5}},{meta:{},data:{v:0}},{meta:{},data:{v:'-5'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:'-3'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:5}},{meta:{},data:{v:2}},{meta:{},data:{v:'-3'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:3}},{meta:{},data:{v:1}},{meta:{},data:{v:'-2'}}]},
+  //   // ],
+  //   // bottomA: [
+  //   //   [1,0,0,0,0,0,0,0,0],
+  //   //   [0,2,0,0,0,0,0,0,0],
+  //   //   [0,0,0,0,0,0,0,0,9],
+  //   // ],
+  //   // righttotals: [
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,0,0],
+  //   //   [1,2,0],
+  //   //   [1,0,3],
+
+  //   // ],
+  //   // bottom: [
+  //   //   {meta:{},data:[{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}}]},
+  //   //   {meta:{},data:[{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}}]},
+  //   //   {meta:{},data:[{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:0}}]},
+  //   // ],
+  //   // bottom2: [
+  //   //   {meta:{},data:[{meta:{},data:{v:5}},{meta:{},data:{v:4}},{meta:{},data:{v:5}},{meta:{},data:{v:2}},{meta:{},data:{v:3}},{meta:{},data:{v:3}},{meta:{},data:{v:4}},{meta:{},data:{v:3}},{meta:{},data:{v:3}},{meta:{},data:{v:4}}]},
+  //   //   {meta:{},data:[{meta:{},data:{v:2}},{meta:{},data:{v:2}},{meta:{},data:{v:3}},{meta:{},data:{v:0}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:1}},{meta:{},data:{v:0}},{meta:{},data:{v:1}},{meta:{},data:{v:2}}]},
+  //   //   {meta:{},data:[{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-3'}},{meta:{},data:{v:'-2'}},{meta:{},data:{v:'-2'}}]},
+  //   // ],
+
+  //   //rightheading: [['Goal','# Certified','Gap']],
+
+  //   // rightheading2: [
+  //   //   {meta:{id:10},data:[
+  //   //     {meta:{},data:{name:'Goal'}},
+  //   //     {meta:{},data:{name:'# Certified'}},
+  //   //     {meta:{},data:{name:'Gap'}}
+  //   //   ]},
+  //   // ],
+  //   //bottomleftheading: [['Goal'],['# Certified'],['Gap']],
+  //   // bottomleftheading2: [
+  //   //   {
+  //   //     meta:{id:10},
+  //   //     data:[
+  //   //       {meta:{},data:{v:'Goal'}}
+  //   //     ],
+  //   //   },
+  //   //   {
+  //   //     meta:{id:20},
+  //   //     data:[
+  //   //       {meta:{},data:{v:'# Certified'}}
+  //   //     ],
+  //   //   },
+  //   //   {
+  //   //     meta:{id:30},
+  //   //     data:[
+  //   //       {meta:{},data:{v:'Gap'}}
+  //   //     ],
+  //   //   }
+  //   // ],
+  //   // leftheading: [
+  //   //   {meta:{id:10},data:[{meta:{},data:{line:'LINE',area:'AREA TRAINED'}}]},
+  //   // ],
+  //   // methodologyheading: [
+  //   //   {meta:{id:10},data:[{meta:{},data:{name:'METHODOLOGY'}}]},
+  //   // ],
+  //   // methodology: [
+  //   //   {meta:{},data:[{meta:{},data:{l1:'Classroom training',l2:'Hands-on training',l3:'Written testing'}}]},
+  //   // ],
+  //   // revheading: [
+  //   //   {meta:{id:10},data:[{meta:{},data:{name:'REV#'}}]},
+  //   // ],
+  //   // rev: [
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:5}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   //   {meta:{id:10},data:[{meta:{},data:{v:1}}]},
+  //   // ],
+  // }
+
+
   // var widgetData2 = {
   //   skillsX: [
   //     {skillID:10,line:'S',skillName:'Core Loading'},
@@ -422,7 +644,7 @@
   //     horz2.scrollLeft = e.target.scrollLeft;
   //   }
   // }
-  
+
   var widgetData2 = {
 
     skillsX: [

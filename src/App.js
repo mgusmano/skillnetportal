@@ -29,6 +29,7 @@ import { SkillsMatrix } from './pages/matrix/SkillsMatrix'
 import { FixedMatrix } from './pages/matrix/FixedMatrix'
 
 import MyAdmin from './pages/MyAdmin'
+import CsvData from './pages/matrix/CsvData'
 
 import CovidReport from './pages/covidreport/CovidReport';
 
@@ -303,6 +304,7 @@ function App(props) {
             <PrivateRoute path="/skillsmatrix" component={() => <SkillsMatrix/>} />
             <PrivateRoute path="/fixedmatrix" component={() => <FixedMatrix/>} />
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
+            <PrivateRoute path="/csv" component={() => <CsvData/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
             <PrivateRoute path="/cnacovidriskcontrol"  component={() => <CovidReport jobrole={'Risk Control'} currentdashboard={currentdashboard}/>} />

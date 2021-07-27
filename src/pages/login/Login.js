@@ -20,11 +20,13 @@ function Login(props) {
   function postLogin() {
     setIsLoading(false);
     var where
-    where = '/trainingmatrix'
+    //where = '/trainingmatrix'
+    where = '/csv'
     setReferer(where)
     setAuthTokens(password);
     setLoggedIn(true);
-    return <Redirect to={referer} />;
+    return
+    //return <Redirect to={referer} />;
 
 
 

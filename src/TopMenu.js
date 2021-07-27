@@ -20,6 +20,7 @@ const TopMenu = (props) => {
             <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/benchmarkgmisb">Benchmark</Link>
             <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/myadmin">My Admin</Link>
 
+            <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/csv">CSV</Link>
 
             </div>
       </div>

@@ -1,0 +1,18 @@
+        // var columnsL = []
+        // var column = {
+        //   field: 'id',
+        //   headerName: 'id',
+        //   width: 100,
+        //   editable: false
+        // }
+        // columnsL.push(column)
+        // results.meta.fields.map((col,i)=>{
+        //   var column = {
+        //     field: col,
+        //     headerName: col,
+        //     width: 200,
+        //     editable: true
+        //   }
+        //   columnsL.push(column)
+        // })
+        // setColumns(columnsL)

@@ -19,7 +19,7 @@ export const Row3Col1 = (props) => {
         y={bandY-(bandY/2.5)+(sTop)}
         className="text"
         style={{fontSize:(fontsize-4)+'px'}}>
-          {col.data.v}
+          {col}
       </text>
     )
   }

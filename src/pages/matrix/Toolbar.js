@@ -13,16 +13,6 @@ export const Toolbar = React.memo((props) => {
     else {
       multiplier = matrixState.dimensions.multiplier+1;
     }
-    //console.log(multiplier)
-    //console.log(matrixState.original.col1)
-    //console.log(matrixState.original.cow2)
-    // console.log(matrixState.original)
-    // console.log(matrixState.dimensions)
-    // console.log((matrixState.original.row2*2)*multiplier)
-    // console.log(matrixState.dimensions.topHeight)
-    // console.log(((matrixState.original.row2*2)*multiplier)+matrixState.dimensions.topHeight)
-
-    //row2 =((matrixState.original.row2*2)*multiplier)+matrixState.dimensions.topHeight
 
     var col1=0
     var row2=0
@@ -72,16 +62,12 @@ export const Toolbar = React.memo((props) => {
         <button style={{width:'60px',height:'30px'}} onClick={(e)=>onClickSize(e,'large')}>larger</button>
         <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
           onClick={(e)=> {
-            //console.log('userName: ',matrixState.userName)
-            //setShowLegend(!showLegend)
-            //dispatch({type: 'UPDATE_USERNAME', payload: 'marc'});
-
-            //MatrixState.updateUserName('mmm')
             matrixState.toggleLegend()
           }}
         >
           Toggle Legend {matrixState.userName}
         </button>
+
       </div>
     </div>
 

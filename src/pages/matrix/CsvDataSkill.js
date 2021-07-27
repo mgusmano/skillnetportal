@@ -116,6 +116,7 @@ const CsvDataSkill = (props) => {
           <div style={{fontSize:24,margin:10}}>Skills</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
+          <a style={{marginLeft:15,marginTop:10}} href="/data/skills.csv" download>Example CSV</a>
           <input id='fileinputskill' type="file" style={{marginLeft:'40px',marginTop:10,width:'190px',height:'30px'}}
             onChange={(event)=> {
               console.log(event.target.files[0])

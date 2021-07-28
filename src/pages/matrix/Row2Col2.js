@@ -67,10 +67,11 @@ export const Row2Col2 = (props) => {
     )
   }
 
+
   return (
     <div style={{width:(col2)+'px',maxWidth:(col2)+'px',height:(row2Orig)+'px',maxHeight:(row2Orig)+'px',overflow:'auto'}} onScroll={onScroll} >
       <div width={(col2)+'px'} height={(row2)+'px'}>
-      <svg width={(col2)+'px'} height={(row2-4)+'px'}>
+      <svg width={(col2)+'px'} height={(row2 == 0 ? 0 : row2-4)+'px'}>
         {data !== null &&
         <Matrix
           renderRowFunction={renderMainRow}

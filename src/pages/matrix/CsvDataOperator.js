@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useMatrixState } from './state/MatrixProvider';
 import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
 import { API, graphqlOperation } from 'aws-amplify'
 import { createOperator, deleteOperator, updateOperator } from '../../graphql/mutations'
-import { listOperators } from '../../graphql/queries'
+//import { listOperators } from '../../graphql/queries'
 import { styles } from './styles';
 
 const CsvDataOperator = (props) => {
   const matrixState = useMatrixState();
   const [csvitems, setCSVItems] = useState([])
-  //const [operators, setOperators] = useState([])
-
-  useEffect(() => {
-    console.log(matrixState.operators)
-    //getDataOperators()
-  },[])
+  const [csvitemsstring, setCSVItemsString] = useState('')
 
   async function updateCert(payload) {
     await API.graphql(graphqlOperation(updateOperator, { input: payload } ))
     getDataOperators()
   }
 
-
   async function getDataOperators() {
-    // const operatorData = await API.graphql(graphqlOperation(listOperators,{type: 'id',sortDirection: 'ASC'}))
-    // var o = operatorData.data.listOperators.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
-    // setOperators(o)
-
     matrixState.setActive(true)
     matrixState.setAll(false)
   }
@@ -49,13 +39,11 @@ const CsvDataOperator = (props) => {
   }
 
   async function onClickAddAllOperators() {
-    console.log(csvitems.length)
     if (csvitems.length === 0) {
       alert('No CSV data has been selected')
       return
     }
 
-    console.log(matrixState.operators.length)
     if (matrixState.operators.length !== 0) {
       alert('Cannot import CSV when there are existing rows in the database')
       return
@@ -66,37 +54,38 @@ const CsvDataOperator = (props) => {
     }))
     .then((results) => {
       results.forEach((result) => {
-        console.log(result)
         if (result.status !== 'fulfilled') {console.log(result)}
       })
       setCSVItems([])
       getDataOperators()
-      document.getElementById("fileinput").value = "";
+      document.getElementById("fileinputoperator").value = "";
     })
   }
 
   const parseIt = (file) => {
     Papa.parse(file, {
       header: true,
-
       error: function(results, file) {
         console.log(results)
       },
-
       complete: function(results, file) {
+        console.log(results)
         if (results.meta.fields[0] !== 'operatorName') {
           setCSVItems([])
-          document.getElementById("fileinput").value = "";
-
+          document.getElementById("fileinputoperator").value = "";
           alert('bad file - it is not correctly formatted as an operator CSV file')
           return
         }
         var rowsL = []
+        var rowsLString = ''
         results.data.map((row,i)=>{
           row.id = i + 1
           rowsL.push(row)
+          console.log(row)
+          rowsLString = rowsLString + row.operatorName.toString() + '\r\n'
         })
         setCSVItems(rowsL)
+        setCSVItemsString(rowsLString)
       }
     })
   }
@@ -108,23 +97,15 @@ const CsvDataOperator = (props) => {
     {field: 'updatedAt',headerName: 'updatedAt',width: 200,editable: false},
   ]
 
-
-
-
-
   return (
-
-
-
       <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
         <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
           <div style={{fontSize:24,margin:10}}>Operators</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
           <a style={{marginLeft:15,marginTop:10}} href="/data/operators.csv" download>Example CSV</a>
-          <input id='fileinput' type="file" style={{marginLeft:'40px',marginTop:10,width:'190px',height:'30px'}}
+          <input id='fileinputoperator' type="file" style={{marginLeft:'40px',marginTop:10,width:'190px',height:'30px'}}
             onChange={(event)=> {
-              console.log(event.target.files[0])
               parseIt(event.target.files[0])
             }}
           />
@@ -142,11 +123,14 @@ const CsvDataOperator = (props) => {
         <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
           <div style={{...styles.v,width:'200px',margin:30}}>
             <div>Data from the CSV:</div>
-              {csvitems.map((csvitem,i) => {
+            <textarea rows="8" value={csvitemsstring} cols="50"
+              onChange={() => {}}
+            />
+              {/* {csvitems.map((csvitem,i) => {
                 return (
                   <div key={i}>{csvitem.operatorName}</div>
                 )
-              })}
+              })} */}
           </div>
           {matrixState.operators !== [] &&
             <div style={{ ...styles.v,flex:1}}>

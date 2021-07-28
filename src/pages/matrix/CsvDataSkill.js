@@ -4,13 +4,13 @@ import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
 import { API, graphqlOperation } from 'aws-amplify'
 import { createSkill, deleteSkill, updateSkill } from '../../graphql/mutations'
-import { listSkills } from '../../graphql/queries'
+//import { listSkills } from '../../graphql/queries'
 import { styles } from './styles';
 
 const CsvDataSkill = (props) => {
   const matrixState = useMatrixState();
   const [csvitems, setCSVItems] = useState([])
-  //const [skills, setSkills] = useState([])
+  const [csvitemsstring, setCSVItemsString] = useState('')
 
   useEffect(() => {
     //getDataSkills()
@@ -40,7 +40,6 @@ const CsvDataSkill = (props) => {
     }))
     .then((results) => {
       results.forEach((result) => {
-        console.log(result)
         if (result.status !== 'fulfilled') {console.log(result)}
       })
       getDataSkills()
@@ -48,13 +47,11 @@ const CsvDataSkill = (props) => {
   }
 
   async function onClickAddAllSkills() {
-    console.log(csvitems.length)
     if (csvitems.length === 0) {
       alert('No CSV data has been selected')
       return
     }
 
-    console.log(matrixState.skills.length)
     if (matrixState.skills.length !== 0) {
       alert('Cannot import CSV when there are existing rows in the database')
       return
@@ -65,7 +62,6 @@ const CsvDataSkill = (props) => {
     }))
     .then((results) => {
       results.forEach((result) => {
-        console.log(result)
         if (result.status !== 'fulfilled') {console.log(result)}
       })
       setCSVItems([])
@@ -77,25 +73,25 @@ const CsvDataSkill = (props) => {
   const parseIt = (file) => {
     Papa.parse(file, {
       header: true,
-
       error: function(results, file) {
         console.log(results)
       },
-
       complete: function(results, file) {
         if (results.meta.fields[0] !== 'skillName') {
           setCSVItems([])
           document.getElementById("fileinputskill").value = "";
-
           alert('bad file - it is not correctly formatted as an skill CSV file')
           return
         }
         var rowsL = []
+        var rowsLString = ''
         results.data.map((row,i)=>{
           row.id = i + 1
           rowsL.push(row)
+          rowsLString = rowsLString + row.skillName.toString() + '\r\n'
         })
         setCSVItems(rowsL)
+        setCSVItemsString(rowsLString)
       }
     })
   }
@@ -107,14 +103,7 @@ const CsvDataSkill = (props) => {
     {field: 'updatedAt',headerName: 'updatedAt',width: 200,editable: false},
   ]
 
-
-
-
-
   return (
-
-
-
       <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
         <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
           <div style={{fontSize:24,margin:10}}>Skills</div>
@@ -123,7 +112,6 @@ const CsvDataSkill = (props) => {
           <a style={{marginLeft:15,marginTop:10}} href="/data/skills.csv" download>Example CSV</a>
           <input id='fileinputskill' type="file" style={{marginLeft:'40px',marginTop:10,width:'190px',height:'30px'}}
             onChange={(event)=> {
-              console.log(event.target.files[0])
               parseIt(event.target.files[0])
             }}
           />
@@ -141,11 +129,14 @@ const CsvDataSkill = (props) => {
         <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
           <div style={{...styles.v,width:'200px',margin:30}}>
             <div>Data from the CSV:</div>
-              {csvitems.map((csvitem,i) => {
+            <textarea rows="8" value={csvitemsstring} cols="50"
+              onChange={() => {}}
+            />
+              {/* {csvitems.map((csvitem,i) => {
                 return (
                   <div key={i}>{csvitem.skillName}</div>
                 )
-              })}
+              })} */}
           </div>
           {matrixState.skills !== [] &&
             <div style={{ ...styles.v,flex:1}}>

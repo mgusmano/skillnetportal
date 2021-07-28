@@ -111,11 +111,11 @@ export const MatrixProvider = (props) => {
           var data = JSON.parse(fc.data)
           var num = 0;
           data.map((slice,i) => {
-            if (slice.s == 1) {
+            if (slice.s === 1) {
               num++
             }
           })
-          if (num >  0 && meta.status == 'started') {
+          if (num >  0 && meta.status === 'started') {
             var dStart = new Date(meta.start);
             var dToday = new Date();
             var difftime = dToday.getTime() - dStart.getTime()
@@ -124,13 +124,13 @@ export const MatrixProvider = (props) => {
               ss.numcertified ++
             }
           }
-          if (data.status == 'started') {
+          if (data.status === 'started') {
             ss.numstarted ++
           }
-          if (meta.status == 'started') {
+          if (meta.status === 'started') {
             ss.numstarted ++
           }
-          if (meta.trainer == 'true' || meta.trainer == true ) {
+          if (meta.trainer === 'true' || meta.trainer === true ) {
             ss.numtrainers ++
           }
         })
@@ -179,11 +179,11 @@ export const MatrixProvider = (props) => {
           var data = JSON.parse(fc.data)
           var num = 0;
           data.map((slice,i) => {
-            if (slice.s == 1) {
+            if (slice.s === 1) {
               num++
             }
           })
-          if (num >  0 && meta.status == 'started') {
+          if (num >  0 && meta.status === 'started') {
             var dStart = new Date(meta.start);
             var dToday = new Date();
             var difftime = dToday.getTime() - dStart.getTime()
@@ -192,13 +192,13 @@ export const MatrixProvider = (props) => {
               ss.numcertified ++
             }
           }
-          if (data.status == 'started') {
+          if (data.status === 'started') {
             ss.numstarted ++
           }
-          if (meta.status == 'started') {
+          if (meta.status === 'started') {
             ss.numstarted ++
           }
-          if (meta.trainer == 'true' || meta.trainer == true ) {
+          if (meta.trainer === 'true' || meta.trainer === true ) {
             ss.numtrainers ++
           }
         })
@@ -276,15 +276,7 @@ export const MatrixProvider = (props) => {
         row2: row2*multiplier,
         row3: row3*multiplier,
       }
-      //matrixState.setDimensions(d)
       dispatch({type: SET_DIMENSIONS, payload: d});
-
-
-      //matrixState.setActive(false)
-
-
-
-
     }
 
 
@@ -296,13 +288,12 @@ export const MatrixProvider = (props) => {
       var byOperator = []
       var bySkill = []
 
-      console.log(doBy)
-      console.log(operators.length)
-      console.log(skills.length)
+      // console.log(doBy)
+      // console.log(operators.length)
+      // console.log(skills.length)
       if (doBy === undefined) {
-
-        if (operators.length !== 0 || listSkills.length !== 0) {
-          console.log('in2')
+        if (operators.length !== 0 && listSkills.length !== 0) {
+          //console.log('in2')
           byOperator = doByOperator(operators,skills,certifications)
           bySkill = doBySkill(operators,skills,certifications)
         }
@@ -314,7 +305,7 @@ export const MatrixProvider = (props) => {
 // console.log(byOperator)
 // console.log(bySkill)
 
-      if (first == true) {
+      if (first === true) {
         var oLen = operators.length
         var sLen = skills.length
         setInit({oLen,sLen})

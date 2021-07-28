@@ -28,7 +28,7 @@ export const MatrixReducer = (state, action) => {
       }
       return s
     case SET_ACTIVE:
-      if (payload == true) {
+      if (payload === true) {
         s = {...state,active:true}
       }
       else {

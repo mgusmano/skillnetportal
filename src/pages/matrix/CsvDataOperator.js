@@ -109,10 +109,10 @@ const CsvDataOperator = (props) => {
               parseIt(event.target.files[0])
             }}
           />
-          <button style={{marginLeft:'40px',width:'150px',height:'30px'}}
+          <button style={{marginLeft:'40px',width:'170px',height:'30px'}}
             onClick={()=>onClickAddAllOperators()}
           >
-            Generate From CSV
+            Generate From CSV Data
           </button>
           <button style={{marginLeft:'340px',width:'250px',height:'30px'}}
             onClick={()=>onClickDeleteAllOperators()}
@@ -122,7 +122,7 @@ const CsvDataOperator = (props) => {
         </div>
         <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
           <div style={{...styles.v,width:'200px',margin:30}}>
-            <div>Data from the CSV:</div>
+            <div>CSV Data:</div>
             <textarea rows="8" value={csvitemsstring} cols="50"
               onChange={() => {}}
             />

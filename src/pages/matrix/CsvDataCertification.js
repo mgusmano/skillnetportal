@@ -91,16 +91,17 @@ const CsvDataCertification = (props) => {
 
   return (
       <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
-        <div className='toolbar' style={{...styles.h,height:40,background:'rgb(51, 124, 182)',color:'white'}}>
+        <div className='toolbar' style={{...styles.h,height:40,background:'rgb(51, 124, 182)',color:'white',alignContent:'space-between'}}>
           <div style={{fontSize:18,margin:10}}>Certifications</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
-          <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
+          <button style={{marginLeft:'10px',width:'120px',height:'30px'}}
             onClick={()=>onClickGenerateAllCertifications()}
           >
             Generate
           </button>
-          <button style={{marginLeft:'340px',width:'250px',height:'30px'}}
+          <div style={{flex:1}}></div>
+          <button style={{marginRight:'10px',width:'250px',height:'30px'}}
             onClick={()=>onClickDeleteAllCertifications()}
           >
             Delete All Certifications From Database

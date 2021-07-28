@@ -102,9 +102,9 @@ const CsvDataOperator = (props) => {
         <div className='toolbar' style={{...styles.h,height:40,background:'rgb(51, 124, 182)',color:'white'}}>
           <div style={{fontSize:18,margin:10}}>Operators</div>
         </div>
-        <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
-          <a style={{marginLeft:15,marginTop:10}} href="/data/operators.csv" download>Example CSV</a>
-          <input id='fileinputoperator' type="file" style={{marginLeft:'40px',marginTop:10,width:'190px',height:'30px'}}
+        <div className='toolbar' style={{...styles.h,height:40,marginTop: 5,width:'100%',alignContent:'space-between'}}>
+          <a style={{marginLeft:15,marginTop:7}} href="/data/operators.csv" download>Example CSV</a>
+          <input id='fileinputoperator' type="file" style={{marginLeft:'40px',marginTop:7,width:'190px',height:'30px'}}
             onChange={(event)=> {
               parseIt(event.target.files[0])
             }}
@@ -114,7 +114,8 @@ const CsvDataOperator = (props) => {
           >
             Generate From CSV Data
           </button>
-          <button style={{marginLeft:'340px',width:'250px',height:'30px'}}
+          <div style={{flex:1}}></div>
+          <button style={{marginRight:'10px',width:'250px',height:'30px'}}
             onClick={()=>onClickDeleteAllOperators()}
           >
             Delete All Operators From Database

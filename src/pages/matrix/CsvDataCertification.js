@@ -1,23 +1,14 @@
 import React, { useEffect } from 'react';
 import { Log } from './Log';
 import { useMatrixState } from './state/MatrixProvider';
-//import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
 import { getDates } from './util';
 import { API, graphqlOperation } from 'aws-amplify'
-
-//import { listSkills } from '../../graphql/queries'
-//import { createSkill, updateSkill, deleteSkill } from '../../graphql/mutations'
-//import { listOperators} from '../../graphql/queries'
-//import { createOperator, deleteOperator } from '../../graphql/mutations'
-//import { listCertifications} from '../../graphql/queries'
 import { createCertification, deleteCertification, updateCertification } from '../../graphql/mutations'
-
 import { styles } from './styles';
 
 const CsvDataCertification = (props) => {
   const matrixState = useMatrixState();
-  console.log(matrixState.certifications)
   const [greendate, yellowdate, reddate] = getDates();
 
   async function getDataCertifications() {
@@ -80,9 +71,9 @@ const CsvDataCertification = (props) => {
   }
 
   var certificationColumns = [
-    {field: 'id',headerName: 'id',width: 50,editable: false},
-    {field: 'operatorID',headerName: 'o',width: 60,editable: false},
-    {field: 'skillID',headerName: 's',width: 50,editable: false},
+    {field: 'id',headerName: 'id',width: 90,editable: false},
+    {field: 'operatorID',headerName: 'oID',width:120,editable: false},
+    {field: 'skillID',headerName: 'sID',width: 120,editable: false},
     {field: 'meta',headerName: 'meta',width: 400,editable: false},
     {field: 'data',headerName: 'data',width: 400,editable: false},
     {field: 'createdAt',headerName: 'createdAt',width: 200,editable: false},
@@ -95,10 +86,10 @@ const CsvDataCertification = (props) => {
           <div style={{fontSize:18,margin:10}}>Certifications</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
-          <button style={{marginLeft:'10px',width:'120px',height:'30px'}}
+          <button style={{marginLeft:'10px',width:'200px',height:'30px'}}
             onClick={()=>onClickGenerateAllCertifications()}
           >
-            Generate
+            Generate To Database
           </button>
           <div style={{flex:1}}></div>
           <button style={{marginRight:'10px',width:'250px',height:'30px'}}
@@ -111,15 +102,8 @@ const CsvDataCertification = (props) => {
           {matrixState.certifications.length !== 0 &&
 
           <div style={{ ...styles.v,flex:1,height:'200px'}}>
-            <Log data={matrixState.certifications.length}/>
+            {/* <Log data={matrixState.certifications.length}/> */}
             <DataGrid
-              // onEditCellChangeCommitted={(params) => {
-              //   var c = {
-              //     id: params.id,
-              //     certificationName: params.props.value
-              //   }
-              //   updateCert(c)
-              // }}
               headerHeight={25}
               rowHeight={25}
               hideFooter={true}

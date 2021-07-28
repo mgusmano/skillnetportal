@@ -5,6 +5,7 @@ import { styles } from './styles';
 import CsvDataOperator from './CsvDataOperator';
 import CsvDataSkill from './CsvDataSkill';
 import CsvDataCertification from './CsvDataCertification';
+import './CsvData.css'
 
 const CsvData = (props) => {
   const matrixState = useMatrixState();

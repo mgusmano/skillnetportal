@@ -9,6 +9,7 @@ import { styles } from './styles';
 
 const CsvDataSkill = (props) => {
   const matrixState = useMatrixState();
+  const [filename, setFileName] = useState('')
   const [csvitems, setCSVItems] = useState([])
   const [csvitemsstring, setCSVItemsString] = useState('')
 
@@ -109,16 +110,17 @@ const CsvDataSkill = (props) => {
           <div style={{fontSize:18,margin:10}}>Skills</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5,alignContent:'space-between'}}>
-          <a style={{marginLeft:15,marginTop:7}} href="/data/skills.csv" download>Example CSV</a>
-          <input id='fileinputskill' type="file" style={{marginLeft:'40px',marginTop:7,width:'190px',height:'30px'}}
+
+          <input className="custom-file-input" id='fileinputskill' type="file" style={{marginLeft:'10px',marginTop:0,width:'190px',height:'30px'}}
             onChange={(event)=> {
+              setFileName(event.target.files[0].name)
               parseIt(event.target.files[0])
             }}
           />
-          <button style={{marginLeft:'40px',width:'170px',height:'30px'}}
+          <button style={{marginLeft:'40px',width:'250px',height:'30px'}}
             onClick={()=>onClickAddAllSkills()}
           >
-            Generate From CSV Data
+            Generate From CSV Data To Database
           </button>
           <div style={{flex:1}}></div>
           <button style={{marginRight:'10px',width:'250px',height:'30px'}}
@@ -128,11 +130,12 @@ const CsvDataSkill = (props) => {
           </button>
         </div>
         <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
-          <div style={{...styles.v,width:'200px',margin:30}}>
-            <div>CSV Data:</div>
+          <div style={{...styles.v,width:'200px',margin:'10px 10px 10px 10px'}}>
+            <div>CSV Data: {filename}</div>
             <textarea rows="8" value={csvitemsstring} cols="50"
               onChange={() => {}}
             />
+                      <a style={{marginLeft:1,marginTop:7}} href="/data/skills.csv" download>Example CSV</a>
               {/* {csvitems.map((csvitem,i) => {
                 return (
                   <div key={i}>{csvitem.skillName}</div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMatrixState } from './state/MatrixProvider';
 import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
 import { API, graphqlOperation } from 'aws-amplify'
@@ -7,12 +8,12 @@ import { listSkills } from '../../graphql/queries'
 import { styles } from './styles';
 
 const CsvDataSkill = (props) => {
-
+  const matrixState = useMatrixState();
   const [csvitems, setCSVItems] = useState([])
-  const [skills, setSkills] = useState([])
+  //const [skills, setSkills] = useState([])
 
   useEffect(() => {
-    getDataSkills()
+    //getDataSkills()
   },[])
 
   async function updateCert(payload) {
@@ -22,16 +23,19 @@ const CsvDataSkill = (props) => {
 
 
   async function getDataSkills() {
-    const skillData = await API.graphql(graphqlOperation(listSkills,{type: 'id',sortDirection: 'ASC'}))
-    var o = skillData.data.listSkills.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
-    setSkills(o)
+    // const skillData = await API.graphql(graphqlOperation(listSkills,{type: 'id',sortDirection: 'ASC'}))
+    // var o = skillData.data.listSkills.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
+    // setSkills(o)
+
+    matrixState.setActive(true)
+    matrixState.setAll(false)
   }
 
   async function onClickDeleteAllSkills() {
     var result = window.confirm('Are you sure you want to delete?  This cannot be undone!');
     if (result == false) { return }
 
-    Promise.allSettled(skills.map(item => {
+    Promise.allSettled(matrixState.skills.map(item => {
       return API.graphql(graphqlOperation(deleteSkill, { input: {id: item.id } } ))
     }))
     .then((results) => {
@@ -50,8 +54,8 @@ const CsvDataSkill = (props) => {
       return
     }
 
-    console.log(skills.length)
-    if (skills.length !== 0) {
+    console.log(matrixState.skills.length)
+    if (matrixState.skills.length !== 0) {
       alert('Cannot import CSV when there are existing rows in the database')
       return
     }
@@ -111,7 +115,7 @@ const CsvDataSkill = (props) => {
 
 
 
-      <div style={{border:'1px solid rgb(51, 124, 182)',margin:10}}>
+      <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
         <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
           <div style={{fontSize:24,margin:10}}>Skills</div>
         </div>
@@ -123,10 +127,10 @@ const CsvDataSkill = (props) => {
               parseIt(event.target.files[0])
             }}
           />
-          <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
+          <button style={{marginLeft:'40px',width:'150px',height:'30px'}}
             onClick={()=>onClickAddAllSkills()}
           >
-            Add From CSV
+            Generate From CSV
           </button>
           <button style={{marginLeft:'340px',width:'250px',height:'30px'}}
             onClick={()=>onClickDeleteAllSkills()}
@@ -134,7 +138,7 @@ const CsvDataSkill = (props) => {
             Delete All Skills From Database
           </button>
         </div>
-        <div className='data' style={{...styles.h,border:'0px solid red'}}>
+        <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
           <div style={{...styles.v,width:'200px',margin:30}}>
             <div>Data from the CSV:</div>
               {csvitems.map((csvitem,i) => {
@@ -143,21 +147,21 @@ const CsvDataSkill = (props) => {
                 )
               })}
           </div>
-          {skills !== [] &&
-            <div style={{ ...styles.v,height: 260,  flex:1 }}>
+          {matrixState.skills !== [] &&
+            <div style={{ ...styles.v,flex:1}}>
               <DataGrid
-  onEditCellChangeCommitted={(params) => {
-    var c = {
-      id: params.id,
-      skillName: params.props.value
-    }
-    updateCert(c)
-  }}
+                onEditCellChangeCommitted={(params) => {
+                  var c = {
+                    id: params.id,
+                    skillName: params.props.value
+                  }
+                  updateCert(c)
+                }}
                 headerHeight={25}
                 rowHeight={25}
                 hideFooter={true}
                 pageSize={100}
-                rows={skills}
+                rows={matrixState.skills}
                 columns={skillColumns}
                 xcheckboxSelection
                 xdisableSelectionOnClick

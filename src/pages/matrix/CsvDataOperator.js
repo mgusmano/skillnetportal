@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMatrixState } from './state/MatrixProvider';
 import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
 import { API, graphqlOperation } from 'aws-amplify'
@@ -7,12 +8,13 @@ import { listOperators } from '../../graphql/queries'
 import { styles } from './styles';
 
 const CsvDataOperator = (props) => {
-
+  const matrixState = useMatrixState();
   const [csvitems, setCSVItems] = useState([])
-  const [operators, setOperators] = useState([])
+  //const [operators, setOperators] = useState([])
 
   useEffect(() => {
-    getDataOperators()
+    console.log(matrixState.operators)
+    //getDataOperators()
   },[])
 
   async function updateCert(payload) {
@@ -22,16 +24,19 @@ const CsvDataOperator = (props) => {
 
 
   async function getDataOperators() {
-    const operatorData = await API.graphql(graphqlOperation(listOperators,{type: 'id',sortDirection: 'ASC'}))
-    var o = operatorData.data.listOperators.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
-    setOperators(o)
+    // const operatorData = await API.graphql(graphqlOperation(listOperators,{type: 'id',sortDirection: 'ASC'}))
+    // var o = operatorData.data.listOperators.items.sort((a, b) => (a.id > b.id) ? 1 : -1)
+    // setOperators(o)
+
+    matrixState.setActive(true)
+    matrixState.setAll(false)
   }
 
   async function onClickDeleteAllOperators() {
     var result = window.confirm('Are you sure you want to delete?  This cannot be undone!');
     if (result == false) { return }
 
-    Promise.allSettled(operators.map(item => {
+    Promise.allSettled(matrixState.operators.map(item => {
       return API.graphql(graphqlOperation(deleteOperator, { input: {id: item.id } } ))
     }))
     .then((results) => {
@@ -50,8 +55,8 @@ const CsvDataOperator = (props) => {
       return
     }
 
-    console.log(operators.length)
-    if (operators.length !== 0) {
+    console.log(matrixState.operators.length)
+    if (matrixState.operators.length !== 0) {
       alert('Cannot import CSV when there are existing rows in the database')
       return
     }
@@ -111,7 +116,7 @@ const CsvDataOperator = (props) => {
 
 
 
-      <div style={{border:'1px solid rgb(51, 124, 182)',margin:10}}>
+      <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
         <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
           <div style={{fontSize:24,margin:10}}>Operators</div>
         </div>
@@ -123,10 +128,10 @@ const CsvDataOperator = (props) => {
               parseIt(event.target.files[0])
             }}
           />
-          <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
+          <button style={{marginLeft:'40px',width:'150px',height:'30px'}}
             onClick={()=>onClickAddAllOperators()}
           >
-            Add From CSV
+            Generate From CSV
           </button>
           <button style={{marginLeft:'340px',width:'250px',height:'30px'}}
             onClick={()=>onClickDeleteAllOperators()}
@@ -134,7 +139,7 @@ const CsvDataOperator = (props) => {
             Delete All Operators From Database
           </button>
         </div>
-        <div className='data' style={{...styles.h,border:'0px solid red'}}>
+        <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
           <div style={{...styles.v,width:'200px',margin:30}}>
             <div>Data from the CSV:</div>
               {csvitems.map((csvitem,i) => {
@@ -143,21 +148,21 @@ const CsvDataOperator = (props) => {
                 )
               })}
           </div>
-          {operators !== [] &&
-            <div style={{ ...styles.v,height: 260,  flex:1 }}>
+          {matrixState.operators !== [] &&
+            <div style={{ ...styles.v,flex:1}}>
               <DataGrid
-  onEditCellChangeCommitted={(params) => {
-    var c = {
-      id: params.id,
-      operatorName: params.props.value
-    }
-    updateCert(c)
-  }}
+                onEditCellChangeCommitted={(params) => {
+                  var c = {
+                    id: params.id,
+                    operatorName: params.props.value
+                  }
+                  updateCert(c)
+                }}
                 headerHeight={25}
                 rowHeight={25}
                 hideFooter={true}
                 pageSize={100}
-                rows={operators}
+                rows={matrixState.operators}
                 columns={operatorColumns}
                 xcheckboxSelection
                 xdisableSelectionOnClick

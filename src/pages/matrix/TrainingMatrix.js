@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useMatrixState } from './state/MatrixProvider';
 import LoadingOverlay from 'react-loading-overlay';
 import { Legend } from './Legend';
 //import { Log } from './Log';
@@ -12,7 +13,6 @@ import { Row2Col3 } from './Row2Col3';
 import { Row3Col1 } from './Row3Col1';
 import { Row3Col2 } from './Row3Col2';
 import { Row3Col3 } from './Row3Col3';
-import { useMatrixState } from './state/MatrixProvider';
 import { styles } from './styles';
 import { useResizeEvent } from './useResizeEvent';
 

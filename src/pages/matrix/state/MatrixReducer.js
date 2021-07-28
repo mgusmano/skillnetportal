@@ -22,6 +22,8 @@ export const MatrixReducer = (state, action) => {
         ...state,
         bySkill:payload.bySkill,
         byOperator:payload.byOperator,
+        operators:payload.operators,
+        skills:payload.skills,
         certifications:payload.certifications,
       }
       return s

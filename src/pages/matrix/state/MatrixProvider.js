@@ -288,14 +288,25 @@ export const MatrixProvider = (props) => {
     }
 
 
-    const callAll = async (first) => {
+    const callAll = async (first,doBy) => {
 
       var operators = await getDataOperators()
       var skills = await getDataSkills()
       var certifications = await getDataCertifications()
+      var byOperator = []
+      var bySkill = []
 
-      var byOperator = doByOperator(operators,skills,certifications)
-      var bySkill = doBySkill(operators,skills,certifications)
+      console.log(doBy)
+      console.log(operators.length)
+      console.log(skills.length)
+      if (doBy === undefined) {
+
+        if (operators.length !== 0 || listSkills.length !== 0) {
+          console.log('in2')
+          byOperator = doByOperator(operators,skills,certifications)
+          bySkill = doBySkill(operators,skills,certifications)
+        }
+      }
 
 // console.log(operators)
 // console.log(skills)
@@ -313,6 +324,8 @@ export const MatrixProvider = (props) => {
       var payload = {
         bySkill: bySkill,
         byOperator: byOperator,
+        operators: operators,
+        skills: skills,
         certifications: certifications
       }
       dispatch({type: SET_ALL, payload: payload});

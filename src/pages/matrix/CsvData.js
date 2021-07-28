@@ -21,7 +21,7 @@ const CsvData = (props) => {
       spinner
       text='Loading...'
     >
-      <div className='app' style={{...styles.v,width:'100%',height:'100%'}}>
+      <div className='app' style={{...styles.v,width:'100%',height:'100%',overflow:'scroll'}}>
         <CsvDataOperator/>
         <CsvDataSkill/>
         <CsvDataCertification/>

@@ -111,7 +111,7 @@ const CsvDataSkill = (props) => {
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5,alignContent:'space-between'}}>
 
-          <input className="custom-file-input" id='fileinputskill' type="file" style={{marginLeft:'10px',marginTop:0,width:'190px',height:'30px'}}
+          <input className="custom-file-input" id='fileinputskill' type="file" style={{marginLeft:'10px',marginTop:2,width:'190px',height:'30px'}}
             onChange={(event)=> {
               setFileName(event.target.files[0].name)
               parseIt(event.target.files[0])

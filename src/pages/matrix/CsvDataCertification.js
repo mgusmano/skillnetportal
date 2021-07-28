@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Log } from './Log';
 import { useMatrixState } from './state/MatrixProvider';
 //import Papa from 'papaparse';
 import { DataGrid } from '@material-ui/data-grid';
@@ -16,6 +17,7 @@ import { styles } from './styles';
 
 const CsvDataCertification = (props) => {
   const matrixState = useMatrixState();
+  console.log(matrixState.certifications)
   const [greendate, yellowdate, reddate] = getDates();
 
   async function getDataCertifications() {
@@ -89,8 +91,8 @@ const CsvDataCertification = (props) => {
 
   return (
       <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
-        <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
-          <div style={{fontSize:24,margin:10}}>Certifications</div>
+        <div className='toolbar' style={{...styles.h,height:40,background:'rgb(51, 124, 182)',color:'white'}}>
+          <div style={{fontSize:18,margin:10}}>Certifications</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
           <button style={{marginLeft:'40px',width:'120px',height:'30px'}}
@@ -105,16 +107,18 @@ const CsvDataCertification = (props) => {
           </button>
         </div>
         <div className='data' style={{...styles.h,flex:1,border:'0px solid red'}}>
-          {matrixState.certifications !== [] &&
-          <div style={{ ...styles.v,flex:1}}>
+          {matrixState.certifications.length !== 0 &&
+
+          <div style={{ ...styles.v,flex:1,height:'200px'}}>
+            <Log data={matrixState.certifications.length}/>
             <DataGrid
-              onEditCellChangeCommitted={(params) => {
-                var c = {
-                  id: params.id,
-                  certificationName: params.props.value
-                }
-                updateCert(c)
-              }}
+              // onEditCellChangeCommitted={(params) => {
+              //   var c = {
+              //     id: params.id,
+              //     certificationName: params.props.value
+              //   }
+              //   updateCert(c)
+              // }}
               headerHeight={25}
               rowHeight={25}
               hideFooter={true}

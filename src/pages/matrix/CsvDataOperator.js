@@ -99,8 +99,8 @@ const CsvDataOperator = (props) => {
 
   return (
       <div style={{display:'flex',flexDirection:'column',flex:1,border:'1px solid rgb(51, 124, 182)',margin:10}}>
-        <div className='toolbar' style={{...styles.h,height:50,background:'rgb(51, 124, 182)',color:'white'}}>
-          <div style={{fontSize:24,margin:10}}>Operators</div>
+        <div className='toolbar' style={{...styles.h,height:40,background:'rgb(51, 124, 182)',color:'white'}}>
+          <div style={{fontSize:18,margin:10}}>Operators</div>
         </div>
         <div className='toolbar' style={{...styles.h,height:40,marginTop: 5}}>
           <a style={{marginLeft:15,marginTop:10}} href="/data/operators.csv" download>Example CSV</a>
@@ -126,11 +126,6 @@ const CsvDataOperator = (props) => {
             <textarea rows="8" value={csvitemsstring} cols="50"
               onChange={() => {}}
             />
-              {/* {csvitems.map((csvitem,i) => {
-                return (
-                  <div key={i}>{csvitem.operatorName}</div>
-                )
-              })} */}
           </div>
           {matrixState.operators !== [] &&
             <div style={{ ...styles.v,flex:1}}>

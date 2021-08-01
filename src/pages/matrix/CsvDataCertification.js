@@ -34,7 +34,6 @@ const CsvDataCertification = (props) => {
 
     var id = 1;
     matrixState.skills.map((skill, s) => {
-      console.log(skill)
       matrixState.operators.map(async (operator,o) => {
         var c = {
           id: id,

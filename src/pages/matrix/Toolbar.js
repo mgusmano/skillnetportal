@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMatrixState } from './state/MatrixProvider';
+import { API } from 'aws-amplify'
 
 
 export const Toolbar = React.memo((props) => {
@@ -67,6 +68,15 @@ export const Toolbar = React.memo((props) => {
         >
           Toggle Legend {matrixState.userName}
         </button>
+
+
+        <button
+          onClick={async () => {
+            var data = await API.get('skillsapi','/skills')
+            console.log(data)
+            //https://thaoqib2c6.execute-api.us-east-1.amazonaws.com/dev
+          }}
+        >skillsapi</button>
 
       </div>
     </div>

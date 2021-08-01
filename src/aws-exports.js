@@ -6,7 +6,14 @@ const awsmobile = {
     "aws_appsync_graphqlEndpoint": "https://wy4kl34ihzftlh5yqoee7kovp4.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-divaz23ypjfpvmfcwmabsuioly"
+    "aws_appsync_apiKey": "da2-divaz23ypjfpvmfcwmabsuioly",
+    "aws_cloud_logic_custom": [
+      {
+          "name": "skillsapi",
+          "endpoint": "https://thaoqib2c6.execute-api.us-east-1.amazonaws.com/dev",
+          "region": "us-east-1"
+      }
+  ]
 };
 
 

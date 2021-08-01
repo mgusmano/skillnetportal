@@ -1,10 +1,10 @@
-skillName
-Core Loading,
-Phase Paper Insertion (VW),
-Lead Wire Setting,
-Neutral Tube Insertion,
-Neutral Crimp,
-Pre-Lacing,
-Lacing,
-Lead Terminal Crimp,
-Lead Wire Forming,
+skillName,goal
+Core Loading,9
+Phase Paper Insertion (VW),2
+Lead Wire Setting,8
+Neutral Tube Insertion,3
+Neutral Crimp,7
+Pre-Lacing,4
+Lacing,5
+Lead Terminal Crimp,6
+Lead Wire Forming,1

@@ -9,7 +9,6 @@ export const createOperator = /* GraphQL */ `
     createOperator(input: $input, condition: $condition) {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -26,7 +25,6 @@ export const updateOperator = /* GraphQL */ `
     updateOperator(input: $input, condition: $condition) {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -43,7 +41,6 @@ export const deleteOperator = /* GraphQL */ `
     deleteOperator(input: $input, condition: $condition) {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -60,7 +57,6 @@ export const createSkill = /* GraphQL */ `
     createSkill(input: $input, condition: $condition) {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -77,7 +73,6 @@ export const updateSkill = /* GraphQL */ `
     updateSkill(input: $input, condition: $condition) {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -94,7 +89,6 @@ export const deleteSkill = /* GraphQL */ `
     deleteSkill(input: $input, condition: $condition) {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -156,7 +150,6 @@ export const createCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -164,7 +157,6 @@ export const createCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }
@@ -186,7 +178,6 @@ export const updateCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -194,7 +185,6 @@ export const updateCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }
@@ -216,7 +206,6 @@ export const deleteCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -224,7 +213,6 @@ export const deleteCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }

@@ -136,7 +136,7 @@ export const MatrixProvider = (props) => {
         })
         operatorsummary.push(ss)
 
-        var goal = 7;
+        var goal = operator.goal;
         var val = [goal, ss.numcertified, goal-ss.numcertified]
         bottomtotals.push(val)
 
@@ -203,7 +203,7 @@ export const MatrixProvider = (props) => {
           }
         })
         skillsummary.push(ss)
-        var goal = 7;
+        var goal = skill.goal;
         var val = [goal, ss.numcertified, goal-ss.numcertified]
         righttotals.push(val)
 

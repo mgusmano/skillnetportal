@@ -6,7 +6,6 @@ export const onCreateOperator = /* GraphQL */ `
     onCreateOperator {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -20,7 +19,6 @@ export const onUpdateOperator = /* GraphQL */ `
     onUpdateOperator {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -34,7 +32,6 @@ export const onDeleteOperator = /* GraphQL */ `
     onDeleteOperator {
       id
       operatorName
-      goal
       certifications {
         nextToken
       }
@@ -48,7 +45,6 @@ export const onCreateSkill = /* GraphQL */ `
     onCreateSkill {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -62,7 +58,6 @@ export const onUpdateSkill = /* GraphQL */ `
     onUpdateSkill {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -76,7 +71,6 @@ export const onDeleteSkill = /* GraphQL */ `
     onDeleteSkill {
       id
       skillName
-      goal
       certifications {
         nextToken
       }
@@ -126,7 +120,6 @@ export const onCreateCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -134,7 +127,6 @@ export const onCreateCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }
@@ -153,7 +145,6 @@ export const onUpdateCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -161,7 +152,6 @@ export const onUpdateCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }
@@ -180,7 +170,6 @@ export const onDeleteCertification = /* GraphQL */ `
       operator {
         id
         operatorName
-        goal
         createdAt
         updatedAt
       }
@@ -188,7 +177,6 @@ export const onDeleteCertification = /* GraphQL */ `
       skill {
         id
         skillName
-        goal
         createdAt
         updatedAt
       }

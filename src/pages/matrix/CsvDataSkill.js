@@ -59,7 +59,7 @@ const CsvDataSkill = (props) => {
     }
 
     Promise.allSettled(csvitems.map((item,i) => {
-      return API.graphql(graphqlOperation(createSkill, { input: {id: i+1, skillName: item.skillName} }))
+      return API.graphql(graphqlOperation(createSkill, { input: {id: i+1, skillName: item.skillName, goal: item.goal} }))
     }))
     .then((results) => {
       results.forEach((result) => {
@@ -89,7 +89,7 @@ const CsvDataSkill = (props) => {
         results.data.map((row,i)=>{
           row.id = i + 1
           rowsL.push(row)
-          rowsLString = rowsLString + row.skillName.toString() + '\r\n'
+          rowsLString = rowsLString + row.skillName.toString() + ',' + row.goal.toString() + '\r\n'
         })
         setCSVItems(rowsL)
         setCSVItemsString(rowsLString)
@@ -100,6 +100,7 @@ const CsvDataSkill = (props) => {
   var skillColumns = [
     {field: 'id',headerName: 'id',width: 100,editable: false},
     {field: 'skillName',headerName: 'skillName',width: 200,editable: true},
+    {field: 'goal',headerName: 'goal',width: 120,editable: true},
     {field: 'createdAt',headerName: 'createdAt',width: 200,editable: false},
     {field: 'updatedAt',headerName: 'updatedAt',width: 200,editable: false},
   ]

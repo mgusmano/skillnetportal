@@ -51,7 +51,7 @@ const CsvDataOperator = (props) => {
     }
 
     Promise.allSettled(csvitems.map((item,i) => {
-      return API.graphql(graphqlOperation(createOperator, { input: {id: i+1, operatorName: item.operatorName} }))
+      return API.graphql(graphqlOperation(createOperator, { input: {id: i+1, operatorName: item.operatorName, goal: item.goal} }))
     }))
     .then((results) => {
       results.forEach((result) => {
@@ -70,7 +70,6 @@ const CsvDataOperator = (props) => {
         console.log(results)
       },
       complete: function(results, file) {
-        console.log(results)
         if (results.meta.fields[0] !== 'operatorName') {
           setCSVItems([])
           document.getElementById("fileinputoperator").value = "";
@@ -82,8 +81,7 @@ const CsvDataOperator = (props) => {
         results.data.map((row,i)=>{
           row.id = i + 1
           rowsL.push(row)
-          console.log(row)
-          rowsLString = rowsLString + row.operatorName.toString() + '\r\n'
+          rowsLString = rowsLString + row.operatorName.toString() + ',' + row.goal.toString() + '\r\n'
         })
         setCSVItems(rowsL)
         setCSVItemsString(rowsLString)
@@ -94,6 +92,7 @@ const CsvDataOperator = (props) => {
   var operatorColumns = [
     {field: 'id',headerName: 'id',width: 100,editable: false},
     {field: 'operatorName',headerName: 'operatorName',width: 200,editable: true},
+    {field: 'goal',headerName: 'goal',width: 120,editable: true},
     {field: 'createdAt',headerName: 'createdAt',width: 200,editable: false},
     {field: 'updatedAt',headerName: 'updatedAt',width: 200,editable: false},
   ]

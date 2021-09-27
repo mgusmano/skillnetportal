@@ -27,6 +27,7 @@ export default function evaluateIndividualGraph(userSkillData, allUsersData, tar
     graphResult = evaluateGroupRatingDataSet(targetUsers, allUsersData, userSkillData, positionData, targetSkillIdArr, graphResult);
     graphResult = evaluateDirectorRatingDataSet(targetUsers, allUsersData, userSkillData, positionData, targetSkillIdArr, graphResult);
 
+    console.log(graphResult)
     return graphResult;
 }
 

@@ -14,6 +14,7 @@ class Chart extends React.Component {
 
   render() {
     const { dataSource } = this.props;
+    console.log(JSON.stringify(dataSource))
     let chartType = 'scrollline2d';
     if (dataSource && dataSource.categories) {
       dataSource.chart.labelDisplay = dataSource.categories[0].category.length > 2 ? 'rotate' : 'auto'

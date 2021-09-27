@@ -216,8 +216,10 @@ class Dashboard extends Component {
     this.setClearFilterObj();
     this.getAllUser();
     this.getAllSkill();
+
     this.getAllUserSkill();
     this.getAllPosition();
+
     this.getPositionTarget();
 
 
@@ -1238,6 +1240,7 @@ class Dashboard extends Component {
       targetGraphData = evaluateManagerGraph(targetDataSet, userData, userDataClone, skillDataClone, positionTargetData, positionData);
     } else if (filterObj.outputId === 1) {
       const targetDataSet = this.userSkillData.filter(item => filterObj.rating === item.is_self);
+      console.log(targetDataSet)
       targetGraphData = evaluateIndividualGraph(targetDataSet, userData, userDataClone, skillDataClone, positionTargetData, positionData);
     }
 
@@ -1290,6 +1293,7 @@ class Dashboard extends Component {
   setUserSkillData = ({ data }) => {
     //getUserSkill.json
     this.userSkillData = data;
+    console.log(data)
     //console.log(JSON.stringify(data))
     //debugger
 

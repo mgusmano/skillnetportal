@@ -12741,6 +12741,10 @@
   dependencies:
     "is-arrayish" "^0.3.1"
 
+"simple@./src/packages/simple":
+  "resolved" "file:src/packages/simple"
+  "version" "1.0.0"
+
 "sinon@^7.5.0":
   "integrity" "sha512-AoD0oJWerp0/rY9czP/D6hDTTUYGpObhZjMpd7Cl/A6+j0xBE+ayL/ldfggkBXUs0IkvIiM1ljM8+WkOc5k78Q=="
   "resolved" "https://registry.yarnpkg.com/sinon/-/sinon-7.5.0.tgz"

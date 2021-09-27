@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 import { MatrixProvider } from './pages/matrix/state/MatrixProvider';
 
 import Top from './Top';
@@ -30,6 +31,7 @@ import { FixedMatrix } from './pages/matrix/FixedMatrix'
 
 import MyAdmin from './pages/MyAdmin'
 import CsvData from './pages/matrix/CsvData'
+import { Simple } from 'simple'
 
 import CovidReport from './pages/covidreport/CovidReport';
 
@@ -264,6 +266,7 @@ function App(props) {
 
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <MatrixProvider>
+
       <Vertical>
         <Top/>
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
@@ -305,6 +308,7 @@ function App(props) {
             <PrivateRoute path="/fixedmatrix" component={() => <FixedMatrix/>} />
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
             <PrivateRoute path="/csv" component={() => <CsvData/>} />
+            <PrivateRoute path="/Simple" component={() => <Simple/>} />
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
             <PrivateRoute path="/cnacovidriskcontrol"  component={() => <CovidReport jobrole={'Risk Control'} currentdashboard={currentdashboard}/>} />
@@ -340,6 +344,7 @@ function App(props) {
         {/* <Splitter/>
         <div>footer</div> */}
       </Vertical>
+
       </MatrixProvider>
     </AuthContext.Provider>
 

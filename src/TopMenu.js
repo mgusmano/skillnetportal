@@ -22,6 +22,11 @@ const TopMenu = (props) => {
 
             <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/csv">CSV</Link>
             <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/simple">Simple</Link>
+            <Link style={{marginLeft:'50px',color:'white',textDecoration:'none'}} to="/cnacovid">CNA Covid</Link>
+
+
+
+
 
             </div>
       </div>

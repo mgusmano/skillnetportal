@@ -20,8 +20,8 @@ function Login(props) {
   function postLogin() {
     setIsLoading(false);
     var where
-    where = '/trainingmatrix'
-    //where = '/csv'
+    //where = '/trainingmatrix'
+    where = '/cardcbet'
     setReferer(where)
     setAuthTokens(password);
     setLoggedIn(true);

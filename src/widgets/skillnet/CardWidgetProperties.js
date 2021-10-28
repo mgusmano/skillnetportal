@@ -603,10 +603,21 @@ const CardWidgetProperties = (props) => {
             arrayCompetencies.forEach((competency, index) => {
               var children = []
               results[index].data.forEach(result => {
-                var c = {
-                  id: result.SkillID.toString(),
-                  name: result.SkillName
+                var c
+                if (result.SkillID == null) {
+                  var c = {
+                    id: 'result.SkillID.toString()',
+                    name: 'result.SkillName'
+                  }
                 }
+                else {
+                  c = {
+                    id: result.SkillID.toString(),
+                    name: result.SkillName
+                  }
+                }
+             //   })
+
                 children.push(c)
               })
 

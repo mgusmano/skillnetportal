@@ -73,6 +73,16 @@ var PartnerGMIsb = {
   ratingsources: '1000' //SelfRating
 }
 
+var PartnerCBET = {
+  PartnerID: 409,
+  PartnerShort: 'CBET',
+  PartnerName: 'College of Biomedical Equipment Technology',
+  PersonID: 284348,
+  GroupID: 33660,
+  showratings: true,
+  ratingsources: '1000' //SelfRating
+}
+
 function App(props) {
   const [menudisplay, setMenudisplay] = useState('block');
   const [filterdisplay, setFilterdisplay] = useState('block');
@@ -84,6 +94,8 @@ function App(props) {
   const items = [];
 
   const location = useLocation();
+
+
 
   if (authTokens === '') {
     switch (location.pathname) {
@@ -100,6 +112,9 @@ function App(props) {
     }
   }
 
+  console.log(authTokens)
+  console.log(location.pathname)
+
   switch (authTokens) {
 
     case 'mjg':
@@ -111,6 +126,10 @@ function App(props) {
       items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
       break;
 
+      case 'cbet':
+        items.push({label: 'CBET Card Report', value: '/cardcbet', icon: 'fa-id-card'})
+        //setActivemenu('/cardcnasme')
+        break;
 
     case 'cnasme':
       items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
@@ -191,6 +210,9 @@ function App(props) {
       break;
   }
 
+  console.log(items)
+
+
   if (authTokens !== '') {
     items.push({label: 'Logout', value: '/login', icon: 'fa-sign-out'})
   }
@@ -268,11 +290,11 @@ function App(props) {
       <MatrixProvider>
 
       <Vertical>
-        <Top/>
+        {/* <Top/> */}
         <Header menuClick={onMenuClick} filterClick={onFilterClick}/>
-        {authTokens === 'swipeguide' &&
+        {/* {authTokens === 'swipeguide' &&
         <TopMenu/>
-        }
+        } */}
         {/* <Separator/> */}
         <Horizontal style={{width:'100%',background:'blue'}}>
           {/* <Menu/> */}
@@ -325,6 +347,7 @@ function App(props) {
 
             <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
             <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} PartnerID='434' showlob={false}/>} />
+            <PrivateRoute path="/cardcbet" component={() => <CardReport Partner={PartnerCBET} PartnerID='409' showlob={false}/>} />
             <PrivateRoute path="/benchmarkcna" component={() => <Dashboard Partner={PartnerCNA}/>}  />
             <PrivateRoute path="/benchmarkgmisb" component={() => <Dashboard Partner={PartnerGMIsb}/>}  />
             {/* <PrivateRoute path="/covidcnaprevisit"  component={() => <CovidReportPreVisit  filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />

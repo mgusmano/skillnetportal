@@ -156,10 +156,10 @@ const MapWidget = (props) => {
       }
 
 
-      for (var i = 0; i < finallocations.length; i++) {
-        const users = filteredusers.filter((user,i) => user.Location === finallocations[i].LocationName);
-        finallocations[i].users = users
-      }
+      //mjgmjg for (var i = 0; i < finallocations.length; i++) {
+      //   const users = filteredusers.filter((user,i) => user.Location === finallocations[i].LocationName);
+      //   finallocations[i].users = users
+      // }
 
       //console.log('finallocations',finallocations)
       setFilteredlocations(finallocations)

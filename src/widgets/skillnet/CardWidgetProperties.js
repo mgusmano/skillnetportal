@@ -25,8 +25,8 @@ const DropDown = (props) => {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const { who, onChanged, options, name, multiple} = props
 
-  console.log(options)
-  console.log(name)
+  //console.log(options)
+  //console.log(name)
 
   // {multiple === true &&
   //   renderOption={(options, { selected }) => (
@@ -400,9 +400,18 @@ const CardWidgetProperties = (props) => {
       })
       .then((response) => {
         var arrayPositions = response.data.map(item => {
-          return {
-            JobID: item.JobID,
-            JobName: item.JobName
+          //mjg
+          if (item.JobID === undefined) {
+            return {
+              JobID: item.position_id,
+              JobName: item.position_name
+            }
+          }
+          else {
+            return {
+              JobID: item.JobID,
+              JobName: item.JobName
+            }
           }
         })
         console.log('positions',arrayPositions)
@@ -881,8 +890,8 @@ onClick={e => (e.stopPropagation())}
     }
   };
 
-
-  console.log(leaders)
+console.log(positions)
+  //console.log(leaders)
   //    <div style={{width:propertywidth,padding:'10px'}}>
   return (
     <div style={{width:'100%',padding:'10px'}}>

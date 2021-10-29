@@ -138,8 +138,8 @@ const MapWidget = (props) => {
         if (a in hist) hist[a] ++; else hist[a] = 1;
         return null
       } );
-      //console.log(hist);
-      //console.log(thelocations)
+      console.log(hist);
+      console.log(thelocations)
 
       var finallocations = []
       for (const [key, value] of Object.entries(hist)) {
@@ -151,15 +151,17 @@ const MapWidget = (props) => {
           finallocations.push(result)
         }
         else {
-          finallocations.push([])
+          //finallocations.push([])  mjg
         }
       }
 
-
-      //mjgmjg for (var i = 0; i < finallocations.length; i++) {
-      //   const users = filteredusers.filter((user,i) => user.Location === finallocations[i].LocationName);
-      //   finallocations[i].users = users
-      // }
+//mjgmjg
+console.log(finallocations)
+console.log(finallocations.length)
+      for (var i = 0; i < finallocations.length; i++) {
+        const users = filteredusers.filter((user,i) => user.Location === finallocations[i].LocationName);
+        finallocations[i].users = users
+      }
 
       //console.log('finallocations',finallocations)
       setFilteredlocations(finallocations)

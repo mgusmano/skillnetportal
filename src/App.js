@@ -210,7 +210,7 @@ function App(props) {
       break;
   }
 
-  console.log(items)
+  //console.log(items)
 
 
   if (authTokens !== '') {

@@ -19,6 +19,7 @@ import Splitter from './layout/Splitter'
 //import Separator from './layout/Separator'
 
 import CardWidgetProperties from'./widgets/skillnet/CardWidgetProperties'
+import CardWidgetProperties2 from'./widgets/skillnet/CardWidgetProperties2'
 //import IconButton from '@material-ui/core/IconButton';
 
 import Tv from '@material-ui/icons/Tv';
@@ -187,6 +188,11 @@ const CardReport = (props) => {
       {/* column 2 */}
       <Vertical style={{display:filterdisplay,width:propertywidth}}>
         <CardWidgetProperties propertywidth={propertywidth} Partner={props.Partner} PartnerID={PartnerID} PartnerName={PartnerName} PersonID={PersonID} SMEOnly={SMEOnly} showlob={showlob}/>
+      </Vertical>
+
+      {/* column 2 */}
+      <Vertical style={{display:filterdisplay,width:propertywidth}}>
+        <CardWidgetProperties2 propertywidth={propertywidth} Partner={props.Partner} PartnerID={PartnerID} PartnerName={PartnerName} PersonID={PersonID} SMEOnly={SMEOnly} showlob={showlob}/>
       </Vertical>
     </Horizontal>
   )

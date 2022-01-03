@@ -124,7 +124,7 @@ const CardWidgetProperties = (props) => {
   const [skillidsstring, setSkillidsString] = useState('')
 
   const filterChanged = (checked, who) => {
-    console.log(checked,who)
+    //console.log(checked,who)
     var suffix = ''
     var idVal = ''
     switch(who) {
@@ -137,7 +137,7 @@ const CardWidgetProperties = (props) => {
         idVal = 'SmeID'
         break;
       case 'lobs':
-        console.log('here')
+        //console.log('here')
         suffix = ''
         idVal = 'LobID'
         break;
@@ -181,7 +181,7 @@ const CardWidgetProperties = (props) => {
 
     if (Array.isArray(checked)) {
       checked.forEach(check => {
-        console.log(check)
+        //console.log(check)
         if (idVal === '') {
           checkedString = checkedString + check + suffix + ','
         }
@@ -198,7 +198,7 @@ const CardWidgetProperties = (props) => {
         checkedString = ''
       }
     }
-    console.log(checkedString)
+    //console.log(checkedString)
     var finalString = checkedString.slice(0, -1)
     switch(who) {
       case 'leaders':
@@ -208,7 +208,7 @@ const CardWidgetProperties = (props) => {
         setSmeidsString(finalString)
         break;
       case 'lobs':
-        console.log(finalString)
+        //console.log(finalString)
         setLobidsString(finalString)
         break;
       case 'positions':
@@ -318,7 +318,7 @@ const CardWidgetProperties = (props) => {
   //var PartnerID = 426;  var PartnerName = 'General Mills'; var PersonID = 277356;
 
   useEffect(() => {
-    console.log('useEffect CardWidgetProperties')
+    //console.log('useEffect CardWidgetProperties')
 
     setRatingsourcesString(props.Partner.ratingsources)
     onApplyClick()
@@ -327,13 +327,13 @@ const CardWidgetProperties = (props) => {
 
     if (showlob === true) {
       //Lobs
-      console.log('LOB')
+      //console.log('LOB')
       axios
       .get('https://skillnetusersapi.azurewebsites.net/api/lob?partnerid=' + PartnerID, {
         auth: {username: 'skillnet',password: 'demo'}
       })
       .then((response) => {
-        console.log('lobs',response.data)
+        //console.log('lobs',response.data)
         var arrayLobs = response.data.map(item => {
           return {
             LobID: item.CustomAttributeValueID,
@@ -414,7 +414,7 @@ const CardWidgetProperties = (props) => {
             }
           }
         })
-        console.log('positions',arrayPositions)
+        //console.log('positions',arrayPositions)
         setPositions(arrayPositions)
       })
       .catch((error) => {
@@ -433,7 +433,7 @@ const CardWidgetProperties = (props) => {
             LocationName: item.LocationName
           }
         })
-        console.log('locations',arrayLocations)
+        //console.log('locations',arrayLocations)
         setLocations(arrayLocations)
       })
       .catch((error) => {
@@ -452,7 +452,7 @@ const CardWidgetProperties = (props) => {
             ManagerName: item.ManagerName //+ ' (' + item.ManagerID + ')'
           }
         })
-        console.log('managers',arrayManagers)
+        //console.log('managers',arrayManagers)
         setManagers(arrayManagers)
       })
       .catch((error) => {
@@ -552,7 +552,7 @@ const CardWidgetProperties = (props) => {
         auth: {username: 'skillnet',password: 'demo'}
       })
       .then((response) => {
-        console.log('CompetencyGroups-raw',response.data)
+        //console.log('CompetencyGroups-raw',response.data)
         var arrayCompetencyGroups = response.data.map(item => {
           return {
             CompetencyGroupID: item.CompetencyGroupID,
@@ -575,7 +575,7 @@ const CardWidgetProperties = (props) => {
         }
 
         arrayCompetencyGroups.sort(compare);
-        console.log('CompetencyGroups',arrayCompetencyGroups)
+        //console.log('CompetencyGroups',arrayCompetencyGroups)
         setCompetencyGroups(arrayCompetencyGroups)
       })
       .catch((error) => {
@@ -589,7 +589,7 @@ const CardWidgetProperties = (props) => {
         auth: {username: 'skillnet',password: 'demo'}
       })
       .then((response) => {
-        console.log('competencies-raw',response.data)
+        //console.log('competencies-raw',response.data)
         arrayCompetencies = response.data.map(item => {
           return {
             CompetencyID: item.SkillID,
@@ -597,7 +597,7 @@ const CardWidgetProperties = (props) => {
             CompetencyGroupID: item.GroupID,
           }
         })
-        console.log('competencies',arrayCompetencies)
+        //console.log('competencies',arrayCompetencies)
         //setCompetencies(arrayCompetencies)
 
         var f= 'https://skillnetusersapi.azurewebsites.net/api/skills?groupid=' + GroupID + '&parentskillid='
@@ -729,17 +729,17 @@ const CardWidgetProperties = (props) => {
     'managerids=' + manageridsstring + '&' +
     'percentages=' + percentidsstring + '&' +
     'skillids=' + skillidsstring
-    console.log('url',url)
+    //console.log('url',url)
 
     axios
     .get(url, {
       auth: {username: 'skillnet',password: 'demo'}
     })
     .then((response) => {
-      console.log('filtered users', response)
+      //console.log('filtered users', response)
       setNumberofusersdisplayed(response.data.length)
-console.log('dummy data here')
-console.log(response.data)
+      //console.log('dummy data here')
+      //console.log(response.data)
       SendIt('fromcardfilteredusers', {users: response.data})
       setButtonLabel('Apply All Filters')
     })
@@ -890,7 +890,7 @@ onClick={e => (e.stopPropagation())}
     }
   };
 
-console.log(positions)
+  //console.log(positions)
   //console.log(leaders)
   //    <div style={{width:propertywidth,padding:'10px'}}>
   return (

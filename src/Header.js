@@ -6,7 +6,7 @@ const Header = (props) => {
       <div style={{display:'flex',flexDirection:'row'}}>
         <i style={{marginLeft:'20px',cursor:'pointer'}} className="fa fa-bars" onClick={props.menuClick}></i>
         <div style={{fontSize:'18px',marginLeft:'18px',marginTop:'2px'}}>Skill Certification</div>
-        <div style={{fontSize:'12px',marginLeft:'18px',marginTop:'8px'}}>v01/03/2022(a)</div>
+        <div style={{fontSize:'12px',marginLeft:'18px',marginTop:'8px'}}>v01/03/2022(b)</div>
       </div>
       {/* <i style={{marginRight:'20px',cursor:'pointer'}} className="fa fa-bars" onClick={props.filterClick}></i> */}
     </div>

@@ -136,7 +136,7 @@ const CardWidgetProperties2 = (props) => {
 
     async function doData() {
       try {
-        const resp = await axios.get('http://skillnetusersapi.azurewebsites.net//api/customattributes?partnerid=' + PartnerID);
+        const resp = await axios.get('https://skillnetusersapi.azurewebsites.net//api/customattributes?partnerid=' + PartnerID);
         //console.log(resp.data);
         var d = []
         var attributes = resp.data

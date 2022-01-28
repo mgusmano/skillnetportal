@@ -18,22 +18,16 @@ function Login(props) {
   //const referer = props.location.state.referer || '/';
 
   function postLogin() {
-    setIsLoading(false);
+    //setIsLoading(false);
     var where
     //where = '/trainingmatrix'
     where = '/cardcbet'
     setReferer(where)
     setAuthTokens(password);
     setLoggedIn(true);
-    //return
-    return <Redirect to={referer} />;
-
-
-
-
-
-
-
+    return
+    //return <Redirect to={referer} />;
+    //return <Redirect to={where} />;
 
     setIsLoading(true);
     axios.get("https://skillnetusersapi.azurewebsites.net/api/users?partnerid=434", {

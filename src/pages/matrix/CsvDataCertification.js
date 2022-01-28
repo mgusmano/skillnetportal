@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Log } from './Log';
+import React from 'react';
+//import { Log } from './Log';
 import { useMatrixState } from './state/MatrixProvider';
 import { DataGrid } from '@material-ui/data-grid';
 import { getDates } from './util';
@@ -9,7 +9,8 @@ import { styles } from './styles';
 
 const CsvDataCertification = (props) => {
   const matrixState = useMatrixState();
-  const [greendate, yellowdate, reddate] = getDates();
+  //const [greendate, yellowdate, reddate] = getDates();
+  const [greendate] = getDates();
 
   async function getDataCertifications() {
     matrixState.setActive(true)

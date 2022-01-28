@@ -25,7 +25,7 @@ const CsvDataOperator = (props) => {
 
   async function onClickDeleteAllOperators() {
     var result = window.confirm('Are you sure you want to delete?  This cannot be undone!');
-    if (result == false) { return }
+    if (result === false) { return }
 
     Promise.allSettled(matrixState.operators.map(item => {
       return API.graphql(graphqlOperation(deleteOperator, { input: {id: item.id } } ))
@@ -82,6 +82,7 @@ const CsvDataOperator = (props) => {
           row.id = i + 1
           rowsL.push(row)
           rowsLString = rowsLString + row.operatorName.toString() + ',' + row.goal.toString() + '\r\n'
+          return null
         })
         setCSVItems(rowsL)
         setCSVItemsString(rowsLString)

@@ -34,7 +34,7 @@ const CsvDataSkill = (props) => {
 
   async function onClickDeleteAllSkills() {
     var result = window.confirm('Are you sure you want to delete?  This cannot be undone!');
-    if (result == false) { return }
+    if (result === false) { return }
 
     Promise.allSettled(matrixState.skills.map(item => {
       return API.graphql(graphqlOperation(deleteSkill, { input: {id: item.id } } ))
@@ -90,6 +90,7 @@ const CsvDataSkill = (props) => {
           row.id = i + 1
           rowsL.push(row)
           rowsLString = rowsLString + row.skillName.toString() + ',' + row.goal.toString() + '\r\n'
+          return null
         })
         setCSVItems(rowsL)
         setCSVItemsString(rowsLString)

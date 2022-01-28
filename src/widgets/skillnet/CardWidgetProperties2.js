@@ -11,6 +11,7 @@ const DropDown = (props) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   const { who, onChanged, options, name, multiple} = props
+  console.log(props)
 
   return (
     <Autocomplete
@@ -41,7 +42,7 @@ const DropDown = (props) => {
           {...params}
           variant="standard"
           label={who}
-          placeholder=""
+          placeholder="ph"
         />
       )}
     />
@@ -50,7 +51,7 @@ const DropDown = (props) => {
 
 const CardWidgetProperties2 = (props) => {
   const { Partner } = props
-  const { PartnerID } = Partner;
+  const { PartnerID, PartnerName, PersonID, GroupID } = Partner;
   const [dropdowns, setDropdowns] = useState(null);
   const [filters, setFilters] = useState([]);
   const [numberofusersdisplayed, setNumberofusersdisplayed] = useState(null)
@@ -75,6 +76,7 @@ const CardWidgetProperties2 = (props) => {
             values.push({id:id,value:value,attributeid:attributeid,attributename:attributename})
           }
           d.push(<DropDown multiple={true} key={i} name='value' who={attributename} options={values} onChanged={(event,checked,reason,details) => {
+            console.log('hi')
             filterChanged(event,checked,reason,details)
           }}/>)
         }
@@ -118,10 +120,10 @@ const CardWidgetProperties2 = (props) => {
     console.log('filters to send')
     console.log(filters)
     setButtonLabel('Apply All Filters')
-    return
+    //return
 
-    var url = 'https://skillnetusersapi.azurewebsites.net/api/cardreportusers?' +
-    ''
+
+    //var url = 'https://skillnetusersapi.azurewebsites.net/api/cardreportusers?' +
     // 'personid=' + PersonID + '&' +
     // 'groupid=' + GroupID + '&' +
     // 'lobids=' + lobidsstring + '&' +
@@ -136,14 +138,54 @@ const CardWidgetProperties2 = (props) => {
     // 'managerids=' + manageridsstring + '&' +
     // 'percentages=' + percentidsstring + '&' +
     // 'skillids=' + skillidsstring
+
+    // axios
+    // .get(url, {
+    //   auth: {username: 'skillnet',password: 'demo'}
+    // })
+    // .then((response) => {
+    //   //console.log('filtered users', response)
+    //   setNumberofusersdisplayed(response.data.length)
+    //   //console.log('dummy data here')
+    //   //console.log(response.data)
+    //   SendIt('fromcardfilteredusers', {users: response.data})
+    //   setButtonLabel('Apply All Filters')
+    // })
+    // .catch((error) => {
+    //   console.log(error)
+    // })
+
+    var blankString = ''
+    var url = 'https://skillnetusersapi.azurewebsites.net/api/CardReportUsersNew?' +
+    'personid=' + PersonID + '&' +
+    'groupid=' + GroupID + '&' +
+    'lobids=' + blankString + '&' +
+    'leaderids=' + blankString + '&' +
+    'smeids=' + blankString  + '&' +
+    'ratingsources=' + blankString + '&' +
+    'segmentids=' + blankString  + '&' +
+    'functionids=' + blankString  + '&' +
+    'subfunctionids=' + blankString  + '&' +
+    'jobids=' + blankString  + '&' +
+    'partnerlocationids=' + blankString + '&' +
+    'managerids=' + blankString + '&' +
+    'percentages=' + blankString + '&' +
+    'skillids=' + blankString
+
     console.log('url',url)
 
-    axios
-    .get(url, {
-      auth: {username: 'skillnet',password: 'demo'}
-    })
+
+
+    //axios
+    //.post(url, filters, {auth: {username: 'skillnet',password: 'demo'}})
+    axios({
+      method: 'post',
+      url: url,
+      data: filters,
+      headers: {auth: {username: 'skillnet',password: 'demo'}}
+      })
     .then((response) => {
-      //console.log('filtered users', response)
+      console.log('filtered users', response)
       setNumberofusersdisplayed(response.data.length)
       //console.log('dummy data here')
       //console.log(response.data)
@@ -166,14 +208,15 @@ const CardWidgetProperties2 = (props) => {
         {buttonlabel}
       </Button>
 
+      {numberofusersdisplayed !== null &&
+        <div style={{marginTop:'40px'}}>Number of Users Displayed: {numberofusersdisplayed}</div>
+      }
+
       <div style={{display:'flex',flexDirection:'column'}}>
         {dropdowns && dropdowns}
       </div>
 
-      {false !== true &&
-        numberofusersdisplayed !== null &&
-        <div style={{marginTop:'40px'}}>Number of Users Displayed: {numberofusersdisplayed}</div>
-      }
+
     </div>
   )
 }

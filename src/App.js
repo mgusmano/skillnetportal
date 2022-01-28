@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 
-import { MatrixProvider } from './pages/matrix/state/MatrixProvider';
+//import { MatrixProvider } from './pages/matrix/state/MatrixProvider';
 
-import Top from './Top';
+//import Top from './Top';
 import Header from './Header';
-import TopMenu from './TopMenu';
+//import TopMenu from './TopMenu';
 
 import { useLocation, Route, Switch, useHistory, Redirect } from 'react-router-dom';
 //import { BrowserRouter as Router, Redirect } from 'react-router-dom';
@@ -25,12 +25,13 @@ import Admin from "./pages/admin/Admin";
 import CardReport from './CardReport';
 import Absolute from './pages/absolute/Absolute'
 import Dynamic from './pages/dynamic/Dynamic'
-import { TrainingMatrix } from './pages/matrix/TrainingMatrix'
-import { SkillsMatrix } from './pages/matrix/SkillsMatrix'
-import { FixedMatrix } from './pages/matrix/FixedMatrix'
+
+//import { TrainingMatrix } from './pages/matrix/TrainingMatrix'
+//import { SkillsMatrix } from './pages/matrix/SkillsMatrix'
+//import { FixedMatrix } from './pages/matrix/FixedMatrix'
 
 import MyAdmin from './pages/MyAdmin'
-import CsvData from './pages/matrix/CsvData'
+//import CsvData from './pages/matrix/CsvData'
 //import { Simple } from 'simple'
 
 import CovidReport from './pages/covidreport/CovidReport';
@@ -59,7 +60,11 @@ var PartnerCNA = {
   PersonID: 275399,
   GroupID: 33582,
   showratings: false,
-  ratingsources: '4' //ManagerRating
+  ratingsources: '4', //ManagerRating
+  SMEOnly: true,
+  showlob: false,
+  reportName: 'Risk Control Skills Report',
+  image: './images/CNA.png'
 }
 
 
@@ -70,7 +75,11 @@ var PartnerGMIsb = {
   PersonID: 281326,
   GroupID: 33931,
   showratings: true,
-  ratingsources: '1000' //SelfRating
+  ratingsources: '1000', //SelfRating
+  SMEOnly: false,
+  showlob: false,
+  reportName: 'Card Report',
+  image: './images/GMI.png'
 }
 
 var PartnerCBET = {
@@ -80,7 +89,11 @@ var PartnerCBET = {
   PersonID: 284348,
   GroupID: 33660,
   showratings: true,
-  ratingsources: '1000' //SelfRating
+  ratingsources: '1000', //SelfRating
+  SMEOnly: false,
+  showlob: false,
+  reportName: 'Card Report',
+  image: './images/BIO.png'
 }
 
 function App(props) {
@@ -112,18 +125,18 @@ function App(props) {
     }
   }
 
-  console.log(authTokens)
-  console.log(location.pathname)
+  //console.log(authTokens)
+  //console.log(location.pathname)
 
   switch (authTokens) {
 
     case 'mjg':
-      items.push({label: 'Training Matrix', value: '/trainingmatrix', icon: 'fa-clipboard'})
+      //items.push({label: 'Training Matrix', value: '/trainingmatrix', icon: 'fa-clipboard'})
       items.push({label: 'CNA Covid-19 Dashboard', value: '/cnacovidpremiumaudit', icon: 'fa-clipboard'})
       items.push({label: 'Benchmark Report', value: '/benchmarkcna', icon: 'fa-balance-scale'})
       items.push({label: 'Absolute', value: '/absolute', icon: 'fa-clipboard'})
       items.push({label: 'Dynamic', value: '/dynamic', icon: 'fa-clipboard'})
-      items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
+      items.push({label: 'Risk Control SME Report', value: '/cardcnasme', icon: 'fa-id-card'})
       break;
 
       case 'cbet':
@@ -132,7 +145,7 @@ function App(props) {
         break;
 
     case 'cnasme':
-      items.push({label: 'Risk Control SME Remort', value: '/cardcnasme', icon: 'fa-id-card'})
+      items.push({label: 'Risk Control SME Report', value: '/cardcnasme', icon: 'fa-id-card'})
       //setActivemenu('/cardcnasme')
       break;
 
@@ -287,7 +300,7 @@ function App(props) {
   return (
 
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-      <MatrixProvider>
+      {/* <MatrixProvider> */}
 
       <Vertical>
         {/* <Top/> */}
@@ -325,11 +338,11 @@ function App(props) {
             {/* <Route path="/" component={() => <Home/>} exact /> */}
             <PrivateRoute path="/absolute" component={() => <Absolute/>} />
             <PrivateRoute path="/dynamic" component={() => <Dynamic/>} />
-            <PrivateRoute path="/trainingmatrix" component={() => <TrainingMatrix/>} />
+            {/* <PrivateRoute path="/trainingmatrix" component={() => <TrainingMatrix/>} />
             <PrivateRoute path="/skillsmatrix" component={() => <SkillsMatrix/>} />
-            <PrivateRoute path="/fixedmatrix" component={() => <FixedMatrix/>} />
+            <PrivateRoute path="/fixedmatrix" component={() => <FixedMatrix/>} /> */}
             <PrivateRoute path="/myadmin" component={() => <MyAdmin/>} />
-            <PrivateRoute path="/csv" component={() => <CsvData/>} />
+            {/* <PrivateRoute path="/csv" component={() => <CsvData/>} /> */}
             {/* <PrivateRoute path="/Simple" component={() => <Simple/>} /> */}
 
             <PrivateRoute path="/cnacovid"  component={() => <CovidReport jobrole={null} currentdashboard={currentdashboard}/>} />
@@ -345,9 +358,10 @@ function App(props) {
             <Route path="/cnacard" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
             <Route path="/cnabenchmark" component={() => <Dashboard Partner={PartnerCNA}/>}  />
 
-            <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} PartnerID='395' showlob={true}/>} />
-            <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} PartnerID='434' showlob={false}/>} />
-            <PrivateRoute path="/cardcbet" component={() => <CardReport Partner={PartnerCBET} PartnerID='409' showlob={false}/>} />
+            <PrivateRoute path="/cardcna" component={() => <CardReport Partner={PartnerCNA} showlob={true}/>} />
+            <PrivateRoute path="/cardgmi" component={() => <CardReport Partner={PartnerGMIsb} showlob={false}/>} />
+            <PrivateRoute path="/cardcbet" component={() => <CardReport Partner={PartnerCBET} showlob={false}/>} />
+
             <PrivateRoute path="/benchmarkcna" component={() => <Dashboard Partner={PartnerCNA}/>}  />
             <PrivateRoute path="/benchmarkgmisb" component={() => <Dashboard Partner={PartnerGMIsb}/>}  />
             {/* <PrivateRoute path="/covidcnaprevisit"  component={() => <CovidReportPreVisit  filterdisplay={filterdisplay} Partner={PartnerCNA}/>} />
@@ -368,7 +382,7 @@ function App(props) {
         <div>footer</div> */}
       </Vertical>
 
-      </MatrixProvider>
+      {/* </MatrixProvider> */}
     </AuthContext.Provider>
 
   );
